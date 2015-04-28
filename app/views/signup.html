@@ -1,0 +1,61 @@
+<div class="signup-container" ng-controller="SignupCtrl as signupCtrl">
+	<div class="col-md-12">
+		<h3 class="signup-header">Signup as a New User</h3>
+		<hr><br>
+	</div>
+	
+	<div class="signup-form">
+	
+		<form class="form-horizontal" ng-submit="signup_form.$valid && submitSignup()" name="signup_form" novalidate>
+		
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="firstname">First Name</label>  
+				<div class="col-md-5">
+					<input id="firstname" name="firstname" type="text" placeholder="John" class="form-control input-md" ng-model="signup.first_name" required>
+				</div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="lastname">Last Name</label>  
+				<div class="col-md-5">
+					<input id="lastname" name="lastname" type="text" placeholder="Doe" class="form-control input-md" ng-model="signup.last_name" required>
+				</div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="email">Email</label>  
+				<div class="col-md-5">
+					<input id="email" name="email" type="email" placeholder="john@doctor.com" class="form-control input-md" ng-model="signup.email" required>
+				</div>
+			</div>
+			
+			<!-- Password input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="password1">Password</label>
+				<div class="col-md-5">
+					<input id="password1" name="password1" type="password" placeholder="" class="form-control input-md" ng-model="signup.password" ng-minlength="8" required>
+				</div>
+			</div>
+			
+			<!-- Password input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="password2">Retype Password</label>
+				<div class="col-md-5">
+					<input id="password2" name="password2" type="password" placeholder="" class="form-control input-md" ng-model="signup.password2" ng-minlength="8" password-match="signup.password" required>
+				</div>
+			</div>
+			
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="signup"></label>
+				<div class="col-md-5">
+					<button id="signup" name="signup" class="btn btn-success btn-block" ng-disabled="signup_form.$invalid">Signup!</button>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>
