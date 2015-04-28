@@ -1,1 +1,37 @@
-<p>This is the login view.</p>
+<div class="signup-container" ng-controller="LoginCtrl as loginCtrl">
+	<div class="col-md-12">
+		<h3 class="signup-header">Login</h3>
+		<hr><br>
+	</div>
+	
+	<div class="login-form">
+	
+		<form class="form-horizontal" ng-submit="login_form.$valid && authenticate()" name="login_form" novalidate>
+			
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="email">Email</label>  
+				<div class="col-md-5">
+					<input id="email" name="email" type="email" placeholder="john@doctor.com" class="form-control input-md" ng-model="signup.email" required>
+				</div>
+			</div>
+			
+			<!-- Password input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="password1">Password</label>
+				<div class="col-md-5">
+					<input id="password1" name="password1" type="password" placeholder="" class="form-control input-md" ng-model="signup.password" ng-minlength="8" required>
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="signup"></label>
+				<div class="col-md-5">
+					<button id="signup" name="signup" class="btn btn-success btn-block" ng-disabled="login_form.$invalid">Login</button>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>

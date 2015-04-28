@@ -21,7 +21,7 @@
 	    'ngTouch'
 	  ]);
 	  
-	webapp.constant('API_URL', 'https://qa-api.hubhealth.com');
+	webapp.constant('API_URL', 'https://dev-api.hubhealth.com');
 	  
 	webapp.config(function ($routeProvider) {
 	    $routeProvider
@@ -155,11 +155,19 @@
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			console.log(currentRoute);
 			console.log('have token: '+JSON.stringify($window.sessionStorage.authToken));
-			console.log('NEA:'+JSON.stringify(nextRoute.access));
-			if (nextRoute.access.requiredLogin && (!Auth.authorize(nextRoute.access.role) || !$window.sessionStorage.authToken) ) {
-				event.preventDefault();
-				console.log('final logout');
-				$location.path('/login');
+			if(nextRoute.access){
+				console.log('NEA:'+JSON.stringify(nextRoute.access));	
+				if (nextRoute.access.requiredLogin && (!Auth.authorize(nextRoute.access.role) || !$window.sessionStorage.authToken) ) {
+					event.preventDefault();
+					console.log('final logout');
+					$location.path('/login');
+				}
+			} else { 
+				if (nextRoute.access.requiredLogin && (!Auth.authorize(nextRoute.access.role) || !$window.sessionStorage.authToken) ) {
+					event.preventDefault();
+					console.log('final logout');
+					$location.path('/login');
+				}
 			}
 		});
 	});
