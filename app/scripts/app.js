@@ -32,7 +32,7 @@
 	      })
 	      .when('/about', {
 	        templateUrl: 'views/about.html',
-	        access: { requiredLogin: true },
+	        access: { requiredLogin: false },
 	        controller: 'AboutCtrl'
 	      })
 	      .when('/login', {
@@ -163,11 +163,9 @@
 					$location.path('/login');
 				}
 			} else { 
-				if (nextRoute.access.requiredLogin && (!Auth.authorize(nextRoute.access.role) || !$window.sessionStorage.authToken) ) {
-					event.preventDefault();
-					console.log('final logout');
-					$location.path('/login');
-				}
+				event.preventDefault();
+				console.log('final logout');
+				$location.path('/login');
 			}
 		});
 	});
