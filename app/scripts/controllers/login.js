@@ -7,13 +7,17 @@
  * # LoginCtrl
  * Controller of the angularWebappSeedApp
  */
-angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($scope,$http,API_URL) {
+angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($scope,$http,$window,$location,API_URL,Auth) {
 	var loginInfo;
 	$scope.login = loginInfo = {};
 	
 	$scope.authenticate = function(){
+		console.log('login info: '+JSON.stringify(loginInfo));
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
-			console.log('success');
+			console.log(data);
+			$window.sessionStorage.authToken = data.token;
+			$window.sessionStorage.refreshToken = data.refresh_token;
+			$location.path('/about');
 		}).error(function(data, status, headers, config){
 			console.log('error');
 		});

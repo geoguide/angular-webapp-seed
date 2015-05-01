@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="angularWebappSeedApp">
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -15,7 +15,7 @@
     <!-- endbuild -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
   </head>
-  <body ng-app="angularWebappSeedApp">
+  <body ng-controller="ApplicationCtrl as app">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -42,6 +42,7 @@
               <li class="active"><a href="#/">Home</a></li>
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/">Contact</a></li>
+              <li><a ng-href="#" ng-show="isLoggedIn" ng-click="logout()">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -83,6 +84,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -92,6 +94,7 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/signup.js"></script>
+        <script src="scripts/controllers/applicationcontroller.js"></script>
         <!-- endbuild -->
 </body>
 </html>

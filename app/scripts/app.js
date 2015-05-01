@@ -9,22 +9,23 @@
  * Main module of the application.
  */
 (function(){
-	var webapp = angular
-	  .module('angularWebappSeedApp', [
-	    'ngAnimate',
-	    'ngAria',
-	    'ngCookies',
-	    'ngMessages',
-	    'ngResource',
-	    'ngRoute',
-	    'ngSanitize',
-	    'ngTouch'
-	  ]);
-	  
+	var webapp = angular.module('angularWebappSeedApp', [
+		'ngAnimate',
+		'ngAria',
+		'ngCookies',
+		'ngMessages',
+		'ngResource',
+		'ngRoute',
+		'ngSanitize',
+		'ngTouch',
+		'angular-jwt'
+	]);
+	
 	webapp.constant('API_URL', 'http://localhost:3000');
+	webapp.value('loggedIn', false);
 	  
 	webapp.config(function ($routeProvider) {
-	    $routeProvider
+		$routeProvider
 	      .when('/', {
 	        templateUrl: 'views/main.html',
 	        access: { requiredLogin: true },
@@ -32,7 +33,7 @@
 	      })
 	      .when('/about', {
 	        templateUrl: 'views/about.html',
-	        access: { requiredLogin: false },
+	        access: { requiredLogin: true },
 	        controller: 'AboutCtrl'
 	      })
 	      .when('/login', {
@@ -58,7 +59,7 @@
 				var token;
 				if ($window.sessionStorage.authToken) {
 					token = $window.sessionStorage.authToken;
-					console.log(token);
+					console.log('token: '+token);
 				}
 				if (token) {
 					config.headers.Authorization = 'Bearer ' + token;
@@ -78,28 +79,43 @@
 		};
 	});
 	
-	webapp.factory('Auth', function($http, API_URL, $window, $location) {
+	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper ) {
 		return {
-			//figure out if authorized?
-			authorize: function(access) {
-				if(access === 'user'){
-					//if (access === AccessLevels.user) {
-					return this.isAuthenticated();
-				} else {
-					return true;
-				}
-			},
 			//returns true if there is an auth token
 			isAuthenticated: function() {
+				var storedJwt = $window.sessionStorage.authToken;
+				console.log('stored JWT: '+storedJwt);
+				var storedPayload = jwtHelper.decodeToken(storedJwt);
+				console.log('payload: '+JSON.stringify(storedPayload));
+				if(jwtHelper.isTokenExpired(storedJwt)){
+					console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
+					this.delegate();
+				} else {
+					console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+					//For testing
+					this.delegate();
+				}
 				return $window.sessionStorage.authToken;
 				//LocalService.get('authToken');
+			},
+			delegate: function() {
+				var delegate = $http.post(API_URL+'/admin/delegate', {refresh_token: $window.sessionStorage.refreshToken } );
+				delegate.success(function(result) {
+					$window.sessionStorage.authToken = result.token;
+					$window.sessionStorage.refreshToken = result.refresh_token;
+					console.log('delegate-result: '+JSON.stringify(result));
+					$location.path('/about');
+					//LocalService.set('authToken', JSON.stringify(result));
+				});
+				return delegate;
 			},
 			//login function, should be moved to login controller
 			login: function(email, password) {
 				var login = $http.post(API_URL+'/authenticate', {email: email, password: password } );
 				login.success(function(result) {
-					console.log(JSON.stringify(result));
-					$window.sessionStorage.authToken = result;
+					console.log('login-result: '+JSON.stringify(result));
+					$window.sessionStorage.authToken = result.token;
+					$window.sessionStorage.refreshToken = result.refresh_token;
 					$location.path('/about');
 					//LocalService.set('authToken', JSON.stringify(result));
 				});
@@ -109,12 +125,14 @@
 			logout: function() {
 				// The backend doesn't care about logouts, delete the token and you're good to go.
 				delete $window.sessionStorage.authToken;
+				delete $window.sessionStorage.refreshToken;
 				$location.path('/login');
 				//LocalService.unset('authToken');
 			},
 			//This should move to signup controller
 			register: function(formData) {
 				delete $window.sessionStorage.authToken;
+				delete $window.sessionStorage.refreshToken;
 				//LocalService.unset('authToken');
 				var register = $http.post('/auth/register', formData);
 				register.success(function(result) {
@@ -157,7 +175,7 @@
 			console.log('have token: '+JSON.stringify($window.sessionStorage.authToken));
 			if(nextRoute.access){
 				console.log('NEA:'+JSON.stringify(nextRoute.access));	
-				if (nextRoute.access.requiredLogin && (!Auth.authorize(nextRoute.access.role) || !$window.sessionStorage.authToken) ) {
+				if (nextRoute.access.requiredLogin && !$window.sessionStorage.authToken) {
 					event.preventDefault();
 					console.log('final logout');
 					$location.path('/login');
