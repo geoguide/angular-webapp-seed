@@ -21,7 +21,7 @@
 	    'ngTouch'
 	  ]);
 	  
-	webapp.constant('API_URL', 'https://dev-api.hubhealth.com');
+	webapp.constant('API_URL', 'http://localhost:3000');
 	  
 	webapp.config(function ($routeProvider) {
 	    $routeProvider
