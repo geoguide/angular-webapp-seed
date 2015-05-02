@@ -79,57 +79,87 @@
 		};
 	});
 	
-	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper ) {
-		return {
-			//figure out if authorized?
-			authorize: function(access) {
-				if(access === 'user'){
-					//if (access === AccessLevels.user) {
-					return this.isAuthenticated();
+	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper, $q ) {
+		var _this = this;
+		
+		var delegate = function(){
+			return $http.post(API_URL+'/admin/delegate', {refresh_token: $window.sessionStorage.refreshToken });
+		};
+		this.isAuthenticated = false;
+		
+		var isAuthed = function(){
+			return this.isAuthenticated;
+		};
+		
+		var checkAuthentication = function() {
+			var deferred = $q.defer();
+			var storedJwt = $window.sessionStorage.authToken;
+			var refreshToken = $window.sessionStorage.authToken;
+			if(storedJwt){
+				if(jwtHelper.isTokenExpired(storedJwt)){
+					console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
+					delete $window.sessionStorage.authToken;
+					delegate().success(function(result) {
+						$window.sessionStorage.authToken = result.token;
+						$window.sessionStorage.refreshToken = result.refresh_token;
+						console.log('delegate-result: '+JSON.stringify(result));
+						deferred.resolve(true);
+						_this.isAuthenticated = true;
+						//$location.path('/about');
+					});
 				} else {
-					return true;
+					deferred.resolve(true);
+					_this.isAuthenticated = true;
+					console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+					//_this.delegate();
 				}
-			},
+			} else {
+				console.log('no jwt');
+				deferred.resolve(false);
+				_this.isAuthenticated = false;
+			}
+			
+			return deferred.promise;
+		};
+		var getPayload = function(){
+			var storedJwt = $window.sessionStorage.authToken;
+			console.log('stored JWT: '+storedJwt);
+			var storedPayload = jwtHelper.decodeToken(storedJwt);
+			console.log('payload: '+JSON.stringify(storedPayload));
+			return storedPayload;
+		};
+		var login = function(email, password) {
+			var login = $http.post(API_URL+'/authenticate', {email: email, password: password } );
+			login.success(function(result) {
+				console.log('login-result: '+JSON.stringify(result));
+				$window.sessionStorage.authToken = result.token;
+				$window.sessionStorage.refreshToken = result.refresh_token;
+				$location.path('/about');
+				//LocalService.set('authToken', JSON.stringify(result));
+			});
+			return login;
+		};
+		
+		return {
 			//returns true if there is an auth token
-			isAuthenticated: function() {
-				var storedJwt = $window.sessionStorage.authToken;
-				console.log('stored JWT: '+storedJwt);
-				if(storedJwt){
-					var storedPayload = jwtHelper.decodeToken(storedJwt);
-					console.log('payload: '+JSON.stringify(storedPayload));
-					if(jwtHelper.isTokenExpired(storedJwt)){
-						console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
-						delete $window.sessionStorage.authToken;
-					} else {
-						console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
-						
-					}
-				}
-				
-				return $window.sessionStorage.authToken;
-				//LocalService.get('authToken');
-			},
+			checkAuthentication: checkAuthentication,
+			getPayload: getPayload,
+			delegate: delegate,
+			isAuthenticated: isAuthed,
 			//login function, should be moved to login controller
-			login: function(email, password) {
-				var login = $http.post(API_URL+'/authenticate', {email: email, password: password } );
-				login.success(function(result) {
-					console.log('login-result: '+JSON.stringify(result));
-					$window.sessionStorage.authToken = result;
-					$location.path('/about');
-					//LocalService.set('authToken', JSON.stringify(result));
-				});
-				return login;
-			},
+			login: login,
 			//Logout, just deletes token, then should redirect tlogin page
 			logout: function() {
 				// The backend doesn't care about logouts, delete the token and you're good to go.
 				delete $window.sessionStorage.authToken;
+				delete $window.sessionStorage.refreshToken;
 				$location.path('/login');
 				//LocalService.unset('authToken');
 			},
 			//This should move to signup controller
 			register: function(formData) {
 				delete $window.sessionStorage.authToken;
+				delete $window.sessionStorage.refreshToken;
 				//LocalService.unset('authToken');
 				var register = $http.post('/auth/register', formData);
 				register.success(function(result) {
@@ -172,15 +202,17 @@
 			console.log('have token: '+JSON.stringify($window.sessionStorage.authToken));
 			if(nextRoute.access){
 				console.log('NEA:'+JSON.stringify(nextRoute.access));	
-				if (nextRoute.access.requiredLogin && !$window.sessionStorage.authToken ) {
-					event.preventDefault();
-					console.log('final logout');
-					$location.path('/login');
+				if (nextRoute.access.requiredLogin) {
+					Auth.checkAuthentication().then(function(result){
+						if(!result){
+							$location.path('/login');
+						}
+					});
+					
 				}
 			} else { 
 				event.preventDefault();
-				console.log('final logout');
-				$location.path('/login');
+				$location.path('/about');
 			}
 		});
 	});

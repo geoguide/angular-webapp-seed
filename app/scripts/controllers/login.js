@@ -17,6 +17,7 @@ angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($scope,
 			console.log(data);
 			$window.sessionStorage.authToken = data.token;
 			$window.sessionStorage.refreshToken = data.refresh_token;
+			console.log('hello?!');
 			$location.path('/about');
 		}).error(function(data, status, headers, config){
 			console.log('error');
