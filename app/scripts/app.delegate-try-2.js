@@ -79,8 +79,21 @@
 		};
 	});
 	
-	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper ) {
-
+	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper,$q ) {
+		var delegate = function(){
+			var deferred = $q.defer();
+			var refreshToken = $window.sessionStorage.refreshToken;
+			$http.post(API_URL+'/admin/delegate', {refresh_token: refreshToken } ).success(function(result) {
+				console.log('delegate-result: '+JSON.stringify(result));
+				$window.sessionStorage.authToken = result.token;
+				$window.sessionStorage.refreshToken = result.refresh_token;
+				deferred.resolve(true);
+				//LocalService.set('authToken', JSON.stringify(result));
+			}).error(function(){
+				deferred.resolve(false);
+			});
+			return deferred.promise;
+		};
 		return {
 			//figure out if authorized?
 			authorize: function(access) {
@@ -102,12 +115,17 @@
 						console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
 						
 						delete $window.sessionStorage.authToken;
+						delegate().then(function(result){
+							console.log('in the then');
+							return result;
+						});
 					} else {
 						console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+						return true;
 					}
-				}
+				} else { return false; }
 				
-				return $window.sessionStorage.authToken;
+				//return $window.sessionStorage.authToken;
 				//LocalService.get('authToken');
 			},
 			//login function, should be moved to login controller
@@ -173,14 +191,14 @@
 			console.log('have token: '+JSON.stringify($window.sessionStorage.authToken));
 			if(nextRoute.access){
 				console.log('NEA:'+JSON.stringify(nextRoute.access));	
-				if (nextRoute.access.requiredLogin && !$window.sessionStorage.authToken ) {
+				if (nextRoute.access.requiredLogin && !Auth.isAuthenticated() ) {
 					event.preventDefault();
 					console.log('final logout');
 					$location.path('/login');
 				}
 			} else { 
 				event.preventDefault();
-				console.log('final logout');
+				console.log('no access');
 				$location.path('/login');
 			}
 		});

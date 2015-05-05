@@ -14,10 +14,8 @@ angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($scope,
 	$scope.authenticate = function(){
 		console.log('login info: '+JSON.stringify(loginInfo));
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
-			console.log(data);
 			$window.sessionStorage.authToken = data.token;
 			$window.sessionStorage.refreshToken = data.refresh_token;
-			console.log('hello?!');
 			$location.path('/about');
 		}).error(function(data, status, headers, config){
 			console.log('error');
