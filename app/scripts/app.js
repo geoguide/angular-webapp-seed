@@ -18,7 +18,8 @@
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
-		'angular-jwt'
+		'angular-jwt',
+		'LocalStorageModule'
 	]);
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
@@ -51,14 +52,14 @@
 	      });
 	  });
 	
-	webapp.factory('AuthInterceptor', function($q, $location, $window) {
+	webapp.factory('AuthInterceptor', function($q, $location, localStorageService) {
 		return {
 			//Look for the token and if we have it attach it to every request
 			request: function(config) {
 				//var LocalService = $injector.get('LocalService');
 				var token;
-				if ($window.sessionStorage.authToken) {
-					token = $window.sessionStorage.authToken;
+				if (localStorageService.get('authToken')) {
+					token = localStorageService.get('authToken');
 					console.log('token: '+token);
 				}
 				if (token) {
@@ -69,9 +70,8 @@
 			//If you get a 401 or 403 from the server delete the token and go to login
 			responseError: function(response) {
 				if (response.status === 401 || response.status === 403) {
-					delete $window.sessionStorage.authToken;
-					//LocalService.unset('authToken');
-					//$injector.get('$state').go('anon.login');
+					console.log('error delete');
+					localStorageService.remove('authToken');
 					$location.path('/login');
 				}
 				return $q.reject(response);
@@ -79,35 +79,49 @@
 		};
 	});
 	
-	webapp.factory('Auth', function($http, API_URL, $window, $location, jwtHelper ) {
-
+	webapp.factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService) {
+		var delegate = function(){
+			var deferred = $q.defer();
+			var refreshToken = localStorageService.get('refreshToken');
+			$timeout(function() {
+				deferred.notify('just trying to let you know i am delegating');
+			},0);
+			if(refreshToken){
+				$http.post(API_URL+'/admin/delegate', { refresh_token: refreshToken }).success(function(data, status, headers, config){
+					console.log(data);
+					localStorageService.set('authToken', data.token);
+					localStorageService.set('refreshToken', data.refresh_token);
+					deferred.resolve(data);
+				}).error(function(){
+					deferred.reject('error');
+				});
+			} else {
+				deferred.reject('no refresh token');
+			}
+			
+			return deferred.promise;
+		};
 		return {
-			//figure out if authorized?
-			authorize: function(access) {
-				if(access === 'user'){
-					//if (access === AccessLevels.user) {
-					return this.isAuthenticated();
-				} else {
-					return true;
-				}
-			},
 			//returns true if there is an auth token
 			isAuthenticated: function() {
-				var storedJwt = $window.sessionStorage.authToken;
+				var storedJwt = localStorageService.get('authToken');
 				console.log('stored JWT: '+storedJwt);
 				if(storedJwt){
 					var storedPayload = jwtHelper.decodeToken(storedJwt);
 					console.log('payload: '+JSON.stringify(storedPayload));
 					if(jwtHelper.isTokenExpired(storedJwt)){
 						console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
-						
-						delete $window.sessionStorage.authToken;
+						console.log('expired delete');
+						localStorageService.remove('authToken');
+						/*delegate().then(function(result){
+							console.log(result);
+						});*/
 					} else {
 						console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
 					}
 				}
 				
-				return $window.sessionStorage.authToken;
+				return localStorageService.get('authToken');
 				//LocalService.get('authToken');
 			},
 			//login function, should be moved to login controller
@@ -115,7 +129,7 @@
 				var login = $http.post(API_URL+'/authenticate', {email: email, password: password } );
 				login.success(function(result) {
 					console.log('login-result: '+JSON.stringify(result));
-					$window.sessionStorage.authToken = result;
+					localStorageService.set('authToken',result.token);
 					$location.path('/about');
 					//LocalService.set('authToken', JSON.stringify(result));
 				});
@@ -124,18 +138,21 @@
 			//Logout, just deletes token, then should redirect tlogin page
 			logout: function() {
 				// The backend doesn't care about logouts, delete the token and you're good to go.
-				delete $window.sessionStorage.authToken;
+				console.log('logout delete');
+				localStorageService.remove('authToken');
 				$location.path('/login');
 				//LocalService.unset('authToken');
 			},
+			delegate: delegate,
 			//This should move to signup controller
 			register: function(formData) {
-				delete $window.sessionStorage.authToken;
+				console.log('register delete');
+				localStorageService.remove('authToken');
 				//LocalService.unset('authToken');
 				var register = $http.post('/auth/register', formData);
 				register.success(function(result) {
 					//LocalService.set('authToken', JSON.stringify(result));
-					$window.sessionStorage.authToken = result;
+					localStorageService.set('authToken',result.token);
 				});
 				return register;
 			}
@@ -167,20 +184,41 @@
 	    };
 	}]);
 	
-	webapp.run(function($rootScope, $window, $location, Auth) {
+	webapp.run(function($rootScope, $location, Auth, localStorageService) {
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-			console.log(currentRoute);
-			console.log('have token: '+JSON.stringify($window.sessionStorage.authToken));
 			if(nextRoute.access){
 				console.log('NEA:'+JSON.stringify(nextRoute.access));	
-				if (nextRoute.access.requiredLogin && !$window.sessionStorage.authToken ) {
-					event.preventDefault();
-					console.log('final logout');
-					$location.path('/login');
+				//Lets store the tokens in Auth so we don't have to use localStorage here
+				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken')) {
+					
+					Auth.delegate().then(function(result){
+						//Success
+						if(!localStorageService.get('authToken')){
+							event.preventDefault();
+							console.warn('Delegate Failed');
+							$location.path('/login');		
+						} else {
+							console.info('Delegation Successful');
+						}
+					}, function(reason){
+						//Error
+						console.error('delegation fail: '+reason);
+						event.preventDefault();
+						console.warn('Delegate Failed');
+						$location.path('/login');		
+					}, function(update){
+						//Notifications
+						console.info('sweet notification: '+update);
+					});
+					/* Can do these also
+						.catch(function(errorCallback){ }) //shorthand for promise.then(null, errorCallback)
+						.finally(function(callback,notifyCallback);
+					*/
+					
 				}
 			} else { 
 				event.preventDefault();
-				console.log('final logout');
+				console.warn('route did not have access level set');
 				$location.path('/login');
 			}
 		});

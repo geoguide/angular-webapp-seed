@@ -12,5 +12,5 @@ angular.module('angularWebappSeedApp').controller('ApplicationCtrl', function ($
 		$scope.isLoggedIn = isLoggedIn;
 		//$scope.currentUser = AuthService.currentUser();
 	});
-	$scope.logout = Auth.logout();
+	$scope.logout = Auth.logout;
 });
