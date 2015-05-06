@@ -18,6 +18,6 @@ describe('Controller: ApplicationcontrollerCtrl', function () {
 
   it('should have an example test for later ', function () {
 		expect(1).toBe(1);
-    //expect(scope.awesomeThings.length).toBe(3);
+		//expect(scope.awesomeThings.length).toBe(3);
   });
 });
