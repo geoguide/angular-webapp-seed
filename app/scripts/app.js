@@ -19,7 +19,10 @@
 		'ngSanitize',
 		'ngTouch',
 		'angular-jwt',
-		'LocalStorageModule'
+		'LocalStorageModule',
+		'ui.mask',
+		'ngAnimate',
+		'mgcrea.ngStrap'
 	]);
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
@@ -47,10 +50,39 @@
 	        access: { requiredLogin: false },
 	        controller: 'SignupCtrl'
 	      })
-	      .otherwise({
-	        redirectTo: '/'
-	      });
+			.when('/doctors', {
+			  templateUrl: 'views/doctors.html',
+			  access: { requiredLogin: true },
+			  controller: 'DoctorsCtrl'
+			})
+			.when('/jobs', {
+			  templateUrl: 'views/jobs.html',
+			  access: { requiredLogin: true },
+			  controller: 'JobsCtrl'
+			})
+			.when('/job-applications', {
+			  templateUrl: 'views/job-applications.html',
+			  access: { requiredLogin: true },
+			  controller: 'JobApplicationsCtrl'
+			})
+			.when('/dashboard', {
+			  templateUrl: 'views/dashboard.html',
+			  access: { requiredLogin: true },
+			  controller: 'DashboardCtrl'
+			})
+			.when('/doctor/:id', {
+			  templateUrl: 'views/doctor.html',
+			  access: { requiredLogin: true },
+			  controller: 'DoctorCtrl',
+			  controllerAs: 'dr'
+			}).otherwise({
+				templateUrl:'/404.html',access: { requiredLogin: false } 
+			}); // Render 404 view
 	  });
+	  
+	 webapp.config(function($httpProvider) {  
+	    $httpProvider.interceptors.push('AuthInterceptor');
+	});
 	
 	webapp.factory('AuthInterceptor', function($q, $location, localStorageService) {
 		return {
@@ -60,7 +92,6 @@
 				var token;
 				if (localStorageService.get('authToken')) {
 					token = localStorageService.get('authToken');
-					console.log('token: '+token);
 				}
 				if (token) {
 					config.headers.Authorization = 'Bearer ' + token;
@@ -101,45 +132,36 @@
 			
 			return deferred.promise;
 		};
+		
+		var userInfo = {};
+		var defaultAuthPage = '/dashboard';
+		
 		return {
 			//returns true if there is an auth token
 			isAuthenticated: function() {
 				var storedJwt = localStorageService.get('authToken');
-				console.log('stored JWT: '+storedJwt);
 				if(storedJwt){
 					var storedPayload = jwtHelper.decodeToken(storedJwt);
-					console.log('payload: '+JSON.stringify(storedPayload));
+					userInfo = storedPayload;
 					if(jwtHelper.isTokenExpired(storedJwt)){
-						console.log('is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt));
-						console.log('expired delete');
+						console.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
 						localStorageService.remove('authToken');
-						/*delegate().then(function(result){
-							console.log(result);
-						});*/
 					} else {
-						console.log('is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+						//console.info('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
 					}
 				}
 				
 				return localStorageService.get('authToken');
 				//LocalService.get('authToken');
 			},
-			//login function, should be moved to login controller
-			login: function(email, password) {
-				var login = $http.post(API_URL+'/authenticate', {email: email, password: password } );
-				login.success(function(result) {
-					console.log('login-result: '+JSON.stringify(result));
-					localStorageService.set('authToken',result.token);
-					$location.path('/about');
-					//LocalService.set('authToken', JSON.stringify(result));
-				});
-				return login;
-			},
+			user: function() { return userInfo; },
+			defaultAuthPage: function(){ return defaultAuthPage; },
 			//Logout, just deletes token, then should redirect tlogin page
 			logout: function() {
 				// The backend doesn't care about logouts, delete the token and you're good to go.
 				console.log('logout delete');
 				localStorageService.remove('authToken');
+				localStorageService.remove('refreshToken');
 				$location.path('/login');
 				//LocalService.unset('authToken');
 			},
@@ -159,38 +181,15 @@
 		};
 	});
 	
-	webapp.directive('passwordMatch', [function () {
-	    return {
-	        restrict: 'A',
-	        scope:true,
-	        require: 'ngModel',
-	        link: function (scope, elem , attrs,control) {
-	            var checker = function () {
-	 
-	                //get the value of the first password
-	                var e1 = scope.$eval(attrs.ngModel); 
-	 
-	                //get the value of the other password  
-	                var e2 = scope.$eval(attrs.passwordMatch);
-	                return e1 === e2;
-	            };
-	            scope.$watch(checker, function (n) {
-	 
-	                //set the form control to valid if both 
-	                //passwords are the same, else invalid
-	                control.$setValidity('unique', n);
-	            });
-	        }
-	    };
-	}]);
-	
 	webapp.run(function($rootScope, $location, Auth, localStorageService) {
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if(nextRoute.access){
-				console.log('NEA:'+JSON.stringify(nextRoute.access));	
+				//console.log('NEA:'+JSON.stringify(nextRoute.access));	
 				//Lets store the tokens in Auth so we don't have to use localStorage here
-				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken')) {
-					
+				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken') || !Auth.user().email) {
+					if(nextRoute.access.requiredLogin){ console.log('req'); }
+					if(!localStorageService.get('authToken')){ console.log('no local storage'); }
+					if(!Auth.user().email){ console.log('no info'); }
 					Auth.delegate().then(function(result){
 						//Success
 						if(!localStorageService.get('authToken')){
@@ -214,11 +213,14 @@
 						.catch(function(errorCallback){ }) //shorthand for promise.then(null, errorCallback)
 						.finally(function(callback,notifyCallback);
 					*/
-					
+						
+				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('authToken')){
+					console.warn('you dont want to go there, here have the default page');
+					$location.path(Auth.defaultAuthPage());
 				}
 			} else { 
 				event.preventDefault();
-				console.warn('route did not have access level set');
+				console.warn('route did not have access level set: '+JSON.stringify(nextRoute));
 				$location.path('/login');
 			}
 		});

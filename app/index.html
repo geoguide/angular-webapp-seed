@@ -15,45 +15,58 @@
     <!-- endbuild -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
   </head>
-  <body ng-controller="ApplicationCtrl as app">
+  <body ng-controller="ApplicationCtrl as appCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
+	<!-- Add your site or application content here -->
+	<header class="header">
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="row">
+					<nav class="navbar-header col-sm-12">
+						
+						<div class="col-sm-6"><a class="navbar-brand" href="#/">angularWebappSeed</a></div>
+						
+						<div class="col-sm-6 text-right">
+							<ul class="nav navbar-nav navbar-right" id="user-dropdown">
+								<li class="dropdown">
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak">{{userInfo.email}} <span class="caret"></span></a>
+									<ul role="menu" class="dropdown-menu">
+										<li class="dropdown-header">Actions</li>
+										<li><a>Action</a></li>
+										<li><a>Another action</a></li>
+										<li><a>Something else here</a></li>
+										<li class="divider"></li>
+										<li><a ng-show="isLoggedIn" ng-click="logout()">Sign Out</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">angularWebappSeed</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#" ng-show="isLoggedIn" ng-click="logout()">Logout</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-    <div ng-view=""></div>
+	<div class="container-fluid">
+		<div class="col-md-3 col-sm-3" ng-show="isLoggedIn">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a ng-href="#/dashboard">Dashboard</a></li>
+				<li><a ng-href="#/jobs">Jobs</a></li>
+				<li><a ng-href="#/doctors">Doctors</a></li>
+				<li><a ng-href="#/job-applications">Applications <span class="badge">5</span></a></li>
+			</ul>
+		</div>
+		<div class="" ng-class="isLoggedIn ? 'authenticated col-md-9 col-sm-9' : 'col-md-12'">
+			<div id="center" ng-view="" ></div>
+		</div>
+	    
     </div>
 
     <div class="footer">
-      <div class="container">
+      <div class="container-fluid">
         <p><i class="fa fa-heart"></i> from the Yeoman team</p>
       </div>
     </div>
@@ -85,6 +98,9 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-ui-utils/mask.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -95,6 +111,13 @@
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/controllers/applicationcontroller.js"></script>
+        <script src="scripts/controllers/doctors.js"></script>
+        <script src="scripts/controllers/jobs.js"></script>
+        <script src="scripts/controllers/job-applications.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/doctor.js"></script>
+        <script src="scripts/directives/directives.js"></script>
+        <script src="scripts/services/doctorfactory.js"></script>
         <!-- endbuild -->
 </body>
 </html>

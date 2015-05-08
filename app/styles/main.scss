@@ -4,6 +4,9 @@
 // endbower
 @import "partials/signup";
 @import "partials/form-validation";
+@import "partials/user-dropdown";
+@import "partials/layout";
+@import "partials/search-tables";
 
 .browsehappy {
   margin: 0.2em 0;
@@ -43,6 +46,8 @@ body {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  margin-top:19px;
+  display:none;
 }
 
 .container-narrow > hr {
@@ -68,6 +73,9 @@ body {
     margin-top: 28px;
   }
 }
+
+/*  Bootstrap Angular Fix */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

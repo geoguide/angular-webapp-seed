@@ -16,7 +16,7 @@ angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($scope,
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
 			localStorageService.set('authToken',data.token);
 			localStorageService.set('refreshToken',data.refresh_token);
-			$location.path('/about');
+			$location.path('/dashboard');
 		}).error(function(data, status, headers, config){
 			console.log('error');
 		});
