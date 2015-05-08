@@ -4,23 +4,27 @@
 		<div class="input-group">
 			<input type="search" class="form-control" ng-model="searchQuery" value="" />
 			<span class="input-group-btn">
-				<button role="submit" class="btn btn-default" type="button">Search</button>
+				<button role="submit" class="btn btn-default" type="submit">Search</button>
 	      </span>
 		</div>
 		
 	</form>
 	<div class="table-responsive">
-		<caption class="ng-cloak"><strong>{{totalDoctors}}</strong> Doctors</caption>
+		<caption class="ng-cloak"><strong>{{totalDoctors}}</strong> Doctors Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>
 				<tr>
 					<th>id</th>
+					<th>First</th>
+					<th>Last</th>
 					<th>Email</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="doc in doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="goTo('/doctor/{{doc.id}}')">
 					<td>{{ doc.id }}</td>
+					<td>{{ doc.first_name }}</td>
+					<td>{{ doc.last_name }}</td>
 					<td>{{ doc.email }}</td>
 				</tr>
 			</tbody>

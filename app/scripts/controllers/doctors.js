@@ -25,13 +25,13 @@ angular.module('angularWebappSeedApp')
     
 	function getResultsPage(pageNumber) {
 		// TODO: Move this to service and then populate the 
-		$http.get(API_URL+'/admin/doctors?search='+$scope.searchQuery).then(function(response) {
+		$http.get(API_URL+'/admin/doctors?q='+$scope.searchQuery).then(function(response) {
 			$scope.doctors = response.data.doctors;
 			$scope.totalDoctors = response.data.total;
+			$scope.totalPages = $scope.totalDoctors/$scope.doctorsPerPage;
 			//console.log('docs: '+JSON.stringify($scope.doctors));
 			//console.log('total: '+JSON.stringify($scope.totalDoctors));
-			$scope.totalPages = $scope.totalDoctors/$scope.doctorsPerPage;
-			//console.log($scope.totalPages);
+			//console.log('pages: '+$scope.totalPages);
 			
 		});
 	}
