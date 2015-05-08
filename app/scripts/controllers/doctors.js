@@ -29,15 +29,15 @@ angular.module('angularWebappSeedApp')
 			$scope.doctors = response.data.doctors;
 			$scope.totalDoctors = response.data.total;
 			//console.log('docs: '+JSON.stringify($scope.doctors));
-			console.log('total: '+JSON.stringify($scope.totalDoctors));
+			//console.log('total: '+JSON.stringify($scope.totalDoctors));
 			$scope.totalPages = $scope.totalDoctors/$scope.doctorsPerPage;
-			console.log($scope.totalPages);
+			//console.log($scope.totalPages);
 			
 		});
 	}
 	
 	$scope.getTotalPages = function(){
-		console.log('total pages: '+Math.ceil($scope.totalPages));
+		//console.log('total pages: '+Math.ceil($scope.totalPages));
 		return new Array(Math.ceil($scope.totalPages));
 	};
 	
