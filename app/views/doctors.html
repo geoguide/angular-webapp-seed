@@ -1,8 +1,56 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
 <div>
-	<form ng-submit="getResults()">
+	<script type="text/ng-template" id="create-doctor-modal2"> 
+		<form ng-submit="drsCtrl.submitForm()">
+			<div class="modal-header"> 
+				<h3 class="modal-title">Create Doctor</h3> 
+			</div> 
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Email</label>
+					<input class="form-control" type="email" name="email" ng-model="drsCtrl.formData.email" />
+				</div>
+				<div class="form-group">
+					<label>Password</label>
+					<input class="form-control" type="password" name="password" ng-model="drsCtrl.formData.password" />
+				</div>
+				<div class="form-group">
+					<label>First Name</label>
+					<input class="form-control" type="text" name="first_name" ng-model="drsCtrl.formData.first_name" />
+				</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					<input class="form-control" type="text" name="last_name" ng-model="drsCtrl.formData.last_name" />
+				</div>
+				<div class="form-group">
+					<label>Job Type</label>
+					<select name="job_type" class="form-control" ng-model="drsCtrl.formData.job_type">
+						<option value="locum">Locum</option>
+						<option value="permanent">Permanent</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Locum Experience</label>
+					<input type="text" name="locum_experience" class="form-control" ng-model="drsCtrl.formData.locum_experience" />
+				</div>
+				<div class="form-group">
+					<label>Locum Frequency</label>
+					<input type="text" name="locum_frequency" class="form-control" ng-model="drsCtrl.formData.locum_frequency" />
+				</div>
+				
+			</div> 
+			<div class="modal-footer"> 
+				<button class="btn btn-primary" role="submit">OK</button> 
+				<button class="btn btn-warning" ng-click="miCtrl.cancel()">Cancel</button> 
+			</div>
+		</form>
+	</script>
+	
+	<button class="btn btn-default" ng-click="drsCtrl.open()">Go...</button>
+	
+	<form ng-submit="drsCtrl.getResults()">
 		<div class="input-group">
-			<input type="search" class="form-control" ng-model="searchQuery" value="" />
+			<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
 			<span class="input-group-btn">
 				<button role="submit" class="btn btn-default" type="submit">Search</button>
 	      </span>
@@ -10,7 +58,7 @@
 		
 	</form>
 	<div class="table-responsive">
-		<caption class="ng-cloak"><strong>{{totalDoctors}}</strong> Doctors Found</caption>
+		<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>
 				<tr>
@@ -21,7 +69,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="doc in doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="goTo('/doctor/{{doc.id}}')">
+				<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="goTo('/doctor/{{doc.id}}')">
 					<td>{{ doc.id }}</td>
 					<td>{{ doc.first_name }}</td>
 					<td>{{ doc.last_name }}</td>
@@ -31,7 +79,5 @@
 		</table>
 	</div>
  
-	<ul class="pagination">
-		<li class="ng-cloak" ng-repeat="p in getTotalPages() track by $index"><a href="{{$index+1}}">{{$index+1}}</a></li>
-	</ul>
+	<pagination total-items="totalDoctors" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()"></pagination>
 </div>

@@ -17,16 +17,19 @@ angular.module('angularWebappSeedApp').factory('doctorFactory', function ($http,
 	return {
 		someMethod: function () {
 			return meaningOfLife;
-		},
-		getDoctor: function(doctorId){
+		}, createDoctor: function(formData){
+			return $http.post(API_URL+'/admin/doctors/', formData).then(function(response) {
+				return response.data;
+			});
+		}, getDoctor: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
 				return response.data;
 			});
-		}, saveDoctor(formData){
+		}, saveDoctor: function(formData){
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
 				return response.data;
 			});
-		}, deleteDoctor(doctorId){
+		}, deleteDoctor: function(doctorId){
 			return $http.delete(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
 				return true;
 			},function(error){

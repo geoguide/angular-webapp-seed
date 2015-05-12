@@ -8,6 +8,16 @@
  *
  * Main module of the application.
  */
+ 
+ // To Do
+//TODO: Convert form to formly http://angular-formly.com/#/example/other/advanced-layout
+//- Update (11 may 2015) use formly on the jobs
+//TODO: change to directives rather than controllers: http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
+//TODO Smarter and more organized handling of errors and authorization issues
+//TODO: Standardize API calls and use angular $resource: http://learn.ionicframework.com/formulas/backend-data/ ??
+//TODO: Remove jquery and angularstrap
+
+
 (function(){
 	var webapp = angular.module('angularWebappSeedApp', [
 		'ngAnimate',
@@ -22,8 +32,8 @@
 		'LocalStorageModule',
 		'ui.mask',
 		'ngAnimate',
-		'mgcrea.ngStrap',
-		'toasty'
+		'toasty',
+		'ui.bootstrap'
 	]);
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
@@ -54,7 +64,8 @@
 			.when('/doctors', {
 			  templateUrl: 'views/doctors.html',
 			  access: { requiredLogin: true },
-			  controller: 'DoctorsCtrl'
+			  controller: 'DoctorsCtrl',
+			  controllerAs: 'drsCtrl'
 			})
 			.when('/jobs', {
 			  templateUrl: 'views/jobs.html',
@@ -89,7 +100,6 @@
 	webapp.run(function($rootScope, $location, Auth, localStorageService) {
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if(nextRoute.access){
-				//console.log('NEA:'+JSON.stringify(nextRoute.access));	
 				//Lets store the tokens in Auth so we don't have to use localStorage here
 				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken') || !Auth.user().email) {
 					if(nextRoute.access.requiredLogin){ console.log('req'); }

@@ -7,20 +7,18 @@
  * # DoctorCtrl
  * Controller of the angularWebappSeedApp
  */
- 
-//TODO: Move these to doctorFactory
-//TODO: Convert form to formly http://angular-formly.com/#/example/other/advanced-layout
 
 angular.module('angularWebappSeedApp')
-  .controller('DoctorCtrl', function ($scope,$routeParams,$http, API_URL,doctorFactory,toasty) {
+  .controller('DoctorCtrl', function ($scope, $routeParams, $http, API_URL, doctorFactory, toasty) {
 	$scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
 	];
+	
 	var _this = this;
 	this.doctorId = $routeParams.id;
-   this.formData = null;
+   this.doctorData = null;
    
 
    this.activeTab = 0;
@@ -30,21 +28,32 @@ angular.module('angularWebappSeedApp')
 		var doctorData = doctorFactory.getDoctor(doctorId);
 		
 		doctorData.then(function(data){
-			_this.formData = data;
+			_this.doctorData = data;
 		},function(error){
-			_this.formData = null;
+			_this.doctorData = null;
+		});
+	};
+	
+	this.create = function(newDoc){
+		
+		var doctorData = doctorFactory.createDoctor(newDoc);
+		
+		doctorData.then(function(data){
+			_this.doctorData = data;
+		},function(error){
+			_this.doctorData = null;
 		});
 	};
 	
 	this.save = function(){
-		doctorFactory.saveDoctor(_this.formData).then(function(data){
+		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
 				msg: 'Doctor Saved.',
 				showClose: true,
 				clickToClose: true
 			});
-			_this.formData = data;
+			_this.doctorData = data;
 		}, function(error){
 			toasty.pop.error({
 				title: 'Error!',
@@ -57,7 +66,7 @@ angular.module('angularWebappSeedApp')
 	
 	this.delete = function(){
 		doctorFactory.deleteDoctor(_this.doctorId).then(function(data){
-			_this.formData = null;
+			_this.doctorData = null;
 			toasty.pop.success({
 				title: 'Success!',
 				msg: 'Doctor Deleted.',
