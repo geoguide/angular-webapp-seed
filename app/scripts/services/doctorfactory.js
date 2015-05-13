@@ -7,7 +7,7 @@
  * # doctorFactory
  * Factory in the angularWebappSeedApp.
  */
-angular.module('angularWebappSeedApp').factory('doctorFactory', function ($http,API_URL) {
+angular.module('angularWebappSeedApp').factory('doctorFactory', function ($http,API_URL,$log) {
 	// Service logic
 	// ...
 
@@ -33,7 +33,7 @@ angular.module('angularWebappSeedApp').factory('doctorFactory', function ($http,
 			return $http.delete(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
 				return true;
 			},function(error){
-				console.error(error);
+				$log.error(error);
 			});
 		}
 	};

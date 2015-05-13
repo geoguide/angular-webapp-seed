@@ -46,7 +46,7 @@
 		</form>
 	</script>
 	
-	<button class="btn btn-default" ng-click="drsCtrl.open()">Go...</button>
+	<button class="btn btn-default" ng-click="drsCtrl.open()">Create Doctor</button>
 	
 	<form ng-submit="drsCtrl.getResults()">
 		<div class="input-group">
@@ -57,6 +57,7 @@
 		</div>
 		
 	</form>
+	<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
 	<div class="table-responsive">
 		<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
 		<table class="table table-condensed table-striped table-hover">
@@ -79,5 +80,5 @@
 		</table>
 	</div>
  
-	<pagination total-items="totalDoctors" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()"></pagination>
+	<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
 </div>

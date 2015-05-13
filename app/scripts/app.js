@@ -97,32 +97,32 @@
 	});
 	
 	
-	webapp.run(function($rootScope, $location, Auth, localStorageService) {
+	webapp.run(function($rootScope, $location, Auth, localStorageService,$log) {
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if(nextRoute.access){
 				//Lets store the tokens in Auth so we don't have to use localStorage here
 				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken') || !Auth.user().email) {
-					if(nextRoute.access.requiredLogin){ console.log('req'); }
-					if(!localStorageService.get('authToken')){ console.log('no local storage'); }
-					if(!Auth.user().email){ console.log('no info'); }
+					if(nextRoute.access.requiredLogin){ $log.log('req'); }
+					if(!localStorageService.get('authToken')){ $log.log('no local storage'); }
+					if(!Auth.user().email){ $log.log('no info'); }
 					Auth.delegate().then(function(result){
 						//Success
 						if(!localStorageService.get('authToken')){
 							event.preventDefault();
-							console.warn('Delegate Failed');
+							$log.warn('Delegate Failed');
 							$location.path('/login');		
 						} else {
-							console.info('Delegation Successful');
+							$log.info('Delegation Successful');
 						}
 					}, function(reason){
 						//Error
-						console.error('delegation fail: '+reason);
+						$log.error('delegation fail: '+reason);
 						event.preventDefault();
-						console.warn('Delegate Failed');
+						$log.warn('Delegate Failed');
 						$location.path('/login');		
 					}, function(update){
 						//Notifications
-						console.info('sweet notification: '+update);
+						$log.info('sweet notification: '+update);
 					});
 					/* Can do these also
 						.catch(function(errorCallback){ }) //shorthand for promise.then(null, errorCallback)
@@ -130,12 +130,12 @@
 					*/
 						
 				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('authToken')){
-					console.warn('you dont want to go there, here have the default page');
+					$log.warn('you dont want to go there, here have the default page');
 					$location.path(Auth.defaultAuthPage());
 				}
 			} else { 
 				event.preventDefault();
-				console.warn('route did not have access level set: '+JSON.stringify(nextRoute));
+				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));
 				$location.path('/login');
 			}
 		});

@@ -13,10 +13,6 @@ angular.module('angularWebappSeedApp').controller('ApplicationCtrl', function ($
 		$scope.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 	});
-	//Easy navigation
-	$scope.goTo = function (path) {
-	  $location.path(path);
-	};
 	//Logout
 	$scope.logout = Auth.logout;
 });
