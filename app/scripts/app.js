@@ -54,7 +54,8 @@
 	      .when('/login', {
 	        templateUrl: 'views/login.html',
 	        access: { requiredLogin: false },
-	        controller: 'LoginCtrl'
+	        controller: 'LoginCtrl',
+	        controllerAs: 'loginCtrl'
 	      })
 	      .when('/signup', {
 	        templateUrl: 'views/signup.html',
@@ -101,29 +102,37 @@
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if(nextRoute.access){
 				//Lets store the tokens in Auth so we don't have to use localStorage here
-				if (nextRoute.access.requiredLogin && !localStorageService.get('authToken') || !Auth.user().email) {
-					if(nextRoute.access.requiredLogin){ $log.log('req'); }
-					if(!localStorageService.get('authToken')){ $log.log('no local storage'); }
-					if(!Auth.user().email){ $log.log('no info'); }
-					Auth.delegate().then(function(result){
-						//Success
-						if(!localStorageService.get('authToken')){
+				if (nextRoute.access.requiredLogin && (!localStorageService.get('authToken') || !Auth.user().email)) {
+					
+					if(nextRoute.access.requiredLogin){ $log.info('req'); }
+					if(!localStorageService.get('authToken')){ $log.warn('no token in local storage'); }
+					if(!Auth.user().email){ $log.warn('no info'); }
+					
+					if(localStorageService.get('refreshToken')){
+						
+						Auth.delegate().then(function(result){
+							//Success
+							if(!localStorageService.get('authToken')){
+								event.preventDefault();
+								$log.warn('Delegate Failed');
+								$location.path('/login');		
+							} else {
+								$log.info('Delegation Successful');
+							}
+						}, function(reason){
+							//Error
+							$log.error('delegation fail: '+reason);
 							event.preventDefault();
 							$log.warn('Delegate Failed');
 							$location.path('/login');		
-						} else {
-							$log.info('Delegation Successful');
-						}
-					}, function(reason){
-						//Error
-						$log.error('delegation fail: '+reason);
-						event.preventDefault();
-						$log.warn('Delegate Failed');
-						$location.path('/login');		
-					}, function(update){
-						//Notifications
-						$log.info('sweet notification: '+update);
-					});
+						}, function(update){
+							//Notifications
+							$log.info('sweet notification: '+update);
+						});
+					} else {
+						$log.warn('no refresh token');
+						$location.path('/login');
+					}
 					/* Can do these also
 						.catch(function(errorCallback){ }) //shorthand for promise.then(null, errorCallback)
 						.finally(function(callback,notifyCallback);

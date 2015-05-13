@@ -8,11 +8,12 @@
  * Controller of the angularWebappSeedApp
  */
 angular.module('angularWebappSeedApp').controller('ApplicationCtrl', function ($scope, $location, Auth) {
+	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
-		$scope.userInfo = Auth.user();
+		_this.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 	});
 	//Logout
-	$scope.logout = Auth.logout;
+	this.logout = Auth.logout;
 });

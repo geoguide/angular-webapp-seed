@@ -31,16 +31,16 @@
 						<div class="col-sm-6"><a class="navbar-brand" href="#/">angularWebappSeed</a></div>
 						
 						<div class="col-sm-6 text-right">
-							<ul class="nav navbar-nav navbar-right" id="user-dropdown">
+							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
 								<li class="dropdown">
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak">{{userInfo.email}} <span class="caret"></span></a>
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak">{{appCtrl.userInfo.email}} <span class="caret"></span></a>
 									<ul role="menu" class="dropdown-menu">
 										<li class="dropdown-header">Actions</li>
 										<li><a>Action</a></li>
 										<li><a>Another action</a></li>
 										<li><a>Something else here</a></li>
 										<li class="divider"></li>
-										<li><a ng-show="isLoggedIn" ng-click="logout()">Sign Out</a></li>
+										<li><a ng-click="appCtrl.logout()">Sign Out</a></li>
 									</ul>
 								</li>
 							</ul>

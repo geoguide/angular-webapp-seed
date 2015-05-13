@@ -7,7 +7,7 @@
  * # DoctorsCtrl
  * Controller of the angularWebappSeedApp
  */
-angular.module('angularWebappSeedApp').controller('DoctorsCtrl', function ($scope,$window,$http,API_URL,$modal,$modalStack,	doctorFactory,toasty,applicationFactory,$log) {
+angular.module('angularWebappSeedApp').controller('DoctorsCtrl', function ($window,$http,API_URL,$modal,$modalStack,	doctorFactory,toasty,applicationFactory,$log) {
 	
 	var _this = this;
 	

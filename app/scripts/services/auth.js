@@ -7,7 +7,7 @@
  * # Auth
  * Factory in the angularWebappSeedApp.
  */
-angular.module('angularWebappSeedApp').factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService) {
+angular.module('angularWebappSeedApp').factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService,$log) {
 	
 	var delegate = function(){
 		var deferred = $q.defer();
@@ -35,19 +35,20 @@ angular.module('angularWebappSeedApp').factory('Auth', function($http, API_URL, 
 			var storedPayload = jwtHelper.decodeToken(storedJwt);
 			userInfo = storedPayload;
 			if(jwtHelper.isTokenExpired(storedJwt)){
-				//console.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
+				//$log.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
 				localStorageService.remove('authToken');
 			} else {
-				//console.info('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+				//$log.info('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
 			}
 		}
 		return localStorageService.get('authToken');
 	};
 	
 	var logout = function(){
-		console.log('logout delete');
+		$log.log('logout delete');
 		localStorageService.remove('authToken');
 		localStorageService.remove('refreshToken');
+		userInfo = {};
 		$location.path('/login');
 	};
 	

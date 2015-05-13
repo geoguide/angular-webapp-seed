@@ -9,12 +9,7 @@
  */
 
 angular.module('angularWebappSeedApp')
-  .controller('DoctorCtrl', function ($scope, $routeParams, $http, API_URL, doctorFactory, toasty) {
-	$scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-	];
+  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -85,4 +80,4 @@ angular.module('angularWebappSeedApp')
 	
 	this.get(this.doctorId);
 	
-  });
+});

@@ -1,4 +1,4 @@
-<div class="signup-container" ng-controller="LoginCtrl as loginCtrl">
+<div class="signup-container">
 	<section class="row">
 		<div class="col-md-12">
 			<h3 class="signup-header">Login</h3>
@@ -8,13 +8,13 @@
 	
 	<section class="login-form row">
 		<div class="col-md-12">
-			<form class="form-horizontal" ng-submit="login_form.$valid && authenticate()" name="login_form" novalidate>
+			<form class="form-horizontal" ng-submit="login_form.$valid && loginCtrl.authenticate()" name="login_form" novalidate>
 				
 				<!-- Text input-->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="email">Email</label>  
 					<div class="col-md-5">
-						<input id="email" name="email" type="email" placeholder="john@doctor.com" value="geoffguidetti@gmail.com" class="form-control input-md" ng-model="login.email" required>
+						<input id="email" name="email" type="email" placeholder="john@doctor.com" value="geoffguidetti@gmail.com" class="form-control input-md" ng-model="loginCtrl.login.email" required>
 					</div>
 				</div>
 				
@@ -22,7 +22,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="password1">Password</label>
 					<div class="col-md-5">
-						<input id="password1" name="password1" type="password" placeholder="" value="cheapshortcut" class="form-control input-md" ng-model="login.password" ng-minlength="8" required>
+						<input id="password1" name="password1" type="password" placeholder="" value="cheapshortcut" class="form-control input-md" ng-model="loginCtrl.login.password" ng-minlength="8" required>
 					</div>
 				</div>
 	

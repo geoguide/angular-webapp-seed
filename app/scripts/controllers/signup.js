@@ -14,6 +14,6 @@ angular.module('angularWebappSeedApp').controller('SignupCtrl', function ($scope
 	$scope.signup = signup = {};
 	
 	$scope.submitSignup = function(){
-		console.log('signup clicked: '+JSON.stringify(signup));  
+		$log.info('signup clicked: '+JSON.stringify(signup));  
 	};
 });
