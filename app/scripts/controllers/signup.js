@@ -7,7 +7,7 @@
  * # SignupCtrl
  * Controller of the angularWebappSeedApp
  */
-angular.module('angularWebappSeedApp').controller('SignupCtrl', function ($scope) {
+angular.module('angularWebappSeedApp').controller('SignupCtrl', function ($scope,$log) {
 	
 	//signupform variables
 	var signup;

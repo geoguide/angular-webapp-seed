@@ -33,8 +33,6 @@ module.exports = function(config) {
       'bower_components/angular-jwt/dist/angular-jwt.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-ui-utils/mask.js',
-      'bower_components/angular-strap/dist/angular-strap.js',
-      'bower_components/angular-strap/dist/angular-strap.tpl.js',
       'bower_components/angular-toasty/js/ng-toasty.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',

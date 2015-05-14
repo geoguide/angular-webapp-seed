@@ -2,104 +2,146 @@
 	
 	<div id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor Not Found</div>
 	<form id="doctor-form" ng-submit="dr.save()" ng-show="dr.doctorData" class="ng-cloak">
-		<tabset>
-			<tab heading="General Info">
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="first-name">First Name</label>
-						<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
-					</div>
-					<div class="form-group col-md-2">
-						<label for="middle-name">Middle</label>
-						<input type="text" class="form-control" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name">
-					</div>
-					<div class="col-md-4 form-group">
-						<label for="last-name">Last Name</label>
-						<input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
-					</div>
-					<div class="col-md-2 form-group">
-						<label for="doctor-title">Title</label>
-						<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title">
-							<option value="MD">MD</option>
-							<option value="DO">DO</option>
-							<option value="DPM">DPM</option>
-							<option value="DDS">DDS</option>
-							<option value="DMD">DMD</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="home-address">Home Address 1</label>
-						<input type="text" class="form-control" id="home-address" placeholder="Address" ng-model="dr.doctorData.home_address">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="home-address">Home Address 2</label>
-						<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
-					</div>
-				</div>
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="home-address">City</label>
-						<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
-					</div>
-					<div class="col-md-2 form-group">
-						<label for="home-state">State</label>
-						<select class="form-control" id="home-state" ng-model="dr.doctorData.home_state">
-							<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
-						</select>
-					</div>
-					<div class="form-group col-md-3">
-						<label for="home-zip-code">Zip</label>
-						<input type="text" class="form-control" id="home-zip-code" ui-mask="99999" ng-model="dr.doctorData.home_zip_code">
-					</div>
-				</div>
-				
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="home_phone">Home Phone</label>
-						<input type="text" class="form-control" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="cell-phone">Cell Phone</label>
-						<input type="text" class="form-control" id="cell-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.cell_phone">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="cell-phone">Text OK?</label><br />
-						<input type="checkbox" ng-model="text_ok" ng-true-value="1" ng-false-value="0" />
-					</div>
-				</div>
-			</tab>
-				
-			<tab heading="Account Info">
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="email">Email Address</label>
-						<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="password">Password</label>
-						<div><button class="btn btn-primary" id="change-password">Change Password</button></div>
-					</div>
-				</div>
-			</tab>
-			
-			<tab heading="Medical Info" bs-pane>
-				<div class="form-row row">
-					<div class="form-group col-md-4">
-						<label for="email">Medical Stuff to Come</label>
-					</div>
-				</div>
-			</tab>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<button type="button" class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</div>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<div class="form-group">
+					<button type="button" class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
+					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
-			
-		</div><!-- /bs-tabs -->
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<tabset>
+					<tab heading="General Info">
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="first-name">First Name</label>
+								<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="middle-name">Middle</label>
+								<input type="text" class="form-control" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name">
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="last-name">Last Name</label>
+								<input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
+							</div>
+							<div class="col-md-2 form-group">
+								<label for="doctor-title">Title</label>
+								<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title">
+									<option value="MD">MD</option>
+									<option value="DO">DO</option>
+									<option value="DPM">DPM</option>
+									<option value="DDS">DDS</option>
+									<option value="DMD">DMD</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="home-address">Home Address 1</label>
+								<input type="text" class="form-control" id="home-address" placeholder="Address" ng-model="dr.doctorData.home_address">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="home-address">Home Address 2</label>
+								<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
+							</div>
+						</div>
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="home-address">City</label>
+								<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
+							</div>
+							<div class="col-md-2 form-group">
+								<label for="home-state">State</label>
+								<select class="form-control" id="home-state" ng-model="dr.doctorData.home_state">
+									<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="home-zip-code">Zip</label>
+								<input type="text" class="form-control" id="home-zip-code" ui-mask="99999" ng-model="dr.doctorData.home_zip_code">
+							</div>
+						</div>
+						
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="home_phone">Home Phone</label>
+								<input type="text" class="form-control" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="cell-phone">Cell Phone</label>
+								<input type="text" class="form-control" id="cell-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.cell_phone">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="cell-phone">Text OK?</label><br />
+								<input type="checkbox" ng-model="text_ok" ng-true-value="1" ng-false-value="0" />
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label for="job-type">Job Type</label>
+								<select name="job_type" ng-model="dr.doctorData.job_type" class="form-control">
+									<option value="0">None</option>
+									<option value="1">Locum</option>
+									<option value="2">Permanent</option>
+									<option value="3">Both</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="locum-experience">Locum Experience</label>
+								<select name="locum_experience" ng-model="dr.doctorData.locum_experience" class="form-control">
+									<option value="none">None</option>
+									<option value="low">Low</option>
+									<option value="high">High</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="tier">Tier</label>
+								<select name="tier" ng-model="dr.doctorData.tier" class="form-control">
+									<option value="0">Inactive</option>
+									<option value="1">Soft Registration</option>
+									<option value="2">Verified</option>
+									<option value="3">Full Registration</option>
+									<option value="4">Credentialed</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="tier">BC/BE</label>
+								<select name="tier" ng-model="dr.doctorData.bc_be" class="form-control">
+									<option value="NULL">Neither</option>
+									<option value="BC">BC</option>
+									<option value="BE">BE</option>
+								</select>
+							</div>
+						</div>
+						
+					</tab>
+						
+					<tab heading="Account Info">
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="email">Email Address</label>
+								<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="password">Password</label>
+								<div><button class="btn btn-primary" id="change-password">Change Password</button></div>
+							</div>
+						</div>
+					</tab>
+					
+					<tab heading="Medical Info" bs-pane>
+						<div class="form-row row">
+							<div class="form-group col-md-4">
+								<label for="email">Medical Stuff to Come</label>
+							</div>
+						</div>
+					</tab>
+				</tabset>
+			</div>
+		</div>
 	</form>
 </section>

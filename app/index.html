@@ -9,6 +9,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-toasty/css/ng-toasty.css" />
+    <link rel="stylesheet" href="bower_components/loaders.css/loaders.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -60,8 +61,9 @@
 				<li><a ng-href="#/job-applications">Applications <span class="badge">5</span></a></li>
 			</ul>
 		</div>
+		
 		<div class="" ng-class="isLoggedIn ? 'authenticated col-md-9 col-sm-9' : 'col-md-12'">
-			<div id="center" ng-view="" ></div>
+			<div id="center" ng-view="" ng-show="!appCtrl.isViewLoading"></div>
 		</div>
 	    
     </div>
@@ -100,8 +102,6 @@
 	<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
 	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 	<script src="bower_components/angular-ui-utils/mask.js"></script>
-	<script src="bower_components/angular-strap/dist/angular-strap.js"></script>
-	<script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
 	<script src="bower_components/angular-toasty/js/ng-toasty.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<!-- endbower -->
@@ -123,7 +123,8 @@
 	<script src="scripts/services/doctorfactory.js"></script>
 	<script src="scripts/services/authinterceptor.js"></script>
 	<script src="scripts/services/auth.js"></script>
-<script src="scripts/services/applicationfactory.js"></script>
+	<script src="scripts/services/applicationfactory.js"></script>
+	
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        

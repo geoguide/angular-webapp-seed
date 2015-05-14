@@ -93,12 +93,13 @@
 			}); // Render 404 view
 	  });
 	  
-	 webapp.config(function($httpProvider) {  
-	    $httpProvider.interceptors.push('AuthInterceptor');
+	webapp.config(function($httpProvider) {  
+		$httpProvider.interceptors.push('AuthInterceptor');
 	});
 	
 	
 	webapp.run(function($rootScope, $location, Auth, localStorageService,$log) {
+		
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if(nextRoute.access){
 				//Lets store the tokens in Auth so we don't have to use localStorage here

@@ -14,6 +14,7 @@ angular.module('angularWebappSeedApp').controller('ApplicationCtrl', function ($
 		_this.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 	});
+	
 	//Logout
 	this.logout = Auth.logout;
 });
