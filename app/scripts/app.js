@@ -101,13 +101,12 @@
 	webapp.run(function($rootScope, $location, Auth, localStorageService,$log) {
 		
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+			//Route should have access level set
 			if(nextRoute.access){
+				
 				//Lets store the tokens in Auth so we don't have to use localStorage here
+				//If route requires login and we don't have an email or authToken do interrogation
 				if (nextRoute.access.requiredLogin && (!localStorageService.get('authToken') || !Auth.user().email)) {
-					
-					if(nextRoute.access.requiredLogin){ $log.info('req'); }
-					if(!localStorageService.get('authToken')){ $log.warn('no token in local storage'); }
-					if(!Auth.user().email){ $log.warn('no info'); }
 					
 					if(localStorageService.get('refreshToken')){
 						
@@ -115,7 +114,7 @@
 							//Success
 							if(!localStorageService.get('authToken')){
 								event.preventDefault();
-								$log.warn('Delegate Failed');
+								$log.warn('Delegate Failed to Populate authToken');
 								$location.path('/login');		
 							} else {
 								$log.info('Delegation Successful');
@@ -124,26 +123,23 @@
 							//Error
 							$log.error('delegation fail: '+reason);
 							event.preventDefault();
-							$log.warn('Delegate Failed');
 							$location.path('/login');		
 						}, function(update){
-							//Notifications
+							//Notifications of in progress promises
 							$log.info('sweet notification: '+update);
 						});
 					} else {
 						$log.warn('no refresh token');
 						$location.path('/login');
 					}
-					/* Can do these also
-						.catch(function(errorCallback){ }) //shorthand for promise.then(null, errorCallback)
-						.finally(function(callback,notifyCallback);
-					*/
 						
 				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('authToken')){
-					$log.warn('you dont want to go there, here have the default page');
+					//You've got an authToken but are trying to go to the login page, send to real page
 					$location.path(Auth.defaultAuthPage());
 				}
+				
 			} else { 
+				//Complain that something is wrong to draw attention to the code, all pages should have this variable set
 				event.preventDefault();
 				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));
 				$location.path('/login');

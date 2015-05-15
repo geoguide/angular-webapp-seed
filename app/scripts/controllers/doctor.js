@@ -13,10 +13,8 @@ angular.module('angularWebappSeedApp')
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
-   this.doctorData = null;
-   
-
-   this.activeTab = 0;
+	this.doctorData = null;
+	this.activeTab = 0;
    
 	this.get = function(doctorId){
 		
