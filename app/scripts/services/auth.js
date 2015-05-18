@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name angularWebappSeedApp.Auth
+ * @name modioAdminPortal.Auth
  * @description
  * # Auth
- * Factory in the angularWebappSeedApp.
+ * Factory in the modioAdminPortal.
  */
-angular.module('angularWebappSeedApp').factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService,$log) {
+angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService,$log) {
 	
 	var delegate = function(){
 		var deferred = $q.defer();

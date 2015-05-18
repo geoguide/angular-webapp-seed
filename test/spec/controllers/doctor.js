@@ -3,7 +3,7 @@
 describe('Controller: DoctorCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('angularWebappSeedApp'));
+  beforeEach(module('modioAdminPortal'));
 
   var DoctorCtrl,
     scope;

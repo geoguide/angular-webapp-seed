@@ -3,7 +3,7 @@
 describe('Controller: ApplicationcontrollerCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('angularWebappSeedApp'));
+  beforeEach(module('modioAdminPortal'));
 
   var ApplicationCtrl,
     scope;

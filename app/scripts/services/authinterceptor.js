@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name angularWebappSeedApp.AuthInterceptor
+ * @name modioAdminPortal.AuthInterceptor
  * @description
  * # AuthInterceptor
- * Factory in the angularWebappSeedApp.
+ * Factory in the modioAdminPortal.
  */
-angular.module('angularWebappSeedApp').factory('AuthInterceptor', function($q, $location, localStorageService,$log) {
+angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $location, localStorageService,$log) {
 	return {
 		//Look for the token and if we have it attach it to every request
 		request: function(config) {

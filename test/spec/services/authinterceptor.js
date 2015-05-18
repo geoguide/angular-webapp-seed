@@ -3,7 +3,7 @@
 describe('Service: AuthInterceptor', function () {
 
   // load the service's module
-  beforeEach(module('angularWebappSeedApp'));
+  beforeEach(module('modioAdminPortal'));
 
   // instantiate service
   var AuthInterceptor;

@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name angularWebappSeedApp.directive:directives
+ * @name modioAdminPortal.directive:directives
  * @description
  * # directives
  */
-angular.module('angularWebappSeedApp').directive('directives', function () {
+angular.module('modioAdminPortal').directive('directives', function () {
 	return {
 		template: '<div></div>',
 		restrict: 'E',

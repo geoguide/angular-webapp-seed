@@ -1,37 +1,40 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
 <div>
 	<script type="text/ng-template" id="create-doctor-modal2"> 
-		<form ng-submit="drsCtrl.submitForm()">
+		<form name="new_doctor_form" ng-submit="drsCtrl.submitForm()" novalidate>
 			<div class="modal-header"> 
 				<h3 class="modal-title">Create Doctor</h3> 
 			</div> 
 			<div class="modal-body">
 				<div class="form-group">
 					<label>Email</label>
-					<input class="form-control" type="email" name="email" ng-model="drsCtrl.formData.email" />
+					<input class="form-control" type="text" name="email" ng-model="drsCtrl.formData.email" ng-required="true" />
 				</div>
 				<div class="form-group">
 					<label>Password</label>
-					<input class="form-control" type="password" name="password" ng-model="drsCtrl.formData.password" />
+					<input class="form-control" type="password" ng-minlength="8" name="password" ng-model="drsCtrl.formData.password"  ng-required="true" />
+					<p ng-show="new_doctor_form.password.$error.minlength" class="help-block">Password is too short.</p>
 				</div>
 				<div class="form-group">
 					<label>First Name</label>
-					<input class="form-control" type="text" name="first_name" ng-model="drsCtrl.formData.first_name" />
+					<input class="form-control" type="text" name="first_name" ng-model="drsCtrl.formData.first_name"  ng-required="true" />
 				</div>
 				<div class="form-group">
 					<label>Last Name</label>
-					<input class="form-control" type="text" name="last_name" ng-model="drsCtrl.formData.last_name" />
+					<input class="form-control" type="text" name="last_name" ng-model="drsCtrl.formData.last_name"  ng-required="true" />
 				</div>
 				<div class="form-group">
 					<label>Job Type</label>
-					<select name="job_type" class="form-control" ng-model="drsCtrl.formData.job_type">
-						<option value="locum">Locum</option>
-						<option value="permanent">Permanent</option>
+					<select name="job_type" class="form-control" ng-model="drsCtrl.formData.job_type"  ng-required="true">
+						<option value="0">Neither</option>
+						<option value="1">Locum</option>
+						<option value="2">Permanent</option>
+						<option value="3">Either</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>Locum Experience</label>
-					<select name="locum_experience" class="form-control" ng-model="drsCtrl.formData.locum_experience">
+					<select name="locum_experience" class="form-control" ng-model="drsCtrl.formData.locum_experience"  ng-required="true">
 						<option value="none">None</option>
 						<option value="low">Low</option>
 						<option value="high">High</option>
@@ -39,8 +42,8 @@
 				</div>
 			</div> 
 			<div class="modal-footer"> 
-				<button class="btn btn-primary" role="submit">OK</button> 
-				<button class="btn btn-warning" ng-click="miCtrl.cancel()">Cancel</button> 
+				<button class="btn btn-primary" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button> 
+				<button class="btn btn-warning" role="button" type="button" ng-click="drsCtrl.closeModal()">Cancel</button> 
 			</div>
 		</form>
 	</script>
@@ -78,6 +81,17 @@
 							<th>First</th>
 							<th>Last</th>
 							<th>Email</th>
+							<th> 
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown">{{drsCtrl.otherField}}<span class="caret"></span></a>
+									<ul class="dropdown-menu" id="other-field-dropdown">
+										<li><a ng-click="drsCtrl.changeOther('locum_experience')">Locum Experience</a></li>
+										<li><a ng-click="drsCtrl.changeOther('tier')">Tier</a></li>
+										<li><a ng-click="drsCtrl.changeOther('trauma_call')">Trauma</a></li>
+										<li><a ng-click="drsCtrl.changeOther('npi_number')">NPI</a></li>
+									</ul>
+								</div>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -86,6 +100,7 @@
 							<td>{{ doc.first_name }}</td>
 							<td>{{ doc.last_name }}</td>
 							<td>{{ doc.email }}</td>
+							<td>{{ doc[drsCtrl.otherField] }}</td>
 						</tr>
 					</tbody>
 				</table>

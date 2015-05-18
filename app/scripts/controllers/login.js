@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:LoginCtrl
+ * @name modioAdminPortal.controller:LoginCtrl
  * @description
  * # LoginCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
-angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($http,$location,API_URL,Auth,localStorageService,$log) {
+angular.module('modioAdminPortal').controller('LoginCtrl', function ($http,$location,API_URL,Auth,localStorageService,$log) {
 	var loginInfo;
 	this.login = loginInfo = {};
 	

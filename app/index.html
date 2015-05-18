@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" ng-app="angularWebappSeedApp">
+<html class="no-js" ng-app="modioAdminPortal">
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -29,7 +29,7 @@
 				<div class="row">
 					<nav class="navbar-header col-sm-12">
 						
-						<div class="col-sm-6"><a class="navbar-brand" href="#/">angularWebappSeed</a></div>
+						<div class="col-sm-6"><a class="navbar-brand" href="#/">Modio Admin Portal</a></div>
 						
 						<div class="col-sm-6 text-right">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
@@ -53,7 +53,7 @@
 	</header>
 
 	<div class="container-fluid">
-		<div class="col-md-3 col-sm-3" ng-show="isLoggedIn">
+		<div class="col-md-3 col-sm-3 ng-cloak" ng-show="isLoggedIn">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a ng-href="#/dashboard">Dashboard</a></li>
 				<li><a ng-href="#/jobs">Jobs</a></li>
@@ -77,13 +77,14 @@
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+	     //Disabled for now
+       /*!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+       ga('send', 'pageview');*/
     </script>
 
 	<!-- build:js(.) scripts/vendor.js -->

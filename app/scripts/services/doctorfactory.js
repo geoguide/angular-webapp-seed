@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name angularWebappSeedApp.doctorFactory
+ * @name modioAdminPortal.doctorFactory
  * @description
  * # doctorFactory
- * Factory in the angularWebappSeedApp.
+ * Factory in the modioAdminPortal.
  */
-angular.module('angularWebappSeedApp').factory('doctorFactory', function ($http,API_URL,$log) {
+angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_URL,$log) {
 	// Service logic
 	// ...
 

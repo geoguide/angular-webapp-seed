@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name angularWebappSeedApp
+ * @name modioAdminPortal
  * @description
- * # angularWebappSeedApp
+ * # modioAdminPortal
  *
  * Main module of the application.
  */
@@ -19,7 +19,7 @@
 
 
 (function(){
-	var webapp = angular.module('angularWebappSeedApp', [
+	var webapp = angular.module('modioAdminPortal', [
 		'ngAnimate',
 		'ngAria',
 		'ngCookies',

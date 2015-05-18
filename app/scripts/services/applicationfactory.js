@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name angularWebappSeedApp.applicationFactory
+ * @name modioAdminPortal.applicationFactory
  * @description
  * # applicationFactory
- * Factory in the angularWebappSeedApp.
+ * Factory in the modioAdminPortal.
  */
-angular.module('angularWebappSeedApp')
+angular.module('modioAdminPortal')
   .factory('applicationFactory', function ($location) {
     // Service logic
     // ...

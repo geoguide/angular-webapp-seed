@@ -8,6 +8,23 @@
 @import "partials/layout";
 @import "partials/search-tables";
 
+
+//Move these to partials later
+button:disabled, button[disabled] {
+	cursor:no-drop !important;
+}
+
+.panel .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.tab-content {
+	margin-top: 15px;
+}
+
+
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -29,7 +46,6 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 
   /* Make the masthead heading the same height as the navigation */

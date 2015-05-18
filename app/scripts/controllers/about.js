@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:AboutCtrl
+ * @name modioAdminPortal.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
-angular.module('angularWebappSeedApp')
+angular.module('modioAdminPortal')
   .controller('AboutCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

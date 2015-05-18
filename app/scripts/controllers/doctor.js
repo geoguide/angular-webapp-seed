@@ -2,19 +2,40 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:DoctorCtrl
+ * @name modioAdminPortal.controller:DoctorCtrl
  * @description
  * # DoctorCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
 
-angular.module('angularWebappSeedApp')
-  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty) {
+angular.module('modioAdminPortal')
+  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty,$log) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.doctorData = null;
 	this.activeTab = 0;
+	
+	//Date of Birth Picker
+	this.open = function($event) {
+		$log.log('open called');
+		$event.preventDefault();
+		$event.stopPropagation();
+		
+		_this.opened = true;
+	};
+	
+	this.dateOptions = {
+		formatYear: 'yy',
+		startingDay: 1
+	};
+	
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+	this.format = this.formats[0];
+	this.dateOptions = {
+	    formatYear: 'yy',
+	    startingDay: 1
+	};
    
 	this.get = function(doctorId){
 		
@@ -22,7 +43,10 @@ angular.module('angularWebappSeedApp')
 		
 		doctorData.then(function(data){
 			_this.doctorData = data;
+			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
+			_this.error = false;
 		},function(error){
+			_this.error = true;
 			_this.doctorData = null;
 		});
 	};
@@ -39,6 +63,8 @@ angular.module('angularWebappSeedApp')
 	};
 	
 	this.save = function(){
+		console.log(JSON.stringify(_this.doctorData));
+		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',

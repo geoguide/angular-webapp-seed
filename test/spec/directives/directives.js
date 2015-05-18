@@ -3,7 +3,7 @@
 describe('Directive: directives', function () {
 
   // load the directive's module
-  beforeEach(module('angularWebappSeedApp'));
+  beforeEach(module('modioAdminPortal'));
 
   var element,
     scope;

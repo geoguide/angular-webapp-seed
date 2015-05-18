@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:DoctorsCtrl
+ * @name modioAdminPortal.controller:DoctorsCtrl
  * @description
  * # DoctorsCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
-angular.module('angularWebappSeedApp').controller('DoctorsCtrl', function ($scope,$window,$http,API_URL,$modal,$modalStack,	doctorFactory,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$window,$http,API_URL,$modal,$modalStack,	doctorFactory,toasty,applicationFactory,$log) {
 	var _this = this;
 	
 	this.doctors = [];
@@ -21,6 +21,12 @@ angular.module('angularWebappSeedApp').controller('DoctorsCtrl', function ($scop
 	this.doctorsPerPage = 25; // this should match however many results your API puts on one page
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
+	this.otherField = 'locum_experience';
+	
+	this.changeOther = function(changeTo){
+		_this.otherField = changeTo;
+		console.log(_this.otherField);
+	};
 	
 	
 	/* Internal Functions */
@@ -84,5 +90,8 @@ angular.module('angularWebappSeedApp').controller('DoctorsCtrl', function ($scop
 		});
 	};
 	
+	this.closeModal = function(){
+		$modalStack.dismissAll();
+	};
 	getResultsPage(1);
 });
