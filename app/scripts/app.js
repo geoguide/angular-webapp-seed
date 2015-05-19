@@ -33,7 +33,9 @@
 		'ui.mask',
 		'ngAnimate',
 		'toasty',
-		'ui.bootstrap'
+		'ui.bootstrap',
+		'formly', 
+		'formlyBootstrap'
 	]);
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
@@ -71,7 +73,14 @@
 			.when('/jobs', {
 			  templateUrl: 'views/jobs.html',
 			  access: { requiredLogin: true },
-			  controller: 'JobsCtrl'
+			  controller: 'JobsCtrl',
+			  controllerAs: 'jobsCtrl'
+			})
+			.when('/jobs/:id',{
+				templateUrl: 'views/job.html',
+				access: { requiredLogin: true },
+				controller: 'JobsCtrl',
+				controllerAs: 'jobCtrl'
 			})
 			.when('/job-applications', {
 			  templateUrl: 'views/job-applications.html',

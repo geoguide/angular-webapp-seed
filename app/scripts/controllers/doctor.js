@@ -51,6 +51,7 @@ angular.module('modioAdminPortal')
 		});
 	};
 	
+	// this... doesn't belong here? Can't do this on this page.
 	this.create = function(newDoc){
 		
 		var doctorData = doctorFactory.createDoctor(newDoc);

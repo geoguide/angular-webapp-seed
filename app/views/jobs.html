@@ -1,1 +1,131 @@
-<p>This is the jobs view.</p>
+<!-- used to have ng-controller, but now realize the route handles it -->
+<div>
+	
+	<script type="text/ng-template" id="create-job-modal"> 
+		<!-- formly this shit -->
+		<form name="new_job_form" ng-submit="jobsCtrl.submitJob()" novalidate>
+			<div class="modal-header"> 
+				<h3 class="modal-title">Create Job</h3> 
+			</div> 
+			
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label>Job Type</label>
+						<select name="job_type" class="form-control" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
+							<option value="1">Locum</option>
+							<option value="2">Permanent</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Specialty</label>
+						<select class="form-control" name="specialty_id" ng-model="jobsCtrl.newJob.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in jobsCtrl.specialties"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Facility</label>
+					<select class="form-control" name="facility_id" ng-model="jobsCtrl.newJob.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in jobsCtrl.facilities"></select>
+				</div>
+				<div class="form-group">
+					<label>Job Title</label>
+					<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.job_title"  ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Job Description</label>
+					<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.description"  ng-required="true" />
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label>Start Date</label>
+						<input type="text" class="form-control" />
+					</div>
+					<div class="form-group col-md-6">
+						<label>End Date</label>
+						<input type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label>Experience Low</label>
+						<input type="text" class="form-control" />
+					</div>
+					<div class="form-group col-md-6">
+						<label>Experience High</label>
+						<input type="text" class="form-control" />
+					</div>
+				</div>
+			</div> 
+			<div class="modal-footer"> 
+				<button class="btn btn-primary" role="submit" ng-disabled="new_job_form.$invalid">OK</button> 
+				<button class="btn btn-warning" role="button" type="button" ng-click="jobsCtrl.closeModal()">Cancel</button> 
+			</div>
+		</form>
+	</script>
+	
+	<section class="row">
+		<div class="col-sm-12 form-group">
+			<button class="btn btn-primary" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
+		</div>
+	</section>
+	<section class="row">
+		<div class="col-sm-12">
+			<form ng-submit="jobsCtrl.getResults()">
+				<div class="input-group">
+					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
+					<span class="input-group-btn">
+						<button role="submit" class="btn btn-default" type="submit">Search</button>
+			      </span>
+				</div>
+			</form>
+		</div>
+	</section>
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+		</div>
+	</section>
+	<section class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Job Title</th>
+							<th>Job Type</th>
+							<th>Facility ID</th>
+							<th> 
+								<!--<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown">{{jobsCtrl.otherField}}<span class="caret"></span></a>
+									<ul class="dropdown-menu" id="other-field-dropdown">
+										<li><a ng-click="jobsCtrl.changeOther('locum_experience')">Locum Experience</a></li>
+										<li><a ng-click="jobsCtrl.changeOther('tier')">Tier</a></li>
+										<li><a ng-click="jobsCtrl.changeOther('trauma_call')">Trauma</a></li>
+										<li><a ng-click="jobsCtrl.changeOther('npi_number')">NPI</a></li>
+									</ul>
+								</div>-->
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}" ng-click="appCtrl.goTo('/jobs/{{job.id}}')">
+							<td>{{ job.id }}</td>
+							<td>{{ job.job_title }}</td>
+							<td>{{ job.job_type }}</td>
+							<td>{{ job.facility_id }}</td>
+							<td>{{ job[jobsCtrl.otherField] }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+		</div>
+	</section>
+	
+</div>

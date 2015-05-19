@@ -7,7 +7,7 @@
  * # DoctorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$window,$http,API_URL,$modal,$modalStack,	doctorFactory,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
 	var _this = this;
 	
 	this.doctors = [];
@@ -18,7 +18,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$w
 	this.formData = {};
 	this.totalDoctors = 0;
 	this.currentPage = 1;
-	this.doctorsPerPage = 25; // this should match however many results your API puts on one page
+	this.doctorsPerPage = 25;
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
 	this.otherField = 'locum_experience';
@@ -33,9 +33,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$w
     
 	function getResultsPage(pageNumber) {
 		// TODO: Move this to service and then populate the 
-		$http.get(API_URL+'/admin/doctors?q='+_this.searchQuery+'&p='+pageNumber).then(function(response) {
-			_this.doctors = response.data.doctors;
-			_this.totalDoctors = response.data.total;
+		doctorFactory.queryDoctors(_this.searchQuery,pageNumber).then(function(response) {
+			_this.doctors = response.doctors;
+			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
 		});
 	}

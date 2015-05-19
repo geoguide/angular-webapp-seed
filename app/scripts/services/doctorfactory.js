@@ -35,6 +35,12 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			},function(error){
 				$log.error(error);
 			});
+		}, queryDoctors: function(searchQuery, pageNumber){
+			return $http.get(API_URL+'/admin/doctors?q='+searchQuery+'&p='+pageNumber).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
 		}
 	};
 });

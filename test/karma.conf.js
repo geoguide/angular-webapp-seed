@@ -35,6 +35,10 @@ module.exports = function(config) {
       'bower_components/angular-ui-utils/mask.js',
       'bower_components/angular-toasty/js/ng-toasty.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/api-check/dist/api-check.js',
+      'bower_components/angular-formly/dist/formly.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

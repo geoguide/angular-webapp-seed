@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-toasty/css/ng-toasty.css" />
     <link rel="stylesheet" href="bower_components/loaders.css/loaders.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -105,6 +106,10 @@
 	<script src="bower_components/angular-ui-utils/mask.js"></script>
 	<script src="bower_components/angular-toasty/js/ng-toasty.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/api-check/dist/api-check.js"></script>
+	<script src="bower_components/angular-formly/dist/formly.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 	
@@ -126,6 +131,9 @@
 	<script src="scripts/services/auth.js"></script>
 	<script src="scripts/services/applicationfactory.js"></script>
 	
+<script src="scripts/services/jobfactory.js"></script>
+<script src="scripts/services/facilityfactory.js"></script>
+<script src="scripts/services/specialtyfactory.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        
