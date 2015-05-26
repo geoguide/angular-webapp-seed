@@ -17,6 +17,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	
 	this.goTo = applicationFactory.goTo;
 	
+	
 	//Logout
 	this.logout = Auth.logout;
 });

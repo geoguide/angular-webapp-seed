@@ -2,7 +2,7 @@
 <html class="no-js" ng-app="modioAdminPortal">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Modio Admin</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -34,8 +34,8 @@
 						
 						<div class="col-sm-6 text-right">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
-								<li class="dropdown">
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak">{{appCtrl.userInfo.email}} <span class="caret"></span></a>
+								<li class="dropdown" dropdown>
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak" dropdown-toggle>{{appCtrl.userInfo.email}} <span class="caret"></span></a>
 									<ul role="menu" class="dropdown-menu">
 										<li class="dropdown-header">Actions</li>
 										<li><a>Action</a></li>
@@ -134,6 +134,10 @@
 <script src="scripts/services/jobfactory.js"></script>
 <script src="scripts/services/facilityfactory.js"></script>
 <script src="scripts/services/specialtyfactory.js"></script>
+<script src="scripts/controllers/job.js"></script>
+<script src="scripts/services/jobapplicationfactory.js"></script>
+<script src="scripts/controllers/job-application.js"></script>
+<script src="scripts/services/experiencefactory.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        

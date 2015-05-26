@@ -1,0 +1,60 @@
+<section>
+	
+	<div id="no-data" ng-show="jobAppCtrl.error" class="ng-cloak">Job Not Found</div>
+	<h4>AppId: {{jobAppCtrl.appData.id}} for Job:{{jobAppCtrl.appData.job_id}} by Doc:{{jobAppCtrl.appData.doctor_id}}</h4>
+	<form id="job-application-form" name="edit_job_application_form" ng-submit="jobAppCtrl.save()" ng-show="jobAppCtrl.appData" class="ng-cloak" novalidate>
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>Job ID</label>
+				<input class="form-control" type="text" name="job_id" ng-model="jobAppCtrl.appData.job_id"  ng-required="true" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Doctor ID</label>
+				<input class="form-control" type="text" name="doctor_id" ng-model="jobAppCtrl.appData.doctor_id"  ng-required="true" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Visible</label>
+				<select class="form-control" ng-model="jobAppCtrl.appData.visible"  ng-required="true">
+					<option value="1">Visible</option>
+					<option value="0">Archived</option>
+				</select>
+			</div>
+			<div class="col-xs-3 form-group">
+				<button class="btn-success btn btn-block" type="button">Accept</button>
+				<button class="btn-danger btn btn-block" type="button">Reject</button>
+			</div>
+		</div>
+
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Rates</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.holiday_premium" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Overnight Call</label>
+				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.overnight_call" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.eight_hour" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.callback" />
+			</div>
+		</div>
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+		<div class="modal-footer"> 
+			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_application_form.$invalid">Submit</button> 
+			<button class="btn btn-danger" role="button" type="button" ng-really-click="jobAppCtrl.delete()" ng-really-message="Are you sure you want to delete this doctor?">Delete</button> 
+		</div>
+	</form>
+</section>

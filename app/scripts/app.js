@@ -33,9 +33,7 @@
 		'ui.mask',
 		'ngAnimate',
 		'toasty',
-		'ui.bootstrap',
-		'formly', 
-		'formlyBootstrap'
+		'ui.bootstrap'
 	]);
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
@@ -79,13 +77,15 @@
 			.when('/jobs/:id',{
 				templateUrl: 'views/job.html',
 				access: { requiredLogin: true },
-				controller: 'JobsCtrl',
+				controller: 'JobCtrl',
 				controllerAs: 'jobCtrl'
 			})
 			.when('/job-applications', {
+				title: 'Job Applications',
 			  templateUrl: 'views/job-applications.html',
 			  access: { requiredLogin: true },
-			  controller: 'JobApplicationsCtrl'
+			  controller: 'JobApplicationsCtrl',
+			  controllerAs: 'jobAppsCtrl'
 			})
 			.when('/dashboard', {
 			  templateUrl: 'views/dashboard.html',
@@ -97,6 +97,11 @@
 			  access: { requiredLogin: true },
 			  controller: 'DoctorCtrl',
 			  controllerAs: 'dr'
+			}).when('/job-applications/:id', {
+			  templateUrl: 'views/job-application.html',
+			  access: {requiredLogin: true },
+			  controller: 'JobapplicationCtrl',
+			  controllerAs: 'jobAppCtrl'
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view
@@ -107,7 +112,7 @@
 	});
 	
 	
-	webapp.run(function($rootScope, $location, Auth, localStorageService,$log) {
+	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
 		
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			//Route should have access level set
@@ -152,6 +157,11 @@
 				event.preventDefault();
 				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));
 				$location.path('/login');
+			}
+		});
+		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
+			if (oldVal !== newVal) {
+				document.title = $route.current.title || 'Modio Admin Portal';
 			}
 		});
 	});

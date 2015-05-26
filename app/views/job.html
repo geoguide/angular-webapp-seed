@@ -1,3 +1,126 @@
-<formly-form model="jobCtrl.jobData" fields="jobCtrl.jobFields">
-  <button type="submit" class="btn btn-default" ng-click="jobCtrl.submit(jobCtrl.jobData)">Submit</button>
-</formly-form>
+<section>
+	
+	<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak">Job Not Found</div>
+	<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}}</h4>
+	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
+		<div class="row">
+			<div class="col-md-4 form-group">
+				<label>Job Type</label>
+				<select name="job_type" class="form-control" ng-model="jobCtrl.jobData.job_type"  ng-required="true">
+					<option value="locum">Locum</option>
+					<option value="permanent">Permanent</option>
+				</select>
+			</div>
+			<div class="col-md-4 form-group">
+				<label>Specialty</label>
+				<select class="form-control" name="specialty_id" ng-model="jobCtrl.jobData.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in jobCtrl.specialties"></select>
+			</div>
+			<div class="col-md-4 form-group">
+				<label>Job Status</label>
+				<select name="status" class="form-control" ng-model="jobCtrl.jobData.active"  ng-required="true">
+					<option value="1">Active</option>
+					<option value="0">Inactive</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Facility</label>
+			<select class="form-control" name="facility_id" ng-model="jobCtrl.jobData.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in jobCtrl.facilities"></select>
+		</div>
+		<div class="form-group">
+			<label>Job Title</label>
+			<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
+		</div>
+		<div class="form-group">
+			<label>Job Description</label>
+			<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.description"  ng-required="true" />
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label>Start Date</label>
+				<p class="input-group">
+					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.start_date" is-open="jobCtrl.opened" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+			
+			<div class="col-md-3">
+				<label>End Date</label>
+				<p class="input-group">
+					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.end_date" is-open="jobCtrl.opened" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Experience Low</label>
+				<input type="text" class="form-control" ng-required="true" ng-model="jobCtrl.jobData.experience_low" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Experience High</label>
+				<input type="text" class="form-control" ng-required="true" ng-model="jobCtrl.jobData.experience_high" />
+			</div>
+		</div>
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Rates</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobCtrl.jobData.holiday_premium" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Overnight Call</label>
+				<input type="number" class="form-control" ng-model="jobCtrl.jobData.overnight_call" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobCtrl.jobData.eight_hour" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Holiday Premium</label>
+				<input type="number" class="form-control" ng-model="jobCtrl.jobData.callback" />
+			</div>
+		</div>
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Rquirements?</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>FMG OK?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.fmg_accepted" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Visa Required?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.visa_required" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Overnight Call Req?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.overnight_call_required" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Trauma Call Req?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.trauma_call_required" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p>We could have job submitted by, or link them to hospital users in the future</p>
+			</div>
+		</div>
+		<div class="modal-footer"> 
+			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_form.$invalid">OK</button> 
+			<button class="btn btn-danger" role="button" type="button" ng-really-click="jobCtrl.delete()" ng-really-message="Are you sure you want to delete this doctor?">Delete</button> 
+			<button class="btn btn-warning" role="button" type="button" ng-click="jobCtrl.closeModal()">Cancel</button> 
+		</div>
+	</form>
+</section>

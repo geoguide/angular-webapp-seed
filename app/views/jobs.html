@@ -13,8 +13,8 @@
 					<div class="col-md-6 form-group">
 						<label>Job Type</label>
 						<select name="job_type" class="form-control" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
-							<option value="1">Locum</option>
-							<option value="2">Permanent</option>
+							<option value="locum">Locum</option>
+							<option value="permanent">Permanent</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -35,23 +35,68 @@
 					<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.description"  ng-required="true" />
 				</div>
 				<div class="row">
-					<div class="form-group col-md-6">
-						<label>Start Date</label>
-						<input type="text" class="form-control" />
+					<div class="col-xs-3 form-group">
+						<label>Holiday Premium</label>
+						<input type="number" class="form-control" ng-model="jobCtrl.newJob.holiday_premium" />
 					</div>
-					<div class="form-group col-md-6">
-						<label>End Date</label>
-						<input type="text" class="form-control" />
+					<div class="col-xs-3 form-group">
+						<label>Overnight Call</label>
+						<input type="number" class="form-control" ng-model="jobCtrl.newJob.overnight_call" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Holiday Premium</label>
+						<input type="number" class="form-control" ng-model="jobCtrl.newJob.eight_hour" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Holiday Premium</label>
+						<input type="number" class="form-control" ng-model="jobCtrl.newJob.callback" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3 form-group">
+						<label>FMG OK?</label>
+						<input type="checkbox" ng-model="jobCtrl.newJob.fmg_accepted" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Visa Required?</label>
+						<input type="checkbox" ng-model="jobCtrl.newJob.visa_required" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Overnight Call Req?</label>
+						<input type="checkbox" ng-model="jobCtrl.newJob.overnight_call_required" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Trauma Call Req?</label>
+						<input type="checkbox" ng-model="jobCtrl.newJob.trauma_call_required" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<p class="input-group">
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="true" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+					
+					<div class="col-md-6">
+						<p class="input-group">
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="true" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
 						<label>Experience Low</label>
-						<input type="text" class="form-control" />
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.experience_low" />
 					</div>
 					<div class="form-group col-md-6">
 						<label>Experience High</label>
-						<input type="text" class="form-control" />
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.experience_high" />
 					</div>
 				</div>
 			</div> 

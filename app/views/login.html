@@ -9,7 +9,7 @@
 						
 						<!-- Text input-->
 						<div class="form-group"> 
-							<div class="input-group" ng-class="{ 'has-success': login_form.email.$valid, 'has-error': login_form.email.$invalid && login_form.email.$dirty">
+							<div class="input-group" ng-class="{'has-error': login_form.email.$invalid && login_form.email.$dirty }">
 								<span class="input-group-addon"><i class="fa fa-fw fa-envelope" ng-show="login_form.email.$invalid"></i><i class="fa fa-check fa-fw" ng-show="login_form.email.$valid"></i></span>
 								<input id="email" name="email" type="email" placeholder="john@doctor.com" value="geoffguidetti@gmail.com" class="form-control input-md" ng-model="loginCtrl.login.email" required>
 							</div>
@@ -25,7 +25,7 @@
 			
 						<!-- Button -->
 						<div class="form-group">
-							<button id="signup" name="signup" class="btn btn-success btn-block" ng-disabled="login_form.$invalid">Login</button>
+							<button id="signup" name="signup" class="btn btn-success btn-block">Login</button>
 						</div>
 						
 					</form>

@@ -27,7 +27,7 @@ angular.module('modioAdminPortal')
 				return response.data;
 			});
 		}, saveJob: function(formData){
-			return $http.put(API_URL+'/admin/jobs',formData).then(function(response) {
+			return $http.put(API_URL+'/admin/jobs/'+formData.id,formData).then(function(response) {
 				return response.data;
 			});
 		}, deleteJob: function(jobId){

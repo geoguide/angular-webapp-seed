@@ -71,7 +71,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($modal,$m
 			});
 		});
 	};
-	
+
 	this.open = function () {
 
 		this.modalInstance = $modal.open({

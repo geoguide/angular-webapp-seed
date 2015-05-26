@@ -1,7 +1,7 @@
 <accordion close-others="true">
 	<accordion-group is-open="status.open">
 		<accordion-heading>Fellowships<span class="badge pull-right">0</span></accordion-heading>
-		This is just some content to illustrate fancy headings.
+		<article ng-repeat="(key,obj) in dr.experience.fellowships"><form novalidate ng-submit="dr.submitExperience('fellowship',obj)"><pre ng-click="dr.openModal('fellowship-modal',obj)">{{key}}: {{obj}}</pre><button class="btn btn-primary"></button></form></article>
 	</accordion-group>
 	<accordion-group>
 		<accordion-heading>Internships<span class="badge pull-right">0</span></accordion-heading>
@@ -24,3 +24,16 @@
 		This is just some content to illustrate fancy headings.
 	</accordion-group>
 </accordion>
+
+<script type="text/ng-template" id="fellowship-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{dr.info}}</h3>
+	</div>
+	<div class="modal-body">
+		Helloooooooo please.
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
