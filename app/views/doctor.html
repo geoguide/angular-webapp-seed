@@ -13,37 +13,37 @@
 					
 					<div class="row">
 						<div class="form-group col-md-4">
-							<label for="email">Email Address</label>
-							<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email">
+							<label for="email">Email Address - no changing for now?</label>
+							<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email" readonly>
 						</div>
 						<div class="form-group col-md-4">
-							<label for="password">Password</label>
+							<label for="password">Password - Important, write method + system, for now just straight up change it.</label>
 							<div><button class="btn btn-primary" id="change-password">Change Password</button></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label>States Subscribed</label>	
+							<div>Just A million checkboxes for now</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<label>Specialties</label>	
+							<label>Specialties</label>
+							<div>Add Specialty</div>
+							<div>Remove/Change Specialty</div>
+							<div>Could just be 3 selects with a blank option</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<label>Rates?</label>	
+							<label>Rates? - include in general info, store on per doctor basis for now</label>	
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 form-group">
-							<label>Applications?</label>	
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 form-group">
-							<label>Actions, such as apply to job?</label>	
+							<label>Applications?</label>
+							<div>New Application - choose from job list</div>
 						</div>
 					</div>
 						
@@ -53,7 +53,7 @@
 					<ng-include src="'../partials/education-and-work.html'"></ng-include>
 				</tab>
 				<tab heading="Credentialing" bs-pane>
-					<ng-include src="'../partials/credentialing.html'"></ng-include>
+					<ng-include src="'../partials/qualifications.html'"></ng-include>
 				</tab>
 			</tabset>
 		</div>

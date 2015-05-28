@@ -9,31 +9,110 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, $modal) {
+  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, $modal) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.doctorData = null;
 	this.activeTab = 0;
-	this.opened = false;
+	this.training = {};
+	this.medicalSchool = {};
+	this.clinicalEvaluations = [];
+	this.specialties = [];
+	this.workHistory = [];
 	
 	this.openModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
-			controller: 'DoctorCtrl',
-			controllerAs: 'dr',
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
 			resolve: {
-				//Variables to add to modal's scope - not needed since using the same controller
-				info: function(){
+				modalObject: function(){
 					$log.log('sending modal '+angular.toJson(dataIn));
 					return dataIn;
+				},
+				title: function(){
+					return 'Training Info';
+				},
+				parentCtrl: function(){
+					return _this;
 				}
 			}
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			//something on open????
-			console.log('data '+angular.toJson(data));
+			$log.log('submitting data for '+_this.doctorId);
+			experienceFactory.submitTraining(data).then(function(){
+				loadExperience();
+			},function(error){
+				console.log(error);
+			});
+		}, function () {
+			//something on close
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+	
+	this.openClinicalEvaluationModal = function(modalId,dataIn){
+		this.modalInstance = $modal.open({
+			templateUrl: modalId,
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
+			resolve: {
+				//Variables to add to modal's scope - not needed since using the same controller
+				modalObject: function(){
+					$log.log('sending modal '+angular.toJson(dataIn));
+					return dataIn;
+				},
+				title: function(){
+					return 'Clinical Evaluation';
+				},
+				parentCtrl: function(){
+					return _this;
+				}
+			}
+		});
+
+		_this.modalInstance.result.then(function (data) {
+			$log.log('submitting data for '+_this.doctorId);
+			qualificationFactory.submitClinicalEvaluation(_this.doctorId,data).then(function(){
+				loadQualifications();
+			},function(error){
+				console.log(error);
+			});
+		}, function () {
+			//something on close
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+	
+	this.openWorkHistoryModal = function(modalId,dataIn){
+		this.modalInstance = $modal.open({
+			templateUrl: modalId,
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
+			resolve: {
+				//Variables to add to modal's scope - not needed since using the same controller
+				modalObject: function(){
+					$log.log('sending modal '+angular.toJson(dataIn));
+					return dataIn;
+				},
+				title: function(){
+					return 'Work History';
+				},
+				parentCtrl: function(){
+					return _this;
+				}
+			}
+		});
+
+		_this.modalInstance.result.then(function (data) {
+			$log.log('submitting data for '+_this.doctorId);
+			experienceFactory.submitWorkHistory(_this.doctorId,data).then(function(){
+				loadExperience();
+			},function(error){
+				console.log(error);
+			});
 		}, function () {
 			//something on close
 			$log.info('Modal dismissed at: ' + new Date());
@@ -41,6 +120,7 @@ angular.module('modioAdminPortal')
 	};
 	
 	//Date of Birth Picker
+	this.opened = false;
 	this.open = function($event) {
 		$log.log('open called');
 		$event.preventDefault();
@@ -48,12 +128,6 @@ angular.module('modioAdminPortal')
 		
 		_this.opened = true;
 	};
-	
-	this.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1
-	};
-	
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 	this.format = this.formats[0];
 	this.dateOptions = {
@@ -61,7 +135,7 @@ angular.module('modioAdminPortal')
 	    startingDay: 1
 	};
 	
-	this.experience = {};
+	
 	
 	this.get = function(doctorId){
 		
@@ -73,18 +147,6 @@ angular.module('modioAdminPortal')
 			_this.error = false;
 		},function(error){
 			_this.error = true;
-			_this.doctorData = null;
-		});
-	};
-	
-	// this... doesn't belong here? Can't do this on this page.
-	this.create = function(newDoc){
-		
-		var doctorData = doctorFactory.createDoctor(newDoc);
-		
-		doctorData.then(function(data){
-			_this.doctorData = data;
-		},function(error){
 			_this.doctorData = null;
 		});
 	};
@@ -129,12 +191,11 @@ angular.module('modioAdminPortal')
 		});
 	};
 	
-	this.submitExperience = function(expType, data){
-		$log.log('submitting: '+expType+' '+angular.toJson(data,false,2));
-		experienceFactory.submitExperience(_this.doctorId, expType,data).then(function(data){
+	this.submitTraining = function(data){
+		experienceFactory.submitTraining(_this.doctorId,data).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
-				msg: 'Doctor Deleted.',
+				msg: 'Training Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -148,12 +209,91 @@ angular.module('modioAdminPortal')
 		});
 	};
 	
-	var init = function(){
-		_this.get(_this.doctorId);
-		experienceFactory.getExperience(_this.doctorId).then(function(data){
-			_this.experience = data;
+	this.submitMedicalSchool = function(){
+		console.log('ms: '+angular.toJson(_this.medicalSchool));
+		experienceFactory.submitMedicalSchool(_this.doctorId,_this.medicalSchool).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'School Saved.',
+				showClose: true,
+				clickToClose: true
+			});
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteTraining = function(expId){
+		experienceFactory.deleteTraining(_this.doctorId,expId).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Training Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+			loadExperience();
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteWorkHistory = function(expId){
+		experienceFactory.deleteWorkHistory(_this.doctorId,expId).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Work Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+			loadExperience();
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	var loadExperience = function(){
+		experienceFactory.getTraining(_this.doctorId).then(function(data){
+			_this.training = data;
+			return experienceFactory.getMedicalSchool(_this.doctorId);
+		}).then(function(data){
+			_this.medicalSchool = data;
+			return experienceFactory.getWorkHistory(_this.doctorId);
+		}).then(function(data){
+			_this.workHistory = data;	
 		},function(error){
 			$log.error(error);
+		});
+	};
+	
+	var loadQualifications = function(){
+		qualificationFactory.getClinicalEvaluations(_this.doctorId).then(function(data){
+			_this.clinicalEvaluations = data;
+		},function(error){
+			$log.error(error);
+		});
+	};
+	
+	var init = function(){
+		_this.get(_this.doctorId);
+		loadExperience();
+		loadQualifications();
+		specialtyFactory.getSpecialties().then(function(data){
+			_this.specialties = data;
 		});
 	};
 	

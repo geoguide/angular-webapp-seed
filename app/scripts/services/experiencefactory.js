@@ -18,30 +18,47 @@ angular.module('modioAdminPortal')
     return {
       someMethod: function () {
 			return meaningOfLife;
-		}, submitExperience: function(doctorId, expType, formData){
-			$log.log('submitting ('+doctorId+'s '+expType+' as '+angular.toJson(formData));
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/experience/'+expType, formData).then(function(response) {
+		}, submitTraining: function(doctorId, formData){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/training', formData).then(function(response) {
 				return response.data;
 			});
-		}, deleteExperience: function(doctorId,expType, expId){
-			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/'+expType+'/'+expId).then(function(response) {
+		}, deleteTraining: function(doctorId,expId){
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/training/'+expId).then(function(response) {
 				return response.data;
 			});
-		/*}, saveJob: function(formData){
-			return $http.put(API_URL+'/admin/jobs/'+formData.id,formData).then(function(response) {
-				return response.data;
-			});
-		}, deleteJob: function(jobId){
-			return $http.delete(API_URL+'/admin/jobs/'+jobId).then(function(response) {
-				return true;
-			},function(error){
-				$log.error(error);
-			});*/
-		}, getExperience: function(doctorId){
-			return $http.get(API_URL+'/admin/doctor/'+doctorId+'/experience').then(function(response) {
+		}, getTraining: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/training').then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
+			});
+		}, submitMedicalSchool: function(doctorId,data){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-school',data).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, getMedicalSchool: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/medical-school').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		},	submitWorkHistory: function(doctorId,data){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/work-history',data).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, getWorkHistory: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/work-history').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		},deleteWorkHistory: function(doctorId,expId){
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/work-history/'+expId).then(function(response) {
+				return response.data;
 			});
 		}
     };

@@ -1,0 +1,100 @@
+<accordion close-others="true">
+	<!--<accordion-group is-open="status.open">
+		<accordion-heading>Board Certifications<span class="badge pull-right">0</span></accordion-heading>
+		This is just some content to illustrate fancy headings.
+	</accordion-group>-->
+	<accordion-group>
+		<accordion-heading>Clinical Evaluations<span class="badge pull-right">{{(dr.clinicalEvaluations).length}}</span></accordion-heading>
+		<article ng-repeat="(key,obj) in dr.clinicalEvaluations">
+			{{obj.name}}
+			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteClinicalEvaluation(obj.id)">Delete</button>
+			<a class="btn btn-info" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',obj)">Edit</a>
+		</article>
+	</accordion-group>
+	<!--<accordion-group>
+		<accordion-heading>Licenses<span class="badge pull-right">0</span></accordion-heading>
+		This is just some content to illustrate fancy headings.
+	</accordion-group>-->
+	<!--<accordion-group>
+		<accordion-heading>Professional Questions<span class="badge pull-right">0</span></accordion-heading>
+		This is just some content to illustrate fancy headings.
+	</accordion-group>-->
+</accordion>
+<div class="row">
+	<div class="col-md-12 text-right">
+		<button class="btn btn-primary" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',{})">Add Clinical Evaluation</button>
+	</div>
+</div>
+
+<script type="text/ng-template" id="clinical-evaluation-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Name</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.name" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Criteria</label>
+					<select class="form-control" ng-model="modal.modalObject.criteria">
+						<option value="1">Physician with whom you have shared "call"</option>
+						<option value="2">Former partner</option>
+						<option value="3">Physician in a referral relationship with you</option>
+						<option value="4">[Surgeon] An anesthesiologist with whom you have worked frequently during at least 6 of the last 12 months</option>
+						<option value="5">[Anesthesiologist] A surgeon with whom you have worked frequently in 6 of the last 12 months</option>
+						<option value="6">Faculty member or other attending physician with whom you have worked for a significant period of time</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Specialty</label>
+					<select class="form-control" ng-model="modal.modalObject.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in modal.parentCtrl.specialties"></select>
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Address</label>
+					<input class="form-control" ng-model="modal.modalObject.address" type="email" />
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Address 2</label>
+					<input class="form-control" ng-model="modal.modalObject.address2" type="email" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>City</label>
+					<input class="form-control" ng-model="modal.modalObject.city" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>State</label>
+					<input class="form-control" ng-model="modal.modalObject.state" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Zip Code</label>
+					<input class="form-control" ng-model="modal.modalObject.zip_code" ui-mask="99999" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>Phone</label>
+					<input class="form-control" ng-model="modal.modalObject.phone_number" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Fax Number</label>
+					<input class="form-control" ng-model="modal.modalObject.fax_number" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Email</label>
+					<input class="form-control" ng-model="modal.modalObject.email" type="email" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>

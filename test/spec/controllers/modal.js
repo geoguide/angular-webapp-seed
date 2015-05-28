@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: JobCtrl', function () {
+describe('Controller: ModalCtrl', function () {
 
   // load the controller's module
   beforeEach(module('modioAdminPortal'));
 
-  var JobCtrl,
+  var ModalCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    JobCtrl = $controller('JobCtrl', {
+    ModalCtrl = $controller('ModalCtrl', {
       $scope: scope
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    //expect(scope.jobCtrl.awesomeThings.length).toBe(3);
+    //expect(scope.awesomeThings.length).toBe(3);
     return true;
   });
 });

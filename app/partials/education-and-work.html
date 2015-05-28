@@ -1,39 +1,306 @@
+<section id="medical-school">
+	<h2>Medical School</h2>
+	<form novalidate ng-submit="dr.submitMedicalSchool()">
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Institution</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.institution" />
+			</div>
+			<div class="form-group col-xs-6">
+				<label>Degree Awarded</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.degree_awarded" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Address</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.address" />
+			</div>
+			<div class="form-group col-xs-6">
+				<label>Address 2</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.address2" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-3">
+				<label>City</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.city" />
+			</div>
+			<div class="form-group col-xs-3">
+				<label>State </label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.state" />
+			</div>
+			<div class="form-group col-xs-3">
+				<label>Zip</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.zip" />
+			</div>
+			<div class="form-group col-xs-3">
+				<label>Country </label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.country" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Phone</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.address" />
+			</div>
+			<div class="form-group col-xs-6">
+				<label>EFMG?</label>
+				<select class="form-control" ng-model="dr.medicalSchool.address">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Start Date</label>
+				<div class="input-group">
+					<input type="text" class="form-control" datepicker-popup="{{dr.format}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened" max-date="'2015-06-22'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
+					</span>
+				</div>
+			</div>
+			<div class="form-group col-xs-6">
+				<label>End Date</label>
+				<div class="input-group">
+					<input type="text" class="form-control" datepicker-popup="{{dr.format}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened" max-date="'2015-06-22'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-right">
+				<button role="submit" class="btn btn-primary">Submit Medical School Info</button>
+			</div>
+		</div>
+	</form>
+</section>
+
+<section id="training-section">
+	<h2>Training</h2>
+	<accordion close-others="true">
+		<accordion-group is-open="status.open">
+			<accordion-heading>Fellowships<span class="badge pull-right">{{(dr.training | filter: { training_type: 'fellowship'}).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'fellowship' }">
+				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
+				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
+				<a class="btn btn-info" ng-click="dr.openModal('training-modal',obj)">Edit</a>
+			</article>
+		</accordion-group>
+		<accordion-group>
+			<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 'internship'}).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'internship' }">
+				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
+				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
+				<a class="btn btn-info" ng-click="dr.openModal('training-modal',obj)">Edit</a>
+			</article>
+		</accordion-group>
+		<accordion-group>
+			<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 'residency'}).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'residency' }">
+				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
+				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
+				<a class="btn btn-info" ng-click="dr.openModal('training-modal',obj)">Edit</a>
+			</article>
+		</accordion-group>
+	</accordion>
+	<div class="row">
+		<div class="col-md-12 text-right">
+			<button class="btn btn-primary" ng-click="dr.openModal('training-modal',{})">Add Training</button>
+		</div>
+	</div>
+
+<h2>Work History</h2>
 <accordion close-others="true">
-	<accordion-group is-open="status.open">
-		<accordion-heading>Fellowships<span class="badge pull-right">0</span></accordion-heading>
-		<article ng-repeat="(key,obj) in dr.experience.fellowships"><form novalidate ng-submit="dr.submitExperience('fellowship',obj)"><pre ng-click="dr.openModal('fellowship-modal',obj)">{{key}}: {{obj}}</pre><button class="btn btn-primary"></button></form></article>
-	</accordion-group>
-	<accordion-group>
-		<accordion-heading>Internships<span class="badge pull-right">0</span></accordion-heading>
-		This is just some content to illustrate fancy headings.
-	</accordion-group>
-	<accordion-group>
-		<accordion-heading>Medical Schools<span class="badge pull-right">0</span></accordion-heading>
-		This is just some content to illustrate fancy headings.
-	</accordion-group>
-	<accordion-group>
+	<!--<accordion-group>
 		<accordion-heading>Practices<span class="badge pull-right">0</span></accordion-heading>
 		This is just some content to illustrate fancy headings.
-	</accordion-group>
-	<accordion-group>
-		<accordion-heading>Residencies<span class="badge pull-right">0</span></accordion-heading>
+	</accordion-group>-->
+	<!--<accordion-group>
+		<accordion-heading>Malpractice<span class="badge pull-right">0</span></accordion-heading>
 		This is just some content to illustrate fancy headings.
-	</accordion-group>
+	</accordion-group>-->	
+	
+	
 	<accordion-group>
-		<accordion-heading>Work History<span class="badge pull-right">0</span></accordion-heading>
-		This is just some content to illustrate fancy headings.
+		<accordion-heading>Work History<span class="badge pull-right">{{(dr.workHistory).length}}</span></accordion-heading>
+		<article ng-repeat="(key,obj) in dr.workHistory">
+			{{obj.employer}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
+			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteWorkHistory(obj.id)">Delete</button>
+			<a class="btn btn-info" ng-click="dr.openWorkHistoryModal('work-history-modal',obj)">Edit</a>
+		</article>
 	</accordion-group>
 </accordion>
+<div class="row">
+	<div class="col-md-12 text-right">
+		<button class="btn btn-primary" ng-click="dr.openWorkHistoryModal('work-history-modal',{})">Add Work History</button>
+	</div>
+</div>
 
-<script type="text/ng-template" id="fellowship-modal">
+<script type="text/ng-template" id="training-modal">
 	<div class="modal-header">
-		<h3 class="modal-title">{{dr.info}}</h3>
+		<h3 class="modal-title">{{modal.title}}</h3>
 	</div>
 	<div class="modal-body">
-		Helloooooooo please.
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Institution</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.institution" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Training Type</label>
+					<select class="form-control" ng-model="modal.modalObject.training_type">
+						<option value="fellowship">Fellowship</option>
+						<option value="internship">Internship</option>
+						<option value="residency">Residency</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Program Director</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.program_director" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Email Address</label>
+					<input class="form-control" ng-model="modal.modalObject.email_address" type="email" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+				</div>
+					
+				<div class="col-md-6">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Affiliated University</label>
+				<input type="text" class="form-control" ng-model="modal.modalObject.affiliated_university" />
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Program Completed</label>
+					<select class="form-control" ng-model="modal.modalObject.program_completed">
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+					</select>
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Completed Notes</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.program_completed_reason" />
+				</div>
+			</div>
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="ok()">OK</button>
-		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="work-history-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate ng-submit="modal.parentCtrl.submitWorkHistory()">
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Employer</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.employer" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Position Held</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.position_held" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Address</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.address" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Address 2</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.address2" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>City</label>
+					<input class="form-control" ng-model="modal.modalObject.city" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>State</label>
+					<input class="form-control" ng-model="modal.modalObject.state" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Zip Code</label>
+					<input class="form-control" ng-model="modal.modalObject.zip_code" ui-mask="99999" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Supervisor</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.supervisor" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Supervisor Email Address</label>
+					<input class="form-control" ng-model="modal.modalObject.supervisor_email" type="email" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+				</div>
+					
+				<div class="col-md-6">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>Phone</label>
+					<input class="form-control" ng-model="modal.modalObject.phone_number" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Fax Number</label>
+					<input class="form-control" ng-model="modal.modalObject.fax_number" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Reason for Leaving</label>
+					<input class="form-control" ng-model="modal.modalObject.reason_for_leaving" type="text" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
 	</div>
 </script>
