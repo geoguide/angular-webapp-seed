@@ -1,7 +1,7 @@
 <section>
 	
 	<div id="no-data" ng-show="jobAppCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4>AppId: {{jobAppCtrl.appData.id}} for Job:{{jobAppCtrl.appData.job_id}} by Doc:{{jobAppCtrl.appData.doctor_id}}</h4>
+	<h4>{{jobAppCtrl.appData.job_title}} - AppId: {{jobAppCtrl.appData.id}} for Job:{{jobAppCtrl.appData.job_id}} by Doc:{{jobAppCtrl.appData.doctor_id}} [{{jobAppCtrl.appData.status}}]</h4>
 	<form id="job-application-form" name="edit_job_application_form" ng-submit="jobAppCtrl.save()" ng-show="jobAppCtrl.appData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-3 form-group">
@@ -20,8 +20,8 @@
 				</select>
 			</div>
 			<div class="col-xs-3 form-group">
-				<button class="btn-success btn btn-block" type="button">Accept</button>
-				<button class="btn-danger btn btn-block" type="button">Reject</button>
+				<button class="btn-success btn btn-block" type="button" ng-click="jobAppCtrl.acceptApplication()">Accept</button>
+				<button class="btn-danger btn btn-block" type="button" ng-click="jobAppCtrl.rejectApplication()">Reject</button>
 			</div>
 		</div>
 
@@ -43,11 +43,11 @@
 				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.overnight_call" />
 			</div>
 			<div class="col-xs-3 form-group">
-				<label>Holiday Premium</label>
+				<label>Eight Hour</label>
 				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.eight_hour" />
 			</div>
 			<div class="col-xs-3 form-group">
-				<label>Holiday Premium</label>
+				<label>Callback</label>
 				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.callback" />
 			</div>
 		</div>

@@ -19,6 +19,7 @@ angular.module('modioAdminPortal')
       someMethod: function () {
 			return meaningOfLife;
 		}, submitTraining: function(doctorId, formData){
+			$log.log('id recenived: '+JSON.stringify(doctorId));
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/training', formData).then(function(response) {
 				return response.data;
 			});

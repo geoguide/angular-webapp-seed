@@ -30,6 +30,32 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
-		}
+		}, deleteClinicalEvaluation: function(doctorId,evId){
+			//TODO
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/clinical-evaluations/'+evId).then(function(response) {
+				return true;
+			}, function(error){
+				$log.error(error);
+			});
+		}, getFacilityAffiliations: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/facility-affiliations').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, submitFacilityAffiliation: function(doctorId,data){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/facility-affiliations',data).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, deleteFacilityAffiliation: function(doctorId,evId){
+			//TODO
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/facility-affiliations/'+evId).then(function(response) {
+				return true;
+			}, function(error){
+				$log.error(error);
+			});
+		}, 
     };
   });

@@ -23,19 +23,15 @@ angular.module('modioAdminPortal')
 				return response.data;
 			});
 		}, acceptApplication: function(applicationId){
-			return $http.put(API_URL+'/admin/job-applications/'+applicationId+'/accept').then(function(response) {
-				return response.data;
-			});
+			return $http.post(API_URL+'/admin/job-applications/'+applicationId+'/accept');
 		}, saveApplication: function(formData){
 			return $http.put(API_URL+'/admin/job-applications/'+formData.id,formData).then(function(response) {
 				return response.data;
 			});
 		}, rejectApplication: function(applicationId){
-			return $http.post(API_URL+'/admin/job-applications/'+applicationId+'/reject').then(function(response) {
-				return true;
-			},function(error){
-				$log.error(error);
-			});
+			return $http.post(API_URL+'/admin/job-applications/'+applicationId+'/reject');
+		}, createApplication: function(appData){
+			return $http.post(API_URL+'/admin/job-applications/',appData);
 		}, queryApplications: function(searchQuery, pageNumber){
 			return $http.get(API_URL+'/admin/job-applications?q='+searchQuery+'&p='+pageNumber).then(function(response) {
 				return response.data;

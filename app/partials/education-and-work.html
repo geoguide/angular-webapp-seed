@@ -28,11 +28,13 @@
 			</div>
 			<div class="form-group col-xs-3">
 				<label>State </label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.state" />
+				<select class="form-control" ng-model="dr.medicalSchool.state">
+					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+				</select>
 			</div>
 			<div class="form-group col-xs-3">
 				<label>Zip</label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.zip" />
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.zip_code" ui-mask="99999" />
 			</div>
 			<div class="form-group col-xs-3">
 				<label>Country </label>
@@ -42,11 +44,11 @@
 		<div class="row">
 			<div class="form-group col-xs-6">
 				<label>Phone</label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.address" />
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.phone_number" ui-mask="(999) 999-9999" />
 			</div>
 			<div class="form-group col-xs-6">
 				<label>EFMG?</label>
-				<select class="form-control" ng-model="dr.medicalSchool.address">
+				<select class="form-control" ng-model="dr.medicalSchool.ECFMG">
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</select>
@@ -183,7 +185,7 @@
 					
 				<div class="col-md-6">
 					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -247,7 +249,9 @@
 				</div>
 				<div class="col-md-4 form-group">
 					<label>State</label>
-					<input class="form-control" ng-model="modal.modalObject.state" type="text" />
+					<select class="form-control" ng-model="modal.modalObject.state">
+						<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+					</select>
 				</div>
 				<div class="col-md-4 form-group">
 					<label>Zip Code</label>
@@ -276,7 +280,7 @@
 					
 				<div class="col-md-6">
 					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>

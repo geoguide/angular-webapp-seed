@@ -23,8 +23,6 @@ button:disabled, button[disabled] {
 	margin-top: 15px;
 }
 
-
-
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -60,6 +58,9 @@ body {
     line-height: 40px;
     padding-bottom: 19px;
   }
+  .navbar-brand {
+	  padding: 3px;
+  }
 }
 
 /* Custom page footer */
@@ -68,7 +69,6 @@ body {
   color: #777;
   border-top: 1px solid #e5e5e5;
   margin-top:19px;
-  display:none;
 }
 
 .container-narrow > hr {

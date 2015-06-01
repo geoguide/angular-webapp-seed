@@ -45,8 +45,45 @@ angular.module('modioAdminPortal')
 				showClose: true,
 				clickToClose: true
 			});
-			_this.appData = data;
 		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.message,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.acceptApplication = function(){
+		jobApplicationFactory.acceptApplication(_this.appId).success(function(){
+			_this.appData.status = 'accepted';
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Application Accepted.',
+				showClose: true,
+				clickToClose: true
+			});
+		}).error(function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.message,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.rejectApplication = function(){
+		jobApplicationFactory.rejectApplication(_this.appId).success(function(){
+			_this.appData.status = 'rejected';
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Application Accepted.',
+				showClose: true,
+				clickToClose: true
+			});
+		}).error(function(error){
 			toasty.pop.error({
 				title: 'Error!',
 				msg: error.message,

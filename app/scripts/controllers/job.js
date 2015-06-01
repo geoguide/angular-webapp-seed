@@ -37,7 +37,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		console.log(JSON.stringify(_this.jobData));
 		_this.jobData.start_date = (_this.jobData.start_date === '2000-06-22') ? null : _this.jobData.start_date;
 		_this.jobData.end_date = (_this.jobData.end_date === '2000-06-22') ? null : _this.jobData.end_date;
-		jobFactory.saveJob(_this.jobData).then(function(data){
+		jobFactory.saveJob(_this.jobData).success(function(data){
 			toasty.pop.success({
 				title: 'Success!',
 				msg: 'Job Saved.',
@@ -45,7 +45,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 				clickToClose: true
 			});
 			_this.jobData = data;
-		}, function(error){
+		}).error(function(error){
 			toasty.pop.error({
 				title: 'Error!',
 				msg: error.message,

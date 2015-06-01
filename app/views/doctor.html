@@ -13,46 +13,144 @@
 					
 					<div class="row">
 						<div class="form-group col-md-4">
-							<label for="email">Email Address - no changing for now?</label>
+							<label for="email">Email Address</label>
 							<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email" readonly>
 						</div>
 						<div class="form-group col-md-4">
-							<label for="password">Password - Important, write method + system, for now just straight up change it.</label>
-							<div><button class="btn btn-primary" id="change-password">Change Password</button></div>
+							<label for="password">Password</label>
+							<input type="password" class="form-control" ng-model="dr.newPassword" />
+							<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="dr.updatePassword()">Change Password</button>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 form-group">
-							<label>States Subscribed</label>	
-							<div>Just A million checkboxes for now</div>
+						<div class="col-md-12">
+							<h2>States Subscribed</h2>	
+						</div>
+						<div class="col-md-2" ng-repeat="(key, value) in appCtrl.usStates">
+							<label>{{value.abbreviation}}</label>
+							<input type="checkbox" ng-model="dr.states[value.abbreviation]" ng-click="dr.updateState(value.abbreviation)" />
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 form-group">
-							<label>Specialties</label>
-							<div>Add Specialty</div>
-							<div>Remove/Change Specialty</div>
-							<div>Could just be 3 selects with a blank option</div>
+						<div class="col-md-12">
+							<h2>Specialties</h2>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 form-group">
-							<label>Rates? - include in general info, store on per doctor basis for now</label>	
+						<div class="col-md-4">
+							<label>Specialty #1</label>
+							<select class="form-control" ng-model="dr.drSpecialties[0].id" ng-options="spec.id as spec.specialty for spec in dr.specialties" ng-change="dr.updateSpecialty(dr.drSpecialties[0].id,{{dr.drSpecialties[0].id || 'null'}})"><option value="">-- None --</option></select>
+						</div>
+						<div class="col-md-4">
+							<label>Specialty #2</label>
+							<select class="form-control" ng-model="dr.drSpecialties[1].id" ng-options="spec.id as spec.specialty for spec in dr.specialties" ng-change="dr.updateSpecialty(dr.drSpecialties[1].id,{{dr.drSpecialties[1].id || 'null'}})"><option value="">-- None --</option></select>
+						</div>
+						<div class="col-md-4">
+							<label>Specialty #3</label>
+							<select class="form-control" ng-model="dr.drSpecialties[2].id" ng-options="spec.id as spec.specialty for spec in dr.specialties" ng-change="dr.updateSpecialty(dr.drSpecialties[2].id,{{dr.drSpecialties[2].id || 'null'}})"><option value="">-- None --</option></select>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 form-group">
-							<label>Applications?</label>
-							<div>New Application - choose from job list</div>
+						<div class="col-md-12">
+							<h2>Rates</h2>	
 						</div>
 					</div>
+					<form ng-submit="dr.submitRates()">
+						<div class="row">	
+							<div class="col-md-3 form-group">
+								<label>Overnight Call</label>{{dr.rates.overnight_call}}
+								<input type="text" class="form-control" ng-model="dr.rates.overnight_call">
+							</div>
+							<div class="col-md-3 form-group">
+								<label>Callback</label>
+								<input type="text" class="form-control" ng-model="dr.rates.callback">
+							</div>
+							<div class="col-md-3 form-group">
+								<label>Holiday Premium</label>
+								<input type="text" class="form-control" ng-model="dr.rates.holiday_premium">
+							</div>
+							<div class="col-md-3 form-group">
+								<label>Eight Hour</label>
+								<input type="text" class="form-control" ng-model="dr.rates.eight_hour">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-right form-group">
+								<button class="btn btn-primary">Submit Rates</button>
+							</div>
+						</div>
+					</form>
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Applications</h2>
+							<article ng-repeat="(key,obj) in dr.jobApplications" class="row">
+								<div class="col-md-6"><h4>{{obj.job_title}} ({{obj.status}})</h4></div>
+								<div class="col-md-6">
+									<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/job-applications/{{obj.id}}')">Edit</a>
+									<button class="btn btn-primary" ng-click="dr.acceptApplication(obj.id)">Accept</button>
+									<button class="btn btn-danger" ng-click="dr.rejectApplication(obj.id)">Reject</button></div>
+								<hr />
+							</article>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<h2>New Job Application</h2>
+						</div>
+					</div>
+					
+					<form id="job-application-form" name="edit_job_application_form" ng-submit="dr.submitApplication()" ng-show="dr.newJobApp" class="ng-cloak" novalidate>
+						<div class="row">
+							<div class="col-xs-3 form-group">
+								<label>Job ID</label>
+								<input class="form-control" type="text" name="job_id" ng-model="dr.newJobApp.job_id"  ng-required="true" />
+							</div>
+							<div class="col-xs-3 form-group">
+								<label>Visible</label>
+								<select class="form-control" ng-model="dr.newJobApp.visible"  ng-required="true">
+									<option value="1">Visible</option>
+									<option value="0">Archived</option>
+								</select>
+							</div>
+						</div>
+				
+						<div class="row"><div class="col-sm-12"><hr /></div></div>
+				
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>Rates</h4>
+							</div>
+						</div>
 						
+						<div class="row">
+							<div class="col-xs-3 form-group">
+								<label>Holiday Premium</label>
+								<input type="number" class="form-control" ng-model="dr.newJobApp.holiday_premium" />
+							</div>
+							<div class="col-xs-3 form-group">
+								<label>Overnight Call</label>
+								<input type="number" class="form-control" ng-model="dr.newJobApp.overnight_call" />
+							</div>
+							<div class="col-xs-3 form-group">
+								<label>Eight Hour</label>
+								<input type="number" class="form-control" ng-model="dr.newJobApp.eight_hour" />
+							</div>
+							<div class="col-xs-3 form-group">
+								<label>Callback</label>
+								<input type="number" class="form-control" ng-model="dr.newJobApp.callback" />
+							</div>
+						</div>
+						<div class="row"><div class="col-sm-12"><hr /></div></div>
+						<div class="modal-footer"> 
+							<button class="btn btn-primary" role="submit" ng-disabled="new_job_application_form.$invalid">Submit</button> 
+						</div>
+					</form>
 				</tab>
 				
-				<tab heading="Education and Work" bs-pane>
+				<tab heading="Education and Work">
 					<ng-include src="'../partials/education-and-work.html'"></ng-include>
 				</tab>
-				<tab heading="Credentialing" bs-pane>
+				<tab heading="Qualifications">
 					<ng-include src="'../partials/qualifications.html'"></ng-include>
 				</tab>
 			</tabset>
