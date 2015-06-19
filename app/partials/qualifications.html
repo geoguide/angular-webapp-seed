@@ -41,12 +41,12 @@
 				<div class="form-group col-xs-6">
 					<label>Criteria</label>
 					<select class="form-control" ng-model="modal.modalObject.criteria">
-						<option value="1">Physician with whom you have shared "call"</option>
-						<option value="2">Former partner</option>
-						<option value="3">Physician in a referral relationship with you</option>
-						<option value="4">[Surgeon] An anesthesiologist with whom you have worked frequently during at least 6 of the last 12 months</option>
-						<option value="5">[Anesthesiologist] A surgeon with whom you have worked frequently in 6 of the last 12 months</option>
-						<option value="6">Faculty member or other attending physician with whom you have worked for a significant period of time</option>
+						<option value="0">Physician with whom you have shared "call"</option>
+						<option value="1">Former partner</option>
+						<option value="2">Physician in a referral relationship with you</option>
+						<option value="3">[Surgeon] An anesthesiologist with whom you have worked frequently during at least 6 of the last 12 months</option>
+						<option value="4">[Anesthesiologist] A surgeon with whom you have worked frequently in 6 of the last 12 months</option>
+						<option value="5">Faculty member or other attending physician with whom you have worked for a significant period of time</option>
 					</select>
 				</div>
 			</div>
@@ -83,11 +83,11 @@
 			<div class="row">
 				<div class="col-md-4 form-group">
 					<label>Phone</label>
-					<input class="form-control" ng-model="modal.modalObject.phone_number" ui-mask="(999) 999-9999" type="text" />
+					<input class="form-control" ng-model="modal.modalObject.phone" ui-mask="(999) 999-9999" type="text" />
 				</div>
 				<div class="col-md-4 form-group">
 					<label>Fax Number</label>
-					<input class="form-control" ng-model="modal.modalObject.fax_number" ui-mask="(999) 999-9999" type="text" />
+					<input class="form-control" ng-model="modal.modalObject.fax" ui-mask="(999) 999-9999" type="text" />
 				</div>
 				<div class="col-md-4 form-group">
 					<label>Email</label>
@@ -112,16 +112,16 @@
 				<div class="form-group col-xs-6">
 					<label>Staff Category</label>
 					<select class="form-control" ng-model="modal.modalObject.staff_category">
-						<option value="1">Active</option>
-						<option value="2">Courtesy</option>
-						<option value="3">Affiliate</option>
-						<option value="4">Consulting</option>
-						<option value="5">Community</option>
-						<option value="6">Provisional</option>
-						<option value="7">Telemedicine</option>
-						<option value="8">Associate</option>
-						<option value="9">Locum Tenens</option>
-						<option value="10">Other</option>
+						<option value="0">Active</option>
+						<option value="1">Courtesy</option>
+						<option value="2">Affiliate</option>
+						<option value="3">Consulting</option>
+						<option value="4">Community</option>
+						<option value="5">Provisional</option>
+						<option value="5">Telemedicine</option>
+						<option value="6">Associate</option>
+						<option value="8">Locum Tenens</option>
+						<option value="9">Other</option>
 					</select>
 				</div>
 			</div>

@@ -38,7 +38,7 @@
 	
 	webapp.constant('API_URL', 'http://localhost:3000');
 	webapp.value('loggedIn', false);
-	  
+	
 	webapp.config(function ($routeProvider) {
 		$routeProvider
 	      .when('/', {
@@ -94,6 +94,21 @@
 			})
 			.when('/doctor/:id', {
 			  templateUrl: 'views/doctor.html',
+			  access: { requiredLogin: true },
+			  controller: 'DoctorCtrl',
+			  controllerAs: 'dr'
+			}).when('/doctor/:id/account-info', {
+			  templateUrl: 'views/account-info.html',
+			  access: { requiredLogin: true },
+			  controller: 'AccountInfoCtrl',
+			  controllerAs: 'ai'
+			}).when('/doctor/:id/education-and-work', {
+			  templateUrl: 'views/education-and-work.html',
+			  access: { requiredLogin: true },
+			  controller: 'DoctorCtrl',
+			  controllerAs: 'dr'
+			}).when('/doctor/:id/qualifications', {
+			  templateUrl: 'views/qualifications.html',
 			  access: { requiredLogin: true },
 			  controller: 'DoctorCtrl',
 			  controllerAs: 'dr'

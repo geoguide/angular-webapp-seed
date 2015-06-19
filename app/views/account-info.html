@@ -1,0 +1,149 @@
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}')" class="ng-cloak">Home</a></li>
+			<li role="presentation" class="active"><a>Account Info</a></li>
+			<li role="presentation">
+				<a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/education-and-work')">Education &amp; Work</a>
+			</li>
+			<li role="presentation">
+				<a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/qualifications')">Qualifications</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="form-group col-md-4">
+		<label for="email">Email Address</label>
+		<input type="email" class="form-control" id="email" ng-model="ai.doctorData.email" readonly>
+	</div>
+	<div class="form-group col-md-4">
+		<label for="password">Password</label>
+		<input type="password" class="form-control" ng-model="ai.newPassword" />
+		<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h2>States Subscribed</h2>	
+	</div>
+	<div class="col-md-2" ng-repeat="(key, value) in appCtrl.usStates">
+		<label>{{value.abbreviation}}</label>
+		<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h2>Specialties</h2>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<label>Specialty #1</label>
+		<select class="form-control" ng-model="ai.drSpecialties[0].id" ng-options="spec.id as spec.specialty for spec in ai.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[0].id,{{ai.drSpecialties[0].id || 'null'}})"><option value="">-- None --</option></select>
+	</div>
+	<div class="col-md-4">
+		<label>Specialty #2</label>
+		<select class="form-control" ng-model="ai.drSpecialties[1].id" ng-options="spec.id as spec.specialty for spec in ai.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[1].id,{{ai.drSpecialties[1].id || 'null'}})"><option value="">-- None --</option></select>
+	</div>
+	<div class="col-md-4">
+		<label>Specialty #3</label>
+		<select class="form-control" ng-model="ai.drSpecialties[2].id" ng-options="spec.id as spec.specialty for spec in ai.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[2].id,{{ai.drSpecialties[2].id || 'null'}})"><option value="">-- None --</option></select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h2>Rates</h2>	
+	</div>
+</div>
+<form ng-submit="ai.submitRates()">
+	<div class="row">	
+		<div class="col-md-3 form-group">
+			<label>Overnight Call</label>{{ai.rates.overnight_call}}
+			<input type="text" class="form-control" ng-model="ai.rates.overnight_call">
+		</div>
+		<div class="col-md-3 form-group">
+			<label>Callback</label>
+			<input type="text" class="form-control" ng-model="ai.rates.callback">
+		</div>
+		<div class="col-md-3 form-group">
+			<label>Holiday Premium</label>
+			<input type="text" class="form-control" ng-model="ai.rates.holiday_premium">
+		</div>
+		<div class="col-md-3 form-group">
+			<label>Eight Hour</label>
+			<input type="text" class="form-control" ng-model="ai.rates.eight_hour">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-right form-group">
+			<button class="btn btn-primary">Submit Rates</button>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-md-12">
+		<h2>Applications</h2>
+		<article ng-repeat="(key,obj) in ai.jobApplications" class="row">
+			<div class="col-md-6"><h4>{{obj.job_title}} ({{obj.status}})</h4></div>
+			<div class="col-md-6">
+				<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/job-applications/{{obj.id}}')">Edit</a>
+				<button class="btn btn-primary" ng-click="ai.acceptApplication(obj.id)">Accept</button>
+				<button class="btn btn-danger" ng-click="ai.rejectApplication(obj.id)">Reject</button></div>
+			<hr />
+		</article>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h2>New Job Application</h2>
+	</div>
+</div>
+
+<form id="job-application-form" name="edit_job_application_form" ng-submit="ai.submitApplication()" ng-show="ai.newJobApp" class="ng-cloak" novalidate>
+	<div class="row">
+		<div class="col-xs-3 form-group">
+			<label>Job ID</label>
+			<input class="form-control" type="text" name="job_id" ng-model="ai.newJobApp.job_id"  ng-required="true" />
+		</div>
+		<div class="col-xs-3 form-group">
+			<label>Visible</label>
+			<select class="form-control" ng-model="ai.newJobApp.visible"  ng-required="true">
+				<option value="1">Visible</option>
+				<option value="0">Archived</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row"><div class="col-sm-12"><hr /></div></div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h4>Rates</h4>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-3 form-group">
+			<label>Holiday Premium</label>
+			<input type="number" class="form-control" ng-model="ai.newJobApp.holiday_premium" />
+		</div>
+		<div class="col-xs-3 form-group">
+			<label>Overnight Call</label>
+			<input type="number" class="form-control" ng-model="ai.newJobApp.overnight_call" />
+		</div>
+		<div class="col-xs-3 form-group">
+			<label>Eight Hour</label>
+			<input type="number" class="form-control" ng-model="ai.newJobApp.eight_hour" />
+		</div>
+		<div class="col-xs-3 form-group">
+			<label>Callback</label>
+			<input type="number" class="form-control" ng-model="ai.newJobApp.callback" />
+		</div>
+	</div>
+	<div class="row"><div class="col-sm-12"><hr /></div></div>
+	<div class="modal-footer"> 
+		<button class="btn btn-primary" role="submit" ng-disabled="new_job_application_form.$invalid">Submit</button> 
+	</div>
+</form>

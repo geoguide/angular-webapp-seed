@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: ModalCtrl', function () {
+describe('Controller: AccountInfoCtrl', function () {
 
   // load the controller's module
   beforeEach(module('modioAdminPortal'));
 
-  var ModalCtrl,
+  var AccountInfoCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ModalCtrl = $controller('ModalCtrl', {
+    AccountInfoCtrl = $controller('AccountInfoCtrl', {
       $scope: scope
     });
   }));

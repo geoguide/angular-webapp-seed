@@ -13,9 +13,7 @@ angular.module('modioAdminPortal')
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
-	this.newPassword = null;
 	this.doctorData = null;
-	this.activeTab = 0;
 	this.training = {};
 	this.medicalSchool = {};
 	this.clinicalEvaluations = [];
@@ -23,11 +21,6 @@ angular.module('modioAdminPortal')
 	this.specialties = [];
 	this.facilities = [];
 	this.workHistory = [];
-	this.states = [];
-	this.drSpecialties = [];
-	this.rates = {};
-	this.jobApplications = [];
-	this.newJobApp = {};
 	
 	this.openModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
@@ -188,6 +181,7 @@ angular.module('modioAdminPortal')
 			$log.log(JSON.stringify(_this.rates)+' are the rates');
 			console.log('spex'+JSON.stringify(_this.drSpecialties));
 			_this.error = false;
+			$log.log(JSON.stringify(_this.doctorData));
 		},function(error){
 			_this.error = true;
 			_this.doctorData = null;
@@ -235,24 +229,7 @@ angular.module('modioAdminPortal')
 		});
 	};
 	
-	this.submitRates = function(){
-		doctorFactory.saveRates(_this.doctorId,_this.rates).then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Doctor Saved.',
-				showClose: true,
-				clickToClose: true
-			});
-			_this.doctorData = data;
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
+	
 	
 	this.submitMedicalSchool = function(){
 		console.log('ms: '+angular.toJson(_this.medicalSchool));
@@ -392,150 +369,11 @@ angular.module('modioAdminPortal')
 		});
 	};
 	
-	var loadApplications = function(){
-		doctorFactory.getJobApplications(_this.doctorId).then(function(data){
-			_this.jobApplications = data;
-		});
-	};
 	
-	this.updatePassword = function(){
-		if(_this.newPassword && _this.newPassword.length > 6){
-			doctorFactory.updatePassword(_this.doctorId,_this.newPassword).then(function(data){
-				toasty.pop.success({
-					title: 'Success!',
-					msg: 'Password Changed.',
-					showClose: true,
-					clickToClose: true
-				});
-				_this.doctorData = data;
-			}, function(error){
-				toasty.pop.error({
-					title: 'Error!',
-					msg: error.data,
-					showClose: true,
-					clickToClose: true
-				});
-			});
-		} else {
-			toasty.pop.error({
-				title: 'Error!',
-				msg: 'Invalid password',
-				showClose: true,
-				clickToClose: true
-			});
-		}
-		
-	};
 	
-	this.updateState = function(abbr){
-		var action;
-		console.log(_this.states);
-		if(_this.states[abbr]){ //If it is checked
-			action = doctorFactory.addState(_this.doctorId,abbr);
-	   } else {
-		 	action = doctorFactory.removeState(_this.doctorId,abbr);
-		}
-		action.then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'State Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-		
-	};
 	
-	this.updateSpecialty = function(specId,oldSpec){
-		doctorFactory.addSpecialty(_this.doctorId,specId).then(function(){
-			if(oldSpec){
-				return doctorFactory.removeSpecialty(_this.doctorId,oldSpec);	
-			} else {
-				return true;
-			}
-			
-		}).then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Specialty Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
 	
-	this.acceptApplication = function(appId){
-		jobApplicationFactory.acceptApplication(appId).then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Application Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-			loadApplications();
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
 	
-	this.rejectApplication = function(appId){
-		jobApplicationFactory.rejectApplication(appId).then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Application Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-			loadApplications();
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
-	
-	this.submitApplication = function(){
-		_this.newJobApp.doctor_id = _this.doctorId;
-		$log.info('submit? ;'+JSON.stringify(_this.newJobApp));
-		jobApplicationFactory.createApplication(_this.newJobApp).success(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Application Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-			loadApplications();
-		}).error(function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: 'Application Bad.',
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
 
 	var init = function(){
 		_this.get(_this.doctorId);
@@ -547,16 +385,6 @@ angular.module('modioAdminPortal')
 		facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
 		});
-		doctorFactory.getStates(_this.doctorId).then(function(data){
-			
-			_this.states = data;
-			for(var s=0;s<_this.states.length;s++){
-				var abbr = _this.states[s];
-				_this.states[abbr] = true;
-			}
-		});
-		
-		loadApplications();
 	};
 	
 	init();
