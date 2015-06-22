@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
+
   </head>
   <body ng-controller="ApplicationCtrl as appCtrl">
     <!--[if lt IE 7]>
@@ -158,6 +160,7 @@
 <script src="scripts/controllers/modalcontroller.js"></script>
 <script src="scripts/services/qualificationfactory.js"></script>
 <script src="scripts/controllers/account-info.js"></script>
+<script src="scripts/services/s3factory.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        

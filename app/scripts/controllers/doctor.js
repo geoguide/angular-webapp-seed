@@ -9,7 +9,7 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal,jobApplicationFactory) {
+  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -46,7 +46,7 @@ angular.module('modioAdminPortal')
 			experienceFactory.submitTraining(_this.doctorId,data).then(function(){
 				loadExperience();
 			},function(error){
-				console.log(error);
+				$log.error(error);
 			});
 		}, function () {
 			//something on close
@@ -79,7 +79,7 @@ angular.module('modioAdminPortal')
 			qualificationFactory.submitClinicalEvaluation(_this.doctorId,data).then(function(){
 				loadQualifications();
 			},function(error){
-				console.log(error);
+				$log.error(error);
 			});
 		}, function () {
 			//something on close
@@ -112,7 +112,7 @@ angular.module('modioAdminPortal')
 			qualificationFactory.submitFacilityAffiliation(_this.doctorId,data).then(function(){
 				loadQualifications();
 			},function(error){
-				console.log(error);
+				$log.error(error);
 			});
 		}, function () {
 			//something on close
@@ -145,7 +145,7 @@ angular.module('modioAdminPortal')
 			experienceFactory.submitWorkHistory(_this.doctorId,data).then(function(){
 				loadExperience();
 			},function(error){
-				console.log(error);
+				$log.error(error);
 			});
 		}, function () {
 			//something on close
@@ -179,7 +179,6 @@ angular.module('modioAdminPortal')
 			_this.drSpecialties = data.specialties;
 			_this.rates = data.rates;
 			$log.log(JSON.stringify(_this.rates)+' are the rates');
-			console.log('spex'+JSON.stringify(_this.drSpecialties));
 			_this.error = false;
 			$log.log(JSON.stringify(_this.doctorData));
 		},function(error){
@@ -232,7 +231,6 @@ angular.module('modioAdminPortal')
 	
 	
 	this.submitMedicalSchool = function(){
-		console.log('ms: '+angular.toJson(_this.medicalSchool));
 		experienceFactory.submitMedicalSchool(_this.doctorId,_this.medicalSchool).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
@@ -384,6 +382,13 @@ angular.module('modioAdminPortal')
 		});
 		facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
+		});
+		
+		s3factory.putObject().then(function(result){
+			$log.info(result);
+			return s3factory.listObjects();
+		}).then(function(data){
+			$log.info('done');
 		});
 	};
 	
