@@ -24,10 +24,10 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,API_URL,
 				var creds = response.data;
 				$log.log(creds.AccessKeyId+' '+creds.SecretAccessKey+' '+creds.SessionToken);
 				AWS.config.update({accessKeyId: creds.AccessKeyId, secretAccessKey: creds.SecretAccessKey, sessionToken: creds.SessionToken });
-				var s3obj = new AWS.S3({params: { Bucket: 'modiohealth/user1', region: 'us-east-1' }});
-				s3obj.putObject({ Key: 'myKey3', Body: 'fine body from app' },function(err, data) {
+				var s3obj = new AWS.S3({params: { Bucket: 'doctor-uploads/test1', region: 'us-east-1' }});
+				s3obj.putObject({ Key: 'myKey52', Body: 'fine body from app', ServerSideEncryption: 'AES256', ACL: 'private' },function(err, data) {
 					if (err) { 
-						$log.log('Error: ', err); 
+						$log.error(err); 
 					} else {
 						$log.log('no error');
 						$log.info(data);
@@ -40,10 +40,10 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,API_URL,
 				var creds = response.data;
 				$log.log(creds.AccessKeyId+' '+creds.SecretAccessKey+' '+creds.SessionToken);
 				AWS.config.update({accessKeyId: creds.AccessKeyId, secretAccessKey: creds.SecretAccessKey, sessionToken: creds.SessionToken });
-				var s3obj = new AWS.S3({params: { Bucket: 'modiohealth', region: 'us-east-1' }});
+				var s3obj = new AWS.S3({params: { Bucket: 'doctor-uploads/test1', region: 'us-east-1' }});
 				s3obj.listObjects({ Prefix: 'user1' },function(err, data) {
 					if (err) { 
-						$log.log('Error: ', err); 
+						$log.error('Error: ', err); 
 					} else {
 						$log.log('no error');
 						$log.log(JSON.stringify(data.Contents));

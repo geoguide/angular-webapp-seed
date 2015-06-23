@@ -20,6 +20,7 @@
 
 (function(){
 	var webapp = angular.module('modioAdminPortal', [
+		'config',
 		'ngAnimate',
 		'ngAria',
 		'ngCookies',
@@ -33,13 +34,17 @@
 		'ui.mask',
 		'ngAnimate',
 		'toasty',
-		'ui.bootstrap'
+		'ui.bootstrap',
+		'ngFileUpload'
 	]);
 	
-	webapp.constant('API_URL', 'http://localhost:3000');
-	webapp.value('loggedIn', false);
 	
+	webapp.value('loggedIn', false);
+	webapp.config(function(ENV,$provide){
+		$provide.constant('API_URL', ENV.apiEndpoint);
+	});
 	webapp.config(function ($routeProvider) {
+		
 		$routeProvider
 	      .when('/', {
 	        templateUrl: 'views/main.html',

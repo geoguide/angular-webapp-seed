@@ -9,7 +9,7 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory) {
+  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -377,18 +377,17 @@ angular.module('modioAdminPortal')
 		_this.get(_this.doctorId);
 		loadExperience();
 		loadQualifications();
+		
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});
+		
 		facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
 		});
 		
 		s3factory.putObject().then(function(result){
 			$log.info(result);
-			return s3factory.listObjects();
-		}).then(function(data){
-			$log.info('done');
 		});
 	};
 	
