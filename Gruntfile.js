@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 		  // Environment targets
 		  development: {
 		    options: {
-		      dest: '<%= yeoman.app %>/scripts/config.js'
+		      dest: '<%= yeoman.app %>/config.js'
 		    },
 		    constants: {
 		      ENV: {
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 		  },
 		  production: {
 		    options: {
-		      dest: '<%= yeoman.dist %>/scripts/config.js'
+		      dest: '<%= yeoman.dist %>/config.js'
 		    },
 		    constants: {
 		      ENV: {
@@ -207,6 +207,16 @@ module.exports = function (grunt) {
         }]
       }
     },
+    processhtml: {
+	    options: {
+	        //
+	    },
+	    build: {
+	        files: {
+	            'dist/index.html':['app/index.html']
+		        }
+		    }
+		},
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -488,7 +498,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-	 'ngconstant:production', // ADD THIS
     'clean:dist',
     'wiredep',
     'useminPrepare',
@@ -502,6 +511,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
+    'processhtml',
+    'ngconstant:production', // ADD THIS
     'htmlmin'
   ]);
 

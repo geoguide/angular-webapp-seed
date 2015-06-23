@@ -43,7 +43,7 @@
 	webapp.config(function(ENV,$provide){
 		$provide.constant('API_URL', ENV.apiEndpoint);
 	});
-	webapp.config(function ($routeProvider) {
+	webapp.config(function ($routeProvider, ENV) {
 		
 		$routeProvider
 	      .when('/', {
