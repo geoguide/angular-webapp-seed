@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log,specialtyFactory, facilityFactory, $modal, jobApplicationFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, jobFactory) {
   		
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -17,6 +17,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.drSpecialties = [];
 	this.rates = {};
 	this.jobApplications = [];
+	this.jobs = [];
 	this.newJobApp = {};
 	
 	this.get = function(doctorId){
@@ -28,10 +29,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
 			_this.drSpecialties = data.specialties;
 			_this.rates = data.rates;
-			$log.log(JSON.stringify(_this.rates)+' are the rates');
-			console.log('spex'+JSON.stringify(_this.drSpecialties));
 			_this.error = false;
-			$log.log(JSON.stringify(_this.doctorData));
+
 		},function(error){
 			_this.error = true;
 			_this.doctorData = null;
@@ -88,7 +87,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	
 	this.updateState = function(abbr){
 		var action;
-		console.log(_this.states);
 		if(_this.states[abbr]){ //If it is checked
 			action = doctorFactory.addState(_this.doctorId,abbr);
 	   } else {
@@ -177,7 +175,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	
 	this.submitApplication = function(){
 		_this.newJobApp.doctor_id = _this.doctorId;
-		$log.info('submit? ;'+JSON.stringify(_this.newJobApp));
 		jobApplicationFactory.createApplication(_this.newJobApp).success(function(data){
 			toasty.pop.success({
 				title: 'Success!',
@@ -186,6 +183,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				clickToClose: true
 			});
 			loadApplications();
+			_this.newJobApp = {};
+			_this.edit_job_application_form.$setPristine();
 		}).error(function(error){
 			toasty.pop.error({
 				title: 'Error!',
@@ -199,6 +198,12 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	var loadApplications = function(){
 		doctorFactory.getJobApplications(_this.doctorId).then(function(data){
 			_this.jobApplications = data;
+		});
+	};
+	
+	var loadJobs = function(){
+		jobFactory.queryJobs('',0).then(function(jobsInfo){
+			_this.jobs = jobsInfo.jobs;
 		});
 	};
 	
@@ -219,7 +224,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				_this.states[abbr] = true;
 			}
 		});
-		
+		loadJobs();
 		loadApplications();
 	};
 	init();

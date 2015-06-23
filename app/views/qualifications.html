@@ -1,15 +1,186 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/'+dr.doctorData.id)">Home</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorData.id}}')">Home</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/account-info')">Account Info</a></li>
 			<li role="presentation">
 				<a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/education-and-work')">Education &amp; Work</a>
 			</li>
-			<li role="presentation">
-				<a class="active">Qualifications</a>
-			</li>
+			<li class="active"><a>Qualifications</a></li>
 		</ul>
 	</div>
 </div>
 <hr />
+<accordion close-others="true">
+	<accordion-group>
+		<accordion-heading>Clinical Evaluations<span class="badge pull-right">{{(dr.clinicalEvaluations).length}}</span></accordion-heading>
+		<article ng-repeat="(key,obj) in dr.clinicalEvaluations">
+			{{obj.name}}
+			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteClinicalEvaluation(obj.id)">Delete</button>
+			<a class="btn btn-info" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',obj)">Edit</a>
+		</article>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',{})">Add Clinical Evaluation</button>
+			</div>
+		</div>
+	</accordion-group>
+	<accordion-group>
+		<accordion-heading>Facility Affiliations<span class="badge pull-right">{{(dr.facilityAffiliations).length}}</span></accordion-heading>
+		<article ng-repeat="(key,obj) in dr.facilityAffiliations">
+			{{obj.facility_name}}
+			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityAffiliation(obj.id)">Delete</button>
+			<a class="btn btn-info" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)">Edit</a>
+		</article>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',{})">Add Facility Affiliation</button>
+			</div>
+		</div>
+	</accordion-group>
+</accordion>
+
+<script type="text/ng-template" id="clinical-evaluation-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Name</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.name" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Criteria</label>
+					<select class="form-control" ng-model="modal.modalObject.criteria">
+						<option value="0">Physician with whom you have shared "call"</option>
+						<option value="1">Former partner</option>
+						<option value="2">Physician in a referral relationship with you</option>
+						<option value="3">[Surgeon] An anesthesiologist with whom you have worked frequently during at least 6 of the last 12 months</option>
+						<option value="4">[Anesthesiologist] A surgeon with whom you have worked frequently in 6 of the last 12 months</option>
+						<option value="5">Faculty member or other attending physician with whom you have worked for a significant period of time</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Specialty</label>
+					<select class="form-control" ng-model="modal.modalObject.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in modal.parentCtrl.specialties"></select>
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Address</label>
+					<input class="form-control" ng-model="modal.modalObject.address" type="text" />
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Address 2</label>
+					<input class="form-control" ng-model="modal.modalObject.address2" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>City</label>
+					<input class="form-control" ng-model="modal.modalObject.city" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>State</label>
+					<select class="form-control" ng-model="modal.modalObject.state">
+						<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+					</select>
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Zip Code</label>
+					<input class="form-control" ng-model="modal.modalObject.zip" ui-mask="99999" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>Phone</label>
+					<input class="form-control" ng-model="modal.modalObject.phone" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Fax Number</label>
+					<input class="form-control" ng-model="modal.modalObject.fax" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Email</label>
+					<input class="form-control" ng-model="modal.modalObject.email" type="email" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="facility-affiliation-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Staff Category</label>
+					<select class="form-control" ng-model="modal.modalObject.staff_category">
+						<option value="0">Active</option>
+						<option value="1">Courtesy</option>
+						<option value="2">Affiliate</option>
+						<option value="3">Consulting</option>
+						<option value="4">Community</option>
+						<option value="5">Provisional</option>
+						<option value="5">Telemedicine</option>
+						<option value="6">Associate</option>
+						<option value="8">Locum Tenens</option>
+						<option value="9">Other</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Facility</label>
+					<select class="form-control" ng-model="modal.modalObject.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in modal.parentCtrl.facilities"></select>
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Primary?</label>
+					<input ng-model="modal.modalObject.is_primary" type="checkbox" ng-true-value="1" ng-false-value="0" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Reference Name</label>
+					<input class="form-control" ng-model="modal.modalObject.reference_name" type="text" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Reference title</label>
+					<input class="form-control" ng-model="modal.modalObject.reference_title" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+				</div>
+					
+				<div class="col-md-6">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.dpOpened" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="modal.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>	

@@ -3,9 +3,7 @@
 		<ul class="nav nav-pills">
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}')">Home</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/account-info')">Account Info</a></li>
-			<li role="presentation">
-				<a class="active">Education &amp; Work</a>
-			</li>
+			<li role="presentation" class="active"><a>Education &amp; Work</a></li>
 			<li role="presentation">
 				<a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/qualifications')">Qualifications</a>
 			</li>
@@ -102,7 +100,7 @@
 	<h2>Training</h2>
 	<accordion close-others="true">
 		<accordion-group is-open="status.open">
-			<accordion-heading>Fellowships<span class="badge pull-right">{{(dr.training | filter: { training_type: 'fellowship'}).length}}</span></accordion-heading>
+			<accordion-heading>Fellowships<span class="badge pull-right">{{(dr.training | filter: { training_type: 0}).length}}</span></accordion-heading>
 			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'fellowship' }">
 				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
@@ -110,7 +108,7 @@
 			</article>
 		</accordion-group>
 		<accordion-group>
-			<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 'internship'}).length}}</span></accordion-heading>
+			<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 1}).length}}</span></accordion-heading>
 			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'internship' }">
 				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
@@ -118,7 +116,7 @@
 			</article>
 		</accordion-group>
 		<accordion-group>
-			<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 'residency'}).length}}</span></accordion-heading>
+			<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 2}).length}}</span></accordion-heading>
 			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 'residency' }">
 				{{obj.institution}} ({{obj.start_date | date : 'yyyy-MM-dd' }} -> {{obj.end_date | date : 'yyyy-MM-dd' }})
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>

@@ -110,12 +110,12 @@
 			}).when('/doctor/:id/education-and-work', {
 			  templateUrl: 'views/education-and-work.html',
 			  access: { requiredLogin: true },
-			  controller: 'DoctorCtrl',
+			  controller: 'EducationWorkCtrl',
 			  controllerAs: 'dr'
 			}).when('/doctor/:id/qualifications', {
 			  templateUrl: 'views/qualifications.html',
 			  access: { requiredLogin: true },
-			  controller: 'DoctorCtrl',
+			  controller: 'QualificationsCtrl',
 			  controllerAs: 'dr'
 			}).when('/job-applications/:id', {
 			  templateUrl: 'views/job-application.html',
