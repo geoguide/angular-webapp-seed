@@ -45,6 +45,12 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
+		}, getMedicalSchools: function(){
+			return $http.get(API_URL+'/admin/medical-schools').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
 		},	submitWorkHistory: function(doctorId,data){
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/work-history',data).then(function(response) {
 				return response.data;

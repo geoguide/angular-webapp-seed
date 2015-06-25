@@ -43,6 +43,12 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
+		}, queryFacilities: function(queryIn){
+			return $http.get(API_URL+'/admin/facilities?q='+queryIn).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
 		}, submitFacilityAffiliation: function(doctorId,data){
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/facility-affiliations',data).then(function(response) {
 				return response.data;

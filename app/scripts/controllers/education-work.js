@@ -37,6 +37,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 	this.medicalSchool = {};
 	this.workHistory = [];
 	this.specialties = [];
+	this.medicalSchools = [];
 	
 	/* Modals */
 	
@@ -203,11 +204,20 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 		});
 	};
 	
+	
+	var loadMedicalSchools = function(){
+		experienceFactory.getMedicalSchools().then(function(data){
+			_this.medicalSchools = data;
+		},function(error){
+			$log.error(error);
+		});
+	};
+	
 	/* Init */
 	
 	var init = function(){
 		loadExperience();
-		
+		loadMedicalSchools();
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});

@@ -506,14 +506,14 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'processhtml',
     'cdnify',
     'cssmin',
     'uglify',
     'filerev',
     'usemin',
-    'processhtml',
-    'ngconstant:production', // ADD THIS
-    'htmlmin'
+    'htmlmin',
+    'ngconstant:production' // ADD THIS
   ]);
 
   grunt.registerTask('default', [

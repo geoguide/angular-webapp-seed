@@ -7,7 +7,7 @@
  * # QualificationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload) {
+angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload,$q) {
 	this.awesomeThings = [
 	'HTML5 Boilerplate',
 	'AngularJS',
@@ -155,6 +155,28 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 			});
 		});
 	};
+	
+	/*$scope.downloadCertificate = function() {
+      $http.get(API_URL + '/certificate/', {responseType:'arraybuffer'})
+        .success(function (response) {
+          var file = new Blob([response], {type: 'application/pdf'});
+          var fileURL = URL.createObjectURL(file);
+          //$scope.certificateFile = $sce.trustAsResourceUrl(fileURL);
+          $scope.model.certificateFile = $sce.trustAsResourceUrl(fileURL);
+          $scope.showModal();
+        });
+    }*/
+    
+	this.queryFacilities = function(query){
+		var deferred = $q.defer();
+	   qualificationFactory.queryFacilities(query).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
+	};
   
 	var init = function(){
 		loadQualifications();
@@ -165,6 +187,8 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 		facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
 		});
+		
+		console.log(_this.queryFacilities('gene'));
 	};
   
   init();
