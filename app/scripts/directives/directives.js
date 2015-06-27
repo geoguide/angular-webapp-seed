@@ -50,4 +50,32 @@ angular.module('modioAdminPortal').directive('directives', function () {
 		restrict: 'A',
 		link: linkFunction
 	};
+}).directive('datePicker', function () {
+    return {
+      restrict: 'E',
+      scope: {
+        model: '='
+      },
+      replace: true,
+      controller: 'datepickerCtrl',
+      controllerAs: 'ctrl',
+      templateUrl: 'templates/datepicker.html'
+    };
+}).controller('datepickerCtrl',function ($scope) {
+	this.opened = false;
+	var _this = this;
+	this.open = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+	
+		_this.opened = true;
+	};
+	this.dateOptions = {
+		formatYear: 'yy',
+		startingDay: 1
+	};
+	
+	this.format = 'MM/dd/yyyy';
+	this.maxDate = new Date();
+	this.minDate = new Date('1/1/1900');
 });

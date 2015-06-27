@@ -21,14 +21,15 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($modal, $moda
 	this.maxSize = 8;
 	this.facilities = [];
 	this.specialties = [];
+	this.opened = { 'start': false, 'end':false };
 	
 	/* Calendar */
-	this.open = function($event) {
+	this.open = function($event,which) {
 		$log.log('open called');
 		$event.preventDefault();
 		$event.stopPropagation();
 		
-		_this.opened = true;
+		_this.opened[which] = true;
 	};
 	
 	this.dateOptions = {

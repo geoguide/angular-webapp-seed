@@ -95,6 +95,19 @@ body {
   }
 }
 
+.drop-box {
+	background: #f8f8f8 none repeat scroll 0 0;
+	border: 5px dashed #ddd;
+	height: 90px;
+	margin: 10px 0;
+	padding: 25px 0;
+	text-align: center;
+	width: 200px;
+}
+.dragover {
+	border: 5px dashed blue;
+}
+
 /*  Bootstrap Angular Fix */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 

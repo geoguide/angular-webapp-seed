@@ -7,7 +7,7 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload) {
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($routeParams, toasty, $log, experienceFactory, $modal) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -17,13 +17,12 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	
-	this.opened = false;
-	this.open = function($event) {
-		$log.log('open called');
+	this.opened = { 'start': false, 'end': false };
+	this.open = function($event,which) {
 		$event.preventDefault();
 		$event.stopPropagation();
 		
-		_this.opened = true;
+		_this.opened[which] = true;
 	};
 	
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -36,7 +35,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 	this.training = {};
 	this.medicalSchool = {};
 	this.workHistory = [];
-	this.specialties = [];
 	this.medicalSchools = [];
 	
 	/* Modals */
@@ -47,9 +45,11 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
 			resolve: {
+				opened: function(){
+					return { 'start': false, 'end': false };
+				},
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){
-					$log.log('sending modal '+angular.toJson(dataIn));
 					return dataIn;
 				},
 				title: function(){
@@ -62,7 +62,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			$log.log('submitting data for '+_this.doctorId);
 			experienceFactory.submitWorkHistory(_this.doctorId,data).then(function(){
 				loadExperience();
 			},function(error){
@@ -81,7 +80,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 			controllerAs: 'modal',
 			resolve: {
 				modalObject: function(){
-					$log.log('sending modal '+angular.toJson(dataIn));
 					return dataIn;
 				},
 				title: function(){
@@ -94,7 +92,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			$log.log('submitting data for '+_this.doctorId);
 			experienceFactory.submitTraining(_this.doctorId,data).then(function(){
 				loadExperience();
 			},function(error){
@@ -218,9 +215,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 	var init = function(){
 		loadExperience();
 		loadMedicalSchools();
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-		});
 	};
 	init();
 	

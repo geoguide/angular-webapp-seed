@@ -7,7 +7,7 @@
  * # JobApplicationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($modal, $modalStack, jobFactory, toasty, applicationFactory, specialtyFactory, facilityFactory, jobApplicationFactory, $log) {
+angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($modal, $modalStack, toasty, jobApplicationFactory, $log) {
 	
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
 	

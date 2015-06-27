@@ -14,7 +14,6 @@ angular.module('modioAdminPortal')
       'AngularJS',
       'Karma'
     ];
-    console.log(JSON.stringify(modalObject));
     
 	this.modalObject = modalObject;
 	this.parentCtrl = parentCtrl;

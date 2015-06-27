@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('JobapplicationCtrl', function ($modal, $modalStack, jobApplicationFactory, toasty, applicationFactory, specialtyFactory, facilityFactory, $log, $routeParams) {
+  .controller('JobapplicationCtrl', function ($modal, $modalStack, jobApplicationFactory, toasty, $log, $routeParams) {
 	var _this = this;
 	this.appData = {};
 	this.appId = $routeParams.id;

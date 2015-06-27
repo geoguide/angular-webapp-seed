@@ -9,17 +9,11 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload) {
+  .controller('DoctorCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload) {
 	
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.doctorData = null;
-	
-	this.specialties = [];
-	this.facilities = [];
-	
-	
-	
 	
 	//Date of Birth Picker
 	this.opened = false;
@@ -46,9 +40,7 @@ angular.module('modioAdminPortal')
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
 			_this.drSpecialties = data.specialties;
 			_this.rates = data.rates;
-			$log.log(JSON.stringify(_this.rates)+' are the rates');
 			_this.error = false;
-			$log.log(JSON.stringify(_this.doctorData));
 		},function(error){
 			_this.error = true;
 			_this.doctorData = null;
@@ -56,7 +48,6 @@ angular.module('modioAdminPortal')
 	};
 	
 	this.save = function(){
-		$log.log(JSON.stringify(_this.doctorData));
 		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
 		delete _this.doctorData.rates;
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
@@ -102,17 +93,6 @@ angular.module('modioAdminPortal')
 	var init = function(){
 		_this.get(_this.doctorId);
 		
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-		});
-		
-		facilityFactory.getFacilities().then(function(data){
-			_this.facilities = data;
-		});
-		
-		s3factory.putObject().then(function(result){
-			$log.info(result);
-		});
 	};
 	
 	init();

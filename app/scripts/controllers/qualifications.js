@@ -7,7 +7,7 @@
  * # QualificationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($routeParams, $http, API_URL, doctorFactory, toasty, $log, experienceFactory, qualificationFactory,specialtyFactory, facilityFactory, $modal, jobApplicationFactory, s3factory, Upload,$q) {
+angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($routeParams, toasty, $log, qualificationFactory, specialtyFactory, $modal,$q) {
 	this.awesomeThings = [
 	'HTML5 Boilerplate',
 	'AngularJS',
@@ -18,7 +18,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 	
 	this.opened = false;
 	this.open = function($event) {
-		$log.log('open called');
 		$event.preventDefault();
 		$event.stopPropagation();
 		
@@ -31,7 +30,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 	    startingDay: 1
 	};
 	
-	this.facilties = [];
 	this.specialties = [];
 	this.clinicalEvaluations = [];
 	this.facilityAffiliations = [];
@@ -58,7 +56,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){
-					$log.log('sending modal '+angular.toJson(dataIn));
 					return dataIn;
 				},
 				title: function(){
@@ -71,7 +68,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			$log.log('submitting data for '+_this.doctorId);
 			qualificationFactory.submitClinicalEvaluation(_this.doctorId,data).then(function(){
 				loadQualifications();
 			},function(error){
@@ -91,7 +87,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){
-					$log.log('sending modal '+angular.toJson(dataIn));
 					return dataIn;
 				},
 				title: function(){
@@ -104,7 +99,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			$log.log('submitting data for '+_this.doctorId);
 			qualificationFactory.submitFacilityAffiliation(_this.doctorId,data).then(function(){
 				loadQualifications();
 			},function(error){
@@ -156,17 +150,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 		});
 	};
 	
-	/*$scope.downloadCertificate = function() {
-      $http.get(API_URL + '/certificate/', {responseType:'arraybuffer'})
-        .success(function (response) {
-          var file = new Blob([response], {type: 'application/pdf'});
-          var fileURL = URL.createObjectURL(file);
-          //$scope.certificateFile = $sce.trustAsResourceUrl(fileURL);
-          $scope.model.certificateFile = $sce.trustAsResourceUrl(fileURL);
-          $scope.showModal();
-        });
-    }*/
-    
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   qualificationFactory.queryFacilities(query).then(function(data){
@@ -183,12 +166,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});
-		
-		facilityFactory.getFacilities().then(function(data){
-			_this.facilities = data;
-		});
-		
-		console.log(_this.queryFacilities('gene'));
 	};
   
   init();

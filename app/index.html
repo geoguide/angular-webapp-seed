@@ -28,15 +28,12 @@
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
 		<link rel="stylesheet" href="bower_components/angular-toasty/css/ng-toasty.css" />
-		<link rel="stylesheet" href="bower_components/loaders.css/loaders.css" />
-		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
 
 	</head>
 	<body ng-controller="ApplicationCtrl as appCtrl">
@@ -53,7 +50,7 @@
 						
 						<div class="col-sm-6"><a class="navbar-brand" href="#/"><img src="images/logo_white.png" style="height:100%" alt="ModioAdminPortal" /></a></div>
 						
-						<div class="col-sm-6 text-right">
+						<div class="col-sm-6 text-right ng-cloak">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
 								<li class="dropdown" dropdown>
 									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak" dropdown-toggle>{{appCtrl.userInfo.email}} <span class="caret"></span></a>
@@ -80,7 +77,7 @@
 				<li><a ng-href="#/dashboard">Dashboard</a></li>
 				<li><a ng-href="#/jobs">Jobs</a></li>
 				<li><a ng-href="#/doctors">Doctors</a></li>
-				<li><a ng-href="#/job-applications">Applications <span class="badge">5</span></a></li>
+				<li><a ng-href="#/job-applications">Applications <!--<span class="badge">5</span>--></a></li>
 			</ul>
 		</div>
 		
@@ -97,26 +94,14 @@
     </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-	     //Disabled for now
-       /*!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');*/
-    </script>
-
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
 	<!-- build:js(.) scripts/vendor.js -->
 	<!-- bower:js -->
-	<!--<script src="bower_components/jquery/dist/jquery.js"></script>-->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
-	<!--<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>-->
+	<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 	<script src="bower_components/angular-messages/angular-messages.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
@@ -128,9 +113,6 @@
 	<script src="bower_components/angular-toasty/js/ng-toasty.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<script src="bower_components/api-check/dist/api-check.js"></script>
-	<script src="bower_components/angular-formly/dist/formly.js"></script>
-	<!--<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
-	<script src="bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
 	<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
 	<script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
 	<!-- endbower -->
@@ -167,6 +149,9 @@
 <script src="scripts/services/s3factory.js"></script>
 <script src="scripts/controllers/education-work.js"></script>
 <script src="scripts/controllers/qualifications.js"></script>
+<script src="scripts/controllers/uploads.js"></script>
+<script src="scripts/services/uploadfactory.js"></script>
+<script src="scripts/filters/filters.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        

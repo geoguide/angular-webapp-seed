@@ -7,7 +7,7 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, toasty, applicationFactory, specialtyFactory, facilityFactory, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, toasty, specialtyFactory, facilityFactory, $log, $routeParams) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
@@ -77,6 +77,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 
 	var init = function(){
 		//Dooooooo... we just load this with the application. Will digest update it?
+		//Use Query here instead of get all like in doctor
 		facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
 		});

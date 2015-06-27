@@ -23,7 +23,6 @@
 		'config',
 		'ngAnimate',
 		'ngAria',
-		'ngCookies',
 		'ngMessages',
 		'ngResource',
 		'ngRoute',
@@ -122,6 +121,11 @@
 			  access: {requiredLogin: true },
 			  controller: 'JobapplicationCtrl',
 			  controllerAs: 'jobAppCtrl'
+			}).when('/doctor/:id/uploads', {
+				access: { requiredLogin: true },
+			  templateUrl: 'views/uploads.html',
+			  controller: 'UploadsCtrl',
+			  controllerAs: 'up'
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view

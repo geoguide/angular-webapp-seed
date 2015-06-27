@@ -6,6 +6,7 @@
 			<li role="presentation" class="active"><a>Account Info</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/qualifications')">Qualifications</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/uploads')">Uploads</a></li>
 		</ul>
 	</div>
 </div>
@@ -17,8 +18,10 @@
 	</div>
 	<div class="form-group col-md-4">
 		<label for="password">Password</label>
-		<input type="password" class="form-control" ng-model="ai.newPassword" />
-		<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
+		<div class="input-group">
+			<input type="password" class="form-control" ng-model="ai.newPassword" />
+			<span class="input-group-btn"><button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button></span>
+		</div>
 	</div>
 </div>
 <div class="row">

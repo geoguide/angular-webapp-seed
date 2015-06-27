@@ -21,7 +21,6 @@ angular.module('modioAdminPortal')
       },
       //Easy navigation
 		goTo: function (path) {
-			console.log('got: '+path);
 			$location.path(path);
 		}
 	};

@@ -1,0 +1,26 @@
+<section id="general-info">
+	<div id="no-data" ng-show="dr.error" class="ng-cloak">Doctor Not Found</div>
+	<div class="row">
+		<ul class="nav nav-pills">
+		  <li role="presentation"><a hng-click="appCtrl.goTo('/doctor/{{up.doctorId}}')">General Info</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{up.doctorId}}/account-info')">Account Info</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{up.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{up.doctorId}}/qualifications')">Qualifications</a></li>
+		  <li role="presentation" class="active"><a>Uploads</a></li>
+		</ul>
+	</div>
+	<hr />
+	<div class="row" ng-repeat="obj in up.uploadTypes">
+		<h4>{{obj.long}}</h4>
+		<div class="col-md-12">
+			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.short)" 
+		     ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+		     ngf-accept="'image/*,application/pdf'">Drop Images or PDFs files here</div>
+			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>		
+			<button class="btn btn-primary" ng-show="up.uploads[obj.short]" ng-click="up.getFileLink(obj.short)">Get {{obj.long}} Download Link</button>
+			<button class="btn btn-danger" ng-show="up.uploads[obj.short]" ng-really-message="Are you sure you want to delete this {{obj.long}}?" ng-really-click="up.deleteUpload(obj.short)">Delete {{obj.long}}</button>
+			<a href="{{up.downloads[obj.short]}}" class="btn btn-success" ng-show="up.downloads[obj.short]">Download {{obj.long}}</a>
+		</div>
+	</div>
+	
+</section>
