@@ -24,7 +24,9 @@
 				</div>
 				<div class="form-group">
 					<label>Facility</label>
-					<select class="form-control" name="facility_id" ng-model="jobsCtrl.newJob.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in appCtrl.facilities"></select>
+					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobsCtrl.newJob.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in jobsCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.newJob.facility_id = $item.id" typeahead-editable="false" />
+					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+					<!--<select class="form-control" name="facility_id" ng-model="jobsCtrl.newJob.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in appCtrl.facilities"></select>-->
 				</div>
 				<div class="form-group">
 					<label>Job Title</label>
@@ -44,11 +46,11 @@
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.overnight_call" />
 					</div>
 					<div class="col-xs-3 form-group">
-						<label>Holiday Premium</label>
+						<label>Eight Hour</label>
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.eight_hour" />
 					</div>
 					<div class="col-xs-3 form-group">
-						<label>Holiday Premium</label>
+						<label>Callback</label>
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.callback" />
 					</div>
 				</div>

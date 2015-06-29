@@ -6,7 +6,7 @@
  * # JobsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log) {
+angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log, $q, facilityFactory) {
 	
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
 	
@@ -88,6 +88,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
+				parentCtrl: _this
 			}
 		});
 
@@ -96,6 +97,17 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		}, function () {
 			$log.info('Modal dismissed at: ' + new Date());
 		});
+	};
+	
+	this.queryFacilities = function(query){
+		var deferred = $q.defer();
+	   facilityFactory.queryFacilities(query).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
 	};
 	
 	this.closeModal = function(){
