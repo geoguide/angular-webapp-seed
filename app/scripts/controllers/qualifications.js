@@ -7,7 +7,7 @@
  * # QualificationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($routeParams, toasty, $log, qualificationFactory, specialtyFactory, $modal,$q) {
+angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($scope, $routeParams, toasty, $log, qualificationFactory, specialtyFactory, $modal,$q) {
 	this.awesomeThings = [
 	'HTML5 Boilerplate',
 	'AngularJS',
@@ -16,12 +16,12 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	
-	this.opened = false;
-	this.open = function($event) {
+	this.opened = { 'start': false, 'end': false };
+	this.open = function($event,which) {
 		$event.preventDefault();
 		$event.stopPropagation();
 		
-		_this.opened = true;
+		_this.opened[which] = true;
 	};
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 	this.format = this.formats[0];
@@ -53,6 +53,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){
@@ -84,6 +85,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($r
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){

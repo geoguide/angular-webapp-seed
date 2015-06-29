@@ -7,18 +7,19 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, toasty, specialtyFactory, facilityFactory, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, toasty, $log, $routeParams) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
 	
 	//Date picker
-	this.open = function($event) {
+	_this.opened = { 'start': false, 'end': false };
+	this.open = function($event, which) {
 		$log.log('open called');
 		$event.preventDefault();
 		$event.stopPropagation();
 		
-		_this.opened = true;
+		_this.opened[which] = true;
 	};
 	
 	this.dateOptions = {
@@ -78,12 +79,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	var init = function(){
 		//Dooooooo... we just load this with the application. Will digest update it?
 		//Use Query here instead of get all like in doctor
-		facilityFactory.getFacilities().then(function(data){
-			_this.facilities = data;
-		});
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-		});
 		
 		jobFactory.getJob(_this.jobId).then(function(data){
 			_this.jobData = data;

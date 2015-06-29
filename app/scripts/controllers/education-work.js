@@ -7,7 +7,7 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($routeParams, toasty, $log, experienceFactory, $modal) {
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, experienceFactory, $modal) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -44,6 +44,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			scope: $scope,
 			resolve: {
 				opened: function(){
 					return { 'start': false, 'end': false };
@@ -203,11 +204,8 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($ro
 	
 	
 	var loadMedicalSchools = function(){
-		experienceFactory.getMedicalSchools().then(function(data){
-			_this.medicalSchools = data;
-		},function(error){
-			$log.error(error);
-		});
+		//moved to application controller
+		return true;
 	};
 	
 	/* Init */

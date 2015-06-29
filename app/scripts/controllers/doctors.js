@@ -7,7 +7,7 @@
  * # DoctorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
 	var _this = this;
 	
 	this.doctors = [];
@@ -78,6 +78,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($modal,$m
 			templateUrl: 'create-doctor-modal2',
 			controller: 'DoctorsCtrl',
 			controllerAs: 'drsCtrl',
+			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 			}

@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, toasty, $log, specialtyFactory, $modal, jobApplicationFactory, jobFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, jobApplicationFactory, jobFactory) {
   		
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -210,9 +210,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	var init = function(){
 		_this.get(_this.doctorId);
 
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-		});
 		doctorFactory.getStates(_this.doctorId).then(function(data){
 			
 			_this.states = data;

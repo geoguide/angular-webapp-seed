@@ -11,7 +11,7 @@ angular.module('modioAdminPortal')
   .factory('applicationFactory', function ($location) {
     // Service logic
     // ...
-
+    var _this = this;
     var meaningOfLife = 42;
 
 	// Public API here
@@ -24,5 +24,5 @@ angular.module('modioAdminPortal')
 			$location.path(path);
 		}
 	};
-    
+	
   });

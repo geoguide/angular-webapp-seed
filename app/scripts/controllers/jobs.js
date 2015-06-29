@@ -6,7 +6,7 @@
  * # JobsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobsCtrl', function($modal, $modalStack, jobFactory, toasty, applicationFactory, specialtyFactory, facilityFactory, $log) {
+angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log) {
 	
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
 	
@@ -25,7 +25,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($modal, $moda
 	
 	/* Calendar */
 	this.open = function($event,which) {
-		$log.log('open called');
+		$log.log('open '+which+' called');
 		$event.preventDefault();
 		$event.stopPropagation();
 		
@@ -75,13 +75,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($modal, $moda
 	
 	
 	var init = function(){
-		//Dooooooo... we just load this with the application. Will digest update it?
-		facilityFactory.getFacilities().then(function(data){
-			_this.facilities = data;
-		});
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-		});
+
 	};
 	
 	//Modal
@@ -91,6 +85,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($modal, $moda
 			templateUrl: 'create-job-modal',
 			controller: 'JobsCtrl',
 			controllerAs: 'jobsCtrl',
+			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 			}

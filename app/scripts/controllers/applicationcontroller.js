@@ -7,7 +7,7 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $location, Auth, applicationFactory) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $location, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
@@ -17,6 +17,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	
 	this.goTo = applicationFactory.goTo;
 	
+	this.facilities = [];
+	this.specialties = [];
+	this.medicalSchools = [];
 	this.usStates = [
 		{ name: 'ALABAMA', abbreviation: 'AL'},
 		{ name: 'ALASKA', abbreviation: 'AK'},
@@ -79,6 +82,28 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ name: 'WYOMING', abbreviation: 'WY' }
 	];
 	
+	this.init = function(){
+		$log.info('app init called');
+		facilityFactory.getFacilities().then(function(data){
+			_this.facilities = data;
+		});
+		specialtyFactory.getSpecialties().then(function(data){
+			_this.specialties = data;
+		});
+		
+		experienceFactory.getMedicalSchools().then(function(data){
+			_this.medicalSchools = data;
+		},function(error){
+			$log.error(error);
+		});
+	};
+	$scope.$on('login',function(){
+		console.log('caught the event!');
+		_this.init();
+	});
+	if(Auth.isAuthenticated()){
+		this.init();	
+	}
 	
 	//Logout
 	this.logout = Auth.logout;

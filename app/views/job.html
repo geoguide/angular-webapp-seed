@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-md-4 form-group">
 				<label>Specialty</label>
-				<select class="form-control" name="specialty_id" ng-model="jobCtrl.jobData.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in jobCtrl.specialties"></select>
+				<select class="form-control" name="specialty_id" ng-model="jobCtrl.jobData.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties"></select>
 			</div>
 			<div class="col-md-4 form-group">
 				<label>Job Status</label>
@@ -25,7 +25,7 @@
 		</div>
 		<div class="form-group">
 			<label>Facility</label>
-			<select class="form-control" name="facility_id" ng-model="jobCtrl.jobData.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in jobCtrl.facilities"></select>
+			<select class="form-control" name="facility_id" ng-model="jobCtrl.jobData.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in appCtrl.facilities"></select>
 		</div>
 		<div class="form-group">
 			<label>Job Title</label>
@@ -39,9 +39,9 @@
 			<div class="col-md-3">
 				<label>Start Date</label>
 				<p class="input-group">
-					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.start_date" is-open="jobCtrl.opened" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
+					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.start_date" is-open="jobCtrl.opened['start']" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event,'start')"><i class="glyphicon glyphicon-calendar"></i></button>
 					</span>
 				</p>
 			</div>
@@ -49,9 +49,9 @@
 			<div class="col-md-3">
 				<label>End Date</label>
 				<p class="input-group">
-					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.end_date" is-open="jobCtrl.opened" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
+					<input type="text" class="form-control" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.end_date" is-open="jobCtrl.opened['end']" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						<button type="button" class="btn btn-default" ng-click="jobCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 					</span>
 				</p>
 			</div>

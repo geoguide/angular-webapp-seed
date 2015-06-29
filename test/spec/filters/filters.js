@@ -11,9 +11,4 @@ describe('Filter: filters', function () {
     filters = $filter('filters');
   }));
 
-  it('should return the input prefixed with "filters filter:"', function () {
-    var text = 'angularjs';
-    expect(filters(text)).toBe('filters filter: ' + text);
-  });
-
 });
