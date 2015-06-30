@@ -1,16 +1,16 @@
 <section>
 	
 	<div id="no-data" ng-show="jobAppCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4>{{jobAppCtrl.appData.job_title}} - AppId: {{jobAppCtrl.appData.id}} for Job:{{jobAppCtrl.appData.job_id}} by Doc:{{jobAppCtrl.appData.doctor_id}} [{{jobAppCtrl.appData.status}}]</h4>
+	<h4><span style="font-variant: small-caps">{{jobAppCtrl.appData.doctor_name}}</span> applied to <span style="font-variant: small-caps">&quot;{{jobAppCtrl.appData.job_title}}&quot;</span> <span style="font-variant: small-caps">[{{jobAppCtrl.appData.status}}]</span></h4>
 	<form id="job-application-form" name="edit_job_application_form" ng-submit="jobAppCtrl.save()" ng-show="jobAppCtrl.appData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-3 form-group">
 				<label>Job ID</label>
-				<input class="form-control" type="text" name="job_id" ng-model="jobAppCtrl.appData.job_id"  ng-required="true" />
+				<input class="form-control" type="text" name="job_id" ng-model="jobAppCtrl.appData.job_id"  ng-required="true" readonly />
 			</div>
 			<div class="col-xs-3 form-group">
 				<label>Doctor ID</label>
-				<input class="form-control" type="text" name="doctor_id" ng-model="jobAppCtrl.appData.doctor_id"  ng-required="true" />
+				<input class="form-control" type="text" name="doctor_id" ng-model="jobAppCtrl.appData.doctor_id"  ng-required="true" readonly />
 			</div>
 			<div class="col-xs-3 form-group">
 				<label>Visible</label>
