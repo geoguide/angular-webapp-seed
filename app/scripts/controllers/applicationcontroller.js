@@ -84,9 +84,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	
 	this.init = function(){
 		$log.info('app init called');
-		facilityFactory.getFacilities().then(function(data){
+		/*facilityFactory.getFacilities().then(function(data){
 			_this.facilities = data;
-		});
+		});*/
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});

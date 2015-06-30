@@ -22,14 +22,20 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	
 	this.uploadTypes = [
 		{
-			short: 'resume',
-			long: 'Resume'
-		}, {
 			short: 'cv',
-			long: 'CV'
+			long: 'Curriculum Vitae (CV)'
 		}, {
 			short: 'color_passport',
-			long: 'Color Passport'
+			long: 'Color Passport Photo'
+		}, {
+			short: 'ppd_test_results',
+			long: 'PPD Test Results'
+		}, {
+			short: 'liability_insurance_certificate',
+			long: 'Professional Liability Insurance Certificate'
+		}, {
+			short: 'ecfmg_certificate',
+			long: 'ECFMG Certificate'
 		}
 	];
 	 

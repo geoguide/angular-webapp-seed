@@ -57,7 +57,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	};
 	
 	this.updatePassword = function(){
-		if(_this.newPassword && _this.newPassword.length > 6){
+		if(_this.newPassword && _this.newPassword.length >= 8){
 			doctorFactory.updatePassword(_this.doctorId,_this.newPassword).then(function(data){
 				toasty.pop.success({
 					title: 'Success!',

@@ -47,14 +47,9 @@
 			</div>
 		</form>
 	</script>
-	
+	<h4>Doctors</h4>
 	<section class="row">
-		<div class="col-sm-12 form-group">
-			<button class="btn btn-primary" ng-click="drsCtrl.open()">Create Doctor</button>
-		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-9">
 			<form ng-submit="drsCtrl.getResults()">
 				<div class="input-group">
 					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
@@ -63,6 +58,9 @@
 			      </span>
 				</div>
 			</form>
+		</div>
+		<div class="col-sm-3 form-group">
+			<button class="btn btn-primary btn-block" ng-click="drsCtrl.open()">Create Doctor</button>
 		</div>
 	</section>
 	<section class="row">

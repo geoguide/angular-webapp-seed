@@ -13,8 +13,8 @@
 					<div class="col-md-6 form-group">
 						<label>Job Type</label>
 						<select name="job_type" class="form-control" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
-							<option value="locum">Locum</option>
-							<option value="permanent">Permanent</option>
+							<option value="1">Locum</option>
+							<option value="2">Permanent</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -82,7 +82,7 @@
 					<div class="col-md-6">
 						<label>Start Date</label>
 						<p class="input-group">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="true" close-text="Close" />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'start')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
@@ -92,7 +92,7 @@
 					<div class="col-md-6">
 						<label>End Date</label>
 						<p class="input-group">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
@@ -116,14 +116,9 @@
 			</div>
 		</form>
 	</script>
-	
+	<h4>Jobs</h4>
 	<section class="row">
-		<div class="col-sm-12 form-group">
-			<button class="btn btn-primary" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
-		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-9">
 			<form ng-submit="jobsCtrl.getResults()">
 				<div class="input-group">
 					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
@@ -132,6 +127,9 @@
 			      </span>
 				</div>
 			</form>
+		</div>
+		<div class="col-sm-3 form-group text-right">
+			<button class="btn btn-primary btn-block" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
 		</div>
 	</section>
 	<section class="row">

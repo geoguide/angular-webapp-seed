@@ -19,7 +19,7 @@
 	<div class="form-group col-md-4">
 		<label for="password">Password</label>
 		<div class="input-group">
-			<input type="password" class="form-control" ng-model="ai.newPassword" />
+			<input type="password" class="form-control" ng-model="ai.newPassword" minlength="8" />
 			<span class="input-group-btn"><button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button></span>
 		</div>
 	</div>
