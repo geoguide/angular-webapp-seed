@@ -20,6 +20,15 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
+  
+  var gruntEnvironment = grunt.option('environment') || 'development';
+  var apiEndpoints = {
+	  development: 'http://localhost:3000',
+	  staging: 'http://api.modiohealth.org',
+	  production: 'https://api.modiohealth.com'
+  };
+  console.log('genv: '+gruntEnvironment);
+  console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -39,7 +48,7 @@ module.exports = function (grunt) {
 		    constants: {
 		      ENV: {
 		        name: 'development',
-		        apiEndpoint: 'http://localhost:3000'
+		        apiEndpoint: apiEndpoints[gruntEnvironment]
 		      }
 		    }
 		  },
@@ -50,7 +59,18 @@ module.exports = function (grunt) {
 		    constants: {
 		      ENV: {
 		        name: 'production',
-		        apiEndpoint: 'https://api.modiohealth.com'
+		        apiEndpoint: apiEndpoints[gruntEnvironment]
+		      }
+		    }
+		  },
+		  staging: {
+		    options: {
+		      dest: '<%= yeoman.dist %>/config.js'
+		    },
+		    constants: {
+		      ENV: {
+		        name: 'staging',
+		        apiEndpoint: apiEndpoints[gruntEnvironment]
 		      }
 		    }
 		  }
@@ -513,7 +533,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'ngconstant:production' // ADD THIS
+    'ngconstant:'+gruntEnvironment
   ]);
 
   grunt.registerTask('default', [
