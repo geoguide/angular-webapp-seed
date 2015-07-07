@@ -25,7 +25,6 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	
 	this.changeOther = function(changeTo){
 		_this.otherField = changeTo;
-		console.log(_this.otherField);
 	};
 	
 	

@@ -57,7 +57,6 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	};
 	
 	this.submitJob = function(){
-		console.log('submitting: '+JSON.stringify(_this.newJob));
 		jobFactory.createJob(_this.newJob).then(function(data){
 			applicationFactory.goTo('/jobs/'+data.id);
 			$modalStack.dismissAll();
