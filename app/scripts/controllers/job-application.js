@@ -35,7 +35,6 @@ angular.module('modioAdminPortal')
 	};
 	
 	this.save = function(){
-		console.log(JSON.stringify(_this.appData));
 		_this.appData.start_date = (_this.appData.start_date === '2000-06-22') ? null : _this.appData.start_date;
 		_this.appData.end_date = (_this.appData.end_date === '2000-06-22') ? null : _this.appData.end_date;
 		jobApplicationFactory.saveApplication(_this.appData).then(function(data){
@@ -118,7 +117,6 @@ angular.module('modioAdminPortal')
 		
 		jobApplicationFactory.getApplication(_this.appId).then(function(data){
 			_this.appData = data;
-			console.log(data);
 			_this.error = false;
 		},function(error){
 			_this.error = true;

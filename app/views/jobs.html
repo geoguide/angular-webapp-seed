@@ -26,7 +26,6 @@
 					<label>Facility</label>
 					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobsCtrl.newJob.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in jobsCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.newJob.facility_id = $item.id" typeahead-editable="false" />
 					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-					<!--<select class="form-control" name="facility_id" ng-model="jobsCtrl.newJob.facility_id" ng-required="true" ng-options="fac.id as fac.facility_name for fac in appCtrl.facilities"></select>-->
 				</div>
 				<div class="form-group">
 					<label>Job Title</label>

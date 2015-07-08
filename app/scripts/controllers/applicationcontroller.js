@@ -7,7 +7,7 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $location, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
@@ -82,11 +82,20 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ name: 'WYOMING', abbreviation: 'WY' }
 	];
 	
+	this.queryFacilities = function(query){
+		var deferred = $q.defer();
+	   facilityFactory.queryFacilities(query).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
+	};
+	
 	this.init = function(){
 		$log.info('app init called');
-		facilityFactory.getFacilities().then(function(data){
-			_this.facilities = data;
-		});
+
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});
@@ -98,7 +107,6 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 	};
 	$scope.$on('login',function(){
-		console.log('caught the event!');
 		_this.init();
 	});
 	if(Auth.isAuthenticated()){

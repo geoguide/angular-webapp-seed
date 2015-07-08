@@ -48,7 +48,7 @@
 	      .when('/', {
 	        templateUrl: 'views/main.html',
 	        access: { requiredLogin: true },
-	        controller: 'MainCtrl',
+	        controller: 'MainCtrl'
 	      })
 	      .when('/about', {
 	        templateUrl: 'views/about.html',

@@ -15,7 +15,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	//Date picker
 	_this.opened = { 'start': false, 'end': false };
 	this.open = function($event, which) {
-		$log.log('open called');
 		$event.preventDefault();
 		$event.stopPropagation();
 		
@@ -35,7 +34,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	};
 	
 	this.save = function(){
-		console.log(JSON.stringify(_this.jobData));
 		_this.jobData.start_date = (_this.jobData.start_date === '2000-06-22') ? null : _this.jobData.start_date;
 		_this.jobData.end_date = (_this.jobData.end_date === '2000-06-22') ? null : _this.jobData.end_date;
 		jobFactory.saveJob(_this.jobData).success(function(data){
@@ -82,7 +80,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		
 		jobFactory.getJob(_this.jobId).then(function(data){
 			_this.jobData = data;
-			console.log(data);
 			_this.error = false;
 		},function(error){
 			_this.error = true;
