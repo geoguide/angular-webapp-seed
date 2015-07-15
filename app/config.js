@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api.modiohealth.org'})
+.constant('ENV', {name:'development',apiEndpoint:'http://localhost:3000'})
 
 ;

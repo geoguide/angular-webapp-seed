@@ -85,6 +85,25 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		
 	};
 	
+	this.updateEmail = function(){
+		doctorFactory.saveDoctor({id: _this.doctorId, email:_this.doctorData.email}).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Email Changed.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: JSON.stringify(error.data),
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	}; 
+	
 	this.updateState = function(abbr){
 		var action;
 		if(_this.states[abbr]){ //If it is checked
