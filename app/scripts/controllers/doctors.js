@@ -28,10 +28,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	};
 	
 	
-	/* Internal Functions */
+	/* Private Functions */
     
 	function getResultsPage(pageNumber) {
-		// TODO: Move this to service and then populate the 
 		doctorFactory.queryDoctors(_this.searchQuery,pageNumber).then(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
@@ -40,7 +39,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	}
 	
 	
-	/* Public Fucntions */
+	/* Public Functions */
 	
 	this.getResults = function(){
 		return getResultsPage(this.currentPage);
@@ -49,15 +48,6 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.goTo = applicationFactory.goTo;
 	
 	this.submitForm = function(){
-		var testData = {
-			email: 'gg@gg.net',
-			password:'password',
-			first_name: 'Geoff',
-			last_name: 'GG',
-			job_type: 'locum',
-			locum_experience: 10,
-			locum_frequency: 10
-		};
 		doctorFactory.createDoctor(_this.formData).then(function(data){
 			applicationFactory.goTo('/doctor/'+data.id);
 			$modalStack.dismissAll();
@@ -79,7 +69,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 			controllerAs: 'drsCtrl',
 			scope: $scope,
 			resolve: {
-				//Variables to add to modal's scope - not needed since using the same controller
+				//Variables to add to modal's scope
 			}
 		});
 

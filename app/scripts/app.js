@@ -10,12 +10,11 @@
  */
  
  // To Do
-//TODO: Convert form to formly http://angular-formly.com/#/example/other/advanced-layout
-//- Update (11 may 2015) use formly on the jobs
 //TODO: change to directives rather than controllers: http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
 //TODO Smarter and more organized handling of errors and authorization issues
 //TODO: Standardize API calls and use angular $resource: http://learn.ionicframework.com/formulas/backend-data/ ??
 //TODO: Remove jquery and angularstrap
+//TODO: Delegation fails
 
 
 (function(){
@@ -129,7 +128,7 @@
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view
-	  });
+	});
 	  
 	webapp.config(function($httpProvider) {  
 		$httpProvider.interceptors.push('AuthInterceptor');

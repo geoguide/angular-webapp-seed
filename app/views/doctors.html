@@ -82,7 +82,7 @@
 							<th> 
 								<div class="dropdown" dropdown>
 									<a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled">{{drsCtrl.otherField}}<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu" id="other-field-dropdown">
+									<ul class="dropdown-menu" role="menu" id="other-field-dropdown" ng-show="drsCtrl.doctors.length > 5">
 										<li><a ng-click="drsCtrl.changeOther('locum_experience')">Locum Experience</a></li>
 										<li><a ng-click="drsCtrl.changeOther('tier')">Tier</a></li>
 										<li><a ng-click="drsCtrl.changeOther('trauma_call')">Trauma</a></li>
