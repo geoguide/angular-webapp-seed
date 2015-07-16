@@ -61,11 +61,13 @@
 		</div>
 		<div class="col-md-3">
 			<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
+				<option value="">-- Select Specialty --</option>
 				<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 			</select>
 		</div>
 		<div class="col-md-2">
 			<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
+				<option value="">-- Select State --</option>
 				<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 			</select>
 		</div>
