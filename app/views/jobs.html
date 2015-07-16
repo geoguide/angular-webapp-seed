@@ -117,7 +117,7 @@
 	</script>
 	<h4>Jobs</h4>
 	<section class="row">
-		<div class="col-sm-9">
+		<div class="col-sm-5">
 			<form ng-submit="jobsCtrl.getResults()">
 				<div class="input-group">
 					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
@@ -127,7 +127,20 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-sm-3 form-group text-right">
+		<div class="col-md-3">
+			
+			<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
+				<option value="">-Select Specialty-</option>
+				<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
+				<option value="">-Select State-</option>
+				<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+			</select>
+		</div>
+		<div class="col-sm-2 form-group text-right">
 			<button class="btn btn-primary btn-block" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
 		</div>
 	</section>
@@ -145,19 +158,10 @@
 						<tr>
 							<th>id</th>
 							<th>Job Title</th>
-							<th>Job Type</th>
-							<th>Facility ID</th>
-							<th> 
-								<!--<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown">{{jobsCtrl.otherField}}<span class="caret"></span></a>
-									<ul class="dropdown-menu" id="other-field-dropdown">
-										<li><a ng-click="jobsCtrl.changeOther('locum_experience')">Locum Experience</a></li>
-										<li><a ng-click="jobsCtrl.changeOther('tier')">Tier</a></li>
-										<li><a ng-click="jobsCtrl.changeOther('trauma_call')">Trauma</a></li>
-										<li><a ng-click="jobsCtrl.changeOther('npi_number')">NPI</a></li>
-									</ul>
-								</div>-->
-							</th>
+							<th>Type</th>
+							<th>Specialty</th>
+							<th>Facility</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -165,8 +169,9 @@
 							<td>{{ job.id }}</td>
 							<td>{{ job.job_title }}</td>
 							<td>{{ job.job_type }}</td>
-							<td>{{ job.facility_id }}</td>
-							<td>{{ job[jobsCtrl.otherField] }}</td>
+							<td>{{ job.specialty }}</td>
+							<td>{{ job.facility_name }} ({{job.state}})</td>
+							<td>{{ job.status }}</td>
 						</tr>
 					</tbody>
 				</table>

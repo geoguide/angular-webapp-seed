@@ -32,7 +32,26 @@ angular.module('modioAdminPortal')
 			});
 		}, deleteClinicalEvaluation: function(doctorId,evId){
 			//TODO
-			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/clinical-evaluations/'+evId).then(function(response) {
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses/'+evId).then(function(response) {
+				return true;
+			}, function(error){
+				$log.error(error);
+			});
+		}, getMedicalLicenses: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, submitMedicalLicense: function(doctorId,data){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses',data).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, deleteMedicalLicense: function(doctorId,evId){
+			//TODO
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses/'+evId).then(function(response) {
 				return true;
 			}, function(error){
 				$log.error(error);

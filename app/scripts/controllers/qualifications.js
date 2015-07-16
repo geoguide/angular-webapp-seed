@@ -33,6 +33,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	this.specialties = [];
 	this.clinicalEvaluations = [];
 	this.facilityAffiliations = [];
+	this.medicalLicenses = [];
 	
 	
 	var loadQualifications = function(){
@@ -41,6 +42,9 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			return qualificationFactory.getFacilityAffiliations(_this.doctorId);
 		}).then(function(data){
 			_this.facilityAffiliations = data;
+			return qualificationFactory.getMedicalLicenses(_this.doctorId);
+		}).then(function(data){
+			_this.medicalLicenses = data;	
 		},function(error){
 			$log.error(error);
 		});
@@ -70,6 +74,38 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 		_this.modalInstance.result.then(function (data) {
 			qualificationFactory.submitClinicalEvaluation(_this.doctorId,data).then(function(){
+				loadQualifications();
+			},function(error){
+				$log.error(error);
+			});
+		}, function () {
+			//something on close
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+	
+	this.openMedicalLicenseModal = function(modalId,dataIn){
+		this.modalInstance = $modal.open({
+			templateUrl: modalId,
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
+			scope: $scope,
+			resolve: {
+				//Variables to add to modal's scope - not needed since using the same controller
+				modalObject: function(){
+					return dataIn;
+				},
+				title: function(){
+					return 'Clinical Evaluation';
+				},
+				parentCtrl: function(){
+					return _this;
+				}
+			}
+		});
+
+		_this.modalInstance.result.then(function (data) {
+			qualificationFactory.submitMedicalLicense(_this.doctorId,data).then(function(){
 				loadQualifications();
 			},function(error){
 				$log.error(error);

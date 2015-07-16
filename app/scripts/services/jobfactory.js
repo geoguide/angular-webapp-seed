@@ -30,8 +30,16 @@ angular.module('modioAdminPortal')
 			return $http.put(API_URL+'/admin/jobs/'+formData.id,formData);
 		}, deleteJob: function(jobId){
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
-		}, queryJobs: function(searchQuery, pageNumber){
-			return $http.get(API_URL+'/admin/jobs?q='+searchQuery+'&p='+pageNumber).then(function(response) {
+		}, queryJobs: function(searchQuery, searchSpecialty, searchState, pageNumber){
+			var request = API_URL+'/admin/jobs?q='+searchQuery+'&p='+pageNumber;
+			if(searchSpecialty){
+				request += '&specialty_id='+searchSpecialty;
+			}
+			if(searchState) {
+				request += '&state='+searchState;
+			}
+
+			return $http.get(request).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

@@ -49,7 +49,7 @@
 	</script>
 	<h4>Doctors</h4>
 	<section class="row">
-		<div class="col-sm-9">
+		<div class="col-sm-4">
 			<form ng-submit="drsCtrl.getResults()">
 				<div class="input-group">
 					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
@@ -58,6 +58,16 @@
 			      </span>
 				</div>
 			</form>
+		</div>
+		<div class="col-md-3">
+			<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
+				<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
+				<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+			</select>
 		</div>
 		<div class="col-sm-3 form-group">
 			<button class="btn btn-primary btn-block" ng-click="drsCtrl.open()">Create Doctor</button>
@@ -79,6 +89,7 @@
 							<th>First</th>
 							<th>Last</th>
 							<th>Email</th>
+							<th>States</th>
 							<th> 
 								<div class="dropdown" dropdown>
 									<a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled">{{drsCtrl.otherField}}<span class="caret"></span></a>
@@ -98,6 +109,7 @@
 							<td>{{ doc.first_name }}</td>
 							<td>{{ doc.last_name }}</td>
 							<td>{{ doc.email }}</td>
+							<td>{{ doc.medical_licenses}}</td>
 							<td>{{ doc[drsCtrl.otherField] }}</td>
 						</tr>
 					</tbody>

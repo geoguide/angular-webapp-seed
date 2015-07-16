@@ -31,7 +31,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	/* Private Functions */
     
 	function getResultsPage(pageNumber) {
-		doctorFactory.queryDoctors(_this.searchQuery,pageNumber).then(function(response) {
+		doctorFactory.queryDoctors(_this.searchQuery,_this.searchSpecialty,_this.searchState,pageNumber).then(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
