@@ -96,7 +96,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 					return dataIn;
 				},
 				title: function(){
-					return 'Clinical Evaluation';
+					return 'Medical License';
 				},
 				parentCtrl: function(){
 					return _this;
