@@ -58,8 +58,8 @@
 									<ul role="menu" class="dropdown-menu">
 										<!--<li class="dropdown-header">Actions</li>
 										<li><a>Action</a></li>
-										<li><a>Another action</a></li>
-										<li><a>Something else here</a></li>-->
+										<li><a>Another action</a></li>-->
+										<li><a ng-href="#/change-password">Change Password</a></li>
 										<!--<li class="divider"></li>-->
 										<li><a ng-click="appCtrl.logout()">Sign Out</a></li>
 									</ul>
@@ -75,11 +75,11 @@
 	<div class="container-fluid">
 		<div class="col-md-3 col-sm-3 ng-cloak" ng-show="isLoggedIn">
 			<ul class="nav nav-pills nav-stacked">
-				<li><a ng-href="#/dashboard">Dashboard</a></li>
-				<li><a ng-href="#/jobs">Jobs</a></li>
-				<li><a ng-href="#/doctors">Doctors</a></li>
-				<li><a ng-href="#/partners">Partners</a></li>
-				<li><a ng-href="#/job-applications">Applications (Should be offers) <!--<span class="badge">5</span>--></a></li>
+				<li ng-class="{'active': appCtrl.tab == 'dashboard'}"><a ng-href="#/dashboard">Dashboard</a></li>
+				<li ng-class="{'active': appCtrl.tab == 'jobs'}"><a ng-href="#/jobs">Jobs</a></li>
+				<li ng-class="{'active': appCtrl.tab == 'doctors'}"><a ng-href="#/doctors">Doctors</a></li>
+				<li ng-class="{'active': appCtrl.tab == 'partners'}"><a ng-href="#/partners">Partners</a></li>
+				<li ng-class="{'active': appCtrl.tab == 'offers'}"><a ng-href="#/job-applications">Offers <!--<span class="badge">5</span>--></a></li>
 			</ul>
 		</div>
 		
@@ -154,6 +154,9 @@
 <script src="scripts/controllers/uploads.js"></script>
 <script src="scripts/services/uploadfactory.js"></script>
 <script src="scripts/filters/filters.js"></script>
+<script src="scripts/controllers/change-password.js"></script>
+<script src="scripts/services/userfactory.js"></script>
+<script src="scripts/controllers/partners.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        

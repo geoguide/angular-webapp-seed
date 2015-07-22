@@ -35,14 +35,27 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			},function(error){
 				$log.error(error);
 			});
-		}, queryDoctors: function(searchQuery, searchSpecialty, searchState, pageNumber){
+		}, queryDoctors: function(queryData){
+			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection;
+			searchQuery = queryData.search_query || '';
+			searchSpecialty = queryData.search_specialty;
+			searchState = queryData.search_state;
+			pageNumber = queryData.page_number || 1;
+			sortBy = queryData.sort_by;
+			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			
 			var request = API_URL+'/admin/doctors?q='+searchQuery+'&p='+pageNumber;
+			
 			if(searchSpecialty){
 				request += '&specialty_id='+searchSpecialty;
 			}
 			if(searchState) {
 				request += '&state='+searchState;
 			}
+			if(sortBy){
+				request += '&sort_by='+sortBy;
+			}
+			request += '&sort_direction='+sortDirection;
 			return $http.get(request).then(function(response) {
 				return response.data;
 			}, function(error){

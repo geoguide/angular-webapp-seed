@@ -29,9 +29,19 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	
 	
 	/* Private Functions */
+	
+	
     
 	function getResultsPage(pageNumber) {
-		doctorFactory.queryDoctors(_this.searchQuery,_this.searchSpecialty,_this.searchState,pageNumber).then(function(response) {
+		var queryData = {
+			search_query: _this.searchQuery,
+			search_specialty: _this.searchSpecialty,
+			search_state: _this.searchState,
+			page_number: pageNumber,
+			sort_by: _this.sortBy,
+			sort_direction: _this.sortDirection
+		};
+		doctorFactory.queryDoctors(queryData).then(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
@@ -40,7 +50,11 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	
 	
 	/* Public Functions */
-	
+	this.sortResult = function(sortOn){
+		_this.sortDirection = !_this.sortDirection;
+		_this.sortBy = sortOn;
+		getResultsPage(this.currentPage);
+	};
 	this.getResults = function(){
 		return getResultsPage(this.currentPage);
 	};

@@ -47,8 +47,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	
 	/* Methods */
 	
-	this.getResults = function(pageNumber) {
-		pageNumber = pageNumber || 1;
+	this.getResults = function() {
+		var pageNumber = _this.currentPage || 1;
 		jobFactory.queryJobs(_this.searchQuery,_this.searchSpecialty,_this.searchState, pageNumber).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;

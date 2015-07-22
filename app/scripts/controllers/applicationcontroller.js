@@ -7,12 +7,16 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
 		_this.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
+	});
+	
+	$scope.$on('$routeChangeSuccess', function( event ) {
+		_this.tab = $route.current.tab;
 	});
 	
 	this.goTo = applicationFactory.goTo;

@@ -66,65 +66,84 @@
 	        controller: 'SignupCtrl'
 	      })
 			.when('/doctors', {
+				tab: 'doctors',
 			  templateUrl: 'views/doctors.html',
 			  access: { requiredLogin: true },
 			  controller: 'DoctorsCtrl',
 			  controllerAs: 'drsCtrl'
 			})
 			.when('/jobs', {
+				tab: 'jobs',
 			  templateUrl: 'views/jobs.html',
 			  access: { requiredLogin: true },
 			  controller: 'JobsCtrl',
 			  controllerAs: 'jobsCtrl'
 			})
 			.when('/jobs/:id',{
+				tab: 'jobs',
 				templateUrl: 'views/job.html',
 				access: { requiredLogin: true },
 				controller: 'JobCtrl',
 				controllerAs: 'jobCtrl'
-			})
-			.when('/job-applications', {
+			}).when('/job-applications', {
+				tab: 'offers',
 				title: 'Job Applications',
-			  templateUrl: 'views/job-applications.html',
-			  access: { requiredLogin: true },
-			  controller: 'JobApplicationsCtrl',
-			  controllerAs: 'jobAppsCtrl'
-			})
-			.when('/dashboard', {
-			  templateUrl: 'views/dashboard.html',
-			  access: { requiredLogin: true },
-			  controller: 'DashboardCtrl'
-			})
-			.when('/doctor/:id', {
-			  templateUrl: 'views/doctor.html',
-			  access: { requiredLogin: true },
-			  controller: 'DoctorCtrl',
-			  controllerAs: 'dr'
-			}).when('/doctor/:id/account-info', {
-			  templateUrl: 'views/account-info.html',
-			  access: { requiredLogin: true },
-			  controller: 'AccountInfoCtrl',
-			  controllerAs: 'ai'
-			}).when('/doctor/:id/education-and-work', {
-			  templateUrl: 'views/education-and-work.html',
-			  access: { requiredLogin: true },
-			  controller: 'EducationWorkCtrl',
-			  controllerAs: 'dr'
-			}).when('/doctor/:id/qualifications', {
-			  templateUrl: 'views/qualifications.html',
-			  access: { requiredLogin: true },
-			  controller: 'QualificationsCtrl',
-			  controllerAs: 'dr'
-			}).when('/job-applications/:id', {
-			  templateUrl: 'views/job-application.html',
-			  access: {requiredLogin: true },
-			  controller: 'JobapplicationCtrl',
-			  controllerAs: 'jobAppCtrl'
-			}).when('/doctor/:id/uploads', {
+				templateUrl: 'views/job-applications.html',
 				access: { requiredLogin: true },
-			  templateUrl: 'views/uploads.html',
-			  controller: 'UploadsCtrl',
-			  controllerAs: 'up'
+				controller: 'JobApplicationsCtrl',
+				controllerAs: 'jobAppsCtrl'
+			}).when('/dashboard', {
+				tab: 'dashboard',
+				templateUrl: 'views/dashboard.html',
+				access: { requiredLogin: true },
+				controller: 'DashboardCtrl'
+			}).when('/doctor/:id', {
+				tab: 'doctors',
+				templateUrl: 'views/doctor.html',
+				access: { requiredLogin: true },
+				controller: 'DoctorCtrl',
+				controllerAs: 'dr'
+			}).when('/doctor/:id/account-info', {
+				tab: 'doctors',
+				templateUrl: 'views/account-info.html',
+				access: { requiredLogin: true },
+				controller: 'AccountInfoCtrl',
+				controllerAs: 'ai'
+			}).when('/doctor/:id/education-and-work', {
+				tab: 'doctors',
+				templateUrl: 'views/education-and-work.html',
+				access: { requiredLogin: true },
+				controller: 'EducationWorkCtrl',
+				controllerAs: 'dr'
+			}).when('/doctor/:id/qualifications', {
+				tab: 'doctors',
+				templateUrl: 'views/qualifications.html',
+				access: { requiredLogin: true },
+				controller: 'QualificationsCtrl',
+				controllerAs: 'dr'
+			}).when('/job-applications/:id', {
+				tab: 'offers',
+				templateUrl: 'views/job-application.html',
+				access: {requiredLogin: true },
+				controller: 'JobapplicationCtrl',
+				controllerAs: 'jobAppCtrl'
+			}).when('/doctor/:id/uploads', {
+				tab: 'doctors',
+				access: { requiredLogin: true },
+				templateUrl: 'views/uploads.html',
+				controller: 'UploadsCtrl',
+				controllerAs: 'up'
+			}).when('/change-password', {
+				templateUrl: 'views/change-password.html',
+				controller: 'ChangePasswordCtrl',
+				controllerAs: 'cpCtrl',
+				access: {requiredLogin: true}
+			}).when('/partners', {
+				  templateUrl: 'views/partners.html',
+				  controller: 'PartnersCtrl',
+				  controllerAs: 'part',
+				  access: {requiredLogin: true },
+				  tab: 'offers'
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view
@@ -152,12 +171,14 @@
 							if(!localStorageService.get('authToken')){
 								event.preventDefault();
 								$log.warn('Delegate Failed to Populate authToken');
+								webapp.value('loggedIn', false);
 								$location.path('/login');		
 							} else {
 								$log.info('Delegation Successful');
 							}
 						}, function(reason){
 							//Error
+							webapp.value('loggedIn', false);
 							$log.error('delegation fail: '+reason);
 							event.preventDefault();
 							$location.path('/login');		
@@ -166,6 +187,7 @@
 							$log.info('sweet notification: '+update);
 						});
 					} else {
+						webapp.value('loggedIn', false);
 						$log.warn('no refresh token');
 						$location.path('/login');
 					}
@@ -179,6 +201,7 @@
 				//Complain that something is wrong to draw attention to the code, all pages should have this variable set
 				event.preventDefault();
 				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));
+				webapp.value('loggedIn', false);
 				$location.path('/login');
 			}
 		});
