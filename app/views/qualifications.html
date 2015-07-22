@@ -11,7 +11,9 @@
 		</ul>
 	</div>
 </div>
+
 <hr />
+
 <accordion close-others="false">
 	<accordion-group is-open="true">
 		<accordion-heading>Clinical Evaluations<span class="badge pull-right">{{(dr.clinicalEvaluations).length}}</span></accordion-heading>
@@ -50,7 +52,7 @@
 		</div>
 	</accordion-group>
 	<accordion-group is-open="true">
-		<accordion-heading>Medical Licenses<span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
+		<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
 		<article ng-repeat="(key,obj) in dr.medicalLicenses">
 			<h4>{{obj.state}}</h4>
 			<div><label>License #: </label> {{obj.number}}</div>

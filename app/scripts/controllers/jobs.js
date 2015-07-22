@@ -49,11 +49,25 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	
 	this.getResults = function() {
 		var pageNumber = _this.currentPage || 1;
-		jobFactory.queryJobs(_this.searchQuery,_this.searchSpecialty,_this.searchState, pageNumber).then(function(data) {
+		var queryData = {
+			search_query: _this.searchQuery,
+			search_specialty: _this.searchSpecialty,
+			search_state: _this.searchState,
+			page_number: pageNumber,
+			sort_by: _this.sortBy,
+			sort_direction: _this.sortDirection
+		};
+		jobFactory.queryJobs(queryData).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;
 			_this.totalPages = _this.totalJobs / _this.jobsPerPage;
 		});
+	};
+	
+	this.sortResult = function(sortOn){
+		_this.sortDirection = !_this.sortDirection;
+		_this.sortBy = sortOn;
+		_this.getResults();
 	};
 	
 	this.submitJob = function(){

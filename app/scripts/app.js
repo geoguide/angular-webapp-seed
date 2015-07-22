@@ -139,11 +139,11 @@
 				controllerAs: 'cpCtrl',
 				access: {requiredLogin: true}
 			}).when('/partners', {
-				  templateUrl: 'views/partners.html',
-				  controller: 'PartnersCtrl',
-				  controllerAs: 'part',
-				  access: {requiredLogin: true },
-				  tab: 'offers'
+				templateUrl: 'views/partners.html',
+				controller: 'PartnersCtrl',
+				controllerAs: 'part',
+				access: {requiredLogin: true },
+				tab: 'partners'
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view
