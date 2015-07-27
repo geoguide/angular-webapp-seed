@@ -53,13 +53,19 @@
 	</accordion-group>
 	<accordion-group is-open="true">
 		<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
-		<article ng-repeat="(key,obj) in dr.medicalLicenses">
-			<h4>{{obj.state}}</h4>
-			<div><label>License #: </label> {{obj.number}}</div>
-			<div><label>Expiration: </label> {{obj.expiration_date}}</div>
-			<div><label>DEA #: </label> {{obj.dea_number}}</div>
-			<div><label>DEA Expiration: </label> {{obj.dea_expiration_date}}</div>
-			<div class="text-right">
+		<div class="row hidden-xs hidden-sm">
+			<div class="col-md-1"><label>Type</label></div>
+			<div class="col-md-2"><label>State</label></div>
+			<div class="col-md-3"><label>Number</label></div>
+			<div class="col-md-3"><label>Expiration</label></div>
+			<div class="col-md-3 text-right"><label>Actions</label></div>
+		</div>
+		<article ng-repeat="(key,obj) in dr.medicalLicenses" class="row">
+			<div class="col-md-1">{{dr.licenseTypes[obj.type_id] || 'unk'}}</div>
+			<div class="col-md-2">{{obj.state || 'n/a'}}</div>
+			<div class="col-md-3">{{obj.number}}</div>
+			<div class="col-md-3">{{obj.expiration_date}}</div>
+			<div class="text-right col-md-3">
 				<a class="btn btn-info" ng-click="dr.openMedicalLicenseModal('medical-license-modal',obj)">Edit</a>
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteMedicalLicense(obj.id)">Delete</button>
 			</div>
@@ -227,29 +233,34 @@
 	<div class="modal-body">
 		<form novalidate>
 			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>License Number</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.number" />
+				<div class="col-md-6">
+					<label>License Type</label>
+					<select class="form-control" ng-model="modal.modalObject.type_id">
+						<option>-- Select Type --</option>
+						<option value="0">State License</option>
+						<option value="1">DEA License</option>
+						<option value="2">State Ctrl Substance</option>
+					</select>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-xs-3"  ng-show="modal.modalObject.type_id == 0">
 					<label>License State</label>
 					<select class="form-control" ng-model="modal.modalObject.state">
 						<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
 					</select>
 				</div>
-				<div class="form-group col-xs-3">
-					<label>Expiration Date</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.expiration_date" />
-				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-xs-6">
-					<label>DEA Number</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.dea_number" />
+					<label>License Number</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.number" />
 				</div>
 				<div class="form-group col-xs-3">
-					<label>DEA Expiration</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.dea_expiration_date" />
+					<label>Issue Date</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.issue_date" />
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Expiration Date</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.expiration_date" />
 				</div>
 			</div>
 		</form>

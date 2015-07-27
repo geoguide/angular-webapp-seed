@@ -16,6 +16,11 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	
+	this.licenseTypes = [];
+	this.licenseTypes.push('State');
+	this.licenseTypes.push('DEA License');
+	this.licenseTypes.push('State Ctrl Substance');
+	
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
 		$event.preventDefault();
