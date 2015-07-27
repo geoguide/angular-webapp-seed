@@ -28,8 +28,8 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		
 		_this.opened[which] = true;
 	};
-	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	this.format = this.formats[0];
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
+	this.format = this.formats[4];
 	this.dateOptions = {
 	    formatYear: 'yy',
 	    startingDay: 1
