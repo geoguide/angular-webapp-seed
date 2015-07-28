@@ -24,6 +24,10 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		
 		var doctorData = doctorFactory.getDoctor(doctorId);
 		
+		doctorFactory.getSpecialties(doctorId).then(function(data){
+			_this.specialtyData = data;
+		});
+		
 		doctorData.then(function(data){
 			_this.doctorData = data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
@@ -37,11 +41,47 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		});
 	};
 	
+	/* date picker stuff */
+	this.opened = {};
+	this.open = function($event,which) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		
+		_this.opened[which] = true;
+	};
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+	this.format = this.formats[4];
+	this.dateOptions = {
+	    formatYear: 'yy',
+	    startingDay: 1
+	};
+	
 	this.submitRates = function(){
 		doctorFactory.saveRates(_this.doctorId,_this.rates).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
 				msg: 'Doctor Saved.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+
+	
+	this.submitSpecialty = function(dspec){
+		doctorFactory.saveSpecialty(_this.doctorId,dspec).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Specialties Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -127,6 +167,10 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			});
 		});
 		
+	};
+	
+	this.addSpecialty = function(){
+		_this.specialtyData.push({});
 	};
 	
 	this.updateSpecialty = function(specId,oldSpec){

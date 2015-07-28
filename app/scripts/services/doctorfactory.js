@@ -25,6 +25,11 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
 				return response.data;
 			});
+		}, getSpecialties: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/specialties').then(function(response) {
+				console.log(response.data);
+				return response.data;
+			});
 		}, saveDoctor: function(formData){
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
 				return response.data;
@@ -88,6 +93,12 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			});
 		}, addSpecialty: function(doctorId,spec){
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/specialty',{specialty_id: spec}).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, saveSpecialty: function(doctorId,specialtyData){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/specialties',specialtyData).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

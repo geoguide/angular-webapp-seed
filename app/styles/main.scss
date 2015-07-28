@@ -12,6 +12,10 @@
 	display: none !important;
 }
 
+input.ng-invalid,
+select.ng-invalid {
+	border-color:red;
+}
 
 //Move these to partials later
 button:disabled, button[disabled] {

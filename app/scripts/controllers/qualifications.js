@@ -16,6 +16,15 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	
+	this.additional_certification_types = [
+		{ id: 0, name: 'ATLS/ACLS'},
+		{ id: 1, name: 'PALS'},
+		{ id: 2, name: 'BLS'},
+		{ id: 3, name: 'ARLS'},
+		{ id: 4, name: 'NALS'}
+	];
+
+	
 	this.licenseTypes = [];
 	this.licenseTypes.push('State');
 	this.licenseTypes.push('DEA License');

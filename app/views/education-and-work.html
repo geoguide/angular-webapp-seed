@@ -19,7 +19,11 @@
 		<div class="row">
 			<div class="form-group col-xs-6">
 				<label>Institution</label>
-				<select class="form-control" ng-model="dr.medicalSchool.id" ng-options="school.id as school.program for school in appCtrl.medicalSchools"><option value="">-- Choose Medical School --</option></select>
+				<select class="form-control" ng-model="dr.medicalSchool.facility_id">
+					<option value="">-- Choose Medical School --</option>
+					<option ng-repeat="school in appCtrl.medicalSchools" value="{{school.id}}">{{school.facility_name}}</option>
+					
+				</select>
 			</div>
 			<div class="form-group col-xs-6">
 				<label>Degree Awarded</label>

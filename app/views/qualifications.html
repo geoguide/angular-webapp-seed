@@ -54,16 +54,17 @@
 	<accordion-group is-open="true">
 		<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
 		<div class="row hidden-xs hidden-sm">
-			<div class="col-md-1"><label>Type</label></div>
-			<div class="col-md-2"><label>State</label></div>
-			<div class="col-md-3"><label>Number</label></div>
+			<div class="col-md-3"><label>Type</label></div>
+			<div class="col-md-1"><label>State</label></div>
+			<div class="col-md-2"><label>Number</label></div>
 			<div class="col-md-3"><label>Expiration</label></div>
 			<div class="col-md-3 text-right"><label>Actions</label></div>
 		</div>
 		<article ng-repeat="(key,obj) in dr.medicalLicenses" class="row">
-			<div class="col-md-1">{{dr.licenseTypes[obj.type_id] || 'unk'}}</div>
-			<div class="col-md-2">{{obj.state || 'n/a'}}</div>
-			<div class="col-md-3">{{obj.number}}</div>
+			<div class="col-md-3">{{dr.licenseTypes[obj.type_id] || 'unk'}}</div>
+			<div class="col-md-1" ng-show="obj.type_id != 1">{{obj.state || 'n/a'}}</div>
+			<div class="col-md-1" ng-hide="obj.type_id != 1">n/a</div>
+			<div class="col-md-2">{{obj.number}}</div>
 			<div class="col-md-3">{{obj.expiration_date}}</div>
 			<div class="text-right col-md-3">
 				<a class="btn btn-info" ng-click="dr.openMedicalLicenseModal('medical-license-modal',obj)">Edit</a>
@@ -202,7 +203,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="input-group">
-	              <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+	              <input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" init-date="06/22/2015" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1930'" max-date="'01/01/2015'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -211,7 +212,7 @@
 					
 				<div class="col-md-6">
 					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="false" close-text="Close" />
+						<input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" init-date="06/22/2015" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1930'" max-date="'01/01/2015'" ng-required="false" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -231,18 +232,18 @@
 		<h3 class="modal-title">{{modal.title}}</h3>
 	</div>
 	<div class="modal-body">
-		<form novalidate>
+		<form novalidate name="license_form">
 			<div class="row">
 				<div class="col-md-6">
 					<label>License Type</label>
-					<select class="form-control" ng-model="modal.modalObject.type_id" required="true">
+					<select class="form-control" ng-model="modal.modalObject.type_id" ng-required="true">
 						<option>-- Select Type --</option>
 						<option value="0">State License</option>
 						<option value="1">DEA License</option>
 						<option value="2">State Ctrl Substance</option>
 					</select>
 				</div>
-				<div class="form-group col-xs-3"  ng-show="modal.modalObject.type_id == 0">
+				<div class="form-group col-xs-3"  ng-show="modal.modalObject.type_id != 1">
 					<label>License State</label>
 					<select class="form-control" ng-model="modal.modalObject.state">
 						<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
@@ -277,7 +278,7 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-primary" ng-click="license_form.$valid && modal.ok()">OK</button>
 		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
 	</div>
 </script>

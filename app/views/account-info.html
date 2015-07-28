@@ -42,21 +42,50 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<h2>Specialties</h2>
+		<h2>Specialties &amp; Board Certifications</h2>
 	</div>
 </div>
+<div class="row" ng-repeat="dspec in ai.specialtyData track by $index">
+	<form novalidate ng-submit="ai.submitSpecialty(dspec)">
+		<div class="col-md-3">
+			<label>Specialty {{$index+1}}</label>
+			<select class="form-control" ng-model="dspec.specialty_id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ><option value="">-- None --</option></select>
+		</div>
+		<div class="col-md-2">
+			<label>Certified?</label>
+			<select ng-model="dspec.is_certified" class="form-control">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
+		<div class="col-md-3" ng-show="dspec.is_certified == 1">
+			<label>Issue Date</label>
+			<div class="input-group">
+				<input type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.issue_date" is-open="ai.opened['issue_date_'+$index]" max-date="'01/01/2015'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="ai.open($event,'issue_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-3" ng-show="dspec.is_certified == 1">
+			<label>Expiration Date</label>
+			<div class="input-group">
+				<input type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="ai.open($event,'expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<label>Actions</label>
+			<button class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>
+<br />
 <div class="row">
-	<div class="col-md-4">
-		<label>Specialty #1</label>
-		<select class="form-control" ng-model="ai.drSpecialties[0].id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[0].id,{{ai.drSpecialties[0].id || 'null'}})"><option value="">-- None --</option></select>
-	</div>
-	<div class="col-md-4">
-		<label>Specialty #2</label>
-		<select class="form-control" ng-model="ai.drSpecialties[1].id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[1].id,{{ai.drSpecialties[1].id || 'null'}})"><option value="">-- None --</option></select>
-	</div>
-	<div class="col-md-4">
-		<label>Specialty #3</label>
-		<select class="form-control" ng-model="ai.drSpecialties[2].id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ng-change="ai.updateSpecialty(ai.drSpecialties[2].id,{{ai.drSpecialties[2].id || 'null'}})"><option value="">-- None --</option></select>
+	<div class="col-md-12 text-right form-group">
+		<button class="btn btn-primary" ng-click="ai.addSpecialty()">Add Specialty</button>
 	</div>
 </div>
 <div class="row">
