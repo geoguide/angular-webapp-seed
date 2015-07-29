@@ -80,11 +80,11 @@
 			<form ng-submit="drsCtrl.getResults()">
 				<div class="col-md-2">
 					<label>Score Low</label>
-					<input type="number" ng-model="drsCtrl.score_low" class="form-control" />
+					<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" />
 				</div>
 				<div class="col-md-2">
 					<label>Score High</label>
-					<input type="number" ng-model="drsCtrl.score_high" class="form-control" />
+					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" />
 				</div>
 				<div class="col-md-4">
 					<label>Disposition</label>
