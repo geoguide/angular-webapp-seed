@@ -127,7 +127,7 @@
 							<td>{{ doc.first_name }}</td>
 							<td>{{ doc.last_name }}</td>
 							<td>{{ doc.email }}</td>
-							<td>{{ doc.specialty}}</td>
+							<td>{{ appCtrl.specialties[doc.specialty_id].specialty}}</td>
 							<td>{{ appCtrl.disposition[doc.disposition].name}}</td>
 							<td>{{ doc.medical_licenses}}</td>
 							<td>{{ doc.score}}</td>
