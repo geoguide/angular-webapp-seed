@@ -44,18 +44,31 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				$log.error(error);
 			});
 		}, queryDoctors: function(queryData){
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection;
+			//Put these all in array (or get as an array) and just parse the array for easiness
+			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection,searchDisposition,scoreLow,scoreHigh;
+			searchDisposition = queryData.search_disposition || '';
 			searchQuery = queryData.search_query || '';
 			searchSpecialty = queryData.search_specialty;
 			searchState = queryData.search_state;
 			pageNumber = queryData.page_number || 1;
 			sortBy = queryData.sort_by;
 			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			scoreLow = queryData.score_low || null;
+			scoreHigh = queryData.score_high || null;
 			
 			var request = API_URL+'/admin/doctors?q='+searchQuery+'&p='+pageNumber;
 			
 			if(searchSpecialty){
 				request += '&specialty_id='+searchSpecialty;
+			}
+			if(scoreHigh){
+				request += '&score_high='+scoreHigh;
+			}
+			if(scoreLow){
+				request += '&score_low='+scoreLow;
+			}
+			if(searchDisposition){
+				request += '&disposition='+searchDisposition;
 			}
 			if(searchState) {
 				request += '&state='+searchState;

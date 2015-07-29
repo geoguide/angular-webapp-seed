@@ -48,33 +48,56 @@
 		</form>
 	</script>
 	<h4>Doctors</h4>
-	<section class="row">
-		<div class="col-sm-4">
+	<section id="doctor-search-filters">
+		<div class="row">
+			<div class="col-sm-4">
+				<form ng-submit="drsCtrl.getResults()">
+					<div class="input-group">
+						<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
+						<span class="input-group-btn">
+							<button role="submit" class="btn btn-default" type="submit">Search</button>
+				      </span>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
+					<option value="">-- Select Specialty --</option>
+					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
+					<option value="">-- Select State --</option>
+					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+				</select>
+			</div>
+			<div class="col-sm-3 form-group">
+				<button class="btn btn-primary btn-block" ng-click="drsCtrl.open()">Create Doctor</button>
+			</div>
+		</div>
+		<div class="row">
 			<form ng-submit="drsCtrl.getResults()">
-				<div class="input-group">
-					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
-					<span class="input-group-btn">
-						<button role="submit" class="btn btn-default" type="submit">Search</button>
-			      </span>
+				<div class="col-md-2">
+					<label>Score Low</label>
+					<input type="number" ng-model="drsCtrl.score_low" class="form-control" />
 				</div>
+				<div class="col-md-2">
+					<label>Score High</label>
+					<input type="number" ng-model="drsCtrl.score_high" class="form-control" />
+				</div>
+				<div class="col-md-4">
+					<label>Disposition</label>
+					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
+						<option value="">-- Select Disposition --</option>
+						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
+					</select>
+				</div>
+				<input value="submit" class="hide" type="submit" />
 			</form>
 		</div>
-		<div class="col-md-3">
-			<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
-				<option value="">-- Select Specialty --</option>
-				<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
-			</select>
-		</div>
-		<div class="col-md-2">
-			<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
-				<option value="">-- Select State --</option>
-				<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
-			</select>
-		</div>
-		<div class="col-sm-3 form-group">
-			<button class="btn btn-primary btn-block" ng-click="drsCtrl.open()">Create Doctor</button>
-		</div>
 	</section>
+	<div slider ng-model="test.single" start=1 end=10></div>
 	<section class="row">
 		<div class="col-sm-12">
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>

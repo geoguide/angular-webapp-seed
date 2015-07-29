@@ -31,7 +31,10 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 			search_state: _this.searchState,
 			page_number: pageNumber,
 			sort_by: _this.sortBy,
-			sort_direction: _this.sortDirection
+			sort_direction: _this.sortDirection,
+			search_disposition: _this.disposition,
+			score_low: _this.score_low,
+			score_high: _this.score_high
 		};
 		doctorFactory.queryDoctors(queryData).then(function(response) {
 			_this.doctors = response.doctors;
