@@ -86,6 +86,25 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ name: 'WYOMING', abbreviation: 'WY' }
 	];
 	
+	this.disposition = [
+		{
+			id: 0,
+			name: 'New'
+		},{
+			id: 1,
+			name: 'Welcome email sent'
+		},{
+			id: 3,
+			name: 'Responded'
+		},{
+			id:4,
+			name: 'Did not respond'
+		}, {
+			id: 5,
+			name: 'Active'
+		}
+	];
+	
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities(query).then(function(data){

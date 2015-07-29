@@ -25,7 +25,7 @@ module.exports = function (grunt) {
   var apiEndpoints = {
 	  development: 'http://localhost:3001',	
 	  staging: 'https://api.modiohealth.org',
-	  production: 'https://api.modiohealth.com'
+	  production: 'https://api.mh-useast.local'
   };
   console.log('genv: '+gruntEnvironment);
   console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
@@ -513,8 +513,7 @@ module.exports = function (grunt) {
     'wiredep',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
-    'karma'
+    'connect:test'
   ]);
 
   grunt.registerTask('build', [

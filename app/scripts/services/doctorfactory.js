@@ -27,10 +27,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			});
 		}, getSpecialties: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/specialties').then(function(response) {
-				console.log(response.data);
 				return response.data;
 			});
-		}, saveDoctor: function(formData){
+		}, getAdditionalCertifications: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications').then(function(response) {
+				return response.data;
+			});
+		},  saveDoctor: function(formData){
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
 				return response.data;
 			});
@@ -103,8 +106,20 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
+		}, saveAdditionalCertification: function(doctorId,certificationInfo){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications',certificationInfo).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		},removeAdditionalCertification: function(doctorId,cert){
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications/'+cert).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
 		}, removeSpecialty: function(doctorId,spec){
-			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/specialty/'+spec).then(function(response) {
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/specialties/'+spec).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

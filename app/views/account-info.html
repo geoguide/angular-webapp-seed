@@ -45,39 +45,53 @@
 		<h2>Specialties &amp; Board Certifications</h2>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-3">
+		<label>Specialty</label>
+	</div>
+	<div class="col-md-1">
+		<label>Certified?</label>
+	</div>
+	<div class="col-md-3">
+		<label>Issue Date</label>
+	</div>
+	<div class="col-md-3">
+		<label>Expiration Date</label>
+	</div>
+	<div class="col-md-2">
+		<label>Actions</label>
+	</div>
+</div>
 <div class="row" ng-repeat="dspec in ai.specialtyData track by $index">
 	<form novalidate ng-submit="ai.submitSpecialty(dspec)">
-		<div class="col-md-3">
-			<label>Specialty {{$index+1}}</label>
+		<div class="col-md-3 form-group">
 			<select class="form-control" ng-model="dspec.specialty_id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ><option value="">-- None --</option></select>
 		</div>
-		<div class="col-md-2">
-			<label>Certified?</label>
+		<div class="col-md-1 control-group">
 			<select ng-model="dspec.is_certified" class="form-control">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
+				<option value="0">N</option>
+				<option value="1">Y</option>
 			</select>
 		</div>
-		<div class="col-md-3" ng-show="dspec.is_certified == 1">
-			<label>Issue Date</label>
+		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 1">
 			<div class="input-group">
-				<input type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.issue_date" is-open="ai.opened['issue_date_'+$index]" max-date="'01/01/2015'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.issue_date" is-open="ai.opened['issue_date_'+$index]" max-date="'01/01/2015'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="ai.open($event,'issue_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 				</span>
 			</div>
 		</div>
-		<div class="col-md-3" ng-show="dspec.is_certified == 1">
-			<label>Expiration Date</label>
+		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 1">
+			
 			<div class="input-group">
-				<input type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="ai.open($event,'expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 				</span>
 			</div>
 		</div>
-		<div class="col-md-1">
-			<label>Actions</label>
+		<div class="col-md-2 form-group">
+			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id">Delete</button>
 			<button class="btn btn-primary">Submit</button>
 		</div>
 	</form>
@@ -88,36 +102,41 @@
 		<button class="btn btn-primary" ng-click="ai.addSpecialty()">Add Specialty</button>
 	</div>
 </div>
+
+<!-- Additional Certifications -->
 <div class="row">
 	<div class="col-md-12">
-		<h2>Rates</h2>	
+		<h2>Additional Certifications</h2>	
 	</div>
 </div>
-<form ng-submit="ai.submitRates()">
-	<div class="row">	
-		<div class="col-md-3 form-group">
-			<label>Overnight Call</label>
-			<input type="text" class="form-control" ng-model="ai.rates.overnight_call">
+<div class="row" ng-repeat="dcert in ai.additionalCerts track by $index">
+	<form novalidate ng-submit="ai.submitAdditionalCertification(dcert)">
+		<div class="col-md-4">
+			<select class="form-control" ng-model="dcert.type_id" ng-options="cert.id as cert.name for cert in ai.additional_certification_types" >
+				<option value="">-- None --</option>
+			</select>
+		</div>
+		<div class="col-md-4">
+			<div class="input-group">
+					<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+					</span>
+				</div>
 		</div>
 		<div class="col-md-3 form-group">
-			<label>Callback</label>
-			<input type="text" class="form-control" ng-model="ai.rates.callback">
+			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id">Delete Certification</button>
+			<button class="btn btn-primary">Submit</button>
 		</div>
-		<div class="col-md-3 form-group">
-			<label>Holiday Premium</label>
-			<input type="text" class="form-control" ng-model="ai.rates.holiday_premium">
-		</div>
-		<div class="col-md-3 form-group">
-			<label>Eight Hour</label>
-			<input type="text" class="form-control" ng-model="ai.rates.eight_hour">
-		</div>
+	</form>
+</div>
+<div class="row">
+	<div class="col-md-12 text-right form-group">
+		<button class="btn btn-primary" ng-click="ai.addCertification()">Add Certification</button>
 	</div>
-	<div class="row">
-		<div class="col-md-12 text-right form-group">
-			<button class="btn btn-primary">Submit Rates</button>
-		</div>
-	</div>
-</form>
+</div>
+
+<!-- Applications -->
 <div class="row">
 	<div class="col-md-12">
 		<h2>Applications</h2>

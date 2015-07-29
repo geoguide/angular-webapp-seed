@@ -21,17 +21,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.doctorsPerPage = 25;
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
-	this.otherField = 'locum_experience';
-	
-	this.changeOther = function(changeTo){
-		_this.otherField = changeTo;
-	};
 	
 	
 	/* Private Functions */
-	
-	
-    
 	function getResultsPage(pageNumber) {
 		var queryData = {
 			search_query: _this.searchQuery,

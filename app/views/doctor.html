@@ -207,6 +207,16 @@
 					<label>Admin Notes</label>
 					<textarea ng-model="dr.doctorData.admin_notes" class="form-control"></textarea>
 				</div>
+				<div class="form-group col-md-6">
+					<label>Sales Notes</label>
+					<textarea ng-model="dr.doctorData.sales_notes" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label>Disposition</label>
+					<select class="form-control" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="dr.doctorData.disposition"></select>
+				</div>
 				<div class="form-group col-md-3">
 					<label>Score</label>
 					<input type="number" ng-model="dr.doctorData.score" class="form-control" max="100" min="0" />

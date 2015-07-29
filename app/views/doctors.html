@@ -91,18 +91,11 @@
 							<th ng-click="drsCtrl.sortResult('first_name')">First</th>
 							<th ng-click="drsCtrl.sortResult('last_name')">Last</th>
 							<th ng-click="drsCtrl.sortResult('email')">Email</th>
+							<th>Specialty</th>
+							<th>Disposition</th>
 							<th>States</th>
-							<th> 
-								<div class="dropdown" dropdown>
-									<a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled">{{drsCtrl.otherField}}<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu" id="other-field-dropdown" ng-show="drsCtrl.doctors.length > 5">
-										<li><a ng-click="drsCtrl.changeOther('locum_experience')">Locum Experience</a></li>
-										<li><a ng-click="drsCtrl.changeOther('tier')">Tier</a></li>
-										<li><a ng-click="drsCtrl.changeOther('trauma_call')">Trauma</a></li>
-										<li><a ng-click="drsCtrl.changeOther('npi_number')">NPI</a></li>
-									</ul>
-								</div>
-							</th>
+							<th ng-click="drsCtrl.sortResult('score')">Score</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -111,8 +104,10 @@
 							<td>{{ doc.first_name }}</td>
 							<td>{{ doc.last_name }}</td>
 							<td>{{ doc.email }}</td>
+							<td>{{ doc.specialty}}</td>
+							<td>{{ appCtrl.disposition[doc.disposition].name}}</td>
 							<td>{{ doc.medical_licenses}}</td>
-							<td>{{ doc[drsCtrl.otherField] }}</td>
+							<td>{{ doc.score}}</td>
 						</tr>
 					</tbody>
 				</table>

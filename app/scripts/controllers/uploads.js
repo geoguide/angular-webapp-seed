@@ -21,22 +21,111 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	this.uploads = [];
 	
 	this.uploadTypes = [
-		{
-			short: 'cv',
-			long: 'Curriculum Vitae (CV)'
-		}, {
-			short: 'color_passport',
-			long: 'Color Passport Photo'
-		}, {
-			short: 'ppd_test_results',
-			long: 'PPD Test Results'
-		}, {
-			short: 'liability_insurance_certificate',
-			long: 'Professional Liability Insurance Certificate'
-		}, {
-			short: 'ecfmg_certificate',
-			long: 'ECFMG Certificate'
-		}
+      {
+        id:1,
+        file:null,
+        filename:null,
+        title:'Curriculum Vitae (CV)',
+        type:'cv'
+      },
+      {
+        id:2,
+        file:null,
+        filename:null,
+        title:'Color Passport Photo',
+        type:'color_passport'
+      },
+      {
+        id:3,
+        file:null,
+        filename:null,
+        title:'PPD Test Results',
+        type:'ppd_test_results'
+      },
+      {
+        id:4,
+        file:null,
+        filename:null,
+        title:'Professional Liability Insurance Certificate',
+        type:'liability_insurance_certificate'
+      },
+      {
+        id:5,
+        file:null,
+        filename:null,
+        title:'ECFMG Certificate',
+        type:'ecfmg_certificate'
+      },
+      {
+        id:6,
+        file:null,
+        filename:null,
+        title:'MD Diploma',
+        type:'md_diploma'
+      },
+      {
+        id:7,
+        file:null,
+        filename:null,
+        title:'Residency, Internship, Fellowship Certificates',
+        type:'residency_certificates'
+      },
+      {
+        id:8,
+        file:null,
+        filename:null,
+        title:'Social Security Card',
+        type:'social_security_card'
+      },
+      {
+        id:9,
+        file:null,
+        filename:null,
+        title:'Immunization Information',
+        type:'immunization_information'
+      },
+      {
+        id:10,
+        file:null,
+        filename:null,
+        title:'Case Logs',
+        type:'case_logs'
+      },
+      {
+        id:11,
+        file:null,
+        filename:null,
+        title:'Board Certification Certificate(s)',
+        type:'board_certification_certificate'
+      },
+      {
+        id:12,
+        file:null,
+        filename:null,
+        title:'NPDB Self-Query',
+        type:'npdb_self_query'
+      },
+      {
+        id:13,
+        file:null,
+        filename:null,
+        title:'Facility Applications',
+        type:'facility_applications'
+      },
+      {
+        id:14,
+        file:null,
+        filename:null,
+        title:'Facility Attestations',
+        type:'facility_attestations'
+      },
+      {
+        id:15,
+        file:null,
+        filename:null,
+        title:'Payor Contracts',
+        type:'payor_contracts'
+      }
 	];
 	 
 	$scope.upload = function (files,type) {

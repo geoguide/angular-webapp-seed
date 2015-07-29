@@ -15,10 +15,17 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.doctorData = null;
 	this.states = [];
 	this.drSpecialties = [];
-	this.rates = {};
 	this.jobApplications = [];
 	this.jobs = [];
 	this.newJobApp = {};
+	this.additionalCerts = [];
+	this.additional_certification_types = [
+		{ id: 0, name: 'ATLS/ACLS'},
+		{ id: 1, name: 'PALS'},
+		{ id: 2, name: 'BLS'},
+		{ id: 3, name: 'ARLS'},
+		{ id: 4, name: 'NALS'}
+	];
 	
 	this.get = function(doctorId){
 		
@@ -28,11 +35,14 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			_this.specialtyData = data;
 		});
 		
+		doctorFactory.getAdditionalCertifications(doctorId).then(function(data){
+			_this.additionalCerts = data;
+		});
+		
 		doctorData.then(function(data){
 			_this.doctorData = data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
 			_this.drSpecialties = data.specialties;
-			_this.rates = data.rates;
 			_this.error = false;
 
 		},function(error){
@@ -55,12 +65,13 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
+
 	
-	this.submitRates = function(){
-		doctorFactory.saveRates(_this.doctorId,_this.rates).then(function(data){
+	this.submitSpecialty = function(dspec){
+		doctorFactory.saveSpecialty(_this.doctorId,dspec).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
-				msg: 'Doctor Saved.',
+				msg: 'Specialties Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -75,13 +86,56 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		});
 	};
 	
-
-	
-	this.submitSpecialty = function(dspec){
-		doctorFactory.saveSpecialty(_this.doctorId,dspec).then(function(data){
+	this.submitAdditionalCertification = function(dcert){
+		
+		doctorFactory.saveAdditionalCertification(_this.doctorId,dcert).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
-				msg: 'Specialties Saved.',
+				msg: 'Certification Saved.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteCertification = function(dcert){
+		doctorFactory.removeAdditionalCertification(_this.doctorId,dcert).then(function(data){
+			doctorFactory.getAdditionalCertifications(_this.doctorId).then(function(data){
+				_this.additionalCerts = data;
+			});
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Certification Saved.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteSpecialty = function(dspec){
+		doctorFactory.removeSpecialty(_this.doctorId,dspec).then(function(data){
+			doctorFactory.getSpecialties(_this.doctorId).then(function(data){
+				_this.specialtyData = data;
+			});
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Certification Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -172,30 +226,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.addSpecialty = function(){
 		_this.specialtyData.push({});
 	};
-	
-	this.updateSpecialty = function(specId,oldSpec){
-		doctorFactory.addSpecialty(_this.doctorId,specId).then(function(){
-			if(oldSpec){
-				return doctorFactory.removeSpecialty(_this.doctorId,oldSpec);	
-			} else {
-				return true;
-			}
-			
-		}).then(function(data){
-			toasty.pop.success({
-				title: 'Success!',
-				msg: 'Specialty Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-		}, function(error){
-			toasty.pop.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
+	this.addCertification = function(){
+		_this.additionalCerts.push({});
 	};
 	
 	this.acceptApplication = function(appId){
