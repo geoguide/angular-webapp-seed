@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}')" class="ng-cloak">Home</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}')" class="ng-cloak">General Info</a></li>
 			<li role="presentation" class="active"><a>Account Info</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/qualifications')">Qualifications</a></li>
@@ -90,8 +90,8 @@
 				</span>
 			</div>
 		</div>
-		<div class="col-md-2 form-group">
-			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id">Delete</button>
+		<div class="col-md-2 form-group text-right">
+			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id"><i class="fa fa-trash-o"></i> Delete</button>
 			<button class="btn btn-primary">Submit</button>
 		</div>
 	</form>
@@ -99,7 +99,7 @@
 <br />
 <div class="row">
 	<div class="col-md-12 text-right form-group">
-		<button class="btn btn-primary" ng-click="ai.addSpecialty()">Add Specialty</button>
+		<button class="btn btn-success" ng-click="ai.addSpecialty()"><i class="fa fa-plus"></i> Add Specialty</button>
 	</div>
 </div>
 
@@ -124,15 +124,17 @@
 					</span>
 				</div>
 		</div>
-		<div class="col-md-3 form-group">
-			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id">Delete Certification</button>
-			<button class="btn btn-primary">Submit</button>
+		<div class="col-md-4 form-group text-right">
+			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id"><i class="fa fa-trash-o"></i>
+ Delete Certification</button>
+			<button class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
 		</div>
 	</form>
 </div>
 <div class="row">
 	<div class="col-md-12 text-right form-group">
-		<button class="btn btn-primary" ng-click="ai.addCertification()">Add Certification</button>
+		<button class="btn btn-success" ng-click="ai.addCertification()"><i class="fa fa-plus"></i>
+ Add Certification</button>
 	</div>
 </div>
 
