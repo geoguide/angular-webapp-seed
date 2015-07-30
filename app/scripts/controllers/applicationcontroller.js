@@ -115,12 +115,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
-	
+	this.specialtiesMap = [];
 	this.init = function(){
 		$log.info('app init called');
 
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
+			for(var s=0;s<_this.specialties.length;s++){
+				_this.specialtiesMap[_this.specialties[s].id] = _this.specialties[s].specialty;
+			}
 		});
 		
 		experienceFactory.getMedicalSchools().then(function(data){

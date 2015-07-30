@@ -25,7 +25,7 @@ module.exports = function (grunt) {
   var apiEndpoints = {
 	  development: 'http://localhost:3001',	
 	  staging: 'https://api.modiohealth.org',
-	  production: 'https://api.mh-useast.local'
+	  production: 'https://api.modiohealth.com'
   };
   console.log('genv: '+gruntEnvironment);
   console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
