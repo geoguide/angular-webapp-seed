@@ -139,6 +139,8 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				modalObject: function(){
+					dataIn.start_date = dataIn.start_date || '01/01/2014';
+					dataIn.end_date = dataIn.end_date || '01/01/2015';
 					return dataIn;
 				},
 				title: function(){
