@@ -7,7 +7,7 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, toasty, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
@@ -26,16 +26,16 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		startingDay: 1
 	};
 	
-	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	this.format = this.formats[0];
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
+	this.format = this.formats[4];
 	this.dateOptions = {
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
 	
 	this.save = function(){
-		_this.jobData.start_date = (_this.jobData.start_date === '2000-06-22') ? null : _this.jobData.start_date;
-		_this.jobData.end_date = (_this.jobData.end_date === '2000-06-22') ? null : _this.jobData.end_date;
+		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : _this.jobData.start_date;
+		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : _this.jobData.end_date;
 		jobFactory.saveJob(_this.jobData).success(function(data){
 			toasty.pop.success({
 				title: 'Success!',
@@ -53,7 +53,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			});
 		});
 	};
-	
 	this.delete = function(){
 		jobFactory.deleteJob(_this.jobId).then(function(data){
 			_this.jobData = null;

@@ -34,21 +34,9 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-xs-3 form-group">
-				<label>Holiday Premium</label>
-				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.holiday_premium" />
-			</div>
-			<div class="col-xs-3 form-group">
-				<label>Overnight Call</label>
-				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.overnight_call" />
-			</div>
-			<div class="col-xs-3 form-group">
-				<label>Eight Hour</label>
-				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.eight_hour" />
-			</div>
-			<div class="col-xs-3 form-group">
-				<label>Callback</label>
-				<input type="number" class="form-control" ng-model="jobAppCtrl.appData.callback" />
+			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
+				<label>{{rate.name}}</label>
+				<input type="number" class="form-control" ng-model="jobAppCtrl.appData[rate.field]" />
 			</div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>

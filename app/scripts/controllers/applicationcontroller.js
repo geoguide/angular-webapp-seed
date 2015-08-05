@@ -15,6 +15,21 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		//$scope.currentUser = AuthService.currentUser();
 	});
 	
+	this.today = new Date();
+	var dd = this.today.getDate();
+	var mm = this.today.getMonth()+1; //January is 0!
+	var yyyy = this.today.getFullYear();
+	
+	if(dd<10) {
+	    dd='0'+dd;
+	} 
+	
+	if(mm<10) {
+	    mm='0'+mm;
+	} 
+	
+	this.today = mm+'/'+dd+'/'+yyyy;
+	
 	$scope.$on('$routeChangeSuccess', function( event ) {
 		_this.tab = $route.current.tab;
 	});
@@ -97,23 +112,67 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			id: 3,
 			name: 'Responded'
 		},{
-			id:4,
+			id: 4,
 			name: 'Did not respond'
 		}, {
 			id: 5,
 			name: 'Active'
 		}
 	];
-	
+	this.dispositionMap = [];
+	for(var s=0;s<_this.disposition.length;s++){
+		_this.dispositionMap[_this.disposition[s].id] = _this.disposition[s].name;
+	}
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities(query).then(function(data){
-			deferred.resolve(data);
+	   facilityFactory.queryFacilities({q:query}).then(function(data){
+			deferred.resolve(data.facilities);
 		},function(error){
 			deferred.reject(error);
 			$log.error(error);
 		});
 		return deferred.promise;
+	};
+
+	this.rateTypes = [
+		{
+			field: 'standard_daily',
+			name: 'Standard Daily'
+		},{
+			field: 'standard_hourly',
+			name: 'Standard Hourly'
+		},{
+			field: 'weekend_daily',
+			name: 'Weekend Daily'
+		},{
+			field: 'weekday_daily',
+			name: 'Weekday Daily'
+		},{
+			field: 'weekday_call',
+			name: 'Weekday Call'
+		},{
+			field: 'weekend_call',
+			name: 'Weekend Call'
+		},{
+			field: 'outside_defined_shifts',
+			name: 'Outside Defined Shifts'
+		},{
+			field: 'holiday_premium',
+			name: 'Holiday Premium'
+		},{
+			field: 'callback',
+			name: 'CallBack'
+		},{
+			field: 'salary',
+			name: 'Salary'
+		}
+	];
+	
+	this.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
+	this.dateFormat = this.dateFormats[4];
+	this.dateOptions = {
+	    formatYear: 'yy',
+	    startingDay: 1
 	};
 	this.specialtiesMap = [];
 	this.init = function(){

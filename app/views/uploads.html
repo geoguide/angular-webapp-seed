@@ -16,11 +16,11 @@
 			<h4>{{obj.title}}</h4>
 			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.type)" 
 		     ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-		     ngf-accept="'image/*,application/pdf'">Drop Images or PDFs files here</div>
+		     ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Drop Images, Documents or PDFs files here</div>
 			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>		
 			<button class="btn btn-primary" ng-show="up.uploads[obj.type]" ng-click="up.getFileLink(obj.type)">Get {{obj.title}} Download Link</button>
 			<button class="btn btn-danger" ng-show="up.uploads[obj.type]" ng-really-message="Are you sure you want to delete this {{obj.title}}?" ng-really-click="up.deleteUpload(obj.type)">Delete {{obj.title}}</button>
-			<a href="{{up.downloads[obj.type]}}" class="btn btn-success" ng-show="up.downloads[obj.type]">Download {{obj.title}}</a>
+			<a href="{{up.downloads[obj.type]}}" class="btn btn-success" ng-show="up.downloads[obj.type] && 1==2">Download {{obj.title}}</a>
 		</div>
 	</div>
 	

@@ -2,20 +2,19 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:DoctorCtrl
+ * @name modioAdminPortal.controller:FacilityCtrl
  * @description
- * # DoctorCtrl
+ * # FacilityCtrl
  * Controller of the modioAdminPortal
  */
-
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload) {
+  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload) {
 	
 	var _this = this;
-	this.doctorId = $routeParams.id;
-	this.doctorData = null;
+	this.facilityId = $routeParams.id;
+	this.facilityData = null;
 	
-	//Date of Birth Picker
+	//Date of ASDASD
 	this.opened = false;
 	this.open = function($event) {
 		$log.log('open called');
@@ -25,29 +24,24 @@ angular.module('modioAdminPortal')
 		_this.opened = true;
 	};
 	
-	this.get = function(doctorId){
+	this.get = function(facilityId){
 		
-		var doctorData = doctorFactory.getDoctor(doctorId);
+		var facilityData = facilityFactory.getFacility(facilityId);
 		
-		doctorData.then(function(data){
-			_this.doctorData = data;
-			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
-			_this.drSpecialties = data.specialties;
-			_this.rates = data.rates;
+		facilityData.then(function(data){
+			_this.facilityData = data;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
-			_this.doctorData = null;
+			_this.facilityData = null;
 		});
 	};
 	
 	this.save = function(){
-		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
-		delete _this.doctorData.rates;
-		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
+		facilityFactory.saveFacility(_this.facilityData).then(function(data){
 			toasty.pop.success({
 				title: 'Success!',
-				msg: 'Doctor Saved.',
+				msg: 'Facility Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -61,7 +55,7 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	
+	/*
 	this.delete = function(){
 		doctorFactory.deleteDoctor(_this.doctorId).then(function(data){
 			_this.doctorData = null;
@@ -79,16 +73,15 @@ angular.module('modioAdminPortal')
 				clickToClose: true
 			});
 		});
-	};
+	};*/
 
 	
 	/* Init */
 
 	var init = function(){
-		_this.get(_this.doctorId);
+		_this.get(_this.facilityId);
 		
 	};
 	
 	init();
-	
 });

@@ -22,36 +22,31 @@
 				<select class="form-control" ng-model="dr.medicalSchool.facility_id">
 					<option value="">-- Choose Medical School --</option>
 					<option ng-repeat="school in appCtrl.medicalSchools" value="{{school.id}}">{{school.facility_name}}</option>
-					
 				</select>
 			</div>
-			<div class="form-group col-xs-6">
-				<label>Degree Awarded</label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.degree_awarded" />
+			<div class="form-group col-xs-3">
+				<label>Actions</label>
+				<button role="button" type="button" class="btn-primary btn btn-block" ng-click="appCtrl.goTo('/facility/'+dr.medicalSchool.facility_id)">Edit this school</button>
 			</div>
 		</div>
-		<div class="row">
-			<div class="form-group col-xs-6">
+		<!--<div class="row">
+			<div class="form-group col-xs-3">
 				<label>Address</label>
 				<input type="text" class="form-control" ng-model="dr.medicalSchool.address" />
 			</div>
-			<div class="form-group col-xs-6">
-				<label>Address 2</label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.address2" />
-			</div>
 		</div>
 		<div class="row">
-			<div class="form-group col-xs-3">
+			<div class="form-group col-xs-2">
 				<label>City</label>
 				<input type="text" class="form-control" ng-model="dr.medicalSchool.city" />
 			</div>
-			<div class="form-group col-xs-3">
+			<div class="form-group col-xs-2">
 				<label>State </label>
 				<select class="form-control" ng-model="dr.medicalSchool.state">
 					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
 				</select>
 			</div>
-			<div class="form-group col-xs-3">
+			<div class="form-group col-xs-2">
 				<label>Zip</label>
 				<input type="text" class="form-control" ng-model="dr.medicalSchool.zip_code" ui-mask="99999" />
 			</div>
@@ -59,22 +54,40 @@
 				<label>Country </label>
 				<input type="text" class="form-control" ng-model="dr.medicalSchool.country" />
 			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-xs-6">
-				<label>Phone</label>
-				<input type="text" class="form-control" ng-model="dr.medicalSchool.phone" ui-mask="(999) 999-9999" />
-			</div>
-			<div class="form-group col-xs-6">
+			<div class="form-group col-xs-3">
 				<label>ECFMG?</label>
 				<select class="form-control" ng-model="dr.medicalSchool.ECFMG">
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</select>
 			</div>
+		</div>-->
+		<div class="row">
+			<div class="form-group col-xs-3">
+				<label>Graduated?</label>
+				<select ng-model="dr.medicalSchool.graduated" class="form-control">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-3">
+				<div ng-show="dr.medicalSchool.graduated == 0">
+					<label>Reason not graduated</label>
+					<input class="form-control" ng-model="dr.medicalSchool.not_graduated_reason" />
+				</div>
+				<div ng-show="dr.medicalSchool.graduated == 1">
+					<label>Degree Awarded</label>
+					<input type="text" class="form-control" ng-model="dr.medicalSchool.degree_awarded" />
+				</div>
+			</div>
+			<!--<div class="form-group col-xs-3">
+				<label>Phone</label>
+				<input type="text" class="form-control" ng-model="dr.medicalSchool.phone" ui-mask="(999) 999-9999" />
+			</div>-->
+			
 		</div>
 		<div class="row">
-			<div class="form-group col-xs-6">
+			<div class="form-group col-xs-3">
 				<label>Start Date</label>
 				<div class="input-group">
 					<input readonly type="text" class="form-control" datepicker-popup="{{dr.format}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="'2015-06-22'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
@@ -83,7 +96,7 @@
 					</span>
 				</div>
 			</div>
-			<div class="form-group col-xs-6">
+			<div class="form-group col-xs-3">
 				<label>End Date</label>
 				<div class="input-group">
 					<input readonly type="text" class="form-control" datepicker-popup="{{dr.format}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened['end']" max-date="'2015-06-22'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
@@ -95,7 +108,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 text-right">
-				<button role="submit" class="btn btn-primary">Submit Medical School Info</button>
+				<button role="submit" class="btn btn-success">Submit Medical School Info</button>
 			</div>
 		</div>
 	</form>
@@ -204,21 +217,23 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<p class="input-group">
-              <input readonly type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
+					<label>Start Date</label>
+					<div class="input-group">
+						<input readonly type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
 				</div>
 					
 				<div class="col-md-6">
-					<p class="input-group">
+					<label>End Date</label>
+					<div class="input-group">
 						<input readonly type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
-					</p>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -310,7 +325,6 @@
 					
 				<div class="col-md-6">
 					<label>End Date</label>
-					<!--<date-picker model="model.modalObject.end_date"></date-picker>-->
 					<p class="input-group">
 						<input readonly type="text" class="form-control" datepicker-popup="{{modal.format}}" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'1920-01-01'" max-date="'2015-06-22'" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">

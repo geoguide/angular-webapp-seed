@@ -182,12 +182,34 @@
 			<div class="row">
 				<div class="form-group col-xs-6">
 					<label>Facility</label>
-					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id" typeahead-editable="false" />
+					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id;modal.modalObject.address = $item.address;modal.modalObject.city = $item.city;modal.modalObject.zip = $item.zip;modal.modalObject.state = $item.state;modal.modalObject.tel = $item.tel;modal.modalObject.fax = $item.fax;" typeahead-editable="false" />
 					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 				</div>
 				<div class="form-group col-xs-3">
 					<label>Primary?</label>
 					<input ng-model="modal.modalObject.is_primary" type="checkbox" ng-true-value="1" ng-false-value="0" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Address</label>
+					<input class="form-control" ng-model="modal.modalObject.address" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>City</label>
+					<input class="form-control" ng-model="modal.modalObject.city" type="text" />
+				</div>
+				<div class="col-md-4 form-group">
+					<label>State</label>
+					<select class="form-control" ng-model="modal.modalObject.state">
+						<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+					</select>
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Zip Code</label>
+					<input class="form-control" ng-model="modal.modalObject.zip" ui-mask="99999" type="text" />
 				</div>
 			</div>
 			<div class="row">
@@ -219,6 +241,16 @@
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
 					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Phone</label>
+					<input class="form-control" ng-model="modal.modalObject.tel" ui-mask="(999) 999-9999" type="text" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Fax</label>
+					<input class="form-control" ng-model="modal.modalObject.fax" ui-mask="(999) 999-9999" type="text" />
 				</div>
 			</div>
 		</form>
@@ -261,7 +293,7 @@
 				<div class="form-group col-xs-6">
 					<label>Issue Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1980'" max-date="'06/22/2015'" ng-required="true" close-text="Close" />
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1980'" max-date="'06/22/2016'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -270,7 +302,7 @@
 				<div class="form-group col-xs-6">
 					<label>Expiration Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.expiration_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1980'" max-date="'06/22/2015'" ng-required="true" close-text="Close" />
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.expiration_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1980'" max-date="'06/22/2018'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>

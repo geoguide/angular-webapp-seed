@@ -37,20 +37,44 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-3 form-group">
+						<label>Standard Daily</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.standard_daily" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Standard Hourly</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.standard_hourly" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Weekend Daily</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.weekend_daily" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Weekday Daily</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.weekday_daily" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Weekday Call</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.weekday_call" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Weekend Call</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.weekend_call" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Outside Defined Shifts</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.outside_defined_shifts" />
+					</div>
+					<div class="col-xs-3 form-group">
 						<label>Holiday Premium</label>
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.holiday_premium" />
 					</div>
 					<div class="col-xs-3 form-group">
-						<label>Overnight Call</label>
-						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.overnight_call" />
-					</div>
-					<div class="col-xs-3 form-group">
-						<label>Eight Hour</label>
-						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.eight_hour" />
-					</div>
-					<div class="col-xs-3 form-group">
 						<label>Callback</label>
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.callback" />
+					</div>
+					<div class="col-xs-3 form-group">
+						<label>Salary</label>
+						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.salary" />
 					</div>
 				</div>
 				<div class="row">
@@ -62,16 +86,6 @@
 						<label>Visa Required?</label>
 						<input type="checkbox" ng-model="jobsCtrl.newJob.visa_required" ng-true-value="1" ng-false-value="0" />
 					</div>
-					<div class="col-xs-3 form-group">
-						<label>Overnight Call Req?</label>
-						<input type="checkbox" ng-model="jobsCtrl.newJob.overnight_call_required" ng-true-value="1" ng-false-value="0" />
-					</div>
-					<div class="col-xs-3 form-group">
-						<label>Trauma Call Req?</label>
-						<input type="checkbox" ng-model="jobsCtrl.newJob.trauma_call_required" ng-true-value="1" ng-false-value="0" />
-					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-3 form-group">
 						<label>BC/BE Required?</label>
 						<input type="checkbox" ng-model="jobsCtrl.newJob.bc_be" ng-true-value="1" ng-false-value="0" />
@@ -96,16 +110,6 @@
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
 						</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label>Experience Low</label>
-						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.experience_low" />
-					</div>
-					<div class="form-group col-md-6">
-						<label>Experience High</label>
-						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.experience_high" />
 					</div>
 				</div>
 			</div> 

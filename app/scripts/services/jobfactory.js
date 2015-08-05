@@ -32,7 +32,7 @@ angular.module('modioAdminPortal')
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
 		}, queryJobs: function(queryData){
 			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection;
-			searchQuery = queryData.search_query;
+			searchQuery = queryData.search_query || '';
 			searchState = queryData.search_state;
 			pageNumber = queryData.page_number || 1;
 			searchSpecialty = queryData.search_specialty;

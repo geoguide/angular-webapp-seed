@@ -86,7 +86,7 @@
 					<label>Score High</label>
 					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" />
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<label>Disposition</label>
 					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Disposition --</option>
@@ -128,7 +128,7 @@
 							<td>{{ doc.last_name }}</td>
 							<td>{{ doc.email }}</td>
 							<td>{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-							<td>{{ appCtrl.disposition[doc.disposition].name}}</td>
+							<td>{{ appCtrl.dispositionMap[doc.disposition]}}</td>
 							<td>{{ doc.medical_licenses}}</td>
 							<td>{{ doc.score}}</td>
 						</tr>

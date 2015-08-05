@@ -65,12 +65,8 @@
 			
 			<div class="row">
 				<div class="form-group col-md-4">
-					<label>Home Phone</label>
+					<label>Phone Number</label>
 					<input type="text" class="form-control" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
-				</div>
-				<div class="form-group col-md-4">
-					<label>Cell Phone</label>
-					<input type="text" class="form-control" id="cell-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.cell_phone">
 				</div>
 				<div class="form-group col-md-4">
 					<label>Text OK?</label><br />
@@ -79,10 +75,6 @@
 			</div>
 			
 			<div class="row">
-				<div class="form-group col-md-3">
-					<label>Pager Number</label>
-					<input type="text" class="form-control" ui-mask="(999) 999-9999" ng-model="dr.doctorData.pager" />
-				</div>
 				<div class="form-group col-md-3">
 					<label>Drivers License #</label>
 					<input type="text" class="form-control" ng-model="dr.doctorData.drivers_license_number"  />
@@ -97,9 +89,9 @@
 					
 					<label>Date of Birth</label>
 					<div class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{dr.format}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="'2000-06-22'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
+						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="'6/22/2000'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
 						<span class="input-group-btn">
-			                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
+		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>
 					</div>
 				</div>

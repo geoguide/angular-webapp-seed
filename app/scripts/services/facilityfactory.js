@@ -21,8 +21,18 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			return $http.get(API_URL+'/admin/facilities/').then(function(response) {
 				return response.data;
 			});
+		}, getFacility: function(facilityId){
+			return $http.get(API_URL+'/admin/facilities/'+facilityId).then(function(response) {
+				return response.data;
+			});
+		}, saveFacility: function(formData){
+			return $http.put(API_URL+'/admin/facilities/'+formData.id,formData);
 		}, queryFacilities: function(queryIn){
-			return $http.get(API_URL+'/admin/facilities?q='+queryIn).then(function(response) {
+			
+			var searchQuery, pageNumber, sortBy, sortDirection;
+			sortBy = queryIn.sort_by;
+			queryIn.sort_direction = (queryIn.sort_direction === true) ? 'DESC' : 'ASC';
+			return $http.get(API_URL+'/admin/facilities',{params: queryIn}).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

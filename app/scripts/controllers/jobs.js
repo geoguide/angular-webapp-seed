@@ -37,8 +37,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		startingDay: 1
 	};
 	
-	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	this.format = this.formats[0];
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyy'];
+	this.format = this.formats[4];
 	this.dateOptions = {
 	    formatYear: 'yy',
 	    startingDay: 1
@@ -114,8 +114,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities(query).then(function(data){
-			deferred.resolve(data);
+	   facilityFactory.queryFacilities({q:query}).then(function(data){
+			deferred.resolve(data.facilities);
 		},function(error){
 			deferred.reject(error);
 			$log.error(error);

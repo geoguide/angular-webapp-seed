@@ -7,7 +7,7 @@
  * # UploadsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$scope,s3factory,$routeParams,$log,$timeout) {
+angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$scope,s3factory,$routeParams,$log,$timeout,$window) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -21,6 +21,13 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	this.uploads = [];
 	
 	this.uploadTypes = [
+		{
+			id:0,
+			file:null,
+			filename: null,
+			title: 'CV Private',
+			type: 'cv-private'
+		},
       {
         id:1,
         file:null,
@@ -153,7 +160,8 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	    s3factory.getSignedUrl(_this.doctorId,_this.uploads[type].file_name).then(function(response){
 		    $log.info(response);
 		 	_this.downloads[type] = response;
-		 	$timeout(function(){ _this.downloads[type] = null; }, 60000);
+		 	$window.location.href = response;
+		 	//$timeout(function(){ _this.downloads[type] = null; }, 60000);
 	    });
     };
     

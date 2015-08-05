@@ -207,7 +207,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   qualificationFactory.queryFacilities(query).then(function(data){
-			deferred.resolve(data);
+			deferred.resolve(data.facilities);
 		},function(error){
 			deferred.reject(error);
 			$log.error(error);

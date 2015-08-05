@@ -144,6 +144,19 @@
 				controllerAs: 'part',
 				access: {requiredLogin: true },
 				tab: 'partners'
+			}).when('/facilities', {
+				templateUrl: 'views/facilities.html',
+				controller: 'FacilitiesCtrl',
+				controllerAs: 'fac',
+				access: {requiredLogin: true },
+				tab: 'facilities'
+
+			}).when('/facility/:id', {
+				templateUrl: 'views/facility.html',
+				controller: 'FacilityCtrl',
+				controllerAs: 'fac',
+				access: {requiredLogin: true },
+				tab: 'facilities'
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view
