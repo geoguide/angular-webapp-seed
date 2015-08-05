@@ -121,31 +121,30 @@
 	</script>
 	<h4>Jobs</h4>
 	<section class="row">
-		<div class="col-sm-5">
-			<form ng-submit="jobsCtrl.getResults()">
-				<div class="input-group">
-					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
-					<span class="input-group-btn">
-						<button role="submit" class="btn btn-default" type="submit">Search</button>
-			      </span>
-				</div>
-			</form>
-		</div>
-		<div class="col-md-3">
-			
-			<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
-				<option value="">-Select Specialty-</option>
-				<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
-			</select>
-		</div>
-		<div class="col-md-2">
-			<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
-				<option value="">-Select State-</option>
-				<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2 form-group text-right">
-			<button class="btn btn-primary btn-block" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
+		<form ng-submit="jobsCtrl.getResults()">
+			<div class="col-sm-5">
+				<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
+					<option value="">-Select Specialty-</option>
+					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
+					<option value="">-Select State-</option>
+					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+				</select>
+			</div>
+			<div class="col-sm-2 form-group">
+				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
+			</div>
+		</form>
+	</section>
+	<section class="row">
+		<div class="col-sm-12 form-group text-right">
+			<button class="btn btn-primary" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
 		</div>
 	</section>
 	<section class="row">
