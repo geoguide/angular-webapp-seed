@@ -84,7 +84,7 @@
 		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 1">
 			
 			<div class="input-group">
-				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="ai.open($event,'expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 				</span>
@@ -118,7 +118,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="input-group">
-					<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2017'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+					<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 					</span>
