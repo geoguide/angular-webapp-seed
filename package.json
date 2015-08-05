@@ -2,7 +2,6 @@
   "name": "angularwebappseed",
   "version": "0.0.0",
   "dependencies": {
-    "cron": "^1.0.9"
   },
   "repository": {},
   "devDependencies": {
