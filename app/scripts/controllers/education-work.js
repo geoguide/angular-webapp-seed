@@ -24,18 +24,26 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 		
 		_this.opened[which] = true;
 	};
-	
-	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
-	this.format = this.formats[4];
-	this.dateOptions = {
-	    formatYear: 'yy',
-	    startingDay: 1
-	};
     
-	this.training = {};
+	this.training = [];
 	this.medicalSchool = {};
 	this.workHistory = [];
 	this.medicalSchools = [];
+	
+	this.today = new Date();
+	var dd = this.today.getDate();
+	var mm = this.today.getMonth()+1; //January is 0!
+	var yyyy = this.today.getFullYear();
+	
+	if(dd<10) {
+	    dd='0'+dd;
+	} 
+	
+	if(mm<10) {
+	    mm='0'+mm;
+	} 
+	
+	this.today = mm+'/'+dd+'/'+yyyy;
 	
 	/* Modals */
 	

@@ -75,6 +75,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				showClose: true,
 				clickToClose: true
 			});
+			doctorFactory.getSpecialties(_this.doctorId).then(function(data){
+				_this.specialtyData = _this.drSpecialties = data;
+			});
 			_this.doctorData = data;
 		}, function(error){
 			toasty.pop.error({

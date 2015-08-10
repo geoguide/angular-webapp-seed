@@ -37,7 +37,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		startingDay: 1
 	};
 	
-	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyy'];
+	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
 	this.format = this.formats[4];
 	this.dateOptions = {
 	    formatYear: 'yy',

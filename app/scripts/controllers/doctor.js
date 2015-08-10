@@ -31,7 +31,7 @@ angular.module('modioAdminPortal')
 		
 		doctorData.then(function(data){
 			_this.doctorData = data;
-			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
+			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;
 			_this.drSpecialties = data.specialties;
 			_this.rates = data.rates;
 			_this.error = false;
@@ -42,6 +42,7 @@ angular.module('modioAdminPortal')
 	};
 	
 	this.save = function(){
+		console.log(_this.doctorData.date_of_birth);
 		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
 		delete _this.doctorData.rates;
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){

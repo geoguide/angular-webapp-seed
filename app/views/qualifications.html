@@ -158,7 +158,7 @@
 
 <script type="text/ng-template" id="facility-affiliation-modal">
 	<div class="modal-header">
-		<h3 class="modal-title">{{modal.title}}</h3>
+		<h3 class="modal-title">Facility Affiliation</h3>
 	</div>
 	<div class="modal-body">
 		<form novalidate>
@@ -226,7 +226,7 @@
 				<div class="col-md-6">
 					<label>Start Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" init-date="06/22/2015" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1930'" max-date="'01/01/2015'" ng-required="true" close-text="Close" />
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -235,12 +235,13 @@
 					
 				<div class="col-md-6">
 					<label>End Date</label>
-					<p class="input-group">
-						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" init-date="06/22/2015" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1930'" max-date="'06/22/2015'" ng-required="false" close-text="Close" />
+					<p class="input-group date-picker-group" ng-show="modal.parentCtrl.opened['modalend'] || modal.modalObject.end_date">
+						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="false" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
 					</p>
+					<button class="btn btn-success btn-block"  ng-show="!modal.parentCtrl.opened['modalend'] && !modal.modalObject.end_date" ng-click="modal.parentCtrl.open($event,'modalend')">Ongoing</button>
 				</div>
 			</div>
 			<div class="row">
@@ -293,7 +294,7 @@
 				<div class="form-group col-xs-6">
 					<label>Issue Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1980'" max-date="'06/22/2016'" ng-required="true" close-text="Close" />
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>

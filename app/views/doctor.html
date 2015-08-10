@@ -33,6 +33,8 @@
 						<option value="DPM">DPM</option>
 						<option value="DDS">DDS</option>
 						<option value="DMD">DMD</option>
+						<option value="CRNA">CRNA</option>
+						<option value="PA">PA</option>
 					</select>
 				</div>
 			</div>
@@ -88,7 +90,7 @@
 				<div class="form-group col-md-3">
 					<label>Date of Birth</label>
 					<div class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="'6/22/2000'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
+						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
 						<span class="input-group-btn">
 		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>
@@ -217,6 +219,8 @@
 					<select ng-model="dr.doctorData.source" class="form-control">
 						<option value="0">Provisioned</option>
 						<option value="1">Webapp</option>
+						<option value="2">Marketing</option>
+						<option value="3">Referral</option>
 					</select>
 				</div>
 			</div>

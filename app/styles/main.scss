@@ -123,6 +123,10 @@ body {
 /*  Bootstrap Angular Fix */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.date-picker-group ul.dropdown-menu{
+	top:34px !important;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

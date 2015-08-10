@@ -6,7 +6,7 @@
 			<li role="presentation" class="active"><a>Account Info</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/qualifications')">Qualifications</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{ai.doctorId}}/uploads')">Uploads</a></li>
 		</ul>
 	</div>
 </div>
@@ -42,14 +42,14 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<h2>Specialties &amp; Board Certifications</h2>
+		<h2>Specialties</h2>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-3">
 		<label>Specialty</label>
 	</div>
-	<div class="col-md-1">
+	<!--<div class="col-md-1">
 		<label>Certified?</label>
 	</div>
 	<div class="col-md-3">
@@ -57,7 +57,7 @@
 	</div>
 	<div class="col-md-3">
 		<label>Expiration Date</label>
-	</div>
+	</div>-->
 	<div class="col-md-2">
 		<label>Actions</label>
 	</div>
@@ -67,13 +67,13 @@
 		<div class="col-md-3 form-group">
 			<select class="form-control" ng-model="dspec.specialty_id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ><option value="">-- None --</option></select>
 		</div>
-		<div class="col-md-1 control-group">
-			<select ng-model="dspec.is_certified" class="form-control">
-				<option value="0">N</option>
+		<!--<div class="col-md-1 control-group">
+			<select ng-model="dspec.is_certified" class="form-control" disabled>
+				<option value="0" selected>N</option>
 				<option value="1">Y</option>
 			</select>
-		</div>
-		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 1">
+		</div>-->
+		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 100">
 			<div class="input-group">
 				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.issue_date" is-open="ai.opened['issue_date_'+$index]" max-date="'01/01/2015'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 				<span class="input-group-btn">
@@ -81,7 +81,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 1">
+		<div class="col-md-3 form-group" ng-show="dspec.is_certified == 100">
 			
 			<div class="input-group">
 				<input type="text" readonly class="form-control" datepicker-popup="{{ai.format}}" ng-model="dspec.expiration_date" is-open="ai.opened['expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
@@ -90,7 +90,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="col-md-2 form-group text-right">
+		<div class="col-md-2 form-group">
 			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id"><i class="fa fa-trash-o"></i> Delete</button>
 			<button class="btn btn-primary">Submit</button>
 		</div>

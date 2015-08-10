@@ -61,7 +61,7 @@
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.weekend_call" />
 					</div>
 					<div class="col-xs-3 form-group">
-						<label>Outside Defined Shifts</label>
+						<label>Outside Shifts</label>
 						<input type="number" class="form-control" ng-model="jobsCtrl.newJob.outside_defined_shifts" />
 					</div>
 					<div class="col-xs-3 form-group">
@@ -78,15 +78,15 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-3 form-group">
+					<div class="col-xs-4 form-group">
 						<label>FMG OK?</label>
 						<input type="checkbox" ng-model="jobsCtrl.newJob.fmg_accepted" ng-true-value="1" ng-false-value="0" />
 					</div>
-					<div class="col-xs-3 form-group">
+					<div class="col-xs-4 form-group">
 						<label>Visa Required?</label>
 						<input type="checkbox" ng-model="jobsCtrl.newJob.visa_required" ng-true-value="1" ng-false-value="0" />
 					</div>
-					<div class="col-xs-3 form-group">
+					<div class="col-xs-4 form-group">
 						<label>BC/BE Required?</label>
 						<input type="checkbox" ng-model="jobsCtrl.newJob.bc_be" ng-true-value="1" ng-false-value="0" />
 					</div>
@@ -94,22 +94,24 @@
 				<div class="row">
 					<div class="col-md-6">
 						<label>Start Date</label>
-						<p class="input-group">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
+						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.start_date || jobsCtrl.opened['start']">
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'start')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
 						</p>
+						<button class="btn btn-success btn-block" ng-show="!jobsCtrl.newJob.start_date && !jobsCtrl.opened['start']" ng-click="jobsCtrl.open($event,'start')">ASAP</button>
 					</div>
 					
 					<div class="col-md-6">
 						<label>End Date</label>
-						<p class="input-group">
+						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.end_date || jobsCtrl.opened['end']">
 							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
 						</p>
+						<button class="btn btn-success btn-block" ng-show="!jobsCtrl.newJob.end_date && !jobsCtrl.opened['end']" ng-click="jobsCtrl.open($event,'end')">Ongoing</button>
 					</div>
 				</div>
 			</div> 
