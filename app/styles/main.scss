@@ -12,8 +12,8 @@
 	display: none !important;
 }
 
-input.ng-invalid,
-select.ng-invalid {
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
 	border-color:red;
 }
 

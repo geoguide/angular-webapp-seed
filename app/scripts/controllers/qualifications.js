@@ -99,7 +99,6 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	};
 	
 	this.openMedicalLicenseModal = function(modalId,dataIn){
-		dataIn.type_id = dataIn.type_id.toString();
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
