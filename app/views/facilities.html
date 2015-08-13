@@ -20,19 +20,19 @@
 	<h4>Facilities</h4>
 	<section id="doctor-search-filters">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-md-4 col-sm-8 form-group">
 				<form ng-submit="fac.getResults()">
 					<input type="search" class="form-control" ng-model="fac.searchQuery" value="" />
 				</form>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-sm-4 form-group">
 				<select class="form-control" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
 					<option value="">All</option>
 					<option value="1">Medical School</option>
 					<option value="0">Non-Medical School</option>
 				</select>
 			</div>
-			<div class="col-md-3 form group">
+			<div class="col-md-3 col-sm-12 form-group">
 				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 			</div>
 		</div>

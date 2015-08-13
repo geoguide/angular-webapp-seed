@@ -124,16 +124,16 @@
 	<h4>Jobs</h4>
 	<section class="row">
 		<form ng-submit="jobsCtrl.getResults()">
-			<div class="col-sm-5">
+			<div class="col-sm-4 form-group">
 				<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
 			</div>
-			<div class="col-md-3">
+			<div class="col-sm-3 col-xs-6 form-group">
 				<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
 					<option value="">-Select Specialty-</option>
 					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 				</select>
 			</div>
-			<div class="col-md-2">
+			<div class="col-sm-3 col-xs-6 form-group">
 				<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
 					<option value="">-Select State-</option>
 					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
@@ -145,8 +145,8 @@
 		</form>
 	</section>
 	<section class="row">
-		<div class="col-sm-12 form-group text-right">
-			<button class="btn btn-primary" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
+		<div class="col-sm-5 col-sm-offset-7 col-md-2 col-md-offset-10 form-group text-right">
+			<button class="btn btn-primary btn-block" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
 		</div>
 	</section>
 	<section class="row">

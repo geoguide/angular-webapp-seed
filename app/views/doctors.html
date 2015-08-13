@@ -55,17 +55,17 @@
 	<section id="doctor-search-filters">
 		<form ng-submit="drsCtrl.getResults()">
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-md-4 col-sm-12  form-group">
 					
 					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3 col-sm-6 form-group">
 					<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Specialty --</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-2 col-sm-6 form-group">
 					<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select State --</option>
 						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
@@ -74,11 +74,11 @@
 				
 			</div>
 			<div class="row">
-				<div class="col-md-2 form-group">
+				<div class="col-md-2 col-sm-6 form-group">
 					<label>Score Low</label>
 					<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" />
 				</div>
-				<div class="col-md-2 form-group">
+				<div class="col-md-2 col-sm-6 form-group">
 					<label>Score High</label>
 					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" />
 				</div>

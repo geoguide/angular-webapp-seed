@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 285 299.9" enable-background="new 0 0 285 299.9" xml:space="preserve">
+<g id="Clear_Space_Grid" display="none">
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-157.3" y1="0" x2="442.7" y2="0"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-157.3" y1="149.9" x2="442.7" y2="149.9"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-157.3" y1="299.9" x2="442.7" y2="299.9"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-157.3" y1="449.8" x2="442.7" y2="449.8"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="442.7" y1="-149.9" x2="-157.3" y2="-149.9"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-7.3" y1="449.9" x2="-7.3" y2="-150.1"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="142.7" y1="449.9" x2="142.7" y2="-150.1"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="292.6" y1="449.9" x2="292.6" y2="-150.1"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="442.5" y1="449.9" x2="442.5" y2="-150.1"/>
+	<line display="inline" fill="none" stroke="#414042" stroke-width="0.394" x1="-157.2" y1="-150.1" x2="-157.2" y2="449.9"/>
+</g>
+<g id="Symbol">
+	<path fill="#3AA9D2" d="M110.9,225.3V292c0,4.4,3.5,7.9,7.9,7.9h47.5c4.4,0,7.9-3.5,7.9-7.9v-94.1c0-6.1-6.6-9.9-11.9-6.9
+		l-47.5,27.5C112.4,219.8,110.9,222.5,110.9,225.3 M174.2,74.6V7.9c0-4.4-3.5-7.9-7.9-7.9h-47.5c-4.4,0-7.9,3.5-7.9,7.9V102
+		c0,6.1,6.6,9.9,11.8,6.9l47.5-27.5C172.7,80,174.2,77.4,174.2,74.6 M191.8,215.1l57.6,33.3c3.8,2.2,8.6,0.9,10.8-2.9l23.7-41.2
+		c2.2-3.8,0.9-8.6-2.9-10.8l-81.4-47.1c-5.3-3-11.8,0.8-11.8,6.9v54.9C187.9,211,189.4,213.7,191.8,215.1 M93.2,84.8L35.6,51.5
+		c-3.8-2.2-8.6-0.9-10.8,2.9L1.1,95.6c-2.2,3.8-0.9,8.6,2.9,10.8l81.4,47.1c5.3,3,11.9-0.8,11.9-6.9V91.7
+		C97.2,88.8,95.7,86.2,93.2,84.8 M223.5,139.7l57.6-33.3c3.8-2.2,5.1-7,2.9-10.8l-23.7-41.2c-2.2-3.8-7-5.1-10.8-2.9l-81.4,47.1
+		c-5.3,3-5.3,10.7,0,13.7l47.5,27.5C218,141.1,221,141.1,223.5,139.7 M69.5,160.2l47.5,27.5c5.3,3,5.3,10.7,0,13.7l-81.4,47.1
+		c-3.8,2.2-8.6,0.9-10.8-2.9L1.1,204.3c-2.2-3.8-0.9-8.6,2.9-10.8l57.6-33.3C64,158.7,67,158.7,69.5,160.2"/>
+</g>
+</svg>
