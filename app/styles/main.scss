@@ -75,6 +75,18 @@ body {
 	min-height: 600px;
 }
 
+#menu-container {
+	clear:both;
+}
+
+#main-nav li {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+#main-nav {
+	@extend .nav-pills;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
