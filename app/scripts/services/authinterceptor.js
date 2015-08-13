@@ -17,7 +17,8 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 				token = localStorageService.get('authToken');
 			}
 			if (token) {
-				config.headers.Authorization = 'Bearer ' + token;
+				config.headers.modio = 'Bearer ' + token;
+				config.headers.Authorization = '';
 			}
 			return config;
 		},

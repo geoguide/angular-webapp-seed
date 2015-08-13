@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<label>Facility</label>
 					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobsCtrl.newJob.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in jobsCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.newJob.facility_id = $item.id" typeahead-editable="false" />
-					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+					<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
 				</div>
 				<div class="form-group">
 					<label>Job Title</label>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<label>Job Description</label>
-					<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.description"  ng-required="true" />
+					<textarea class="form-control" name="job_title" ng-model="jobsCtrl.newJob.description"  ng-required="true" rows="10"></textarea>
 				</div>
 				<div class="row">
 					<div class="col-xs-3 form-group">
@@ -95,7 +95,7 @@
 					<div class="col-md-6">
 						<label>Start Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.start_date || jobsCtrl.opened['start']">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" readonly />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" clear-text="ASAP" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'start')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
@@ -106,7 +106,7 @@
 					<div class="col-md-6">
 						<label>End Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.end_date || jobsCtrl.opened['end']">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly clear-text="Ongoing" />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>

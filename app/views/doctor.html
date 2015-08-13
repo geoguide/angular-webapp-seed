@@ -1,6 +1,6 @@
 <section id="general-info">
 	
-	<div id="no-data" ng-show="dr.error" class="ng-cloak">Doctor Not Found</div>
+	<h3 id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor Not Found</h3>
 		<div class="row">
 			<ul class="nav nav-pills">
 			  <li role="presentation" class="active"><a href="#">General Info</a></li>
@@ -35,6 +35,7 @@
 						<option value="DMD">DMD</option>
 						<option value="CRNA">CRNA</option>
 						<option value="PA">PA</option>
+						<option value="NP">NP</option>
 					</select>
 				</div>
 			</div>
@@ -95,6 +96,10 @@
 		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>
 					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label>NPI#</label>
+					<input type="text" class="form-control" ng-model="dr.doctorData.npi_number"  />
 				</div>
 			</div>
 			

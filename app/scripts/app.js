@@ -157,6 +157,20 @@
 				controllerAs: 'fac',
 				access: {requiredLogin: true },
 				tab: 'facilities'
+			}).when('/lookup', {
+			  templateUrl: 'views/lookup.html',
+			  controller: 'LookupCtrl',
+			  controllerAs:'look',
+			  access: {requiredLogin: true },
+				tab: 'lookup'
+			})
+			.when('/lookup-doctor/:claim_id', {
+			  templateUrl: 'views/lookup-doctor.html',
+			  controller: 'LookupDoctorCtrl',
+			  controllerAs: 'lookdoc',
+			  access: {requiredLogin: true },
+				tab: 'lookup'
+			  
 			}).otherwise({
 				templateUrl:'/404.html',access: { requiredLogin: false } 
 			}); // Render 404 view

@@ -73,21 +73,49 @@
 	</header>
 
 	<div class="container-fluid">
-		<div class="col-md-3 col-sm-3 ng-cloak" ng-show="isLoggedIn">
-			<ul class="nav nav-pills nav-stacked">
-				<li ng-class="{'active': appCtrl.tab == 'dashboard'}"><a ng-href="#/dashboard">Dashboard</a></li>
-				<li ng-class="{'active': appCtrl.tab == 'jobs'}"><a ng-href="#/jobs">Jobs</a></li>
-				<li ng-class="{'active': appCtrl.tab == 'doctors'}"><a ng-href="#/doctors">Doctors</a></li>
-				<li ng-class="{'active': appCtrl.tab == 'facilities'}"><a ng-href="#/facilities">Facilities</a></li>
-				<!--<li ng-class="{'active': appCtrl.tab == 'partners'}"><a ng-href="#/partners">Partners</a></li>-->
-				<li ng-class="{'active': appCtrl.tab == 'offers'}"><a ng-href="#/job-applications">Offers <!--<span class="badge">5</span>--></a></li>
-			</ul>
+		<div class="row">
+			<div class="col-md-3 col-sm-3 col-xs-12 ng-cloak" ng-show="isLoggedIn">
+				<ul class="nav row" id="main-nav">
+					<li ng-class="{'active': appCtrl.tab == 'dashboard'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/dashboard">
+						<i class="fa fa-tachometer hidden-xs"></i>
+						<i class="fa fa-tachometer fa-2x visible-xs-block"></i>
+						<span class="hidden-xs">Dashboard</span>
+					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'jobs'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/jobs">
+						<i class="fa fa-briefcase hidden-xs"></i>
+						<i class="fa fa-briefcase fa-2x visible-xs-block"></i>
+						<span class="hidden-xs">Jobs</span>
+					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'doctors'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/doctors">
+						<i class="fa fa-user-md hidden-xs"></i>
+						<i class="fa fa-user-md fa-2x  visible-xs-block"></i>
+						<span class="hidden-xs">Doctors</span>
+						
+					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'facilities'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/facilities">
+						<i class="fa fa-hospital-o hidden-xs"></i>
+						<i class="fa fa-hospital-o fa-2x  visible-xs-block"></i>
+						<span class="hidden-xs">Facilities</span>
+					</a></li>
+					<!--<li ng-class="{'active': appCtrl.tab == 'partners'}"><a ng-href="#/partners">Partners</a></li>-->
+					<li ng-class="{'active': appCtrl.tab == 'offers'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/job-applications">
+						<i class="fa fa-money hidden-xs"></i>
+						<i class="fa fa-money fa-2x visible-xs-block"></i>
+						<span class="hidden-xs">Offers</span>
+					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'lookup'}" class="col-xs-2 col-sm-12 text-center-xs"><a ng-href="#/lookup">
+						<i class="fa fa-search hidden-xs"></i>
+						<i class="fa fa-search fa-2x visible-xs-block"></i>
+						<span class="hidden-xs">Lookup</span>
+					</a></li>
+				</ul>
+				<br />
+			</div>
+			
+			<div class="" ng-class="isLoggedIn ? 'authenticated col-md-9 col-sm-9' : 'col-md-12'" id="authenticated-content">
+				<div id="center" ng-view="" ng-show="!appCtrl.isViewLoading"></div>
+			</div>
 		</div>
-		
-		<div class="" ng-class="isLoggedIn ? 'authenticated col-md-9 col-sm-9' : 'col-md-12'" id="authenticated-content">
-			<div id="center" ng-view="" ng-show="!appCtrl.isViewLoading"></div>
-		</div>
-	    
     </div>
 
 	<div class="footer">
@@ -160,6 +188,9 @@
 <script src="scripts/controllers/partners.js"></script>
 <script src="scripts/controllers/facilities.js"></script>
 <script src="scripts/controllers/facility.js"></script>
+<script src="scripts/controllers/lookup.js"></script>
+<script src="scripts/controllers/lookup-doctor.js"></script>
+<script src="scripts/services/lookupfactory.js"></script>
 	<!-- endbuild -->
 	<div ng-controller="toasty-controller">
 		<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        
