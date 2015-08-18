@@ -43,137 +43,143 @@
 	});
 	webapp.config(function ($routeProvider, ENV) {
 		
-		$routeProvider
-	      .when('/', {
-	        templateUrl: 'views/main.html',
-	        access: { requiredLogin: true },
-	        controller: 'MainCtrl'
-	      })
-	      .when('/about', {
-	        templateUrl: 'views/about.html',
-	        access: { requiredLogin: true },
-	        controller: 'AboutCtrl'
-	      })
-	      .when('/login', {
-	        templateUrl: 'views/login.html',
-	        access: { requiredLogin: false },
-	        controller: 'LoginCtrl',
-	        controllerAs: 'loginCtrl'
-	      })
-	      .when('/signup', {
-	        templateUrl: 'views/signup.html',
-	        access: { requiredLogin: false },
-	        controller: 'SignupCtrl'
-	      })
-			.when('/doctors', {
-				tab: 'doctors',
-			  templateUrl: 'views/doctors.html',
-			  access: { requiredLogin: true },
-			  controller: 'DoctorsCtrl',
-			  controllerAs: 'drsCtrl'
-			})
-			.when('/jobs', {
-				tab: 'jobs',
-			  templateUrl: 'views/jobs.html',
-			  access: { requiredLogin: true },
-			  controller: 'JobsCtrl',
-			  controllerAs: 'jobsCtrl'
-			})
-			.when('/jobs/:id',{
-				tab: 'jobs',
-				templateUrl: 'views/job.html',
-				access: { requiredLogin: true },
-				controller: 'JobCtrl',
-				controllerAs: 'jobCtrl'
-			}).when('/job-applications', {
-				tab: 'offers',
-				title: 'Job Applications',
-				templateUrl: 'views/job-applications.html',
-				access: { requiredLogin: true },
-				controller: 'JobApplicationsCtrl',
-				controllerAs: 'jobAppsCtrl'
-			}).when('/dashboard', {
-				tab: 'dashboard',
-				templateUrl: 'views/dashboard.html',
-				access: { requiredLogin: true },
-				controller: 'DashboardCtrl'
-			}).when('/doctor/:id', {
-				tab: 'doctors',
-				templateUrl: 'views/doctor.html',
-				access: { requiredLogin: true },
-				controller: 'DoctorCtrl',
-				controllerAs: 'dr'
-			}).when('/doctor/:id/account-info', {
-				tab: 'doctors',
-				templateUrl: 'views/account-info.html',
-				access: { requiredLogin: true },
-				controller: 'AccountInfoCtrl',
-				controllerAs: 'ai'
-			}).when('/doctor/:id/education-and-work', {
-				tab: 'doctors',
-				templateUrl: 'views/education-and-work.html',
-				access: { requiredLogin: true },
-				controller: 'EducationWorkCtrl',
-				controllerAs: 'dr'
-			}).when('/doctor/:id/qualifications', {
-				tab: 'doctors',
-				templateUrl: 'views/qualifications.html',
-				access: { requiredLogin: true },
-				controller: 'QualificationsCtrl',
-				controllerAs: 'dr'
-			}).when('/job-applications/:id', {
-				tab: 'offers',
-				templateUrl: 'views/job-application.html',
-				access: {requiredLogin: true },
-				controller: 'JobapplicationCtrl',
-				controllerAs: 'jobAppCtrl'
-			}).when('/doctor/:id/uploads', {
-				tab: 'doctors',
-				access: { requiredLogin: true },
-				templateUrl: 'views/uploads.html',
-				controller: 'UploadsCtrl',
-				controllerAs: 'up'
-			}).when('/change-password', {
-				templateUrl: 'views/change-password.html',
-				controller: 'ChangePasswordCtrl',
-				controllerAs: 'cpCtrl',
-				access: {requiredLogin: true}
-			}).when('/partners', {
-				templateUrl: 'views/partners.html',
-				controller: 'PartnersCtrl',
-				controllerAs: 'part',
-				access: {requiredLogin: true },
-				tab: 'partners'
-			}).when('/facilities', {
-				templateUrl: 'views/facilities.html',
-				controller: 'FacilitiesCtrl',
-				controllerAs: 'fac',
-				access: {requiredLogin: true },
-				tab: 'facilities'
-
-			}).when('/facility/:id', {
-				templateUrl: 'views/facility.html',
-				controller: 'FacilityCtrl',
-				controllerAs: 'fac',
-				access: {requiredLogin: true },
-				tab: 'facilities'
-			}).when('/lookup', {
-			  templateUrl: 'views/lookup.html',
-			  controller: 'LookupCtrl',
-			  controllerAs:'look',
-			  access: {requiredLogin: true },
-				tab: 'lookup'
-			})
-			.when('/lookup-doctor/:claim_id', {
-			  templateUrl: 'views/lookup-doctor.html',
-			  controller: 'LookupDoctorCtrl',
-			  controllerAs: 'lookdoc',
-			  access: {requiredLogin: true },
-				tab: 'lookup'
-			  
-			}).otherwise({
-				templateUrl:'/404.html',access: { requiredLogin: false } 
-			}); // Render 404 view
+		$routeProvider.when('/', {
+			templateUrl: 'views/main.html',
+			access: { requiredLogin: true },
+			controller: 'MainCtrl'
+      }).when('/about', {
+			templateUrl: 'views/about.html',
+			access: { requiredLogin: true },
+			controller: 'AboutCtrl'
+      }).when('/login', {
+			templateUrl: 'views/login.html',
+			access: { requiredLogin: false },
+			controller: 'LoginCtrl',
+			controllerAs: 'loginCtrl'
+      }).when('/signup', {
+			templateUrl: 'views/signup.html',
+			access: { requiredLogin: false },
+			controller: 'SignupCtrl'
+      }).when('/doctors', {
+			tab: 'users',
+			templateUrl: 'views/doctors.html',
+			access: { requiredLogin: true },
+			controller: 'DoctorsCtrl',
+			controllerAs: 'drsCtrl'
+		}).when('/jobs', {
+			tab: 'jobs',
+			templateUrl: 'views/jobs.html',
+			access: { requiredLogin: true },
+			controller: 'JobsCtrl',
+			controllerAs: 'jobsCtrl'
+		}).when('/jobs/:id',{
+			tab: 'jobs',
+			templateUrl: 'views/job.html',
+			access: { requiredLogin: true },
+			controller: 'JobCtrl',
+			controllerAs: 'jobCtrl'
+		}).when('/job-applications', {
+			tab: 'offers',
+			title: 'Job Applications',
+			templateUrl: 'views/job-applications.html',
+			access: { requiredLogin: true },
+			controller: 'JobApplicationsCtrl',
+			controllerAs: 'jobAppsCtrl'
+		}).when('/dashboard', {
+			tab: 'dashboard',
+			templateUrl: 'views/dashboard.html',
+			access: { requiredLogin: true },
+			controller: 'DashboardCtrl'
+		}).when('/doctor/:id', {
+			tab: 'users',
+			templateUrl: 'views/doctor.html',
+			access: { requiredLogin: true },
+			controller: 'DoctorCtrl',
+			controllerAs: 'dr'
+		}).when('/doctor/:id/account-info', {
+			tab: 'users',
+			templateUrl: 'views/account-info.html',
+			access: { requiredLogin: true },
+			controller: 'AccountInfoCtrl',
+			controllerAs: 'ai'
+		}).when('/doctor/:id/education-and-work', {
+			tab: 'users',
+			templateUrl: 'views/education-and-work.html',
+			access: { requiredLogin: true },
+			controller: 'EducationWorkCtrl',
+			controllerAs: 'dr'
+		}).when('/doctor/:id/qualifications', {
+			tab: 'users',
+			templateUrl: 'views/qualifications.html',
+			access: { requiredLogin: true },
+			controller: 'QualificationsCtrl',
+			controllerAs: 'dr'
+		}).when('/job-applications/:id', {
+			tab: 'offers',
+			templateUrl: 'views/job-application.html',
+			access: {requiredLogin: true },
+			controller: 'JobapplicationCtrl',
+			controllerAs: 'jobAppCtrl'
+		}).when('/doctor/:id/uploads', {
+			tab: 'users',
+			access: { requiredLogin: true },
+			templateUrl: 'views/uploads.html',
+			controller: 'UploadsCtrl',
+			controllerAs: 'up'
+		}).when('/change-password', {
+			templateUrl: 'views/change-password.html',
+			controller: 'ChangePasswordCtrl',
+			controllerAs: 'cpCtrl',
+			access: {requiredLogin: true}
+		}).when('/partners', {
+			templateUrl: 'views/partners.html',
+			controller: 'PartnersCtrl',
+			controllerAs: 'part',
+			access: {requiredLogin: true },
+			tab: 'users'
+		}).when('/facilities', {
+			templateUrl: 'views/facilities.html',
+			controller: 'FacilitiesCtrl',
+			controllerAs: 'fac',
+			access: {requiredLogin: true },
+			tab: 'facilities'
+		}).when('/facility/:id', {
+			templateUrl: 'views/facility.html',
+			controller: 'FacilityCtrl',
+			controllerAs: 'fac',
+			access: {requiredLogin: true },
+			tab: 'facilities'
+		}).when('/lookup', {
+			templateUrl: 'views/lookup.html',
+			controller: 'LookupCtrl',
+			controllerAs:'look',
+			access: {requiredLogin: true },
+			tab: 'lookup'
+		}).when('/lookup-doctor/:claim_id', {
+			templateUrl: 'views/lookup-doctor.html',
+			controller: 'LookupDoctorCtrl',
+			controllerAs: 'lookdoc',
+			access: {requiredLogin: true },
+			tab: 'lookup'
+		}).when('/coordinators', {
+			templateUrl: 'views/coordinators.html',
+			controller: 'CoordinatorsCtrl',
+			controllerAs: 'coord',
+			access: {requiredLogin: true},
+			tab: 'users'
+		}).when('/users', {
+			templateUrl: 'views/users.html',
+			access: {requiredLogin: true},
+			tab: 'users'
+		}).when('/coordinator/:id', {
+			tab: 'users',
+			templateUrl: 'views/coordinator.html',
+			access: { requiredLogin: true },
+			controller: 'CoordinatorCtrl',
+			controllerAs: 'coord'
+		}).otherwise({
+			templateUrl:'/404.html',access: { requiredLogin: false } 
+		}); // Render 404 view
 	});
 	  
 	webapp.config(function($httpProvider) {  

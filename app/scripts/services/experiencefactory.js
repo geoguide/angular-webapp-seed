@@ -34,6 +34,7 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		}, submitMedicalSchool: function(doctorId,data){
+			delete data.facility_name;
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-school',data).then(function(response) {
 				return response.data;
 			}, function(error){

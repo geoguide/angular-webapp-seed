@@ -71,7 +71,7 @@ angular.module('modioAdminPortal')
 				showClose: true,
 				clickToClose: true
 			});
-			_this.doctorData = data;
+			_this.get(_this.doctorId);
 		}, function(error){
 			toasty.pop.error({
 				title: 'Error!',
@@ -120,6 +120,7 @@ angular.module('modioAdminPortal')
 		});
 
 		_this.modalInstance.result.then(function (data) {
+			console.log(data);
 			var licenseAction;
 			if(data.id){
 				licenseAction = lookupFactory.updateLicense(_this.doctorId,data);

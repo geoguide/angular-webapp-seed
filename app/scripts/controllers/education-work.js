@@ -116,6 +116,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	
 	this.submitMedicalSchool = function(){
 		experienceFactory.submitMedicalSchool(_this.doctorId,_this.medicalSchool).then(function(data){
+			loadExperience();
 			toasty.pop.success({
 				title: 'Success!',
 				msg: 'School Saved.',

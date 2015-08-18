@@ -21,8 +21,16 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.post(API_URL+'/admin/doctors/', formData).then(function(response) {
 				return response.data;
 			});
+		}, createCoordinator: function(formData){
+			return $http.post(API_URL+'/admin/coordinators/', formData).then(function(response) {
+				return response.data;
+			});
 		}, getDoctor: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
+				return response.data;
+			});
+		}, getCoordinator: function(idId){
+			return $http.get(API_URL+'/admin/coordinators/'+idId).then(function(response) {
 				return response.data;
 			});
 		}, getSpecialties: function(doctorId){
@@ -33,12 +41,26 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications').then(function(response) {
 				return response.data;
 			});
-		},  saveDoctor: function(formData){
+		}, getABMSCertifications: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/abms-certifications').then(function(response) {
+				return response.data;
+			});
+		}, saveDoctor: function(formData){
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
+				return response.data;
+			});
+		}, saveCoordinator: function(formData){
+			return $http.put(API_URL+'/admin/coordinators',formData).then(function(response) {
 				return response.data;
 			});
 		}, deleteDoctor: function(doctorId){
 			return $http.delete(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
+				return true;
+			},function(error){
+				$log.error(error);
+			});
+		}, deleteCoordinator: function(idIn){
+			return $http.delete(API_URL+'/admin/coordinators/'+idIn).then(function(response) {
 				return true;
 			},function(error){
 				$log.error(error);
@@ -82,6 +104,25 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
+		}, queryCoordinators: function(queryData){
+			//Put these all in array (or get as an array) and just parse the array for easiness
+			var searchQuery,pageNumber, sortBy, sortDirection;
+			searchQuery = queryData.search_query || '';
+			pageNumber = queryData.page_number || 1;
+			sortBy = queryData.sort_by;
+			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			
+			var request = API_URL+'/admin/coordinators?q='+searchQuery+'&p='+pageNumber;
+			
+			if(sortBy){
+				request += '&sort_by='+sortBy;
+			}
+			request += '&sort_direction='+sortDirection;
+			return $http.get(request).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
 		}, updatePassword: function(doctorId, newPass){
 			$log.info('changing '+doctorId+'s password to '+newPass);
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/change-password',{password: newPass}).then(function(response) {
@@ -102,11 +143,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				$log.error(error);
 			});
 		}, removeState: function(doctorId,abbr){
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/remove-state',{state: abbr}).then(function(response) {
-				return response.data;
-			}, function(error){
-				$log.error(error);
-			});
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/remove-state',{state: abbr});
 		}, addSpecialty: function(doctorId,spec){
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/specialty',{specialty_id: spec}).then(function(response) {
 				return response.data;
@@ -125,18 +162,18 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
-		},removeAdditionalCertification: function(doctorId,cert){
-			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications/'+cert).then(function(response) {
+		},saveABMSCertification: function(doctorId,certificationInfo){
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/abms-certifications',certificationInfo).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
 			});
+		}, removeAdditionalCertification: function(doctorId,cert){
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications/'+cert);
+		}, removeABMSCertification: function(doctorId,cert){
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/abms-certifications/'+cert);
 		}, removeSpecialty: function(doctorId,spec){
-			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/specialties/'+spec).then(function(response) {
-				return response.data;
-			}, function(error){
-				$log.error(error);
-			});
+			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/specialties/'+spec);
 		}, saveRates: function(doctorId,rates){
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/rates',{rates:rates}).then(function(response) {
 				return response.data;

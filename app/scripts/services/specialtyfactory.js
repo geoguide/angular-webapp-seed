@@ -19,6 +19,14 @@ angular.module('modioAdminPortal').factory('specialtyFactory', function($http, A
 			return $http.get(API_URL + '/admin/specialties/').then(function(response) {
 				return response.data;
 			});
+		},getABMSCertifications: function() {
+			return $http.get(API_URL + '/admin/doctors/abms-certifications').then(function(response) {
+				return response.data;
+			});
+		},getCertificationsByBoard: function(board){
+			return $http.get(API_URL + '/admin/doctors/abms-certifications').then(function(response) {
+				return response.data;
+			});
 		}
 	};
 });

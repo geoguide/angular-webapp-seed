@@ -1,0 +1,92 @@
+<!-- used to have ng-controller, but now realize the route handles it -->
+<div>
+	<script type="text/ng-template" id="create-coordinator-modal"> 
+		<form name="new_coord_form" ng-submit="coord.submitForm()" novalidate>
+			<div class="modal-header"> 
+				<h3 class="modal-title">Create Coordinator</h3> 
+			</div> 
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Email</label>
+					<input class="form-control" type="text" name="email" ng-model="coord.formData.email" ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Password</label>
+					<input class="form-control" type="password" ng-minlength="8" name="password" ng-model="coord.formData.password"  ng-required="true" />
+					<p ng-show="new_coord_form.password.$error.minlength" class="help-block">Password is too short.</p>
+				</div>
+				<div class="form-group">
+					<label>First Name</label>
+					<input class="form-control" type="text" name="first_name" ng-model="coord.formData.first_name"  ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					<input class="form-control" type="text" name="last_name" ng-model="coord.formData.last_name"  ng-required="true" />
+				</div>
+			</div>
+			<div class="modal-footer"> 
+				<button class="btn btn-primary" role="submit" ng-disabled="new_coord_form.$invalid">OK</button> 
+				<button class="btn btn-warning" role="button" type="button" ng-click="coord.closeModal()">Cancel</button> 
+			</div>
+		</form>
+	</script>
+	<section class="row">
+		<div class="col-md-6">
+			<h4>Coordinators</h4>
+		</div>
+	</section>
+	<section id="doctor-search-filters">
+		<form ng-submit="coord.getResults()">
+			<div class="row">
+				<div class="col-md-4 col-sm-12 form-group">
+					<input type="search" class="form-control" ng-model="coord.searchQuery" value="" />
+				</div>
+				<div class="col-md-2 form-group">
+					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
+				</div>
+				<div class="col-md-3 form-group">
+					<button class="btn btn-primary btn-block" role="button" type="button" ng-click="coord.open()">Create Coordinator</button>
+				</div>
+			</div>
+		</form>
+	</section>
+	<div slider ng-model="test.single" start=1 end=10></div>
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
+		</div>
+	</section>
+	<section class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong>{{coord.totalCoordinators}}</strong> Coordinators Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="coord.sortResult('id')">id</th>
+							<th ng-click="coord.sortResult('first_name')">First</th>
+							<th ng-click="coord.sortResult('last_name')">Last</th>
+							<th ng-click="coord.sortResult('email')">Email</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="appCtrl.goTo('/coordinator/{{doc.id}}')">
+							<td>{{ doc.id }}</td>
+							<td>{{ doc.first_name }}</td>
+							<td>{{ doc.last_name }}</td>
+							<td>{{ doc.email }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
+		</div>
+	</section>
+	
+</div>

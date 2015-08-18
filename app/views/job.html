@@ -4,7 +4,7 @@
 	<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}}</h4>
 	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
 		<div class="row">
-			<div class="col-md-3 form-group">
+			<div class="col-md-2 form-group">
 				<label>Job Type</label>
 				<select name="job_type" class="form-control" ng-model="jobCtrl.jobData.job_type"  ng-required="true">
 					<option value="1">Locum</option>
@@ -18,28 +18,30 @@
 			<div class="col-md-2 form-group">
 				<label>Job Status</label>
 				<select name="status" class="form-control" ng-model="jobCtrl.jobData.active"  ng-required="true">
+					<option value="0">Pending</option>
 					<option value="1">Active</option>
-					<option value="0">Inactive</option>
+					<option value="2">Filled By Modio</option>
+					<option value="3">Closed by Client</option>
 				</select>
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-7">
 				<label>Facility</label>
 				<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobCtrl.jobData.facility_id = $item.id" typeahead-editable="false" />
 						<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-7">
 				<label>Job Title</label>
 				<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-10">
 				<label>Job Description</label>
-				<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.description"  ng-required="true" />
+				<textarea class="form-control" name="job_title" ng-model="jobCtrl.jobData.description" rows="20"  ng-required="true"></textarea>
 			</div>
 		</div>
 		<div class="row">

@@ -7,8 +7,7 @@
  * # jobFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal')
-  .factory('jobFactory', function ($http,API_URL,$log) {
+angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL,$log) {
     // Service logic
     // ...
 

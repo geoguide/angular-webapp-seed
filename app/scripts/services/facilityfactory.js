@@ -37,6 +37,16 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			}, function(error){
 				$log.error(error);
 			});
-		},
+		},queryMedicalSchools: function(queryIn){
+			
+			var searchQuery, pageNumber, sortBy, sortDirection;
+			sortBy = queryIn.sort_by;
+			queryIn.sort_direction = (queryIn.sort_direction === true) ? 'DESC' : 'ASC';
+			return $http.get(API_URL+'/admin/medical-schools',{params: queryIn}).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}
 	};
 });

@@ -39,6 +39,8 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.facilities = [];
 	this.specialties = [];
 	this.medicalSchools = [];
+	this.abmsCertifications = [];
+	
 	this.usStates = [
 		{ name: 'ALABAMA', abbreviation: 'AL'},
 		{ name: 'ALASKA', abbreviation: 'AK'},
@@ -133,6 +135,17 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
+	
+	this.queryMedicalSchools = function(query){
+		var deferred = $q.defer();
+	   facilityFactory.queryMedicalSchools({q:query}).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
+	};
 
 	this.rateTypes = [
 		{
@@ -187,6 +200,12 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		
 		experienceFactory.getMedicalSchools().then(function(data){
 			_this.medicalSchools = data;
+		},function(error){
+			$log.error(error);
+		});
+		
+		specialtyFactory.getABMSCertifications().then(function(data){
+			_this.abmsCertifications = data;
 		},function(error){
 			$log.error(error);
 		});

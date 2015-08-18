@@ -1,6 +1,7 @@
 <section id="general-info">
 	
-	<h3 id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor Not Found</h3>
+	<h3 id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor {{dr.doctorId}} Does Not Exist</h3>
+	<div ng-show="dr.doctorData">
 		<div class="row">
 			<ul class="nav nav-pills">
 			  <li role="presentation" class="active"><a href="#">General Info</a></li>
@@ -13,7 +14,7 @@
 		<hr />
 		<form id="doctor-form" ng-submit="dr.save()" ng-show="dr.doctorData" class="ng-cloak">
 			<div class="row">
-				<div class="form-group col-md-4">
+				<div class="form-group col-md-3">
 					<label>First Name</label>
 					<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
 				</div>
@@ -21,7 +22,7 @@
 					<label>Middle</label>
 					<input type="text" class="form-control" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name">
 				</div>
-				<div class="col-md-4 form-group">
+				<div class="col-md-3 form-group">
 					<label>Last Name</label>
 					<input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
 				</div>
@@ -37,6 +38,10 @@
 						<option value="PA">PA</option>
 						<option value="NP">NP</option>
 					</select>
+				</div>
+				<div class="col-md-2 form-group">
+					<label>Created</label>
+					<div>{{dr.doctorData.date_created}}</div>
 				</div>
 			</div>
 			<div class="row">

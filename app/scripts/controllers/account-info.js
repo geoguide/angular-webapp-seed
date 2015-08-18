@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, jobApplicationFactory, jobFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory,specialtyFactory, toasty, $log, $modal, jobApplicationFactory, jobFactory) {
   		
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -19,6 +19,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.jobs = [];
 	this.newJobApp = {};
 	this.additionalCerts = [];
+	this.abmsCertifications = [];
+	this.boardSpecialties = [];
 	this.additional_certification_types = [
 		{ id: 0, name: 'ATLS/ACLS'},
 		{ id: 1, name: 'PALS'},
@@ -27,6 +29,10 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		{ id: 4, name: 'NALS'}
 	];
 	
+	
+	this.loadCertifications = function(boardName){
+		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard(boardName);
+	};
 	this.get = function(doctorId){
 		
 		var doctorData = doctorFactory.getDoctor(doctorId);
@@ -37,6 +43,10 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		
 		doctorFactory.getAdditionalCertifications(doctorId).then(function(data){
 			_this.additionalCerts = data;
+		});
+		
+		doctorFactory.getABMSCertifications(doctorId).then(function(data){
+			_this.abmsCertifications = data;
 		});
 		
 		doctorData.then(function(data){
@@ -77,6 +87,48 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			});
 			doctorFactory.getSpecialties(_this.doctorId).then(function(data){
 				_this.specialtyData = _this.drSpecialties = data;
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.submitABMSCertifications = function(abmscert){
+		
+		doctorFactory.saveABMSCertification(_this.doctorId,abmscert).then(function(data){
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Certification Saved.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.doctorData = data;
+		}, function(error){
+			toasty.pop.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteABMSCertification = function(dcert){
+		doctorFactory.removeABMSCertification(_this.doctorId,dcert).then(function(data){
+			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
+				_this.abmsCertifications = data;
+			});
+			toasty.pop.success({
+				title: 'Success!',
+				msg: 'Certification Saved.',
+				showClose: true,
+				clickToClose: true
 			});
 			_this.doctorData = data;
 		}, function(error){
@@ -130,6 +182,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			});
 		});
 	};
+
+	/* Other stuff */
 	
 	this.deleteSpecialty = function(dspec){
 		doctorFactory.removeSpecialty(_this.doctorId,dspec).then(function(data){
@@ -232,6 +286,11 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.addCertification = function(){
 		_this.additionalCerts.push({});
 	};
+	this.addABMSCertification = function(){
+		_this.abmsCertifications.push({});
+	};
+	
+	/* Applications */
 	
 	this.acceptApplication = function(appId){
 		jobApplicationFactory.acceptApplication(appId).then(function(data){
