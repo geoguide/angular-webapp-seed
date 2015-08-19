@@ -29,7 +29,7 @@
 			<div class="form-group col-md-7">
 				<label>Facility</label>
 				<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobCtrl.jobData.facility_id = $item.id" typeahead-editable="false" />
-						<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+				<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 			</div>
 		</div>
 		<div class="row">
@@ -66,6 +66,14 @@
 					</span>
 				</p>
 				<button class="btn btn-success btn-block" ng-show="!jobCtrl.jobData.end_date && !jobCtrl.opened['end']" ng-click="jobCtrl.open($event,'end')">Ongoing</button>
+			</div>
+			<div class="col-md-3">
+				<label>Partner Job ID</label>
+				<input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_number"  ng-required="false" />
+			</div>
+			<div class="col-md-3">
+				<label>Partner Job Contact</label>
+				<input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_contact"  ng-required="false" />
 			</div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>

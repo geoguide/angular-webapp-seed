@@ -14,6 +14,11 @@
 		<hr />
 		<form id="doctor-form" ng-submit="dr.save()" ng-show="dr.doctorData" class="ng-cloak">
 			<div class="row">
+				<div class="col-sm-12">
+					<h4>Personal Data</h4>
+				</div>
+			</div>
+			<div class="row">
 				<div class="form-group col-md-3">
 					<label>First Name</label>
 					<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
@@ -102,9 +107,12 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group col-md-3">
-					<label>NPI#</label>
-					<input type="text" class="form-control" ng-model="dr.doctorData.npi_number"  />
+			</div>
+			
+			<hr />
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Job Qualifications</h4>
 				</div>
 			</div>
 			
@@ -148,24 +156,6 @@
 			
 			<div class="row">
 				<div class="form-group col-md-3">
-					<label>Overnight Call</label>
-					<input type="checkbox" ng-model="dr.doctorData.overnight_call" ng-true-value="1" ng-false-value="0" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Trauma Call</label>
-					<input type="checkbox" ng-model="dr.doctorData.trauma_call" ng-true-value="1" ng-false-value="0" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>ECFMG</label>
-					<input type="checkbox" ng-model="dr.doctorData.fmg" ng-true-value="1" ng-false-value="0" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Visa</label>
-					<input type="checkbox" ng-model="dr.doctorData.visa" ng-true-value="1" ng-false-value="0" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-md-3">
 					<label>Clinical Experience</label>
 					<input type="text" ng-model="dr.doctorData.clinical_experience_years" class="form-control" />
 				</div>
@@ -206,6 +196,30 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="form-group col-md-3">
+					<label>Overnight Call</label>
+					<input type="checkbox" ng-model="dr.doctorData.overnight_call" ng-true-value="1" ng-false-value="0" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Trauma Call</label>
+					<input type="checkbox" ng-model="dr.doctorData.trauma_call" ng-true-value="1" ng-false-value="0" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>ECFMG</label>
+					<input type="checkbox" ng-model="dr.doctorData.fmg" ng-true-value="1" ng-false-value="0" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Visa</label>
+					<input type="checkbox" ng-model="dr.doctorData.visa" ng-true-value="1" ng-false-value="0" />
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Internal</h4>
+				</div>
+			</div>
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label>Admin Notes</label>
 					<textarea ng-model="dr.doctorData.admin_notes" class="form-control"></textarea>
@@ -232,6 +246,26 @@
 						<option value="2">Marketing</option>
 						<option value="3">Referral</option>
 					</select>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Identifiers</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label>NPI#</label>
+					<input type="text" class="form-control" ng-model="dr.doctorData.npi_number"  />
+				</div>
+				<div class="col-sm-3 form-group">
+					<label>Medicaid #</label>
+					<input type="text" class="form-control" ng-model="dr.doctorData.medicaid_number" />
+				</div>
+				<div class="col-sm-3 form-group">
+					<label>Medicare #</label>
+					<input type="text" class="form-control" ng-model="dr.doctorData.medicare_number" />
 				</div>
 			</div>
 			<div class="row">
