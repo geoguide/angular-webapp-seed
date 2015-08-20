@@ -130,6 +130,7 @@ angular.module('modioAdminPortal')
 			}
 			licenseAction.then(function(){
 				_this.getLicenses(_this.doctorId);
+				_this.get(_this.doctorId);
 			},function(error){
 				$log.error(error);
 			});
