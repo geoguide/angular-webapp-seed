@@ -15,7 +15,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	];
 	var _this = this;
 	this.doctorId = $routeParams.id;
-	
+
 	this.additional_certification_types = [
 		{ id: 0, name: 'ATLS/ACLS'},
 		{ id: 1, name: 'PALS'},
@@ -24,17 +24,17 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		{ id: 4, name: 'NALS'}
 	];
 
-	
+
 	this.licenseTypes = [];
 	this.licenseTypes.push('State');
 	this.licenseTypes.push('DEA License');
 	this.licenseTypes.push('State Ctrl Substance');
-	
+
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
 		$event.preventDefault();
 		$event.stopPropagation();
-		
+
 		_this.opened[which] = true;
 	};
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
@@ -43,13 +43,13 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
-	
+
 	this.specialties = [];
 	this.clinicalEvaluations = [];
 	this.facilityAffiliations = [];
 	this.medicalLicenses = [];
-	
-	
+
+
 	var loadQualifications = function(){
 		qualificationFactory.getClinicalEvaluations(_this.doctorId).then(function(data){
 			_this.clinicalEvaluations = data;
@@ -58,14 +58,14 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			_this.facilityAffiliations = data;
 			return qualificationFactory.getMedicalLicenses(_this.doctorId);
 		}).then(function(data){
-			_this.medicalLicenses = data;	
+			_this.medicalLicenses = data;
 		},function(error){
 			$log.error(error);
 		});
 	};
-	
+
 	/* Modals */
-	
+
 	this.openClinicalEvaluationModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
@@ -97,7 +97,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.openMedicalLicenseModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
@@ -129,7 +129,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.openFacilityAffiliationModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
@@ -161,12 +161,12 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
-	
-	
+
+
+
 	this.deleteFacilityAffiliation = function(expId){
 		qualificationFactory.deleteFacilityAffiliation(_this.doctorId,expId).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Facility Deleted.',
 				showClose: true,
@@ -174,7 +174,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			});
 			loadQualifications();
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -182,10 +182,10 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			});
 		});
 	};
-	
+
 	this.deleteClinicalEvaluation = function(expId){
 		qualificationFactory.deleteClinicalEvaluation(_this.doctorId,expId).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Evaluation Deleted.',
 				showClose: true,
@@ -193,7 +193,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			});
 			loadQualifications();
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -201,7 +201,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			});
 		});
 	};
-	
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   qualificationFactory.queryFacilities(query).then(function(data){
@@ -212,14 +212,14 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		});
 		return deferred.promise;
 	};
-  
+
 	var init = function(){
 		loadQualifications();
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
 		});
 	};
-  
+
   init();
 
 });

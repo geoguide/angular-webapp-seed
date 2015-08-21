@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
- 
+
  // To Do
 //TODO: change to directives rather than controllers: http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html
 //TODO Smarter and more organized handling of errors and authorization issues
@@ -31,18 +31,18 @@
 		'LocalStorageModule',
 		'ui.mask',
 		'ngAnimate',
-		'toasty',
+    'angular-toasty',
 		'ui.bootstrap',
 		'ngFileUpload'
 	]);
-	
-	
+
+
 	webapp.value('loggedIn', false);
 	webapp.config(function(ENV,$provide){
 		$provide.constant('API_URL', ENV.apiEndpoint);
 	});
 	webapp.config(function ($routeProvider, ENV) {
-		
+
 		$routeProvider.when('/', {
 			templateUrl: 'views/main.html',
 			access: { requiredLogin: true },
@@ -178,34 +178,46 @@
 			controller: 'CoordinatorCtrl',
 			controllerAs: 'coord'
 		}).otherwise({
-			templateUrl:'/404.html',access: { requiredLogin: false } 
+			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view
 	});
-	  
-	webapp.config(function($httpProvider) {  
-		$httpProvider.interceptors.push('AuthInterceptor');
-	});
-	
-	
+
+  webapp.config(function($httpProvider) {
+      $httpProvider.interceptors.push('AuthInterceptor');
+    });
+
+	webapp.config([
+    'toastyConfigProvider',
+    function(toastyConfigProvider) {
+      toastyConfigProvider.setConfig({
+        //sound: false,
+        //shake: true,
+        clickToClose: true,
+        timeout: 10000,
+      });
+    }
+  ]);
+
+
 	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
-		
+
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			//Route should have access level set
 			if(nextRoute.access){
-				
+
 				//Lets store the tokens in Auth so we don't have to use localStorage here
 				//If route requires login and we don't have an email or authToken do interrogation
 				if (nextRoute.access.requiredLogin && (!localStorageService.get('authToken') || !Auth.user().email)) {
-					
+
 					if(localStorageService.get('refreshToken')){
-						
+
 						Auth.delegate().then(function(result){
 							//Success
 							if(!localStorageService.get('authToken')){
 								event.preventDefault();
 								$log.warn('Delegate Failed to Populate authToken');
 								webapp.value('loggedIn', false);
-								$location.path('/login');		
+								$location.path('/login');
 							} else {
 								$log.info('Delegation Successful');
 							}
@@ -214,7 +226,7 @@
 							webapp.value('loggedIn', false);
 							$log.error('delegation fail: '+reason);
 							event.preventDefault();
-							$location.path('/login');		
+							$location.path('/login');
 						}, function(update){
 							//Notifications of in progress promises
 							$log.info('sweet notification: '+update);
@@ -224,13 +236,13 @@
 						$log.warn('no refresh token');
 						$location.path('/login');
 					}
-						
+
 				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('authToken')){
 					//You've got an authToken but are trying to go to the login page, send to real page
 					$location.path(Auth.defaultAuthPage());
 				}
-				
-			} else { 
+
+			} else {
 				//Complain that something is wrong to draw attention to the code, all pages should have this variable set
 				event.preventDefault();
 				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));

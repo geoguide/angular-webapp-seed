@@ -10,23 +10,23 @@
 angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (userFactory, toasty) {
 
 	var _this = this;
-	
+
 	this.oldPassword = '';
 	this.newPassword = '';
 	this.passwordRepeat = '';
-	
+
 	this.updatePassword = function(){
 		if(_this.oldPassword){
 			if(_this.newPassword == _this.passwordRepeat){
 				userFactory.changePassword(_this.oldPassword,_this.newPassword).success(function(response){
-					toasty.pop.success({
+					toasty.success({
 						title: 'Success!',
 						msg: 'Password Updated.',
 						showClose: true,
 						clickToClose: true
 					});
 				}).error(function(error){
-					toasty.pop.error({
+					toasty.error({
 						title: 'Error!',
 						msg: 'Something went wrong',
 						showClose: true,
@@ -34,7 +34,7 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 					});
 				});
 			} else {
-				toasty.pop.error({
+				toasty.error({
 					title: 'Error!',
 					msg: 'Passwords did not match',
 					showClose: true,
@@ -42,7 +42,7 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 				});
 			}
 		} else {
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: 'Include your old password',
 				showClose: true,
@@ -50,5 +50,5 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 			});
 		}
 	};
-	
+
 });

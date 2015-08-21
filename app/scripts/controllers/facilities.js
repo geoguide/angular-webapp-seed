@@ -46,7 +46,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			applicationFactory.goTo('/doctor/' + data.id);
 			$modalStack.dismissAll();
 		}, function(error) {
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,

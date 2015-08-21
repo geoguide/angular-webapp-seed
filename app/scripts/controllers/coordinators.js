@@ -10,11 +10,11 @@
 angular.module('modioAdminPortal')
   .controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
 	var _this = this;
-	
+
 	this.coordinators = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
-	
+
 	/* Variables */
 	this.formData = {};
 	this.totalCoordinators = 0;
@@ -22,8 +22,8 @@ angular.module('modioAdminPortal')
 	this.coordinatorsPerPage = 25;
 	this.totalPages = this.totalCoordinators/this.coordinatorsPerPage;
 	this.maxSize = 8;
-	
-	
+
+
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
 		var queryData = {
@@ -38,8 +38,8 @@ angular.module('modioAdminPortal')
 			_this.totalPages = _this.totalCoordinators/_this.coordinatorsPerPage;
 		});
 	}
-	
-	
+
+
 	/* Public Functions */
 	this.sortResult = function(sortOn){
 		_this.sortDirection = !_this.sortDirection;
@@ -49,15 +49,15 @@ angular.module('modioAdminPortal')
 	this.getResults = function(){
 		return getResultsPage(this.currentPage);
 	};
-	
+
 	this.goTo = applicationFactory.goTo;
-	
+
 	this.submitForm = function(){
 		doctorFactory.createCoordinator(_this.formData).then(function(data){
 			applicationFactory.goTo('/coordinator/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -84,7 +84,7 @@ angular.module('modioAdminPortal')
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};

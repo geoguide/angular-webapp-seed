@@ -12,40 +12,40 @@ angular.module('modioAdminPortal')
 	var _this = this;
 	this.appData = {};
 	this.appId = $routeParams.id;
-	
+
 	//Date picker
 	this.open = function($event) {
 		$log.log('open called');
 		$event.preventDefault();
 		$event.stopPropagation();
-		
+
 		_this.opened = true;
 	};
-	
+
 	this.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1
 	};
-	
+
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 	this.format = this.formats[0];
 	this.dateOptions = {
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
-	
+
 	this.save = function(){
 		_this.appData.start_date = (_this.appData.start_date === '2000-06-22') ? null : _this.appData.start_date;
 		_this.appData.end_date = (_this.appData.end_date === '2000-06-22') ? null : _this.appData.end_date;
 		jobApplicationFactory.saveApplication(_this.appData).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Job Saved.',
 				showClose: true,
 				clickToClose: true
 			});
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.message,
 				showClose: true,
@@ -53,18 +53,18 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	
+
 	this.acceptApplication = function(){
 		jobApplicationFactory.acceptApplication(_this.appId).success(function(){
 			_this.appData.status = 'accepted';
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Application Accepted.',
 				showClose: true,
 				clickToClose: true
 			});
 		}).error(function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.message,
 				showClose: true,
@@ -72,18 +72,18 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	
+
 	this.rejectApplication = function(){
 		jobApplicationFactory.rejectApplication(_this.appId).success(function(){
 			_this.appData.status = 'rejected';
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Application Accepted.',
 				showClose: true,
 				clickToClose: true
 			});
 		}).error(function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.message,
 				showClose: true,
@@ -91,19 +91,19 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	
+
 	this.delete = function(){
 		jobApplicationFactory.deleteJob(_this.jobId).then(function(data){
 			_this.appData = null;
 			_this.error = true;
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Job Deleted.',
 				showClose: true,
 				clickToClose: true
 			});
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.message,
 				showClose: true,
@@ -114,7 +114,7 @@ angular.module('modioAdminPortal')
 
 	var init = function(){
 		//Dooooooo... we just load this with the application. Will digest update it?
-		
+
 		jobApplicationFactory.getApplication(_this.appId).then(function(data){
 			_this.appData = data;
 			_this.error = false;
@@ -123,7 +123,7 @@ angular.module('modioAdminPortal')
 			_this.appData = null;
 		});
 	};
-	
+
 	init();
 
 });

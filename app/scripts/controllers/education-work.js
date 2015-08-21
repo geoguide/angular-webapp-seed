@@ -13,40 +13,40 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 		'AngularJS',
 		'Karma'
 	];
-	
+
 	var _this = this;
 	this.doctorId = $routeParams.id;
-	
+
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
 		$event.preventDefault();
 		$event.stopPropagation();
-		
+
 		_this.opened[which] = true;
 	};
-    
+
 	this.training = [];
 	this.medicalSchool = {};
 	this.workHistory = [];
 	this.medicalSchools = [];
-	
+
 	this.today = new Date();
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
 	var yyyy = this.today.getFullYear();
-	
+
 	if(dd<10) {
 	    dd='0'+dd;
-	} 
-	
+	}
+
 	if(mm<10) {
 	    mm='0'+mm;
-	} 
-	
+	}
+
 	this.today = mm+'/'+dd+'/'+yyyy;
-	
+
 	/* Modals */
-	
+
 	this.openWorkHistoryModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
@@ -81,7 +81,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.openModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
@@ -111,20 +111,20 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	/* Medical School */
-	
+
 	this.submitMedicalSchool = function(){
 		experienceFactory.submitMedicalSchool(_this.doctorId,_this.medicalSchool).then(function(data){
 			loadExperience();
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'School Saved.',
 				showClose: true,
 				clickToClose: true
 			});
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -132,20 +132,20 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 		});
 	};
-	
-	
+
+
 	/* Training */
-	
+
 	this.submitTraining = function(data){
 		experienceFactory.submitTraining(_this.doctorId,data).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Training Saved.',
 				showClose: true,
 				clickToClose: true
 			});
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -153,10 +153,10 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 		});
 	};
-	
+
 	this.deleteTraining = function(expId){
 		experienceFactory.deleteTraining(_this.doctorId,expId).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Training Deleted.',
 				showClose: true,
@@ -164,7 +164,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 			loadExperience();
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -172,13 +172,13 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 		});
 	};
-	
-	
+
+
 	/* Work History */
-	
+
 	this.deleteWorkHistory = function(expId){
 		experienceFactory.deleteWorkHistory(_this.doctorId,expId).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Work Deleted.',
 				showClose: true,
@@ -186,7 +186,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 			loadExperience();
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -194,9 +194,9 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			});
 		});
 	};
-	
+
 	/* General */
-	
+
 	var loadExperience = function(){
 		experienceFactory.getTraining(_this.doctorId).then(function(data){
 			_this.training = data;
@@ -205,24 +205,24 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			_this.medicalSchool = data;
 			return experienceFactory.getWorkHistory(_this.doctorId);
 		}).then(function(data){
-			_this.workHistory = data;	
+			_this.workHistory = data;
 		},function(error){
 			$log.error(error);
 		});
 	};
-	
-	
+
+
 	var loadMedicalSchools = function(){
 		//moved to application controller
 		return true;
 	};
-	
+
 	/* Init */
-	
+
 	var init = function(){
 		loadExperience();
 		loadMedicalSchools();
 	};
 	init();
-	
+
 });

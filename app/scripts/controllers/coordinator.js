@@ -9,15 +9,15 @@
  */
 angular.module('modioAdminPortal')
   .controller('CoordinatorCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, s3factory, Upload) {
-	
+
 	var _this = this;
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
-	
+
 	this.get = function(coordId){
-		
+
 		var coordinatorData = doctorFactory.getCoordinator(coordId);
-		
+
 		coordinatorData.then(function(data){
 			_this.coordinatorData = data;
 			_this.error = false;
@@ -26,10 +26,10 @@ angular.module('modioAdminPortal')
 			_this.coordinatorData = null;
 		});
 	};
-	
+
 	this.save = function(){
 		doctorFactory.saveCoordinator(_this.coordinatorData).then(function(data){
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Coordinator Saved.',
 				showClose: true,
@@ -37,7 +37,7 @@ angular.module('modioAdminPortal')
 			});
 			_this.coordinatorData = data;
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -45,18 +45,18 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	
+
 	this.delete = function(){
 		doctorFactory.deleteCoordinator(_this.coordId).then(function(data){
 			_this.coordinatorData = null;
-			toasty.pop.success({
+			toasty.success({
 				title: 'Success!',
 				msg: 'Coordinator Deleted.',
 				showClose: true,
 				clickToClose: true
 			});
 		}, function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -65,14 +65,14 @@ angular.module('modioAdminPortal')
 		});
 	};
 
-	
+
 	/* Init */
 
 	var init = function(){
 		_this.get(_this.coordId);
-		
+
 	};
-	
+
 	init();
-	
+
 });

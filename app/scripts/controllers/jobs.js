@@ -7,11 +7,11 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log, $q, facilityFactory) {
-	
+
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
-	
+
 	var _this = this;
-	
+
 	this.newJob = {};
 	this.searchQuery = '';
 	this.totalJobs = 0;
@@ -22,21 +22,21 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.facilities = [];
 	this.specialties = [];
 	this.opened = { 'start': false, 'end':false };
-	
+
 	/* Calendar */
 	this.open = function($event,which) {
 		$log.log('open '+which+' called');
 		$event.preventDefault();
 		$event.stopPropagation();
-		
+
 		_this.opened[which] = true;
 	};
-	
+
 	this.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1
 	};
-	
+
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
 	this.format = this.formats[4];
 	this.dateOptions = {
@@ -44,9 +44,9 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	    startingDay: 1
 	};
 	this.minDate = new Date();
-	
+
 	/* Methods */
-	
+
 	this.getResults = function() {
 		var pageNumber = _this.currentPage || 1;
 		var queryData = {
@@ -63,19 +63,19 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			_this.totalPages = _this.totalJobs / _this.jobsPerPage;
 		});
 	};
-	
+
 	this.sortResult = function(sortOn){
 		_this.sortDirection = !_this.sortDirection;
 		_this.sortBy = sortOn;
 		_this.getResults();
 	};
-	
+
 	this.submitJob = function(){
 		jobFactory.createJob(_this.newJob).then(function(data){
 			applicationFactory.goTo('/jobs/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -83,14 +83,14 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			});
 		});
 	};
-	
+
 	this.getResults(1);
-	
-	
+
+
 	var init = function(){
 
 	};
-	
+
 	//Modal
 	this.openNewJobForm = function () {
 
@@ -111,7 +111,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
@@ -122,10 +122,10 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		});
 		return deferred.promise;
 	};
-	
+
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};
-	
+
 	init();
 });

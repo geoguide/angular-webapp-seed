@@ -9,11 +9,11 @@
  */
 angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$modal,$modalStack,lookupFactory,toasty,applicationFactory,$log) {
 	var _this = this;
-	
+
 	this.doctors = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
-	
+
 	/* Variables */
 	this.formData = {};
 	this.totalDoctors = 0;
@@ -21,8 +21,8 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.doctorsPerPage = 25;
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
-	
-	
+
+
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
 		var queryData = {
@@ -34,8 +34,8 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
 		});
 	}
-	
-	
+
+
 	/* Public Functions */
 	this.sortResult = function(sortOn){
 		_this.sortDirection = !_this.sortDirection;
@@ -45,15 +45,15 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.getResults = function(){
 		return getResultsPage(this.currentPage);
 	};
-	
+
 	this.goTo = applicationFactory.goTo;
-	
+
 	this.submitForm = function(){
 		lookupFactory.createLookup(_this.formData).then(function(data){
 			applicationFactory.goTo('/lookup-doctor/'+data.claim_id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.pop.error({
+			toasty.error({
 				title: 'Error!',
 				msg: error.data,
 				showClose: true,
@@ -80,9 +80,9 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};
-	getResultsPage(1);  
+	getResultsPage(1);
 });
