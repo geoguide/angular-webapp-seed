@@ -7,12 +7,61 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal')
-  .controller('CoordinatorCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, s3factory, Upload) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal) {
 
 	var _this = this;
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
+	this.memberships = [];
+	
+	this.jobStatuses = [
+		{
+			id: 0,
+			job_status: 'Inactive'
+		},{
+			id: 1,
+			job_status: 'Active'
+		}
+	];
+	this.memberStatuses = [
+		{
+			id: 0,
+			status: 'Inactive'
+		},{
+			id: 1,
+			status: 'Active'
+		}
+	];
+	
+	this.openMembershipModal = function(modalId,dataIn){
+		this.modalInstance = $modal.open({
+			templateUrl: modalId,
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
+			resolve: {
+				modalObject: function(){
+					return dataIn;
+				},
+				title: function(){
+					return 'Facility Membership';
+				},
+				parentCtrl: function(){
+					return _this;
+				}
+			}
+		});
+
+		_this.modalInstance.result.then(function (data) {
+			doctorFactory.submitMembership(_this.coordId,data).then(function(){
+				_this.getMemberships(_this.coordId);
+			},function(error){
+				$log.error(error);
+			});
+		}, function () {
+			//something on close
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
 
 	this.get = function(coordId){
 
@@ -25,6 +74,25 @@ angular.module('modioAdminPortal')
 			_this.error = true;
 			_this.coordinatorData = null;
 		});
+	};
+	
+	this.getMemberships = function(coordIdIn){
+		doctorFactory.getMemberships(coordIdIn).then(function(result){
+			_this.memberships = result.data;
+		},function(error){
+			$log.error(error);
+		});
+	};
+	
+	this.queryFacilities = function(query){
+		var deferred = $q.defer();
+	   facilityFactory.queryFacilities({q:query}).then(function(data){
+			deferred.resolve(data.facilities);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
 	};
 
 	this.save = function(){
@@ -70,6 +138,7 @@ angular.module('modioAdminPortal')
 
 	var init = function(){
 		_this.get(_this.coordId);
+		_this.getMemberships(_this.coordId);
 
 	};
 

@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: CoordinatorCtrl', function () {
+describe('Controller: LeadCtrl', function () {
 
   // load the controller's module
   beforeEach(module('modioAdminPortal'));
 
-  var CoordinatorCtrl,
+  var LeadCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    CoordinatorCtrl = $controller('CoordinatorCtrl', {
+    LeadCtrl = $controller('LeadCtrl', {
       $scope: scope
     });
   }));

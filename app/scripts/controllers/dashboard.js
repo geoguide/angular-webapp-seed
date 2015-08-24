@@ -7,11 +7,16 @@
  * # DashboardCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal')
-  .controller('DashboardCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
+
+	var _this = this;
+	this.leads = [];
+	_this.getLeads = function() {
+
+		doctorFactory.getLeads().then(function(response) {
+			_this.leads = response;
+		});
+	};
+	
+	_this.getLeads();
+});

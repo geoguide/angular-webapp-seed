@@ -51,4 +51,8 @@ angular.module('modioAdminPortal').filter('tel', function () {
 
         return (country + ' (' + city + ') ' + number).trim();
     };
+}).filter('num', function() {
+    return function(input) {
+      return parseInt(input, 10);
+    };
 });

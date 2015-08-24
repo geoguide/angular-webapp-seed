@@ -41,6 +41,51 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.medicalSchools = [];
 	this.abmsCertifications = [];
 	
+	this.insuranceTypes = [
+		{
+			id: 0,
+			type: 'Malpractice'
+		}, {
+			id:1,
+			type: 'Liability'
+		}
+	];
+	
+	this.jobStatuses = [
+		{
+			id: 0,
+			job_status: 'Inactive'
+		},{
+			id: 1,
+			job_status: 'Active'
+		},{
+			id: 3,
+			job_status: 'Closed by Modio'
+		},{
+			id: 4,
+			job_status: 'Closed by Client'
+		}
+	];
+	this.jobSources = [
+		{
+			id: 'M',
+			source: 'Modio'
+		},{
+			id: 'O',
+			source: 'Something elese'
+		}
+	];
+	this.doctorTitles = [
+		'MD',
+		'DO',
+		'DPM',
+		'DDS',
+		'DMD',
+		'CRNA',
+		'PA',
+		'NP'
+	];
+	
 	this.usStates = [
 		{ name: 'ALABAMA', abbreviation: 'AL'},
 		{ name: 'ALASKA', abbreviation: 'AK'},

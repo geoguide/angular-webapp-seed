@@ -55,7 +55,9 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			search_state: _this.searchState,
 			page_number: pageNumber,
 			sort_by: _this.sortBy,
-			sort_direction: _this.sortDirection
+			sort_direction: _this.sortDirection,
+			job_status: _this.jobStatus,
+			source: _this.searchSource
 		};
 		jobFactory.queryJobs(queryData).then(function(data) {
 			_this.jobs = data.jobs;

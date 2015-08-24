@@ -78,6 +78,32 @@
 			</div>
 		</div>
 	</accordion-group>
+	
+		<accordion-group is-open="true">
+		<accordion-heading>Insurance <span class="badge pull-right">{{(dr.insurance).length}}</span></accordion-heading>
+		<div class="row hidden-xs hidden-sm">
+			<div class="col-md-3"><label>Type</label></div>
+			<div class="col-md-1"><label>Policy Number</label></div>
+			<div class="col-md-3"><label>Expiration</label></div>
+			<div class="col-md-3 text-right"><label>Actions</label></div>
+		</div>
+		<article ng-repeat="(key,obj) in dr.insurance" class="row">
+			<div class="col-md-3">{{obj.type_id}}</div>
+			<div class="col-md-1" ng-show="obj.type_id != 1">{{obj.policy_number}}</div>
+			<div class="col-md-3">{{obj.policy_expiration_date}}</div>
+			<div class="text-right col-md-3">
+				<a class="btn btn-info" ng-click="dr.openInsuranceModal('insurance-modal',obj)">Edit</a>
+				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteInsurance(obj.id)">Delete</button>
+			</div>
+			<hr />
+		</article>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary" ng-click="dr.openInsuranceModal('insurance-modal',{})">Add Insurance</button>
+			</div>
+		</div>
+	</accordion-group>
+
 </accordion>
 
 <script type="text/ng-template" id="clinical-evaluation-modal">
@@ -313,6 +339,76 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" ng-click="license_form.$valid && modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="insurance-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Type</label>
+					<select class="form-control" ng-model="modal.modalObject.type_id">
+						<option value="0">Malpractice</option>
+						<option value="1">Liability</option>
+					</select>
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Policy Number</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.policy_number" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Policy Effective Date</label>
+					<div class="input-group">
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_effective_date" is-open="modal.parentCtrl.opened['policy_effective']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'policy_effective')"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
+					</div>
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Policy Expiration Date</label>
+					<div class="input-group">
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_expiration_date" is-open="modal.parentCtrl.opened['policy_expire']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'policy_expire')"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
+					</div>
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Policy Retroactive Date</label>
+					<div class="input-group">
+	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.retroactive_date" is-open="modal.parentCtrl.opened['retroactive_date']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'retroactive_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
+					</div>
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Producer</label>
+					<input class="form-control" ng-model="modal.modalObject.producer" type="text" />
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Per Incident Amt</label>
+					<input class="form-control" ng-model="modal.modalObject.per_incident_amount" type="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>Annual Aggreate (sic) Amount</label>
+					<input class="form-control" ng-model="modal.modalObject.annual_aggreate_amount" type="text" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
 		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
 	</div>
 </script>

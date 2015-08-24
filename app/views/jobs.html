@@ -124,7 +124,7 @@
 	<h4>Jobs</h4>
 	<section class="row">
 		<form ng-submit="jobsCtrl.getResults()">
-			<div class="col-sm-4 form-group">
+			<div class="col-sm-3 form-group">
 				<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
 			</div>
 			<div class="col-sm-3 col-xs-6 form-group">
@@ -133,10 +133,25 @@
 					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 				</select>
 			</div>
-			<div class="col-sm-3 col-xs-6 form-group">
+			<div class="col-sm-2 col-xs-6 form-group">
 				<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
-					<option value="">-Select State-</option>
+					<option value="">-State-</option>
 					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+				</select>
+			</div>
+			<div class="col-sm-2 col-xs-6 form-group">
+				<select class="form-control" ng-model="jobsCtrl.searchSource" ng-change="jobsCtrl.getResults()">
+					<option value="">-Source-</option>
+					<option ng-repeat="source in appCtrl.jobSources" value="{{source.id}}">{{source.source}}</option>
+				</select>
+			</div>
+			<div class="col-sm-3 col-xs-6 form-group">
+				<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()">
+					<option value="">-Select Status-</option>
+					<option value="0">Pending</option>
+					<option value="1">Active</option>
+					<option value="2">Filled By Modio</option>
+					<option value="3">Closed by Client</option>
 				</select>
 			</div>
 			<div class="col-sm-2 form-group">
@@ -176,7 +191,7 @@
 							<td>{{ job.job_type }}</td>
 							<td>{{ job.specialty }}</td>
 							<td>{{ job.facility_name }} ({{job.state}})</td>
-							<td>{{ job.status }}</td>
+							<td>{{ appCtrl.jobStatuses[job.active].job_status }}</td>
 						</tr>
 					</tbody>
 				</table>

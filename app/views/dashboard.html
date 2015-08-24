@@ -1,2 +1,15 @@
 <h4>Dashboard</h4>
 <h5>You can change your password now. Check the top right corner's dropdown.</h5>
+
+
+<div class="panel panel-default">
+	<div class="panel-heading">Leads</div>
+	<div class="panel-body">
+		<div ng-repeat="lead in dash.leads">
+			<a ng-click="appCtrl.goTo('/lead/{{lead.id}}')">{{lead.first_name}} {{lead.last_name}} ({{lead.email}})</a>
+			<strong ng-if="lead.verified == 1">
+				Verified
+			</strong>
+		</div>
+	</div>
+</div>

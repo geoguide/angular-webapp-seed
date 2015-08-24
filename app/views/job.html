@@ -13,16 +13,15 @@
 			</div>
 			<div class="col-md-3 form-group">
 				<label>Specialty</label>
-				<select class="form-control" name="specialty_id" ng-model="jobCtrl.jobData.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties"></select>
+				<select class="form-control" ng-model="jobCtrl.jobData.specialty_id" ng-required="true" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties"></select>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Job Status</label>
-				<select name="status" class="form-control" ng-model="jobCtrl.jobData.active"  ng-required="true">
-					<option value="0">Pending</option>
-					<option value="1">Active</option>
-					<option value="2">Filled By Modio</option>
-					<option value="3">Closed by Client</option>
-				</select>
+				<select class="form-control" ng-model="jobCtrl.jobData.active"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Doctor Title</label>
+				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
 			</div>
 		</div>
 		<div class="row">
@@ -30,6 +29,10 @@
 				<label>Facility</label>
 				<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobCtrl.jobData.facility_id = $item.id" typeahead-editable="false" />
 				<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Source</label>
+				<select class="form-control" ng-model="jobCtrl.jobData.source"  ng-options="sr.id as sr.source for sr in appCtrl.jobSources"></select>
 			</div>
 		</div>
 		<div class="row">
@@ -74,6 +77,12 @@
 			<div class="col-md-3">
 				<label>Partner Job Contact</label>
 				<input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_contact"  ng-required="false" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label>Modio Notes</label>
+				<textarea class="form-control" type="text" ng-model="jobCtrl.jobData.modio_notes"  ng-required="false"></textarea>
 			</div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>
@@ -145,7 +154,7 @@
 			</div>
 		</div>
 		<div class="modal-footer"> 
-			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_form.$invalid">OK</button> 
+			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_form.$invalid">Save</button> 
 			<button class="btn btn-danger" role="button" type="button" ng-really-click="jobCtrl.delete()" ng-really-message="Are you sure you want to delete this doctor?">Delete</button> 
 			<button class="btn btn-warning" role="button" type="button" ng-click="appCtrl.goTo('/jobs')">Cancel</button> 
 		</div>

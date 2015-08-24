@@ -2,16 +2,16 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:JobCtrl
+ * @name modioAdminPortal.controller:LeadCtrl
  * @description
- * # JobCtrl
+ * # LeadCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams) {
+angular.module('modioAdminPortal')
+  .controller('LeadCtrl', function ($modal, $modalStack, doctorFactory, facilityFactory, toasty, $log, $routeParams) {
 	var _this = this;
-	this.jobData = {};
-	this.jobId = $routeParams.id;
-
+	this.leadData = {};
+	this.leadId = $routeParams.id;
 	//Date picker
 	_this.opened = { 'start': false, 'end': false };
 	this.open = function($event, which) {
@@ -34,12 +34,10 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	};
 
 	this.save = function(){
-		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : _this.jobData.start_date;
-		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : _this.jobData.end_date;
-		jobFactory.saveJob(_this.jobData).success(function(data){
+		doctorFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
 			toasty.success({
 				title: 'Success!',
-				msg: 'Job Saved.',
+				msg: 'Lead Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -53,7 +51,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			});
 		});
 	};
-	this.delete = function(){
+	/*this.delete = function(){
 		jobFactory.deleteJob(_this.jobId).then(function(data){
 			_this.jobData = null;
 			_this.error = true;
@@ -71,11 +69,12 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 				clickToClose: true
 			});
 		});
-	};
+	};*/
 
 	var init = function(){
-		jobFactory.getJob(_this.jobId).then(function(data){
-			_this.jobData = data;
+
+		doctorFactory.getLead(_this.leadId).then(function(data){
+			_this.leadData = data;
 			_this.error = false;
 		},function(error){
 			_this.error = true;

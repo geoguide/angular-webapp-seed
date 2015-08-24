@@ -81,6 +81,12 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
-		}, 
+		}, submitInsurance: function(docId,insuranceData){
+			return $http.post(API_URL+'/admin/doctors/'+docId+'/insurance', insuranceData);
+		}, deleteInsurance: function(docId,insuranceId){
+			return $http.delete(API_URL+'/admin/doctors/'+docId+'/insurance/'+insuranceId);
+		}, getInsurance: function(docId){
+			return $http.get(API_URL+'/admin/doctors/'+docId+'/insurance/');
+		}
     };
   });

@@ -1,0 +1,81 @@
+<section>
+	
+	<div id="no-data" ng-show="lead.error" class="ng-cloak">Lead Not Found</div>
+	<h4>{{lead.leadData.first_name}} {{lead.leadData.last_name}} {{lead.leadData.ip_address}} Created: {{lead.leadData.date_created}}</h4>
+	<form id="lead-form" name="edit_lead_form" ng-submit="lead.save()" ng-show="lead.leadData" class="ng-cloak" novalidate>
+		<div class="row">
+			<div class="col-md-6 form-group">
+				<label>Variant</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.variant" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Page UUID</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.page_uuid" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>source</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.source" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>States</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.states" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Specialty</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.specialty" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Job Type Desired</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.job_type_desired" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Doctor Title</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.doctor_title" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>First Name</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.first_name" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Last Name</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.last_name" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>email</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.email" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Home Phone</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.home_phone" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Agree to Terms</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.agree_to_terms" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Page Name</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.page_name" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Page Url</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.page_url" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Page Variant</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.page_variant" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>User Agent</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.user_agent" />
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Verified</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.verified" />
+			</div>
+		</div>
+		<div class="modal-footer"> 
+			<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button> 
+			<button class="btn btn-danger" role="button" type="button" ng-really-click="lead.delete()" ng-really-message="Are you sure you want to delete this Lead?">Delete</button> 
+		</div>
+	</form>
+</section>

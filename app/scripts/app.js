@@ -89,7 +89,8 @@
 			tab: 'dashboard',
 			templateUrl: 'views/dashboard.html',
 			access: { requiredLogin: true },
-			controller: 'DashboardCtrl'
+			controller: 'DashboardCtrl',
+			controllerAs: 'dash'
 		}).when('/doctor/:id', {
 			tab: 'users',
 			templateUrl: 'views/doctor.html',
@@ -177,6 +178,12 @@
 			access: { requiredLogin: true },
 			controller: 'CoordinatorCtrl',
 			controllerAs: 'coord'
+		}).when('/lead/:id', {
+		  templateUrl: 'views/lead.html',
+		  controller: 'LeadCtrl',
+		  controllerAs: 'lead',
+		  access: { requiredLogin: true },
+		  tab: 'dashboard'
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view
