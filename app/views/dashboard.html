@@ -1,15 +1,34 @@
-<h4>Dashboard</h4>
-<h5>You can change your password now. Check the top right corner's dropdown.</h5>
+<h4>Leads</h4>
 
 
 <div class="panel panel-default">
-	<div class="panel-heading">Leads</div>
+	<div class="panel-heading">Leads from Unbounce</div>
 	<div class="panel-body">
-		<div ng-repeat="lead in dash.leads">
-			<a ng-click="appCtrl.goTo('/lead/{{lead.id}}')">{{lead.first_name}} {{lead.last_name}} ({{lead.email}})</a>
-			<strong ng-if="lead.verified == 1">
-				Verified
-			</strong>
-		</div>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th ng-click="dash.sortResult('id')">id</th>
+					<th ng-click="dash.sortResult('last_name')">Name</th>
+					<th ng-click="dash.sortResult('specialty')">Specialty</th>
+					<th ng-click="dash.sortResult('email')">Email</th>
+					<th>States</th>
+					<th>Job Type Desired</th>
+					<th>Verified?</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="lead in dash.leads" class="doctor-row search-row" data-lead-id="{{lead.id}}" ng-click="appCtrl.goTo('/lead/{{lead.id}}')">
+					<td>{{ lead.id }}</td>
+					<td>{{ lead.first_name }} {{ lead.last_name }} {{lead.doctor_title}}</td>
+					<td>{{ lead.specialty }}</td>
+					<td>{{ lead.email }}</td>
+					<td>{{ lead.states}}</td>
+					<td>{{ lead.job_type_desired}}</td>
+					<strong ng-if="lead.verified == 1">
+						Verified
+					</strong>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>

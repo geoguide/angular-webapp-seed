@@ -1,6 +1,6 @@
 
 <!-- used to have ng-controller, but now realize the route handles it -->
-<div>
+<div class="ng-cloak">
 	<script type="text/ng-template" id="create-lookup-modal"> 
 		<form name="new_lookup_form" ng-submit="look.submitForm()" novalidate>
 			<div class="modal-header"> 
@@ -34,8 +34,11 @@
 	<section id="doctor-search-filters">
 		<form ng-submit="look.getResults()">
 			<div class="row">
-				<div class="col-md-5 col-sm-6 form-group">
-					<input type="search" class="form-control" ng-model="look.searchQuery" value="" />
+				<div class="col-md-4 col-sm-6 form-group">
+					<input type="search" class="form-control" ng-model="look.searchQuery" placeholder="Search Name..." value="" />
+				</div>
+				<div class="col-md-3 col-sm-6 form-group">
+					<input type="search" class="form-control" ng-model="look.searchSpecialty" placeholder="Search Specialty..." value="" />
 				</div>
 				<div class="col-md-2 col-sm-6 form-group">
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>

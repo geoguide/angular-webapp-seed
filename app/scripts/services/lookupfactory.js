@@ -42,13 +42,17 @@ angular.module('modioAdminPortal')
 			});
 		}, queryLookup: function(queryData){
 			//Put these all in array (or get as an array) and just parse the array for easiness
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection,searchDisposition,scoreLow,scoreHigh;
+			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection,scoreLow,scoreHigh;
 			searchQuery = queryData.search_query || '';
+			searchSpecialty = queryData.search_specialty;
 			pageNumber = queryData.page_number || 1;
 			sortBy = queryData.sort_by;
 			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			
 			var request = API_URL+'/admin/lookup?q='+searchQuery+'&p='+pageNumber;
+			if(searchSpecialty){
+				request += '&specialty='+searchSpecialty;
+			}
 			if(sortBy){
 				request += '&sort_by='+sortBy;
 			}

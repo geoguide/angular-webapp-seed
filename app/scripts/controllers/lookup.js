@@ -13,6 +13,7 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.doctors = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
+	this.searchSpecialty = '';
 
 	/* Variables */
 	this.formData = {};
@@ -26,7 +27,8 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
 		var queryData = {
-			search_query: _this.searchQuery
+			search_query: _this.searchQuery,
+			search_specialty: _this.searchSpecialty
 		};
 		lookupFactory.queryLookup(queryData).then(function(response) {
 			_this.doctors = response.doctors;
