@@ -1,5 +1,5 @@
 <section id="general-info">
-	
+
 	<h3 id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor {{dr.doctorId}} Does Not Exist</h3>
 	<div ng-show="dr.doctorData">
 		<div class="row">
@@ -75,7 +75,7 @@
 					<input type="text" class="form-control" ui-mask="99999" ng-model="dr.doctorData.home_zip">
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="form-group col-md-4">
 					<label>Phone Number</label>
@@ -86,7 +86,7 @@
 					<input type="checkbox" ng-model="dr.doctorData.text_ok" ng-true-value="1" ng-false-value="0" />
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="form-group col-md-3">
 					<label>Drivers License #</label>
@@ -108,14 +108,14 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<hr />
 			<div class="row">
 				<div class="col-sm-12">
 					<h4>Job Qualifications</h4>
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="form-group col-md-3">
 					<label>Job Type Desired</label>
@@ -153,7 +153,7 @@
 					</select>
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="form-group col-md-3">
 					<label>Clinical Experience</label>
@@ -245,6 +245,12 @@
 						<option value="1">Webapp</option>
 						<option value="2">Marketing</option>
 						<option value="3">Referral</option>
+            <option value="4">AdWords</option>
+            <option value="5">GDN</option>
+            <option value="6">Bing</option>
+            <option value="7">LinkedIn</option>
+            <option value="8">Facebook</option>
+            <option value="9">Email</option>
 					</select>
 				</div>
 			</div>
@@ -277,12 +283,12 @@
 				</div>
 			</div>
 		</form>
-				
+
 		<div heading="Account Info">
-			
-			
+
+
 		</div>
-		
+
 	</div>
-	
+
 </section>

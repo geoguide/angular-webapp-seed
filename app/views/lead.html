@@ -14,8 +14,19 @@
 			</div>
 			<div class="col-md-6 form-group">
 				<label>source</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.source" />
-			</div>
+        <select ng-model="lead.leadData.source" class="form-control">
+          <option value="0">Provisioned</option>
+          <option value="1">Webapp</option>
+          <option value="2">Marketing</option>
+          <option value="3">Referral</option>
+          <option value="4">AdWords</option>
+          <option value="5">GDN</option>
+          <option value="6">Bing</option>
+          <option value="7">LinkedIn</option>
+          <option value="8">Facebook</option>
+          <option value="9">Email</option>
+        </select>
+      </div>
 			<div class="col-md-6 form-group">
 				<label>States</label>
 				<input class="form-control" type="text" ng-model="lead.leadData.states" />
