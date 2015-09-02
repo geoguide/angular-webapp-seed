@@ -1,5 +1,5 @@
 <section>
-	
+
 	<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak">Job Not Found</div>
 	<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}}</h4>
 	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
@@ -57,9 +57,9 @@
 					</span>
 				</p>
 				<button class="btn btn-success btn-block" ng-show="!jobCtrl.jobData.start_date && !jobCtrl.opened['start']" ng-click="jobCtrl.open($event,'start')">ASAP</button>
-				
+
 			</div>
-			
+
 			<div class="col-md-3">
 				<label>End Date</label>
 				<p class="input-group date-picker-group" ng-show="jobCtrl.jobData.end_date || jobCtrl.opened['end']">
@@ -75,15 +75,19 @@
 				<input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_number"  ng-required="false" />
 			</div>
 			<div class="col-md-3">
-				<label>Partner Job Contact</label>
+				<label>Partner Contact Name</label>
 				<input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_contact"  ng-required="false" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-9">
 				<label>Modio Notes</label>
 				<textarea class="form-control" type="text" ng-model="jobCtrl.jobData.modio_notes"  ng-required="false"></textarea>
 			</div>
+      <div class="col-md-3">
+        <label>Partner Contact Email</label>
+        <input class="form-control" type="text" ng-model="jobCtrl.jobData.partner_job_email"  ng-required="false" />
+      </div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>
 		<div class="row">
@@ -153,10 +157,10 @@
 				<input type="checkbox" ng-model="jobCtrl.jobData.bc_be" ng-true-value="1" ng-false-value="0" />
 			</div>
 		</div>
-		<div class="modal-footer"> 
-			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_form.$invalid">Save</button> 
-			<button class="btn btn-danger" role="button" type="button" ng-really-click="jobCtrl.delete()" ng-really-message="Are you sure you want to delete this doctor?">Delete</button> 
-			<button class="btn btn-warning" role="button" type="button" ng-click="appCtrl.goTo('/jobs')">Cancel</button> 
+		<div class="modal-footer">
+			<button class="btn btn-primary" role="submit" ng-disabled="edit_job_form.$invalid">Save</button>
+			<button class="btn btn-danger" role="button" type="button" ng-really-click="jobCtrl.delete()" ng-really-message="Are you sure you want to delete this doctor?">Delete</button>
+			<button class="btn btn-warning" role="button" type="button" ng-click="appCtrl.goTo('/jobs')">Cancel</button>
 		</div>
 	</form>
 </section>
