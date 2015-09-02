@@ -20,7 +20,7 @@
 				<tr ng-repeat="lead in dash.leads" class="doctor-row search-row" data-lead-id="{{lead.id}}" ng-click="appCtrl.goTo('/lead/{{lead.id}}')">
 					<td>{{ lead.id }}</td>
 					<td>{{ lead.first_name }} {{ lead.last_name }} {{lead.doctor_title}}</td>
-					<td>{{ lead.specialty }}</td>
+					<td>{{ lead.specialty_description }}</td>
 					<td>{{ lead.email }}</td>
 					<td>{{ lead.states}}</td>
 					<td>{{ lead.job_type_desired}}</td>
