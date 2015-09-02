@@ -1,13 +1,13 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
 <div>
-	
-	<script type="text/ng-template" id="create-job-modal"> 
+
+	<script type="text/ng-template" id="create-job-modal">
 		<!-- formly this shit -->
 		<form name="new_job_form" ng-submit="jobsCtrl.submitJob()" novalidate>
-			<div class="modal-header"> 
-				<h3 class="modal-title">Create Job</h3> 
-			</div> 
-			
+			<div class="modal-header">
+				<h3 class="modal-title">Create Job</h3>
+			</div>
+
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-6 form-group">
@@ -15,6 +15,7 @@
 						<select name="job_type" class="form-control" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
 							<option value="1">Locum</option>
 							<option value="2">Permanent</option>
+              <option value="3">Both</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -102,7 +103,7 @@
 						</p>
 						<button class="btn btn-success btn-block" ng-show="!jobsCtrl.newJob.start_date && !jobsCtrl.opened['start']" ng-click="jobsCtrl.open($event,'start')">ASAP</button>
 					</div>
-					
+
 					<div class="col-md-6">
 						<label>End Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.end_date || jobsCtrl.opened['end']">
@@ -114,10 +115,10 @@
 						<button class="btn btn-success btn-block" ng-show="!jobsCtrl.newJob.end_date && !jobsCtrl.opened['end']" ng-click="jobsCtrl.open($event,'end')">Ongoing</button>
 					</div>
 				</div>
-			</div> 
-			<div class="modal-footer"> 
-				<button class="btn btn-primary" role="submit" ng-disabled="new_job_form.$invalid">OK</button> 
-				<button class="btn btn-warning" role="button" type="button" ng-click="jobsCtrl.closeModal()">Cancel</button> 
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" role="submit" ng-disabled="new_job_form.$invalid">OK</button>
+				<button class="btn btn-warning" role="button" type="button" ng-click="jobsCtrl.closeModal()">Cancel</button>
 			</div>
 		</form>
 	</script>
@@ -198,11 +199,11 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="row">
 		<div class="col-sm-12">
 			<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
 		</div>
 	</section>
-	
+
 </div>
