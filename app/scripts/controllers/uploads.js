@@ -14,12 +14,12 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 		'Karma'
 	];
 	var _this = this;
-	
+
 	this.doctorId = $routeParams.id;
-	
+
 	this.downloads = [];
 	this.uploads = [];
-	
+
 	this.uploadTypes = [
 		{
 			id:0,
@@ -134,7 +134,7 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
         type:'payor_contracts'
       }
 	];
-	 
+
 	$scope.upload = function (files,type) {
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
@@ -144,51 +144,66 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 				var filename = files[i].name;
 				var ext = filename.split('.').pop();
 				/* jshint ignore:start */
-				s3factory.putObject(_this.doctorId, type, file).then(function(data){
-					return s3factory.updateUploads(_this.doctorId, type, file.name);
-				}).then(function(result){
-					_this.loadUploads();
-				}, function(error){
-					$log.error(error);	
-				});
-				/* jshint ignore:end */
+				s3factory.putObject(type, file, 1, _this.doctorId, type,
+          function(data, status, headers, config) {
+            //Success
+            $log.info('s3 upload done');
+            _this.uploads = _this.downloads = [];
+            _this.loadUploads();
+          },
+          function(data, status, headers, config) {
+            //Error
+            $log.info('s3 upload failed');
+          }
+				);
 			}
 		}
 	};
-    
+
     this.getFileLink = function(type){
-	    s3factory.getSignedUrl(_this.doctorId,_this.uploads[type].file_name).then(function(response){
+	    s3factory.getSignedUrl(1, _this.uploads[type].id).then(function(response){
 		    $log.info(response);
 		 	_this.downloads[type] = response;
 		 	$window.location.href = response;
 		 	//$timeout(function(){ _this.downloads[type] = null; }, 60000);
 	    });
     };
-    
+
     this.loadUploads = function(){
-		s3factory.getUploads(_this.doctorId).then(function(result){
+		s3factory.getUploads(1, _this.doctorId, function(result){
+      $log.log(result);
 			var files = [];
 			for(var d=0;d<result.length;d++){
-				var key = result[d].file_type;
+				var key = result[d].tag;
 				_this.uploads[key] = result[d];
 	 		}
 		});
 	};
-	
+
 	this.deleteUpload = function(type){
-		s3factory.deleteObject(_this.doctorId, type).then(function(response){
-			return s3factory.deleteUploadRecord(_this.doctorId, type);
-		}).then(function(response){
-			_this.uploads = _this.downloads = [];
-			_this.loadUploads();
-		},function(error){
-			$log.error(error);
-		});
-	};
-    
+    $log.log('deleteUpload:' + _this.uploads[type].id);
+
+    s3factory.deleteObject(1, _this.doctorId, _this.uploads[type].id,
+      function(data, status, headers, config) {
+        //Success
+        console.log("Deleted file info: " + type);
+        $log.log(data);
+        _this.uploads = _this.downloads = [];
+        _this.loadUploads();
+      },
+      function(data, status, headers, config) {
+        //Error
+        console.log("FAILED to delete file info: " + type);
+        $log.log(data);
+        _this.uploads = _this.downloads = [];
+        _this.loadUploads();
+      }
+    );
+  };
+
     var init = function(){
-	   _this.loadUploads(); 
+	   _this.loadUploads();
     };
-    
+
     init();
 });

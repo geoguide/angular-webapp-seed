@@ -20,19 +20,25 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
-  
+
   var gruntEnvironment = grunt.option('environment') || 'development';
   var apiEndpoints = {
-	  development: 'http://localhost:3001',	
+	  development: 'http://localhost:3001',
 	  staging: 'https://api.modiohealth.org',
 	  production: 'https://api.modiohealth.com'
   };
+  var s3Buckets = {
+    development: 'files.modiohealth.org',
+    staging: 'files.modiohealth.org',
+    production: 'files.modiohealth.com'
+  };
   console.log('genv: '+gruntEnvironment);
   console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
+  console.log('s3 bucket: '+s3Buckets[gruntEnvironment]);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-	  
+
 	  ngconstant: {
 		  // Options for all targets
 		  options: {
@@ -48,7 +54,8 @@ module.exports = function (grunt) {
 		    constants: {
 		      ENV: {
 		        name: 'development',
-		        apiEndpoint: apiEndpoints[gruntEnvironment]
+		        apiEndpoint: apiEndpoints[gruntEnvironment],
+            s3Bucket: s3Buckets[gruntEnvironment]
 		      }
 		    }
 		  },
@@ -59,8 +66,9 @@ module.exports = function (grunt) {
 		    constants: {
 		      ENV: {
 		        name: 'production',
-		        apiEndpoint: apiEndpoints[gruntEnvironment]
-		      }
+		        apiEndpoint: apiEndpoints[gruntEnvironment],
+            s3Bucket: s3Buckets[gruntEnvironment]
+          }
 		    }
 		  },
 		  staging: {
@@ -70,8 +78,9 @@ module.exports = function (grunt) {
 		    constants: {
 		      ENV: {
 		        name: 'staging',
-		        apiEndpoint: apiEndpoints[gruntEnvironment]
-		      }
+		        apiEndpoint: apiEndpoints[gruntEnvironment],
+            s3Bucket: s3Buckets[gruntEnvironment]
+          }
 		    }
 		  }
 		},

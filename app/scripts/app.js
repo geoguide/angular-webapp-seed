@@ -39,7 +39,7 @@
 
 	webapp.value('loggedIn', false);
 	webapp.config(function(ENV,$provide){
-		$provide.constant('API_URL', ENV.apiEndpoint);
+		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 	});
 	webapp.config(function ($routeProvider, ENV) {
 
