@@ -99,6 +99,10 @@
         <label>Score</label>
         <input class="form-control" type="text" ng-model="lead.leadData.score" />
       </div>
+      <div class="form-group col-md-3">
+        <label>Disposition</label>
+        <select class="form-control" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="lead.leadData.disposition"></select>
+      </div>
     </div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button>
