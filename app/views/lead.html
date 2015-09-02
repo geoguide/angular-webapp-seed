@@ -87,7 +87,19 @@
         <label>Campaign</label>
         <input class="form-control" type="text" ng-model="lead.leadData.campaign" />
       </div>
-		</div>
+      <div class="col-md-6 form-group">
+        <label>Admin Notes</label>
+        <textarea class="form-control" type="text" ng-model="lead.leadData.admin_notes" />
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Sales Notes</label>
+        <textarea class="form-control" type="text" ng-model="lead.leadData.sales_notes" />
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Score</label>
+        <input class="form-control" type="text" ng-model="lead.leadData.score" />
+      </div>
+    </div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button>
 			<button class="btn btn-danger" role="button" type="button" ng-really-click="lead.delete()" ng-really-message="Are you sure you want to delete this Lead?">Delete</button>
