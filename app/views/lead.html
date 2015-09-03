@@ -29,7 +29,8 @@
       </div>
       <div class="col-md-6 form-group">
         <label>Specialty</label>
-        <input class="form-control" type="text" ng-disabled="true" ng-model="lead.leadData.specialty" />
+        <div class="form-control">{{lead.leadData.specialty_description}} ({{lead.leadData.specialty}})</div>
+        <!--<input class="form-control" type="text" ng-disabled="true" ng-model="lead.leadData.specialty_description + ' (' + lead.leadData.specialty + ')'" />-->
       </div>
       <div class="form-group col-md-6">
         <label>Disposition</label>
@@ -41,18 +42,7 @@
       </div>
       <div class="col-md-6 form-group">
 				<label>source</label>
-        <select ng-model="lead.leadData.source" class="form-control">
-          <option value="0">Provisioned</option>
-          <option value="1">Webapp</option>
-          <option value="2">Marketing</option>
-          <option value="3">Referral</option>
-          <option value="4">AdWords</option>
-          <option value="5">GDN</option>
-          <option value="6">Bing</option>
-          <option value="7">LinkedIn</option>
-          <option value="8">Facebook</option>
-          <option value="9">Email</option>
-        </select>
+        <select class="form-control" ng-options="src.id as src.name for src in appCtrl.source" ng-model="lead.leadData.source"></select>
       </div>
       <div class="col-md-6 form-group">
         <label>Campaign</label>
@@ -102,10 +92,6 @@
 				<label>Page Url</label>
 				<input class="form-control" type="text" ng-model="lead.leadData.page_url" />
 			</div>
-			<!--<div class="col-md-6 form-group">-->
-				<!--<label>Page Variant</label>-->
-				<!--<input class="form-control" type="text" ng-model="lead.leadData.page_variant" />-->
-			<!--</div>-->
       <div class="col-md-6 form-group">
         <label>Admin Notes</label>
         <textarea class="form-control" type="text" ng-model="lead.leadData.admin_notes" />
@@ -118,10 +104,6 @@
         <label>User Agent</label>
         <input class="form-control" type="text" ng-model="lead.leadData.user_agent" />
       </div>
-      <!--<div class="col-md-6 form-group">-->
-        <!--<label>Page UUID</label>-->
-        <!--<input class="form-control" type="text" ng-model="lead.leadData.page_uuid" />-->
-      <!--</div>-->
     </div>
     <div class="modal-footer">
 			<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button>

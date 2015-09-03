@@ -9,24 +9,33 @@
 				<tr>
 					<th ng-click="dash.sortResult('id')">id</th>
 					<th ng-click="dash.sortResult('last_name')">Name</th>
+          <th ng-click="dash.sortResult('title')">Title</th>
 					<th ng-click="dash.sortResult('specialty')">Specialty</th>
 					<th ng-click="dash.sortResult('email')">Email</th>
 					<th>States</th>
-					<th>Job Type Desired</th>
+					<th>Job Type</th>
 					<!--<th>Verified?</th>-->
           <th>Score</th>
+          <th>Acct. Mgr</th>
+          <th>Disposition</th>
+          <th>Source</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="lead in dash.leads" class="doctor-row search-row" data-lead-id="{{lead.id}}" ng-click="appCtrl.goTo('/lead/{{lead.id}}')">
 					<td>{{ lead.id }}</td>
-					<td>{{ lead.first_name }} {{ lead.last_name }} {{lead.doctor_title}}</td>
+					<td>{{ lead.first_name }} {{ lead.last_name }}</td>
+          <td>{{lead.doctor_title}}</td>
 					<td>{{ lead.specialty_description }} ({{ lead.specialty }})</td>
 					<td>{{ lead.email }}</td>
 					<td>{{ lead.states}}</td>
 					<td>{{ lead.job_type_desired}}</td>
           <td>{{ lead.score}}</td>
-					<!--<strong ng-if="lead.verified == 1">-->
+          <td>{{ lead.account_manager}}</td>
+          <td>{{ appCtrl.disposition[lead.disposition].name }}</td>
+          <td>{{ appCtrl.source[lead.source].name }}</td>
+
+          <!--<strong ng-if="lead.verified == 1">-->
 						<!--Verified-->
 					<!--</strong>-->
 				</tr>
