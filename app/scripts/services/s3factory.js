@@ -43,12 +43,12 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
                 },
                 function(data, status, headers, config) {
                   //Success
-                  console.log("Saved file info: " + filename);
+                  console.log('Saved file info: ' + filename);
                   success();
                 },
                 function(data, status, headers, config) {
                   //Error
-                  console.log("FAILED to save file info: " + filename);
+                  console.log('FAILED to save file info: ' + filename);
                   err();
                 });
             }
