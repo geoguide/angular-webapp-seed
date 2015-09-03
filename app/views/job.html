@@ -40,8 +40,16 @@
 				<label>Job Title</label>
 				<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
 			</div>
+      <div class="col-md-2 form-group">
+        <label>Priority</label>
+        <select ng-model="jobCtrl.jobData.job_rank" class="form-control">
+          <option value="3">Low</option>
+          <option value="2">Medium</option>
+          <option value="1">High</option>
+        </select>
+      </div>
 		</div>
-		<div class="row">
+    <div class="row">
 			<div class="form-group col-md-10">
 				<label>Job Description</label>
 				<textarea class="form-control" name="job_title" ng-model="jobCtrl.jobData.description" rows="20"  ng-required="true"></textarea>
