@@ -70,12 +70,17 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 	this.jobSources = [
+    {
+      id: 'a',
+      source: 'Entered via Admin Portal'
+    },
+    {
+      id: 'S',
+      source: 'Ingested from scraped data'
+    },
 		{
 			id: 'M',
 			source: 'Modio'
-		},{
-			id: 'O',
-			source: 'Something elese'
 		}
 	];
 	this.doctorTitles = [
