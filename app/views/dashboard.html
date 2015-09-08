@@ -19,6 +19,7 @@
           <th>Acct. Mgr</th>
           <th>Disposition</th>
           <th>Source</th>
+          <th>User</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +35,12 @@
           <td>{{ lead.account_manager}}</td>
           <td>{{ appCtrl.dispositionMap[lead.disposition]}}</td>
           <td>{{ appCtrl.sourceMap[lead.source]}}</td>
+          <td ng-show="lead.doctor_id">
+            <button ng-click="appCtrl.goTo('/doctor/{{lead.doctor_id}}')">View</button>
+          </td>
+          <td ng-hide="lead.doctor_id">
+            N/A
+          </td>
 
           <!--<strong ng-if="lead.verified == 1">-->
 						<!--Verified-->
