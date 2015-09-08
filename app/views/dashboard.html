@@ -32,8 +32,8 @@
 					<td>{{ lead.job_type_desired}}</td>
           <td>{{ lead.score}}</td>
           <td>{{ lead.account_manager}}</td>
-          <td>{{ appCtrl.disposition[lead.disposition].name }}</td>
-          <td>{{ appCtrl.source[lead.source].name }}</td>
+          <td>{{ appCtrl.dispositionMap[lead.disposition]}}</td>
+          <td>{{ appCtrl.sourceMap[lead.source]}}</td>
 
           <!--<strong ng-if="lead.verified == 1">-->
 						<!--Verified-->

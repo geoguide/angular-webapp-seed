@@ -208,6 +208,10 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	for(var s=0;s<_this.disposition.length;s++){
 		_this.dispositionMap[_this.disposition[s].id] = _this.disposition[s].name;
 	}
+  this.sourceMap = [];
+  for(var s=0;s<_this.source.length;s++){
+    _this.sourceMap[_this.source[s].id] = _this.source[s].name;
+  }
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
