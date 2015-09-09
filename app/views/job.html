@@ -2,7 +2,13 @@
 
 	<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak">Job Not Found</div>
 	<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}}</h4>
-	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
+  <div class="row">
+    <ul class="nav nav-pills">
+      <li role="presentation" class="active"><a href="#">General Info</a></li>
+      <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/files')">Files</a></li>
+    </ul>
+  </div>
+  <form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-md-2 form-group">
 				<label>Job Type</label>

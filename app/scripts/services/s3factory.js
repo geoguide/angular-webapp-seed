@@ -17,7 +17,7 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
 
     // Public API here
     return {
-      putObject: function(filetype, file, componentId, entityId, tag, success, err){
+      putObject: function(filetype, file, componentId, entityId, tag, success, error){
         var filename = file.name;
         var ext = filename.split('.').pop();
         return $http.get(API_URL+'/admin'+'/s3-credentials/'+componentId).then(function(response) {
@@ -49,7 +49,7 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
                 function(data, status, headers, config) {
                   //Error
                   console.log('FAILED to save file info: ' + filename);
-                  err();
+                  error();
                 });
             }
           }).on('httpUploadProgress', function (progress) {
@@ -86,7 +86,7 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
 			});
 		},
       getUploads: function(componentId, entityId, result){
-        return filesAPI.query({ componentId:1, entityId:entityId }, result);
+        return filesAPI.query({ componentId:componentId, entityId:entityId }, result);
 		}
     };
   });
