@@ -219,16 +219,16 @@
 			if(nextRoute.access){
 
 				//Lets store the tokens in Auth so we don't have to use localStorage here
-				//If route requires login and we don't have an email or authToken do interrogation
-				if (nextRoute.access.requiredLogin && (!localStorageService.get('authToken') || !Auth.user().email)) {
+				//If route requires login and we don't have an email or adminAuthToken do interrogation
+				if (nextRoute.access.requiredLogin && (!localStorageService.get('adminAuthToken') || !Auth.user().email)) {
 
 					if(localStorageService.get('refreshToken')){
 
 						Auth.delegate().then(function(result){
 							//Success
-							if(!localStorageService.get('authToken')){
+							if(!localStorageService.get('adminAuthToken')){
 								event.preventDefault();
-								$log.warn('Delegate Failed to Populate authToken');
+								$log.warn('Delegate Failed to Populate adminAuthToken');
 								webapp.value('loggedIn', false);
 								$location.path('/login');
 							} else {
@@ -250,8 +250,8 @@
 						$location.path('/login');
 					}
 
-				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('authToken')){
-					//You've got an authToken but are trying to go to the login page, send to real page
+				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('adminAuthToken')){
+					//You've got an adminAuthToken but are trying to go to the login page, send to real page
 					$location.path(Auth.defaultAuthPage());
 				}
 

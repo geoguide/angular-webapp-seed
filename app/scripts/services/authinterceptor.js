@@ -13,8 +13,8 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 		request: function(config) {
 			//var LocalService = $injector.get('LocalService');
 			var token;
-			if (localStorageService.get('authToken')) {
-				token = localStorageService.get('authToken');
+			if (localStorageService.get('adminAuthToken')) {
+				token = localStorageService.get('adminAuthToken');
 			}
 			if (token) {
 				config.headers.Authorization = 'Bearer ' + token;
@@ -25,7 +25,7 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 		responseError: function(response) {
 			if (response.status === 401 || response.status === 403) {
 				$log.log('error delete');
-				localStorageService.remove('authToken');
+				localStorageService.remove('adminAuthToken');
 				$location.path('/login');
 			}
 			return $q.reject(response);

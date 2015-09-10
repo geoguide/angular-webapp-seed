@@ -17,7 +17,7 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		},0);
 		if(refreshToken){
 			$http.post(API_URL+'/admin/delegate', { refresh_token: refreshToken }).success(function(data, status, headers, config){
-				localStorageService.set('authToken', data.token);
+				localStorageService.set('adminAuthToken', data.token);
 				localStorageService.set('refreshToken', data.refresh_token);
 				deferred.resolve(data);
 			}).error(function(){
@@ -30,33 +30,33 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 	};
 	
 	var isAuthenticated = function() {
-		var storedJwt = localStorageService.get('authToken');
+		var storedJwt = localStorageService.get('adminAuthToken');
 		if(storedJwt){
 			var storedPayload = jwtHelper.decodeToken(storedJwt);
 			userInfo = storedPayload;
 			if(jwtHelper.isTokenExpired(storedJwt)){
 				//$log.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
-				localStorageService.remove('authToken');
+				localStorageService.remove('adminAuthToken');
 			} else {
 				//$log.info('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
 			}
 		}
-		return localStorageService.get('authToken');
+		return localStorageService.get('adminAuthToken');
 	};
 	
 	var logout = function(){
 		$log.log('logout delete');
-		localStorageService.remove('authToken');
+		localStorageService.remove('adminAuthToken');
 		localStorageService.remove('refreshToken');
 		userInfo = {};
 		$location.path('/login');
 	};
 	
 	var register = function(formData) {
-		localStorageService.remove('authToken');
+		localStorageService.remove('adminAuthToken');
 		var register = $http.post('/auth/register', formData);
 		register.success(function(result) {
-			localStorageService.set('authToken',result.token);
+			localStorageService.set('adminAuthToken',result.token);
 		});
 		return register;
 	};

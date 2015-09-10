@@ -13,7 +13,7 @@ angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$htt
 
 	this.authenticate = function(){
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
-			localStorageService.set('authToken',data.token);
+			localStorageService.set('adminAuthToken',data.token);
 			localStorageService.set('refreshToken',data.refresh_token);
 			$location.path('/dashboard');
 			$scope.$emit('login');
