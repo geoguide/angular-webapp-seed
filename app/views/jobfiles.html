@@ -10,7 +10,7 @@
   <hr />
   <div class="row">
 
-    <div class="col-md-6" ng-repeat="obj in files.uploadTypes">
+    <div class="col-md-2" ng-repeat="obj in files.uploadTypes">
       <h4>{{obj.title}}</h4>
       <div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.type)"
            ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
@@ -18,15 +18,14 @@
       <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
     </div>
     <div >
-      <table class="col-md-12 table table-bordered table-header-blue big-table">
+      <table class="table table-condensed table-striped">
         <thead>
         <tr>
           <th>File Name</th>
           <th>File Size</th>
-          <th>Uploaded</th>
-          <th>Visibility</th>
-          <th></th>
-          <th></th>
+          <th>Date</th>
+          <th>Permission</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -37,8 +36,6 @@
           <td>{{file.tag}}</td>
           <td>
             <button class="btn btn-primary" ng-click="files.getFileLink(file)">Download</button>
-          </td>
-          <td>
             <button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?" ng-really-click="files.deleteUpload(file)">Delete</button>
           </td>
         </tr>
