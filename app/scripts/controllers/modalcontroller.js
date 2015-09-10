@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('ModalCtrl', function ($scope, $modalInstance, title, modalObject, parentCtrl) {
+  .controller('ModalCtrl', function ($scope, $modalInstance, modalObject, parentCtrl) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -17,8 +17,7 @@ angular.module('modioAdminPortal')
     
 	this.modalObject = modalObject;
 	this.parentCtrl = parentCtrl;
-	this.title = title;
-	
+	//this.title = title || 'Modal';
 	this.ok = function () {
 		$modalInstance.close(this.modalObject);
 	};

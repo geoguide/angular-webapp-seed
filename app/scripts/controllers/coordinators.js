@@ -7,8 +7,7 @@
  * # CoordinatorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal')
-  .controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,facilityFactory,$q,toasty,applicationFactory,$log) {
 	var _this = this;
 
 	this.coordinators = [];
@@ -66,15 +65,19 @@ angular.module('modioAdminPortal')
 		});
 	};
 
-	this.open = function () {
-
+	this.open = function (modalId,dataIn) {
 		this.modalInstance = $modal.open({
 			templateUrl: 'create-coordinator-modal',
-			controller: 'CoordinatorsCtrl',
-			controllerAs: 'coordCtrl',
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
 			scope: $scope,
 			resolve: {
-				//Variables to add to modal's scope
+				modalObject: function(){
+					return dataIn;
+				},
+				parentCtrl: function(){
+					return _this;
+				}
 			}
 		});
 
@@ -83,6 +86,18 @@ angular.module('modioAdminPortal')
 		}, function () {
 			$log.info('Modal dismissed at: ' + new Date());
 		});
+	};
+	
+	this.queryFacilities = function(query){
+		var deferred = $q.defer();
+		console.log('hi');
+	   facilityFactory.queryFacilities({q:query}).then(function(data){
+			deferred.resolve(data.facilities);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
 	};
 
 	this.closeModal = function(){
