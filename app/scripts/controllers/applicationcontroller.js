@@ -172,7 +172,10 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}, {
 			id: 5,
 			name: 'Active'
-		}
+    }, {
+      id: 6,
+      name: 'Archived'
+    }
 	];
 
   this.source = [
@@ -213,12 +216,12 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	for(var d=0;d<_this.disposition.length;d++){
 		_this.dispositionMap[_this.disposition[d].id] = _this.disposition[d].name;
 	}
-	
+
 	this.sourceMap = [];
 	for(var s=0;s<_this.source.length;s++){
 		_this.sourceMap[_this.source[s].id] = _this.source[s].name;
 	}
-	
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
