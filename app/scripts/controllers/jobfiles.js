@@ -20,6 +20,7 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
 
   this.downloads = [];
   this.uploads = [];
+  this.files = [];
 
 	this.uploadTypes = [
 		{
@@ -37,15 +38,16 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
         type:'public'
       }
 	];
-	
-	this.processS3 = function(tagIn, file, componentId, entityId){
-		s3factory.putObject(tagIn, file, componentId, entityId, tagIn, function(data, status, headers, config) {
+
+	this.processS3 = function(tag, file, componentId, entityId){
+		s3factory.putObject(file, componentId, entityId, tag, function(data, status, headers, config) {
          //Success
-         //_this.uploads[tag].push(
+         //_this.files.push(
          //  {
-         //    filename:filename
+         //    filename:file.name
          //  }
          //);
+      _this.loadUploads();
 		$log.info('s3 upload done');
 		//_this.loadUploads();
 		},function(data, status, headers, config) {
@@ -72,26 +74,37 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
 		 	//$timeout(function(){ _this.downloads[type] = null; }, 60000);
 	    });
     };
-	 
-	this.loadUploads = function(){
-		var key;
-		s3factory.getUploads(_this.componentId, _this.entityId, function(result){
-			$log.log('loadUploads:'+result);
-			_this.uploads = _this.downloads = [];
-			//var files = [];
-			for (var i=0;i<_this.uploadTypes.length;i++) {
-				key = _this.uploadTypes[i].type;
-				//$log.info('key='+key);
-				_this.uploads[key] = [];
-			}
-			for(var d=0;d<result.length;d++){
-				$log.info('Result=' + result[d].filename);
-				key = result[d].tag;
-				_this.uploads[key].push(result[d]);
-			}
-			//$scope.$apply();
-		});
-	};
+
+  this.loadUploads = function(){
+    s3factory.getUploads(_this.componentId, _this.entityId, function(result){
+      $log.log('loadUploads:'+result);
+      _this.files = _this.uploads = _this.downloads = [];
+      //var files = [];
+      for (var i=0;i<_this.uploadTypes.length;i++) {
+        var key = _this.uploadTypes[i].type;
+        //$log.info('key='+key);
+        _this.uploads[key] = [];
+      }
+      for(var d=0;d<result.length;d++){
+        $log.info('Result=' + result[d].filename);
+        var key = result[d].tag;
+        var file = result[d];
+        if (file.filesize) {
+          file.filesizeKB = Math.round(file.filesize / 1024 * 100)/100;
+          file.filesizeMB = Math.round(file.filesize / 1024 / 1024 * 100)/100;
+          if (file.filesizeMB > 1) {
+            file.filesize = file.filesizeMB + ' MB';
+          }
+          else {
+            file.filesize = file.filesizeKB + ' KB';
+          }
+        }
+        _this.uploads[key].push(result[d]);
+        _this.files.push(file);
+      }
+      //$scope.$apply();
+    });
+  };
 
   this.deleteUpload = function(file){
     $log.log('deleteUpload:' + file.id);

@@ -17,7 +17,7 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
 
     // Public API here
     return {
-      putObject: function(filetype, file, componentId, entityId, tag, success, error){
+      putObject: function(file, componentId, entityId, tag, success, error){
         var filename = file.name;
         var filesize = file.size;
         //var ext = filename.split('.').pop();
