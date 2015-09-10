@@ -19,7 +19,8 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
     return {
       putObject: function(filetype, file, componentId, entityId, tag, success, error){
         var filename = file.name;
-        var ext = filename.split('.').pop();
+        var filesize = file.size;
+        //var ext = filename.split('.').pop();
         return $http.get(API_URL+'/admin'+'/s3-credentials/'+componentId).then(function(response) {
           var creds = response.data;
           $log.log(creds.AccessKeyId+' '+creds.SecretAccessKey+' '+creds.SessionToken);
@@ -39,6 +40,7 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
                   entityId:entityId,
                   uuid:creds.uuid,
                   filename:filename,
+                  filesize:filesize,
                   tag:tag
                 },
                 function(data, status, headers, config) {

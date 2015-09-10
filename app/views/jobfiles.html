@@ -23,6 +23,7 @@
         <thead>
         <tr>
           <th>File Name</th>
+          <th>File Size</th>
           <th>Uploaded</th>
           <th></th>
           <th></th>
@@ -31,6 +32,7 @@
         <tbody>
         <tr ng-repeat="file in files.uploads[obj.type]">
           <td>{{file.filename}}</td>
+          <td>{{file.filesize}}</td>
           <td>{{file.date_created}}</td>
           <td>
             <button class="btn btn-primary" ng-click="files.getFileLink(file)">Download</button>
