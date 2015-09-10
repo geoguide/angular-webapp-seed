@@ -1,0 +1,47 @@
+<section>
+  <div id="no-data" ng-show="jobCtrl.error" class="ng-cloak">Job Not Found</div>
+  <h4>Job Files</h4>
+  <div class="row">
+    <ul class="nav nav-pills">
+      <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + files.entityId)">General Info</a></li>
+      <li role="presentation" class="active"><a ng-click="appCtrl.goTo('/jobs/' + files.entityId + '/files')">Files</a></li>
+    </ul>
+  </div>
+  <hr />
+  <div class="row">
+
+    <div class="col-md-6" ng-repeat="obj in files.uploadTypes">
+      <h4>{{obj.title}}</h4>
+      <div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.type)"
+           ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+           ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Drop Images, Documents or PDFs files here</div>
+      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+
+      <!--<a href="{{files.downloads[obj.type]}}" class="btn btn-success" ng-show="files.downloads[obj.type] && 1==2">Download {{obj.title}}</a>-->
+      <table class="col-md-12 table table-bordered table-header-blue big-table">
+        <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Uploaded</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="file in files.uploads[obj.type]">
+          <td>{{file.filename}}</td>
+          <td>{{file.date_created}}</td>
+          <td>
+            <button class="btn btn-primary" ng-click="files.getFileLink(file)">Download</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?" ng-really-click="files.deleteUpload(file)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>

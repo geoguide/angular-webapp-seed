@@ -39,7 +39,7 @@
 
 	webapp.value('loggedIn', false);
 	webapp.config(function(ENV,$provide){
-		$provide.constant('API_URL', ENV.apiEndpoint);
+		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 	});
 	webapp.config(function ($routeProvider, ENV) {
 
@@ -184,6 +184,12 @@
 		  controllerAs: 'lead',
 		  access: { requiredLogin: true },
 		  tab: 'dashboard'
+    }).when('/jobs/:id/files', {
+      tab: 'jobs',
+      access: { requiredLogin: true },
+      templateUrl: 'views/jobfiles.html',
+      controller: 'JobFilesCtrl',
+      controllerAs: 'files'
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view

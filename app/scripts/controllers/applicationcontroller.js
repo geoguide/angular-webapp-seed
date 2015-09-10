@@ -14,33 +14,33 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		_this.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 	});
-	
+
 	this.today = new Date();
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
 	var yyyy = this.today.getFullYear();
-	
+
 	if(dd<10) {
 	    dd='0'+dd;
-	} 
-	
+	}
+
 	if(mm<10) {
 	    mm='0'+mm;
-	} 
-	
+	}
+
 	this.today = mm+'/'+dd+'/'+yyyy;
-	
+
 	$scope.$on('$routeChangeSuccess', function( event ) {
 		_this.tab = $route.current.tab;
 	});
-	
+
 	this.goTo = applicationFactory.goTo;
-	
+
 	this.facilities = [];
 	this.specialties = [];
 	this.medicalSchools = [];
 	this.abmsCertifications = [];
-	
+
 	this.insuranceTypes = [
 		{
 			id: 0,
@@ -50,7 +50,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			type: 'Liability'
 		}
 	];
-	
+
 	this.jobStatuses = [
 		{
 			id: 0,
@@ -58,6 +58,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		},{
 			id: 1,
 			job_status: 'Active'
+    },{
+      id: 2,
+      job_status: 'Pending Review'
 		},{
 			id: 3,
 			job_status: 'Closed by Modio'
@@ -67,12 +70,17 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 	this.jobSources = [
+    {
+      id: 'a',
+      source: 'Entered via Admin Portal'
+    },
+    {
+      id: 'S',
+      source: 'Ingested from scraped data'
+    },
 		{
 			id: 'M',
 			source: 'Modio'
-		},{
-			id: 'O',
-			source: 'Something elese'
 		}
 	];
 	this.doctorTitles = [
@@ -85,7 +93,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		'PA',
 		'NP'
 	];
-	
+
 	this.usStates = [
 		{ name: 'ALABAMA', abbreviation: 'AL'},
 		{ name: 'ALASKA', abbreviation: 'AK'},
@@ -147,7 +155,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ name: 'WISCONSIN', abbreviation: 'WI'},
 		{ name: 'WYOMING', abbreviation: 'WY' }
 	];
-	
+
 	this.disposition = [
 		{
 			id: 0,
@@ -166,10 +174,49 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			name: 'Active'
 		}
 	];
+
+  this.source = [
+    {
+      id: 0,
+      name: 'Provisioned'
+    },{
+      id: 1,
+      name: 'Webapp'
+    },{
+      id: 2,
+      name: 'Marketing'
+    },{
+      id: 3,
+      name: 'Referral'
+    },{
+      id: 4,
+      name: 'AdWords'
+    },{
+      id: 5,
+      name: 'GDN'
+    },{
+      id: 6,
+      name: 'Bing'
+    },{
+      id: 7,
+      name: 'LinkedIn'
+    },{
+      id: 8,
+      name: 'Facebook'
+    },{
+      id: 9,
+      name: 'Email'
+    }
+  ];
+
 	this.dispositionMap = [];
 	for(var s=0;s<_this.disposition.length;s++){
 		_this.dispositionMap[_this.disposition[s].id] = _this.disposition[s].name;
 	}
+  this.sourceMap = [];
+  for(var s=0;s<_this.source.length;s++){
+    _this.sourceMap[_this.source[s].id] = _this.source[s].name;
+  }
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
@@ -180,7 +227,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
-	
+
 	this.queryMedicalSchools = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryMedicalSchools({q:query}).then(function(data){
@@ -225,7 +272,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			name: 'Salary'
 		}
 	];
-	
+
 	this.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
 	this.dateFormat = this.dateFormats[4];
 	this.dateOptions = {
@@ -242,13 +289,13 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 				_this.specialtiesMap[_this.specialties[s].id] = _this.specialties[s].specialty;
 			}
 		});
-		
+
 		experienceFactory.getMedicalSchools().then(function(data){
 			_this.medicalSchools = data;
 		},function(error){
 			$log.error(error);
 		});
-		
+
 		specialtyFactory.getABMSCertifications().then(function(data){
 			_this.abmsCertifications = data;
 		},function(error){
@@ -259,9 +306,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		_this.init();
 	});
 	if(Auth.isAuthenticated()){
-		this.init();	
+		this.init();
 	}
-	
+
 	//Logout
 	this.logout = Auth.logout;
 });

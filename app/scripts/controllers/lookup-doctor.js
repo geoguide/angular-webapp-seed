@@ -101,6 +101,24 @@ angular.module('modioAdminPortal')
 		});
 	};
 
+    this.setPrimaryLicense = function(obj){
+      for(var i=0;i<_this.licenseData.length;i++){
+        var license = _this.licenseData[i];
+        //$log.info('license:' + license);
+        if (license.id != obj.id) {
+          if (license.primary_license === 1) {
+            //$log.info('setting to non primary:' + license.id);
+            license.primary_license = 0;
+            lookupFactory.updateLicense(_this.doctorId,license);
+          }
+        }
+      }
+      obj.primary_license = 1;
+      //$log.info('setting to primary:' + obj.id);
+
+      lookupFactory.updateLicense(_this.doctorId,obj);
+    };
+
 	this.openModal = function(modalId,dataIn){
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
