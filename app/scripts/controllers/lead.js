@@ -51,6 +51,27 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
+
+  this.archive = function() {
+    _this.leadData.disposition = 6; //Archived
+    doctorFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
+      toasty.success({
+        title: 'Success!',
+        msg: 'Lead Archived.',
+        showClose: true,
+        clickToClose: true
+      });
+      _this.jobData = data;
+    }).error(function(error){
+      toasty.error({
+        title: 'Error!',
+        msg: error.message,
+        showClose: true,
+        clickToClose: true
+      });
+    });
+  };
+
 	/*this.delete = function(){
 		jobFactory.deleteJob(_this.jobId).then(function(data){
 			_this.jobData = null;
