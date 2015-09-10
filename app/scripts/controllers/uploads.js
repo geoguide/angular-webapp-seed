@@ -134,9 +134,9 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
         type:'payor_contracts'
       }
 	];
-	
+
 	this.processS3 = function(type,file){
-		s3factory.putObject(type, file, 1, _this.doctorId, type, 
+		s3factory.putObject(file, 1, _this.doctorId, type,
 			function(data, status, headers, config) {
 				//Success
 				$log.info('s3 upload done');
