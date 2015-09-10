@@ -31,7 +31,7 @@
 		'LocalStorageModule',
 		'ui.mask',
 		'ngAnimate',
-    'angular-toasty',
+		'angular-toasty',
 		'ui.bootstrap',
 		'ngFileUpload'
 	]);
@@ -40,6 +40,7 @@
 	webapp.value('loggedIn', false);
 	webapp.config(function(ENV,$provide){
 		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
+		$provide.constant('DOC_URL', ENV.doctorApp);
 	});
 	webapp.config(function ($routeProvider, ENV) {
 

@@ -7,8 +7,8 @@
  * # LookupDoctorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal')
-  .controller('LookupDoctorCtrl', function ($routeParams, lookupFactory, toasty, $log,$modal) {
+
+angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($routeParams, lookupFactory, toasty, $log,$modal) {
 
 	var _this = this;
 	this.doctorId = $routeParams.claim_id;

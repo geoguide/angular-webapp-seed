@@ -9,7 +9,7 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload) {
+  .controller('DoctorCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload, localStorageService) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -69,6 +69,25 @@ angular.module('modioAdminPortal')
 			toasty.success({
 				title: 'Success!',
 				msg: 'Doctor Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	console.log(localStorageService.get('authToken'));
+	this.actAs = function(){
+		doctorFactory.actAs(_this.doctorId).then(function(response){
+			$window.open(ENV.doctorApp+'/#/admin/act-as/'+response.data.token, '_blank');
+			toasty.success({
+				title: 'Success!',
+				msg: 'Doctor Acted As.',
 				showClose: true,
 				clickToClose: true
 			});

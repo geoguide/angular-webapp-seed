@@ -32,9 +32,15 @@ module.exports = function (grunt) {
     staging: 'files.modiohealth.org',
     production: 'files.modiohealth.com'
   };
+  var docApps = {
+	 development: 'http://localhost:8600',
+	 staging: 'https://modiohealth.org',
+	 production: 'https://modiohealth.com' 
+  };
   console.log('genv: '+gruntEnvironment);
   console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
   console.log('s3 bucket: '+s3Buckets[gruntEnvironment]);
+  console.log('doc app: '+docApps[gruntEnvironment]);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -55,7 +61,8 @@ module.exports = function (grunt) {
 		      ENV: {
 		        name: 'development',
 		        apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment]
+	            s3Bucket: s3Buckets[gruntEnvironment],
+	            doctorApp: docApps[gruntEnvironment]
 		      }
 		    }
 		  },
@@ -67,7 +74,8 @@ module.exports = function (grunt) {
 		      ENV: {
 		        name: 'production',
 		        apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment]
+            s3Bucket: s3Buckets[gruntEnvironment],
+            doctorApp: docApps[gruntEnvironment]
           }
 		    }
 		  },
@@ -79,7 +87,8 @@ module.exports = function (grunt) {
 		      ENV: {
 		        name: 'staging',
 		        apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment]
+            s3Bucket: s3Buckets[gruntEnvironment],
+            doctorApp: docApps[gruntEnvironment]
           }
 		    }
 		  }
@@ -131,7 +140,7 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35728
       },
       livereload: {
         options: {

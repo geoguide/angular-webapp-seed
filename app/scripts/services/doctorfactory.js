@@ -206,6 +206,8 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.delete(API_URL+'/admin/coordinators/'+coordId+'/memberships/'+membershipId);
 		}, getMemberships: function(coordId){
 			return $http.get(API_URL+'/admin/coordinators/'+coordId+'/memberships/');
+		}, actAs: function(userIdIn){
+			return $http.post(API_URL+'/admin/'+userIdIn+'/act-as');
 		}
 	};
 });
