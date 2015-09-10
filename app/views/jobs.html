@@ -182,6 +182,7 @@
 							<th>Specialty</th>
 							<th>Facility</th>
 							<th>Status</th>
+							<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -192,6 +193,7 @@
 							<td>{{ job.specialty }}</td>
 							<td>{{ job.facility_name }} ({{job.state}})</td>
 							<td>{{ appCtrl.jobStatuses[job.active].job_status }}</td>
+							<td>{{ job.job_rank }}</td>
 						</tr>
 					</tbody>
 				</table>
