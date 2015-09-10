@@ -50,7 +50,7 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			if(sortBy){
 				request += '&sort_by='+sortBy;
 			}
-			if(jobStatus){
+			if(jobStatus || jobStatus === 0){
 				request += '&job_status='+jobStatus;
 			}
 			if(jobSource){

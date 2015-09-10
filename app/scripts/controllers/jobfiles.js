@@ -16,7 +16,7 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
 	var _this = this;
 
 	this.entityId = $routeParams.id;
-  this.componentId = 2;
+	this.componentId = 2;
 
 	this.downloads = [];
 	this.uploads = [];
@@ -37,32 +37,29 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
         type:'public'
       }
 	];
+	
+	this.processS3 = function(tagIn, file, componentId, entityId){
+		s3factory.putObject(tagIn, file, componentId, entityId, tagIn, function(data, status, headers, config) {
+         //Success
+         //_this.uploads[tag].push(
+         //  {
+         //    filename:filename
+         //  }
+         //);
+		$log.info('s3 upload done');
+		//_this.loadUploads();
+		},function(data, status, headers, config) {
+			//Error
+			$log.info('s3 upload failed');
+		});
+	};
 
 	$scope.upload = function (files,tag) {
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
 				var file = files[i];
-				//var filetype = files[i].type;
-				//var filesize = files[i].size;
 				var filename = files[i].name;
-				//var ext = filename.split('.').pop();
-				/* jshint ignore:start */
-				s3factory.putObject(tag, file, _this.componentId, _this.entityId, tag,
-          function(data, status, headers, config) {
-            //Success
-            //_this.uploads[tag].push(
-            //  {
-            //    filename:filename
-            //  }
-            //);
-            $log.info('s3 upload done');
-            //_this.loadUploads();
-          },
-          function(data, status, headers, config) {
-            //Error
-            $log.info('s3 upload failed');
-          }
-				);
+				_this.processS3(tag, file, _this.componentId, _this.entityId);
 			}
 		}
 	};
@@ -75,23 +72,24 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
 		 	//$timeout(function(){ _this.downloads[type] = null; }, 60000);
 	    });
     };
-
-    this.loadUploads = function(){
-      s3factory.getUploads(_this.componentId, _this.entityId, function(result){
-      $log.log('loadUploads:'+result);
-        _this.uploads = _this.downloads = [];
+	 
+	this.loadUploads = function(){
+		var key;
+		s3factory.getUploads(_this.componentId, _this.entityId, function(result){
+			$log.log('loadUploads:'+result);
+			_this.uploads = _this.downloads = [];
 			//var files = [];
-      for (var i=0;i<_this.uploadTypes.length;i++) {
-        var key = _this.uploadTypes[i].type;
-        //$log.info('key='+key);
-        _this.uploads[key] = [];
-      }
+			for (var i=0;i<_this.uploadTypes.length;i++) {
+				key = _this.uploadTypes[i].type;
+				//$log.info('key='+key);
+				_this.uploads[key] = [];
+			}
 			for(var d=0;d<result.length;d++){
-        $log.info('Result=' + result[d].filename);
-				var key = result[d].tag;
+				$log.info('Result=' + result[d].filename);
+				key = result[d].tag;
 				_this.uploads[key].push(result[d]);
-	 		}
-        //$scope.$apply();
+			}
+			//$scope.$apply();
 		});
 	};
 
@@ -101,13 +99,13 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$
     s3factory.deleteObject(_this.componentId, _this.entityId, file.id,
       function(data, status, headers, config) {
         //Success
-        console.log("Deleted file: " + file.filename);
+        $log.log('Deleted file: ' + file.filename);
         $log.log(data);
         _this.loadUploads();
       },
       function(data, status, headers, config) {
         //Error
-        console.log("FAILED to delete file: " + file.filename);
+        $log.log('FAILED to delete file: ' + file.filename);
         $log.log(data);
         _this.loadUploads();
       }

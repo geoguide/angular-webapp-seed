@@ -134,6 +134,21 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
         type:'payor_contracts'
       }
 	];
+	
+	this.processS3 = function(type,file){
+		s3factory.putObject(type, file, 1, _this.doctorId, type, 
+			function(data, status, headers, config) {
+				//Success
+				$log.info('s3 upload done');
+				_this.uploads = _this.downloads = [];
+				_this.loadUploads();
+			},
+			function(data, status, headers, config) {
+				//Error
+				$log.info('s3 upload failed');
+			}
+		);
+	};
 
 	$scope.upload = function (files,type) {
 		if (files && files.length) {
@@ -143,19 +158,7 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 				var filesize = files[i].size;
 				var filename = files[i].name;
 				var ext = filename.split('.').pop();
-				/* jshint ignore:start */
-				s3factory.putObject(type, file, 1, _this.doctorId, type,
-          function(data, status, headers, config) {
-            //Success
-            $log.info('s3 upload done');
-            _this.uploads = _this.downloads = [];
-            _this.loadUploads();
-          },
-          function(data, status, headers, config) {
-            //Error
-            $log.info('s3 upload failed');
-          }
-				);
+				_this.processS3(type,file);
 			}
 		}
 	};
@@ -186,14 +189,14 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
     s3factory.deleteObject(1, _this.doctorId, _this.uploads[type].id,
       function(data, status, headers, config) {
         //Success
-        console.log("Deleted file info: " + type);
+        $log.log('Deleted file info: ' + type);
         $log.log(data);
         _this.uploads = _this.downloads = [];
         _this.loadUploads();
       },
       function(data, status, headers, config) {
         //Error
-        console.log("FAILED to delete file info: " + type);
+        $log.log('FAILED to delete file info: ' + type);
         $log.log(data);
         _this.uploads = _this.downloads = [];
         _this.loadUploads();

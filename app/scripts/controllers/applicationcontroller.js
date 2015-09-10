@@ -210,13 +210,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
   ];
 
 	this.dispositionMap = [];
-	for(var s=0;s<_this.disposition.length;s++){
-		_this.dispositionMap[_this.disposition[s].id] = _this.disposition[s].name;
+	for(var d=0;d<_this.disposition.length;d++){
+		_this.dispositionMap[_this.disposition[d].id] = _this.disposition[d].name;
 	}
-  this.sourceMap = [];
-  for(var s=0;s<_this.source.length;s++){
-    _this.sourceMap[_this.source[s].id] = _this.source[s].name;
-  }
+	
+	this.sourceMap = [];
+	for(var s=0;s<_this.source.length;s++){
+		_this.sourceMap[_this.source[s].id] = _this.source[s].name;
+	}
+	
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){

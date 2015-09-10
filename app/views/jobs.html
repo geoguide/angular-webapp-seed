@@ -147,12 +147,7 @@
 				</select>
 			</div>
 			<div class="col-sm-3 col-xs-6 form-group">
-				<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()">
-					<option value="">-Select Status-</option>
-					<option value="0">Pending</option>
-					<option value="1">Active</option>
-					<option value="2">Filled By Modio</option>
-					<option value="3">Closed by Client</option>
+				<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
 				</select>
 			</div>
 			<div class="col-sm-2 form-group">
