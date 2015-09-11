@@ -7,8 +7,7 @@
  * # LeadCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal')
-  .controller('LeadCtrl', function ($modal, $modalStack, doctorFactory, facilityFactory, toasty, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('LeadCtrl', function ($modal, $modalStack, dashboardFactory, facilityFactory, toasty, $log, $routeParams) {
 	var _this = this;
 	this.leadData = {};
 	this.leadId = $routeParams.id;
@@ -34,7 +33,7 @@ angular.module('modioAdminPortal')
 	};
 
 	this.save = function(){
-		doctorFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
+		dashboardFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
 			toasty.success({
 				title: 'Success!',
 				msg: 'Lead Saved.',
@@ -54,7 +53,7 @@ angular.module('modioAdminPortal')
 
   this.archive = function() {
     _this.leadData.disposition = 6; //Archived
-    doctorFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
+    dashboardFactory.saveLead(_this.leadId,_this.leadData).success(function(data){
       toasty.success({
         title: 'Success!',
         msg: 'Lead Archived.',
@@ -94,7 +93,7 @@ angular.module('modioAdminPortal')
 
 	var init = function(){
 
-		doctorFactory.getLead(_this.leadId).then(function(data){
+		dashboardFactory.getLead(_this.leadId).then(function(data){
 			_this.leadData = data;
 			_this.error = false;
 		},function(error){

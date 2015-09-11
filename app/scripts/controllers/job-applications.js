@@ -47,11 +47,23 @@ angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($
 	
 	this.getResults = function(pageNumber) {
 		pageNumber = pageNumber || 1;
-		jobApplicationFactory.queryApplications(_this.searchQuery, pageNumber).then(function(data) {
+		var queryData = {
+			search_query: _this.searchQuery,
+			page_number: _this.pageNumber,
+			sort_by: _this.sortBy,
+			sort_direction: _this.sortDirection
+		};
+		jobApplicationFactory.queryApplications(queryData).then(function(data) {
 			_this.job_applications = data.applications;
 			_this.totalApplications = data.total;
 			_this.totalPages = _this.totalApplications / _this.perPage;
 		});
+	};
+	
+	this.sortResult = function(sortOn){
+		_this.sortDirection = !_this.sortDirection;
+		_this.sortBy = sortOn;
+		_this.getResults();
 	};
 	
 	var init = function(){

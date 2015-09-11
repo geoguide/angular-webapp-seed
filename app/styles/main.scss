@@ -8,6 +8,10 @@
 @import "partials/layout";
 @import "partials/search-tables";
 
+.lg-modal-window .modal-dialog {
+  width: 650px;
+}
+
 [ng\:cloak], [ng-cloak], .ng-cloak {
 	display: none !important;
 }

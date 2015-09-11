@@ -186,20 +186,6 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
-		}, getLeads: function(){
-			return $http.get(API_URL+'/admin/leads').then(function(response) {
-				return response.data;
-			}, function(error){
-				$log.error(error);
-			});
-		}, getLead: function(idIn){
-			return $http.get(API_URL+'/admin/leads/'+idIn).then(function(response) {
-				return response.data;
-			}, function(error){
-				$log.error(error);
-			});
-		}, saveLead: function(leadId,leadInfo){
-			return $http.put(API_URL+'/admin/leads/'+leadId,leadInfo);
 		}, submitMembership: function(coordId,memData){
 			return $http.post(API_URL+'/admin/coordinators/'+coordId+'/memberships', memData);
 		}, removeMembership: function(coordId,membershipId){

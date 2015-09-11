@@ -9,54 +9,58 @@
 
 module.exports = function (grunt) {
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+	// Load grunt tasks automatically
+	require('load-grunt-tasks')(grunt);
+	
+	// Time how long tasks take. Can help when optimizing build times
+	require('time-grunt')(grunt);
 
-  // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+	// Configurable paths for the application
+	var appConfig = {
+		app: require('./bower.json').appPath || 'app',
+		dist: 'dist'
+	};
 
-  // Configurable paths for the application
-  var appConfig = {
-    app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
-  };
+	var gruntEnvironment = grunt.option('environment') || 'development';
+	
+	var apiEndpoints = {
+		development: 'http://localhost:3001',
+		staging: 'https://api.modiohealth.org',
+		production: 'https://api.modiohealth.com'
+	};
+	
+	var s3Buckets = {
+		development: 'files.modiohealth.org',
+		staging: 'files.modiohealth.org',
+		production: 'files.modiohealth.com'
+	};
+	
+	var docApps = {
+		development: 'http://localhost:8600',
+		staging: 'https://modiohealth.org',
+		production: 'https://modiohealth.com' 
+	};
+	
+	console.log('genv: '+gruntEnvironment);
+	console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
+	console.log('s3 bucket: '+s3Buckets[gruntEnvironment]);
+	console.log('doc app: '+docApps[gruntEnvironment]);
 
-  var gruntEnvironment = grunt.option('environment') || 'development';
-  var apiEndpoints = {
-	  development: 'http://localhost:3001',
-	  staging: 'https://api.modiohealth.org',
-	  production: 'https://api.modiohealth.com'
-  };
-  var s3Buckets = {
-    development: 'files.modiohealth.org',
-    staging: 'files.modiohealth.org',
-    production: 'files.modiohealth.com'
-  };
-  var docApps = {
-	 development: 'http://localhost:8600',
-	 staging: 'https://modiohealth.org',
-	 production: 'https://modiohealth.com' 
-  };
-  console.log('genv: '+gruntEnvironment);
-  console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
-  console.log('s3 bucket: '+s3Buckets[gruntEnvironment]);
-  console.log('doc app: '+docApps[gruntEnvironment]);
+	// Define the configuration for all the tasks
+	grunt.initConfig({
 
-  // Define the configuration for all the tasks
-  grunt.initConfig({
-
-	  ngconstant: {
-		  // Options for all targets
-		  options: {
-		    space: '  ',
-		    wrap: '\'use strict\';\n\n {%= __ngModule %}',
-		    name: 'config',
-		  },
-		  // Environment targets
-		  development: {
-		    options: {
+		ngconstant: {
+			// Options for all targets
+			options: {
+				space: '  ',
+				wrap: '\'use strict\';\n\n {%= __ngModule %}',
+				name: 'config',
+			},
+			// Environment targets
+			development: {
+				options: {
 		      dest: '<%= yeoman.app %>/config.js'
-		    },
+			},
 		    constants: {
 		      ENV: {
 		        name: 'development',

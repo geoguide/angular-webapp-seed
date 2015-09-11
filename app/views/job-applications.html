@@ -24,11 +24,11 @@
 			<table class="table table-condensed table-striped table-hover">
 				<thead>
 					<tr>
-						<th>id</th>
-						<th>Job ID</th>
-						<th>Job Title</th>
-						<th>Doctor ID</th>
-						<th>Doctor Name</th>
+						<th ng-click="jobAppsCtrl.sortResult('id')">id</th>
+						<th ng-click="jobAppsCtrl.sortResult('job_id')">Job ID</th>
+						<th ng-click="jobAppsCtrl.sortResult('job_title')">Job Title</th>
+						<th ng-click="jobAppsCtrl.sortResult('doctor_id')">Doctor ID</th>
+						<th ng-click="jobAppsCtrl.sortResult('doctor_name')">Doctor Name</th>
 					</tr>
 				</thead>
 				<tbody>

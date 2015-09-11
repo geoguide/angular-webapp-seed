@@ -81,7 +81,6 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
-	console.log(localStorageService.get('authToken'));
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
 			$window.open(ENV.doctorApp+'/#/admin/act-as/'+response.data.token, '_blank');

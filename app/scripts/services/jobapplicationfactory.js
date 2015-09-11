@@ -32,8 +32,21 @@ angular.module('modioAdminPortal')
 			return $http.post(API_URL+'/admin/job-applications/'+applicationId+'/reject');
 		}, createApplication: function(appData){
 			return $http.post(API_URL+'/admin/job-applications/',appData);
-		}, queryApplications: function(searchQuery, pageNumber){
-			return $http.get(API_URL+'/admin/job-applications?q='+searchQuery+'&p='+pageNumber).then(function(response) {
+		}, queryApplications: function(queryData){
+			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection, jobStatus, jobSource;
+			searchQuery = queryData.search_query || '';
+			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			sortBy = queryData.sort_by;
+			pageNumber = queryData.pageNumber || 1;
+			
+			var request = API_URL+'/admin/job-applications?q='+searchQuery+'&p='+pageNumber;
+			
+			
+			if(sortBy){
+				request += '&sort_by='+sortBy;
+			}
+			request += '&sort_direction='+sortDirection;
+			return $http.get(request).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

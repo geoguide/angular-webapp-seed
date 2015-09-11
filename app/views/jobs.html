@@ -2,7 +2,6 @@
 <div>
 
 	<script type="text/ng-template" id="create-job-modal">
-		<!-- formly this shit -->
 		<form name="new_job_form" ng-submit="jobsCtrl.submitJob()" novalidate>
 			<div class="modal-header">
 				<h3 class="modal-title">Create Job</h3>
@@ -93,6 +92,26 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-xs-6">
+						<label>Partner Job Id</label>
+						<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_number" />
+					</div>
+					<div class="col-xs-6">
+						<label>Partner Job Id</label>
+						<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_contact" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label>Modio Notes</label>
+						<input class="form-control" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_number" />
+					</div>
+					<div class="col-xs-6">
+						<label>Doctor Title</label>
+						<select class="form-control" ng-model="jobsCtrl.newJob.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-6">
 						<label>Start Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.start_date || jobsCtrl.opened['start']">
@@ -122,43 +141,53 @@
 			</div>
 		</form>
 	</script>
+	
 	<h4>Jobs</h4>
-	<section class="row">
+	
+	<section>
 		<form ng-submit="jobsCtrl.getResults()">
-			<div class="col-sm-3 form-group">
-				<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
+			<div class="row">
+				<div class="col-sm-4 form-group">
+					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
+				</div>
+				<div class="col-sm-4 col-xs-6 form-group">
+					<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
+						<option value="">-Select Specialty-</option>
+						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+					</select>
+				</div>
+				<div class="col-sm-2 text-right">
+					<button class="btn btn-primary btn-block" type="button" role="button" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
+				</div>
 			</div>
-			<div class="col-sm-3 col-xs-6 form-group">
-				<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
-					<option value="">-Select Specialty-</option>
-					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
-				</select>
+			<div class="row">
+				<div class="col-sm-2 col-xs-6 form-group">
+					<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
+						<option value="">-State-</option>
+						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
+					</select>
+				</div>
+				<div class="col-sm-2 col-xs-6 form-group">
+					<select class="form-control" ng-model="jobsCtrl.searchSource" ng-change="jobsCtrl.getResults()">
+						<option value="">-Source-</option>
+						<option ng-repeat="source in appCtrl.jobSources" value="{{source.id}}">{{source.source}}</option>
+					</select>
+				</div>
+				<div class="col-sm-2 col-xs-2 form-group">
+					<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
+					</select>
+				</div>
+				<div class="col-md-2 form-group">
+					<select class="form-control" ng-model="jobsCtrl.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="dt as dt for dt in appCtrl.doctorTitles">
+						<option value="">-- Choose Title --</option>
+					</select>
+				</div>
+				<div class="col-sm-2 form-group">
+					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
+				</div>
 			</div>
-			<div class="col-sm-2 col-xs-6 form-group">
-				<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
-					<option value="">-State-</option>
-					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
-				</select>
-			</div>
-			<div class="col-sm-2 col-xs-6 form-group">
-				<select class="form-control" ng-model="jobsCtrl.searchSource" ng-change="jobsCtrl.getResults()">
-					<option value="">-Source-</option>
-					<option ng-repeat="source in appCtrl.jobSources" value="{{source.id}}">{{source.source}}</option>
-				</select>
-			</div>
-			<div class="col-sm-3 col-xs-6 form-group">
-				<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
-				</select>
-			</div>
-			<div class="col-sm-2 form-group">
-				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
-			</div>
+			
 		</form>
-	</section>
-	<section class="row">
-		<div class="col-sm-5 col-sm-offset-7 col-md-2 col-md-offset-10 form-group text-right">
-			<button class="btn btn-primary btn-block" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
-		</div>
 	</section>
 	<section class="row">
 		<div class="col-sm-12">
@@ -175,10 +204,11 @@
 							<th ng-click="jobsCtrl.sortResult('id')">id</th>
 							<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
 							<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
-							<th>Specialty</th>
-							<th>Facility</th>
-							<th>Status</th>
+							<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
+							<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
+							<th ng-click="jobsCtrl.sortResult('active')">Status</th>
 							<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
+							<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -190,6 +220,7 @@
 							<td>{{ job.facility_name }} ({{job.state}})</td>
 							<td>{{ appCtrl.jobStatuses[job.active].job_status }}</td>
 							<td>{{ job.job_rank }}</td>
+							<td>{{ job.doctor_title }}</td>
 						</tr>
 					</tbody>
 				</table>

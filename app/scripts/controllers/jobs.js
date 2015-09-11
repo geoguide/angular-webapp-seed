@@ -57,7 +57,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			sort_by: _this.sortBy,
 			sort_direction: _this.sortDirection,
 			job_status: _this.jobStatus,
-			source: _this.searchSource
+			source: _this.searchSource,
+			doctor_title: _this.doctor_title
 		};
 		jobFactory.queryJobs(queryData).then(function(data) {
 			_this.jobs = data.jobs;
@@ -93,7 +94,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 
 	};
 
-	//Modal
+	//New job modal
 	this.openNewJobForm = function () {
 
 		this.modalInstance = $modal.open({
@@ -101,6 +102,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			controller: 'JobsCtrl',
 			controllerAs: 'jobsCtrl',
 			scope: $scope,
+			windowClass: 'lg-modal-window',
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
 				parentCtrl: _this

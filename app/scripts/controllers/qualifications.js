@@ -24,6 +24,10 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		{ id: 4, name: 'NALS'}
 	];
 
+	this.insuranceTypes = [
+		{ id: 0, name: 'Malpractice' },
+		{ id: 1, name: 'Liability' }
+	];
 
 	this.licenseTypes = [];
 	this.licenseTypes.push('State');

@@ -30,7 +30,7 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 		}, deleteJob: function(jobId){
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
 		}, queryJobs: function(queryData){
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection, jobStatus, jobSource;
+			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection, jobStatus, jobSource, doctor_title;
 			searchQuery = queryData.search_query || '';
 			searchState = queryData.search_state;
 			pageNumber = queryData.page_number || 1;
@@ -39,6 +39,7 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			sortBy = queryData.sort_by;
 			jobStatus = queryData.job_status;
 			jobSource = queryData.source;
+			doctor_title = queryData.doctor_title;
 			
 			var request = API_URL+'/admin/jobs?q='+searchQuery+'&p='+pageNumber;
 			if(searchSpecialty){
@@ -55,6 +56,9 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			}
 			if(jobSource){
 				request += '&source='+jobSource;
+			}
+			if(doctor_title){
+				request += '&doctor_title='+doctor_title;
 			}
 			request += '&sort_direction='+sortDirection;
 			return $http.get(request).then(function(response) {

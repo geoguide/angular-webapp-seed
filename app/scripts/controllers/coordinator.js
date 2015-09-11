@@ -7,7 +7,7 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window,ENV,$routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal) {
 
 	var _this = this;
 	this.coordId = $routeParams.id;
@@ -120,6 +120,25 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($rout
 			toasty.success({
 				title: 'Success!',
 				msg: 'Coordinator Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.actAs = function(){
+		doctorFactory.actAs(_this.coordId).then(function(response){
+			$window.open(ENV.doctorApp+'/#/admin/act-as/'+response.data.token, '_blank');
+			toasty.success({
+				title: 'Success!',
+				msg: 'Coord Acted As.',
 				showClose: true,
 				clickToClose: true
 			});
