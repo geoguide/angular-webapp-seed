@@ -21,7 +21,12 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.doctorsPerPage = 25;
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
-
+	this.score_low = 0;
+	this.score_high = 100;
+	this.priceSlider = {
+		ceil: 100,
+		floor: 0
+	};
 
 	/* Private Functions */
 	function getResultsPage(pageNumber) {

@@ -33,7 +33,8 @@
 		'ngAnimate',
 		'angular-toasty',
 		'ui.bootstrap',
-		'ngFileUpload'
+		'ngFileUpload',
+		'rzModule'
 	]);
 
 

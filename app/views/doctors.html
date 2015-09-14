@@ -57,7 +57,7 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-12  form-group">
 					
-					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
+					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" placeholder="Search Providers... " />
 				</div>
 				<div class="col-md-3 col-sm-6 form-group">
 					<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
@@ -74,27 +74,30 @@
 				
 			</div>
 			<div class="row">
-				<div class="col-md-2 col-sm-6 form-group">
-					<label>Score Low</label>
-					<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" />
+				<div class="col-md-2 col-sm-6 col-xs-6 form-group">
+					<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" placeholder="Score Low" />
 				</div>
-				<div class="col-md-2 col-sm-6 form-group">
-					<label>Score High</label>
-					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" />
+				<div class="col-md-2 col-sm-6 col-xs-6 form-group">
+					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" placeholder="Score High" />
+				</div>
+				<div class="col-md-6">
+					<label>Score</label>
+				    <rzslider rz-slider-on-change="drsCtrl.getResults()" 
+				    rz-slider-floor="drsCtrl.priceSlider.floor"
+				    rz-slider-ceil="drsCtrl.priceSlider.ceil"
+				    rz-slider-model="drsCtrl.score_low"
+				    rz-slider-high="drsCtrl.score_high"></rzslider>
 				</div>
 				<div class="col-md-3 form-group">
-					<label>Disposition</label>
 					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Disposition --</option>
 						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
 					</select>
 				</div>
 				<div class="col-md-2 form-group">
-					<label>&nbsp;</label><br />
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 				</div>
 				<div class="col-md-3 form-group">
-					<label>&nbsp;</label><br />
 					<button class="btn btn-primary btn-block" role="button" type="button" ng-click="drsCtrl.open()">Create Doctor</button>
 				</div>
 			</div>

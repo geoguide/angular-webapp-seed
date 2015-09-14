@@ -76,7 +76,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			sortBy = queryData.sort_by;
 			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			scoreLow = queryData.score_low || null;
-			scoreHigh = queryData.score_high || null;
+			scoreHigh = (queryData.score_high != 100) ? queryData.score_high : null;
 			
 			var request = API_URL+'/admin/doctors?q='+searchQuery+'&p='+pageNumber;
 			
