@@ -1,21 +1,64 @@
 <section>
 
 	<div id="no-data" ng-show="lead.error" class="ng-cloak">Lead Not Found</div>
-	<h4>{{lead.leadData.first_name}} {{lead.leadData.last_name}} {{lead.leadData.ip_address}} Created: {{lead.leadData.date_created}}</h4>
+	<h3>{{lead.leadData.first_name}} {{lead.leadData.last_name}} {{lead.leadData.ip_address}} <small>Created: {{lead.leadData.date_created}}</small></h3>
 	<form id="lead-form" name="edit_lead_form" ng-submit="lead.save()" ng-show="lead.leadData" class="ng-cloak" novalidate>
+		
 		<div class="row">
-	      <div class="col-md-1 form-group">
-	        <label>Score</label>
-	        <input class="form-control" type="text" ng-model="lead.leadData.score" />
+			<div class="col-md-3 form-group">
+				<label>First Name</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.first_name" />
+			</div>
+			<div class="col-md-3 form-group">
+				<label>Last Name</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.last_name" />
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Title</label>
+				<select class="form-control" ng-model="lead.leadData.doctor_title">
+					<option value="MD">MD</option>
+					<option value="DO">DO</option>
+					<option value="DPM">DPM</option>
+					<option value="DDS">DDS</option>
+					<option value="DMD">DMD</option>
+					<option value="CRNA">CRNA</option>
+					<option value="PA">PA</option>
+					<option value="NP">NP</option>
+					<option value="LPN">LNP</option>
+					<option value="RN">RN</option>
+				</select>
+			</div>
+			<div class="col-md-3 form-group">
+	        <label>Specialty</label>
+	        <div class="form-control">{{lead.leadData.specialty_description}} ({{lead.leadData.specialty}})</div>
+	        <!--<input class="form-control" type="text" ng-disabled="true" ng-model="lead.leadData.specialty_description + ' (' + lead.leadData.specialty + ')'" />-->
 	      </div>
-	      <div class="col-md-2 form-group">
-	        <label>Priority</label>
-	        <select ng-model="lead.leadData.priority" class="form-control">
-	          <option value="3">Low</option>
-	          <option value="2">Medium</option>
-	          <option value="1">High</option>
-	        </select>
-	      </div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 form-group">
+				<label>Email</label>
+				<input class="form-control" type="email" ng-model="lead.leadData.email" />
+			</div>
+		   <div class="col-md-3 form-group">
+				<label>Home Phone</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.home_phone" ui-mask="(999) 999-9999" />
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Job Type Desired</label>
+				<select class="form-control" ng-model="lead.leadData.job_type_desired">
+					<option value="0">None</option>
+					<option value="1">Locum</option>
+					<option value="2">Permanent</option>
+					<option value="3">Both</option>
+				</select>
+			</div>
+	      <div class="col-md-3 form-group">
+				<label>States</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.states" />
+			</div>
+	   </div>
+		<div class="row">
+			
 	      <div class="col-md-3 form-group">
 	        <label>Account Manager</label>
 	        <select ng-model="lead.leadData.account_manager" class="form-control">
@@ -27,71 +70,41 @@
 	          <option value="Tom Saulnier">Tom Saulnier</option>
 	        </select>
 	      </div>
-	      <div class="col-md-6 form-group">
-	        <label>Specialty</label>
-	        <div class="form-control">{{lead.leadData.specialty_description}} ({{lead.leadData.specialty}})</div>
-	        <!--<input class="form-control" type="text" ng-disabled="true" ng-model="lead.leadData.specialty_description + ' (' + lead.leadData.specialty + ')'" />-->
+	      <div class="col-md-3 form-group">
+	        <label>Verified</label>
+	        <select class="form-control" ng-model="lead.leadData.verified">
+		        <option value="0">No</option>
+		        <option value="1">Yes</option>
+	        </select>
 	      </div>
-	      <div class="form-group col-md-6">
+	      <div class="col-md-2 form-group">
+	        <label>Score</label>
+	        <input class="form-control" type="number" ng-model="lead.leadData.score" />
+	      </div>
+		</div>
+		<div class="row">
+	      <div class="col-md-3 form-group">
+	        <label>Priority</label>
+	        <select ng-model="lead.leadData.priority" class="form-control">
+	          <option value="3">Low</option>
+	          <option value="2">Medium</option>
+	          <option value="1">High</option>
+	        </select>
+	      </div>
+	      <div class="form-group col-md-3">
 	        <label>Disposition</label>
 	        <select class="form-control" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="lead.leadData.disposition"></select>
 	      </div>
-	      <div class="col-md-6 form-group">
-	        <label>Verified</label>
-	        <input class="form-control" type="text" ng-model="lead.leadData.verified" />
-	      </div>
-	      <div class="col-md-6 form-group">
-				<label>Source</label>
-	        <select class="form-control" ng-options="src.id as src.name for src in appCtrl.source" ng-model="lead.leadData.source"></select>
-	      </div>
-	      <div class="col-md-6 form-group">
-	        <label>Campaign</label>
-	        <input class="form-control" type="text" ng-model="lead.leadData.campaign" />
-	      </div>
-	      <div class="col-md-6 form-group">
-				<label>States</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.states" />
-			</div>
-			<div class="col-md-6 form-group">
-				<label>Job Type Desired</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.job_type_desired" />
-			</div>
-			<div class="col-md-2 form-group">
-				<label>Title</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.doctor_title" />
-			</div>
-			<div class="col-md-5 form-group">
-				<label>First Name</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.first_name" />
-			</div>
-			<div class="col-md-5 form-group">
-				<label>Last Name</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.last_name" />
-			</div>
 	      <div class="col-md-2 form-group">
-	        <label>Agree to Terms</label>
-	        <input class="form-control" type="text" ng-model="lead.leadData.agree_to_terms" />
+	        <label>Agreed to Terms?</label>
+	        <select class="form-control" ng-model="lead.leadData.agree_to_terms">
+		        <option value="No">No</option>
+		        <option value="Yes">Yes</option>
+	        </select>
 	      </div>
-			<div class="col-md-5 form-group">
-				<label>Email</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.email" />
-			</div>
-			<div class="col-md-5 form-group">
-				<label>Home Phone</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.home_phone" />
-			</div>
-	      <div class="col-md-2 form-group">
-	        <label>Variant</label>
-	        <input class="form-control" type="text" ng-model="lead.leadData.variant" />
-	      </div>
-	      <div class="col-md-5 form-group">
-				<label>Page Name</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.page_name" />
-			</div>
-			<div class="col-md-5 form-group">
-				<label>Page Url</label>
-				<input class="form-control" type="text" ng-model="lead.leadData.page_url" />
-			</div>
+		</div>
+		
+		<div class="row">
 	      <div class="col-md-6 form-group">
 	        <label>Admin Notes</label>
 	        <textarea class="form-control" type="text" ng-model="lead.leadData.admin_notes"></textarea>
@@ -100,14 +113,47 @@
 	        <label>Sales Notes</label>
 	        <textarea class="form-control" type="text" ng-model="lead.leadData.sales_notes"></textarea>
 	      </div>
-	      <div class="col-md-12 form-group">
+		</div>
+		
+		<h4>Meta</h4>
+		
+	   <div class="row">
+			<div class="col-md-3 form-group">
+				<label>Campaign</label>
+				<input class="form-control" type="text" ng-model="lead.leadData.campaign" />
+			</div>
+	      <div class="col-md-3 form-group">
+	        <label>Variant</label>
+	        <div class="form-control">{{lead.leadData.variant}}</div>
+	      </div>
+	      <div class="col-md-3 form-group">
+				<label>Page Name</label>
+				<div class="form-control">{{lead.leadData.page_name}}</div>
+			</div>
+			<div class="col-md-3 form-group">
+				<label>Page Url</label>
+				<div class="form-control">{{lead.leadData.page_url}}</div>
+			</div>
+	   </div>
+	   
+	   <div class="row">
+		   <div class="col-md-3 form-group">
+				<label>Source</label>
+	        <select class="form-control" ng-options="src.id as src.name for src in appCtrl.source" ng-model="lead.leadData.source"></select>
+	      </div>
+			<div class="col-md-9 form-group">
 	        <label>User Agent</label>
 	        <input class="form-control" type="text" ng-model="lead.leadData.user_agent" />
 	      </div>
-	    </div>
-	    <div class="modal-footer">
-			<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button>
-			<button class="btn btn-danger" role="button" type="button" ng-really-click="lead.archive()" ng-really-message="Are you sure you want to archive this Lead?">Archive</button>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<div class="form-group">
+					<button class="btn btn-primary" role="submit" ng-disabled="edit_lead_form.$invalid">Save</button>
+					<button class="btn btn-danger" role="button" type="button" ng-really-click="lead.archive()" ng-really-message="Are you sure you want to archive this Lead?">Archive</button>
+				</div>
+			</div>
 		</div>
 	</form>
 </section>

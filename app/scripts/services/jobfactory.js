@@ -60,11 +60,23 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			if(doctor_title){
 				request += '&doctor_title='+doctor_title;
 			}
+			if(queryData.tag){
+				request += '&tag='+queryData.tag;
+			}
 			request += '&sort_direction='+sortDirection;
 			return $http.get(request).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
+			});
+		}, getJobTags: function(queryIn){
+			var queryData = { q: queryIn };
+			return $http.get(API_URL+'/admin/jobs/tags',{params:queryData}).then(function(response) {
+				return response.data;
+			});
+		}, findCandidates: function(jobIdIn){
+			return $http.get(API_URL+'/admin/jobs/'+jobIdIn+'/candidates').then(function(response) {
+				return response.data;
 			});
 		}
 	};

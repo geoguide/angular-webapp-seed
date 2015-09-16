@@ -7,7 +7,7 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, $log) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, jobFactory, $log) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
@@ -285,6 +285,11 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	    startingDay: 1
 	};
 	this.specialtiesMap = [];
+	
+	_this.queryTags = function(query){
+		return jobFactory.getJobTags(query);
+	};
+	
 	this.init = function(){
 		$log.info('app init called');
 

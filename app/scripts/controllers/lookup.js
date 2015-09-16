@@ -22,10 +22,12 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.doctorsPerPage = 25;
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
+	this.loading = true;
 
 
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
+		_this.loading = true;
 		var queryData = {
 			search_query: _this.searchQuery,
 			search_specialty: _this.searchSpecialty
@@ -34,6 +36,7 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
+			_this.loading = false;
 		});
 	}
 

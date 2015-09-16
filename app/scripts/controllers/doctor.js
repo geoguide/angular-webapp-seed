@@ -9,7 +9,7 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload, localStorageService) {
+  .controller('DoctorCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, offerFactory, s3factory, Upload, localStorageService) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;

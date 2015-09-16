@@ -11,7 +11,11 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,
 
 	var _this = this;
 	this.leads = [];
+	this.loading = true;
+	
+	
 	_this.getResults = function() {
+		_this.loading = true;
 		var pageNumber = _this.currentPage || 1;
 		var queryData = {
 			search_query: _this.searchQuery,
@@ -27,6 +31,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,
 		dashboardFactory.getLeads(queryData).then(function(response) {
 			_this.leads = response.leads;
 			_this.total = response.total;
+			_this.loading = false;
 		});
 	};
 	

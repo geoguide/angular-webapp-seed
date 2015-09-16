@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, jobApplicationFactory, s3factory, Upload) {
+  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal) {
 
 	var _this = this;
 	this.facilityId = $routeParams.id;

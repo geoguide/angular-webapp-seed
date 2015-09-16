@@ -34,7 +34,8 @@
 		'angular-toasty',
 		'ui.bootstrap',
 		'ngFileUpload',
-		'rzModule'
+		'rzModule',
+		'ngTagsInput'
 	]);
 
 
@@ -80,13 +81,13 @@
 			access: { requiredLogin: true },
 			controller: 'JobCtrl',
 			controllerAs: 'jobCtrl'
-		}).when('/job-applications', {
+		}).when('/offers', {
 			tab: 'offers',
-			title: 'Job Applications',
-			templateUrl: 'views/job-applications.html',
+			title: 'Offers',
+			templateUrl: 'views/offers.html',
 			access: { requiredLogin: true },
-			controller: 'JobApplicationsCtrl',
-			controllerAs: 'jobAppsCtrl'
+			controller: 'OffersCtrl',
+			controllerAs: 'offersCtrl'
 		}).when('/dashboard', {
 			tab: 'dashboard',
 			templateUrl: 'views/dashboard.html',
@@ -117,12 +118,12 @@
 			access: { requiredLogin: true },
 			controller: 'QualificationsCtrl',
 			controllerAs: 'dr'
-		}).when('/job-applications/:id', {
+		}).when('/offers/:id', {
 			tab: 'offers',
-			templateUrl: 'views/job-application.html',
+			templateUrl: 'views/offer.html',
 			access: {requiredLogin: true },
-			controller: 'JobapplicationCtrl',
-			controllerAs: 'jobAppCtrl'
+			controller: 'OfferCtrl',
+			controllerAs: 'offerCtrl'
 		}).when('/doctor/:id/uploads', {
 			tab: 'users',
 			access: { requiredLogin: true },
@@ -181,17 +182,23 @@
 			controller: 'CoordinatorCtrl',
 			controllerAs: 'coord'
 		}).when('/lead/:id', {
-		  templateUrl: 'views/lead.html',
-		  controller: 'LeadCtrl',
-		  controllerAs: 'lead',
-		  access: { requiredLogin: true },
-		  tab: 'dashboard'
+			templateUrl: 'views/lead.html',
+			controller: 'LeadCtrl',
+			controllerAs: 'lead',
+			access: { requiredLogin: true },
+			tab: 'dashboard'
 		}).when('/jobs/:id/files', {
 			tab: 'jobs',
 			access: { requiredLogin: true },
 			templateUrl: 'views/jobfiles.html',
 			controller: 'JobFilesCtrl',
 			controllerAs: 'files'
+		}).when('/jobs/:id/candidates', {
+			tab: 'jobs',
+			access: { requiredLogin: true },
+			templateUrl: 'views/candidates.html',
+			controller: 'JobCandidatesCtrl',
+			controllerAs: 'jcc'
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view

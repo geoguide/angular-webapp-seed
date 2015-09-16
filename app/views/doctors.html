@@ -51,6 +51,9 @@
 		<div class="col-md-6">
 			<h4>Doctors</h4>
 		</div>
+		<div class="col-md-3 col-md-offset-3 pull-right">
+			<button class="btn btn-primary btn-block" role="button" type="button" ng-click="drsCtrl.open()">Create Doctor</button>
+		</div>
 	</section>
 	<section id="doctor-search-filters">
 		<form ng-submit="drsCtrl.getResults()">
@@ -71,16 +74,21 @@
 						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
 				</div>
-				
+				<div class="col-md-3 form-group">
+					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
+						<option value="">-- Select Disposition --</option>
+						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
+					</select>
+				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2 col-sm-6 col-xs-6 form-group">
+				<!--<div class="col-md-2 col-sm-6 col-xs-6 form-group">
 					<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" placeholder="Score Low" />
 				</div>
 				<div class="col-md-2 col-sm-6 col-xs-6 form-group">
 					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" placeholder="Score High" />
-				</div>
-				<div class="col-md-6">
+				</div>-->
+				<div class="col-md-4 form-group">
 					<label>Score</label>
 				    <rzslider rz-slider-on-change="drsCtrl.getResults()" 
 				    rz-slider-floor="drsCtrl.priceSlider.floor"
@@ -88,66 +96,64 @@
 				    rz-slider-model="drsCtrl.score_low"
 				    rz-slider-high="drsCtrl.score_high"></rzslider>
 				</div>
-				<div class="col-md-3 form-group">
-					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
-						<option value="">-- Select Disposition --</option>
-						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
-					</select>
-				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-2 form-group">
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
-				</div>
-				<div class="col-md-3 form-group">
-					<button class="btn btn-primary btn-block" role="button" type="button" ng-click="drsCtrl.open()">Create Doctor</button>
 				</div>
 			</div>
 		</form>
 	</section>
-	<div slider ng-model="test.single" start=1 end=10></div>
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+	<div class="text-center row" ng-show="drsCtrl.loading">
+		<div class="col-md-12 form-group">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
-						<tr>
-							<th ng-click="drsCtrl.sortResult('id')">id</th>
-							<th ng-click="drsCtrl.sortResult('first_name')">First</th>
-							<th ng-click="drsCtrl.sortResult('last_name')">Last</th>
-							<th ng-click="drsCtrl.sortResult('email')">Email</th>
-							<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
-							<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
-							<th>States</th>
-							<th ng-click="drsCtrl.sortResult('score')">Score</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">
-							<td>{{ doc.id }}</td>
-							<td>{{ doc.first_name }}</td>
-							<td>{{ doc.last_name }}</td>
-							<td>{{ doc.email }}</td>
-							<td>{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-							<td>{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-							<td>{{ doc.medical_licenses}}</td>
-							<td>{{ doc.score}}</td>
-						</tr>
-					</tbody>
-				</table>
+	</div>
+	<div ng-show="!drsCtrl.loading">
+		<section class="row">
+			<div class="col-sm-9">
+				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
-		</div>
-	</section>
-	
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
-		</div>
-	</section>
+		</section>
+		<section class="row">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th ng-click="drsCtrl.sortResult('id')">id</th>
+								<th ng-click="drsCtrl.sortResult('first_name')">First</th>
+								<th ng-click="drsCtrl.sortResult('last_name')">Last</th>
+								<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
+								<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
+								<th>States</th>
+								<th ng-click="drsCtrl.sortResult('score')">Score</th>
+								<th>Matches</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.id }}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.first_name }}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.last_name }}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.medical_licenses}}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.score}}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}/matches')"><button>View Matches</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		
+		<section class="row">
+			<div class="col-sm-12">
+				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+			</div>
+		</section>
+	</div>
 	
 </div>

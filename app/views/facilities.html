@@ -17,7 +17,9 @@
 			</div>
 		</form>
 	</script>
+	
 	<h4>Facilities</h4>
+	
 	<section id="doctor-search-filters">
 		<div class="row">
 			<div class="col-md-4 col-sm-8 form-group">
@@ -37,47 +39,52 @@
 			</div>
 		</div>
 	</section>
-	<div slider ng-model="test.single" start=1 end=10></div>
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="fac.totalFacilities" ng-model="fac.currentPage" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25"></pagination>
+	<div class="text-center row" ng-show="fac.loading">
+		<div class="col-md-12 form-group">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{fac.totalFacilities}}</strong> Facilities Found</caption>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
-						<tr>
-							<th ng-click="fac.sortResult('id')">id</th>
-							<th ng-click="fac.sortResult('facility_name')">Facility</th>
-							<th ng-click="fac.sortResult('address')">address</th>
-							<th ng-click="fac.sortResult('city')">City</th>
-							<th ng-click="fac.sortResult('state')">State</th>
-							<th ng-click="fac.sortResult('zip')">Zip</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
-							<td>{{ f.id }}</td>
-							<td>{{ f.facility_name }}</td>
-							<td>{{ f.address }}</td>
-							<td>{{ f.city }}</td>
-							<td>{{ f.state }}</td>
-							<td>{{ f.zip }}</td>
-						</tr>
-					</tbody>
-				</table>
+	</div>
+	<div ng-show="!fac.loading">
+		<section class="row">
+			<div class="col-sm-12">
+				<pagination total-items="fac.totalFacilities" ng-model="fac.currentPage" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25"></pagination>
 			</div>
-		</div>
-	</section>
-	
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="fac.totalFacilities" ng-model="fac.currentPage" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25"></pagination>
-		</div>
-	</section>
-	
+		</section>
+		<section class="row">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{fac.totalFacilities}}</strong> Facilities Found</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th ng-click="fac.sortResult('id')">id</th>
+								<th ng-click="fac.sortResult('facility_name')">Facility</th>
+								<th ng-click="fac.sortResult('address')">address</th>
+								<th ng-click="fac.sortResult('city')">City</th>
+								<th ng-click="fac.sortResult('state')">State</th>
+								<th ng-click="fac.sortResult('zip')">Zip</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
+								<td>{{ f.id }}</td>
+								<td>{{ f.facility_name }}</td>
+								<td>{{ f.address }}</td>
+								<td>{{ f.city }}</td>
+								<td>{{ f.state }}</td>
+								<td>{{ f.zip }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		
+		<section class="row">
+			<div class="col-sm-12">
+				<pagination total-items="fac.totalFacilities" ng-model="fac.currentPage" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25"></pagination>
+			</div>
+		</section>
+	</div>		
 </div>

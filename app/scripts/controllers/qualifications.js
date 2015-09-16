@@ -143,6 +143,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			modalTitle: dataIn.id,
 			scope: $scope,
 			resolve: {
 				//Variables to add to modal's scope - not needed since using the same controller
@@ -209,6 +210,25 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			toasty.success({
 				title: 'Success!',
 				msg: 'Facility Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+			loadQualifications();
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.deleteMedicalLicense = function(expId){
+		qualificationFactory.deleteMedicalLicense(_this.doctorId,expId).then(function(data){
+			toasty.success({
+				title: 'Success!',
+				msg: 'License Deleted.',
 				showClose: true,
 				clickToClose: true
 			});

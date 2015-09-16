@@ -17,8 +17,10 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.perPage = 25;
 	this.totalPages = this.totalFacilities / this.perPage;
 	this.maxSize = 8; /* Private Functions */
+	this.loading = true;
 
 	function getResultsPage(pageNumber) {
+		_this.loading = true;
 		var queryData = {
 			q: _this.searchQuery,
 			page: pageNumber,
@@ -30,6 +32,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			_this.facilities = response.facilities;
 			_this.totalFacilities = response.total;
 			_this.totalPages = _this.totalFacilities / _this.perPage;
+			_this.loading = false;
 		});
 	} /* Public Functions */
 	this.sortResult = function(sortOn) {

@@ -1,21 +1,27 @@
 <section>
-
-	<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}} ({{jobCtrl.jobData.id}})</h4>
-  <div class="row">
-    <ul class="nav nav-pills">
-      <li role="presentation" class="active"><a href="#">General Info</a></li>
-      <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/files')">Files</a></li>
-    </ul>
-  </div>
-  <form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
+	<div class="row">
+		<div class="col-xs-12"><h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}} ({{jobCtrl.jobData.id}})</h4></div>
+		<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak col-xs-12">Job Not Found</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<ul class="nav nav-pills">
+			   <li role="presentation" class="active"><a href="#">General Info</a></li>
+			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/files')">Files</a></li>
+			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/candidates')">Candidates</a></li>
+			</ul>
+		</div>
+	</div>
+	<hr />
+	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-show="jobCtrl.jobData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-md-2 form-group">
 				<label>Job Type</label>
 				<select name="job_type" class="form-control" ng-model="jobCtrl.jobData.job_type"  ng-required="true">
 					<option value="1">Locum</option>
 					<option value="2">Permanent</option>
-          <option value="3">Both</option>
+					<option value="3">Both</option>
 				</select>
 			</div>
 			<div class="col-md-3 form-group">
@@ -31,13 +37,13 @@
 				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
-				<label>Job Rank</label>
-				<select class="form-control" ng-model="jobCtrl.jobData.job_rank"  ng-required="false">
-					<option value="1">Low</option>
-					<option value="2">Medium</option>
-					<option value="3">High</option>
-				</select>
-			</div>
+	        <label>Job Rank</label>
+	        <select ng-model="jobCtrl.jobData.job_rank" class="form-control">
+	          <option value="3">Low</option>
+	          <option value="2">Medium</option>
+	          <option value="1">High</option>
+	        </select>
+	      </div>
 		</div>
 		<div class="row">
 			<div class="form-group col-md-7">
@@ -55,15 +61,14 @@
 				<label>Job Title</label>
 				<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
 			</div>
-      <div class="col-md-2 form-group">
-        <label>Priority</label>
-        <select ng-model="jobCtrl.jobData.job_rank" class="form-control">
-          <option value="3">Low</option>
-          <option value="2">Medium</option>
-          <option value="1">High</option>
-        </select>
+      
+      <div class="col-md-4">
+	      <label>Tags (Separate with commas)</label>
+	      <tags-input ng-model="jobCtrl.jobData.tags" add-on-comma="true">
+	      	<auto-complete source="appCtrl.queryTags($query)"></auto-complete>
+	      </tags-input>
       </div>
-		</div>
+	</div>
     <div class="row">
 			<div class="form-group col-md-10">
 				<label>Job Description</label>

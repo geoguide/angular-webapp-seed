@@ -11,6 +11,8 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
+	this.jobData.tags = [];
+	this.tags = [];
 
 	//Date picker
 	_this.opened = { 'start': false, 'end': false };
@@ -36,7 +38,10 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.save = function(){
 		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : _this.jobData.start_date;
 		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : _this.jobData.end_date;
+		var tags = [];
+		//_this.jobData.tags = JSON.stringify(_this.jobData.tags);
 		jobFactory.saveJob(_this.jobData).success(function(data){
+			data.tags = JSON.parse(data.tags);
 			toasty.success({
 				title: 'Success!',
 				msg: 'Job Saved.',
@@ -72,14 +77,28 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			});
 		});
 	};
+	
 
 	var init = function(){
 		jobFactory.getJob(_this.jobId).then(function(data){
+			data.tags = JSON.parse(data.tags);
 			_this.jobData = data;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
 			_this.jobData = null;
+		});
+		
+		jobFactory.getJobTags().then(function(data){
+			_this.tags = data;
+		},function(error){
+			_this.error = true;
+		});
+		
+		jobFactory.findCandidates(_this.jobId).then(function(data){
+			_this.candidates = data;
+		},function(error){
+			_this.error = true;
 		});
 	};
 

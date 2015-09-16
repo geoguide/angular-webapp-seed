@@ -25,19 +25,19 @@ module.exports = function (grunt) {
 	
 	var apiEndpoints = {
 		development: 'http://localhost:3001',
-		staging: 'https://api.modiohealth.org',
+		staging: 'https://api.modiohealth.net',
 		production: 'https://api.modiohealth.com'
 	};
 	
 	var s3Buckets = {
-		development: 'files.modiohealth.org',
-		staging: 'files.modiohealth.org',
+		development: 'files.modiohealth.test',
+		staging: 'files.modiohealth.test',
 		production: 'files.modiohealth.com'
 	};
 	
 	var docApps = {
 		development: 'http://localhost:8600',
-		staging: 'https://modiohealth.org',
+		staging: 'https://modiohealth.net',
 		production: 'https://modiohealth.com' 
 	};
 	

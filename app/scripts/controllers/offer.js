@@ -2,16 +2,16 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:JobapplicationCtrl
+ * @name modioAdminPortal.controller:OfferCtrl
  * @description
- * # JobapplicationCtrl
+ * # OfferCtrl
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('JobapplicationCtrl', function ($modal, $modalStack, jobApplicationFactory, toasty, $log, $routeParams) {
+  .controller('OfferCtrl', function ($modal, $modalStack, offerFactory, toasty, $log, $routeParams) {
 	var _this = this;
-	this.appData = {};
-	this.appId = $routeParams.id;
+	this.offerData = {};
+	this.offerId = $routeParams.id;
 
 	//Date picker
 	this.open = function($event) {
@@ -35,12 +35,12 @@ angular.module('modioAdminPortal')
 	};
 
 	this.save = function(){
-		_this.appData.start_date = (_this.appData.start_date === '2000-06-22') ? null : _this.appData.start_date;
-		_this.appData.end_date = (_this.appData.end_date === '2000-06-22') ? null : _this.appData.end_date;
-		jobApplicationFactory.saveApplication(_this.appData).then(function(data){
+		_this.offerData.start_date = (_this.offerData.start_date === '2000-06-22') ? null : _this.offerData.start_date;
+		_this.offerData.end_date = (_this.offerData.end_date === '2000-06-22') ? null : _this.offerData.end_date;
+		offerFactory.saveOffer(_this.offerData).then(function(data){
 			toasty.success({
 				title: 'Success!',
-				msg: 'Job Saved.',
+				msg: 'Offer Saved.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -54,12 +54,12 @@ angular.module('modioAdminPortal')
 		});
 	};
 
-	this.acceptApplication = function(){
-		jobApplicationFactory.acceptApplication(_this.appId).success(function(){
-			_this.appData.status = 'accepted';
+	this.acceptOffer = function(){
+		offerFactory.acceptOffer(_this.offerId).success(function(){
+			_this.offerData.status = 'accepted';
 			toasty.success({
 				title: 'Success!',
-				msg: 'Application Accepted.',
+				msg: 'Offer Accepted.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -73,12 +73,12 @@ angular.module('modioAdminPortal')
 		});
 	};
 
-	this.rejectApplication = function(){
-		jobApplicationFactory.rejectApplication(_this.appId).success(function(){
-			_this.appData.status = 'rejected';
+	this.rejectOffer = function(){
+		offerFactory.rejectOffer(_this.offerId).success(function(){
+			_this.offerData.status = 'rejected';
 			toasty.success({
 				title: 'Success!',
-				msg: 'Application Accepted.',
+				msg: 'Offer Accepted.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -93,12 +93,12 @@ angular.module('modioAdminPortal')
 	};
 
 	this.delete = function(){
-		jobApplicationFactory.deleteJob(_this.jobId).then(function(data){
-			_this.appData = null;
+		offerFactory.deleteOffer(_this.jobId).then(function(data){
+			_this.offerData = null;
 			_this.error = true;
 			toasty.success({
 				title: 'Success!',
-				msg: 'Job Deleted.',
+				msg: 'Offer Deleted.',
 				showClose: true,
 				clickToClose: true
 			});
@@ -113,14 +113,14 @@ angular.module('modioAdminPortal')
 	};
 
 	var init = function(){
-		//Dooooooo... we just load this with the application. Will digest update it?
 
-		jobApplicationFactory.getApplication(_this.appId).then(function(data){
-			_this.appData = data;
+		offerFactory.getOffer(_this.offerId).then(function(data){
+			console.log(data);
+			_this.offerData = data;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
-			_this.appData = null;
+			_this.offerData = null;
 		});
 	};
 

@@ -180,8 +180,8 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
-		}, getJobApplications: function(doctorId){
-			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/job-applications').then(function(response) {
+		}, getJobOffers: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/offers').then(function(response) {
 				return response.data;	
 			}, function(error){
 				$log.error(error);

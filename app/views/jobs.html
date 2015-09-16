@@ -141,8 +141,14 @@
 			</div>
 		</form>
 	</script>
-	
-	<h4>Jobs</h4>
+	<div class="row">
+		<div class="col-sm-6">
+			<h4>Jobs</h4>
+		</div>
+		<div class="col-sm-6 text-right">
+			<h4><button class="btn btn-primary" type="button" role="button" ng-click="jobsCtrl.openNewJobForm()"><i class="fa fa-plus-circle"></i> Create Job</button></h4>
+		</div>
+	</div>
 	
 	<section>
 		<form ng-submit="jobsCtrl.getResults()">
@@ -156,9 +162,12 @@
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
-				<div class="col-sm-2 text-right">
-					<button class="btn btn-primary btn-block" type="button" role="button" ng-click="jobsCtrl.openNewJobForm()">Create Job</button>
+				<div class="col-md-2 form-group">
+					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.tag" ng-required="true" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
+						<option value="">- Select Tag -</option>
+					</select>
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-sm-2 col-xs-6 form-group">
@@ -189,49 +198,58 @@
 			
 		</form>
 	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+	<div class="text-center row" ng-show="jobsCtrl.loading">
+		<div class="col-md-12 form-group">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
-						<tr>
-							<th ng-click="jobsCtrl.sortResult('id')">id</th>
-							<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
-							<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
-							<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
-							<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
-							<th ng-click="jobsCtrl.sortResult('active')">Status</th>
-							<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
-							<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}" ng-click="appCtrl.goTo('/jobs/{{job.id}}')">
-							<td>{{ job.id }}</td>
-							<td>{{ job.job_title }}</td>
-							<td>{{ job.job_type }}</td>
-							<td>{{ job.specialty }}</td>
-							<td>{{ job.facility_name }} ({{job.state}})</td>
-							<td>{{ appCtrl.jobStatuses[job.active].job_status }}</td>
-							<td>{{ job.job_rank }}</td>
-							<td>{{ job.doctor_title }}</td>
-						</tr>
-					</tbody>
-				</table>
+	</div>
+	<div ng-show="!jobsCtrl.loading">
+		<section class="row">
+			<div class="col-sm-12">
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
-		</div>
-	</section>
-
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
-		</div>
-	</section>
+		</section>
+		<section class="row">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th ng-click="jobsCtrl.sortResult('id')">id</th>
+								<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
+								<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
+								<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
+								<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
+								<th ng-click="jobsCtrl.sortResult('active')">Status</th>
+								<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
+								<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
+								<th>Matches</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}">
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.id }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_title }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.active].job_status }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button>View Matches</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	
+		<section class="row">
+			<div class="col-sm-12">
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+			</div>
+		</section>
+	</div>
 
 </div>

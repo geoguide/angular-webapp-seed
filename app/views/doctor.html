@@ -42,8 +42,8 @@
 						<option value="CRNA">CRNA</option>
 						<option value="PA">PA</option>
 						<option value="NP">NP</option>
-            <option value="LPN">NP</option>
-            <option value="RN">NP</option>
+						<option value="LPN">LNP</option>
+						<option value="RN">RN</option>
 					</select>
 				</div>
 				<div class="col-md-2 form-group">
@@ -223,11 +223,11 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6">
-					<label>Admin Notes</label>
+					<label>Admin Notes </label>&nbsp;<span ng-class="(dr.doctorData.admin_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.admin_notes.length || 0}} of 2000)</span>
 					<textarea ng-model="dr.doctorData.admin_notes" class="form-control"></textarea>
 				</div>
 				<div class="form-group col-md-6">
-					<label>Sales Notes</label>
+					<label>Sales Notes</label>&nbsp;<span ng-class="(dr.doctorData.sales.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.sales_notes.length || 0}} of 2000)</span>
 					<textarea ng-model="dr.doctorData.sales_notes" class="form-control"></textarea>
 				</div>
 			</div>
@@ -247,12 +247,12 @@
 						<option value="1">Webapp</option>
 						<option value="2">Marketing</option>
 						<option value="3">Referral</option>
-            <option value="4">AdWords</option>
-            <option value="5">GDN</option>
-            <option value="6">Bing</option>
-            <option value="7">LinkedIn</option>
-            <option value="8">Facebook</option>
-            <option value="9">Email</option>
+						<option value="4">AdWords</option>
+						<option value="5">GDN</option>
+						<option value="6">Bing</option>
+						<option value="7">LinkedIn</option>
+						<option value="8">Facebook</option>
+						<option value="9">Email</option>
 					</select>
 				</div>
 			</div>

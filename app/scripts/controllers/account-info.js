@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory,specialtyFactory, toasty, $log, $modal, jobApplicationFactory, jobFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory,specialtyFactory, toasty, $log, $modal, offerFactory, jobFactory) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -15,9 +15,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.doctorData = null;
 	this.states = [];
 	this.drSpecialties = [];
-	this.jobApplications = [];
+	this.offers = [];
 	this.jobs = [];
-	this.newJobApp = {};
+	this.newOffer = {};
 	this.additionalCerts = [];
 	this.abmsCertifications = [];
 	this.boardSpecialties = [];
@@ -290,17 +290,17 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		_this.abmsCertifications.push({});
 	};
 
-	/* Applications */
+	/* Offers */
 
-	this.acceptApplication = function(appId){
-		jobApplicationFactory.acceptApplication(appId).then(function(data){
+	this.acceptOffer = function(offerId){
+		offerFactory.acceptOffer(offerId).then(function(data){
 			toasty.success({
 				title: 'Success!',
-				msg: 'Application Updated.',
+				msg: 'Offer Updated.',
 				showClose: true,
 				clickToClose: true
 			});
-			loadApplications();
+			loadOffers();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -311,15 +311,15 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		});
 	};
 
-	this.rejectApplication = function(appId){
-		jobApplicationFactory.rejectApplication(appId).then(function(data){
+	this.rejectOffer = function(offerId){
+		offerFactory.rejectOffer(offerId).then(function(data){
 			toasty.success({
 				title: 'Success!',
-				msg: 'Application Updated.',
+				msg: 'Offer Updated.',
 				showClose: true,
 				clickToClose: true
 			});
-			loadApplications();
+			loadOffers();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -330,31 +330,31 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		});
 	};
 
-	this.submitApplication = function(){
-		_this.newJobApp.doctor_id = _this.doctorId;
-		jobApplicationFactory.createApplication(_this.newJobApp).success(function(data){
+	this.submitOffer = function(){
+		_this.newOffer.doctor_id = _this.doctorId;
+		offerFactory.createOffer(_this.newOffer).success(function(data){
 			toasty.success({
 				title: 'Success!',
-				msg: 'Application Updated.',
+				msg: 'Offer Updated.',
 				showClose: true,
 				clickToClose: true
 			});
-			loadApplications();
-			_this.newJobApp = {};
-			_this.edit_job_application_form.$setPristine();
+			loadOffers();
+			_this.newOffer = {};
+			_this.edit_offer_form.$setPristine();
 		}).error(function(error){
 			toasty.error({
 				title: 'Error!',
-				msg: 'Application Bad.',
+				msg: 'Offer Bad.',
 				showClose: true,
 				clickToClose: true
 			});
 		});
 	};
 
-	var loadApplications = function(){
-		doctorFactory.getJobApplications(_this.doctorId).then(function(data){
-			_this.jobApplications = data;
+	var loadOffers = function(){
+		doctorFactory.getJobOffers(_this.doctorId).then(function(data){
+			_this.offers = data;
 		});
 	};
 
@@ -376,7 +376,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			}
 		});
 		loadJobs();
-		loadApplications();
+		loadOffers();
 	};
 	init();
 });

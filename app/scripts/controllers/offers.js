@@ -2,24 +2,25 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:JobApplicationsCtrl
+ * @name modioAdminPortal.controller:OffersCtrl
  * @description
- * # JobApplicationsCtrl
+ * # OffersCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($modal, $modalStack, toasty, jobApplicationFactory, $log) {
+angular.module('modioAdminPortal').controller('OffersCtrl', function ($modal, $modalStack, toasty, offerFactory, $log) {
 	
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
 	
 	var _this = this;
 	
-	this.job_applications = [];
+	this.offers = [];
 	this.searchQuery = '';
 	this.totalJobs = 0;
 	this.currentPage = 1;
 	this.perPage = 25;
 	this.totalPages = this.totalJobs / this.jobsPerPage;
 	this.maxSize = 8;
+	this.loading = true;
 	
 	/* Calendar */
 	this.open = function($event) {
@@ -46,6 +47,7 @@ angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($
 	/* Methods */
 	
 	this.getResults = function(pageNumber) {
+		_this.loading = true;
 		pageNumber = pageNumber || 1;
 		var queryData = {
 			search_query: _this.searchQuery,
@@ -53,10 +55,11 @@ angular.module('modioAdminPortal').controller('JobApplicationsCtrl', function ($
 			sort_by: _this.sortBy,
 			sort_direction: _this.sortDirection
 		};
-		jobApplicationFactory.queryApplications(queryData).then(function(data) {
-			_this.job_applications = data.applications;
-			_this.totalApplications = data.total;
-			_this.totalPages = _this.totalApplications / _this.perPage;
+		offerFactory.queryOffers(queryData).then(function(data) {
+			_this.offers = data.offers;
+			_this.totalOffers = data.total;
+			_this.totalPages = _this.totalOffers / _this.perPage;
+			_this.loading = false;
 		});
 	};
 	

@@ -27,9 +27,11 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 		ceil: 100,
 		floor: 0
 	};
+	this.loading = true;
 
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
+		_this.loading = true;
 		var queryData = {
 			search_query: _this.searchQuery,
 			search_specialty: _this.searchSpecialty,
@@ -45,10 +47,13 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
+			_this.loading = false;
 		});
 	}
 
-
+	this.doSomething = function(){
+		console.log('something did');
+	};
 	/* Public Functions */
 	this.sortResult = function(sortOn){
 		_this.sortDirection = !_this.sortDirection;

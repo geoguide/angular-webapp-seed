@@ -22,6 +22,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.facilities = [];
 	this.specialties = [];
 	this.opened = { 'start': false, 'end':false };
+	this.tags = [];
+	this.loading = true;
 
 	/* Calendar */
 	this.open = function($event,which) {
@@ -48,6 +50,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	/* Methods */
 
 	this.getResults = function() {
+		_this.loading = true;
 		var pageNumber = _this.currentPage || 1;
 		var queryData = {
 			search_query: _this.searchQuery,
@@ -58,12 +61,14 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			sort_direction: _this.sortDirection,
 			job_status: _this.jobStatus,
 			source: _this.searchSource,
-			doctor_title: _this.doctor_title
+			doctor_title: _this.doctor_title,
+			tag: _this.tag
 		};
 		jobFactory.queryJobs(queryData).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;
 			_this.totalPages = _this.totalJobs / _this.jobsPerPage;
+			_this.loading = false;
 		});
 	};
 
@@ -91,6 +96,10 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 
 
 	var init = function(){
+		jobFactory.getJobTags().then(function(result){
+			_this.tags = result;
+		});
+		
 
 	};
 
