@@ -26,8 +26,6 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 			if (rejection.status === 401 || rejection.status === 403) {
 				localStorageService.remove('adminAuthToken');
 				$location.path('/login');
-			} else {
-				$log.log(rejection);
 			}
 			return $q.reject(rejection);
 		}
