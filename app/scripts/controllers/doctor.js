@@ -83,7 +83,7 @@ angular.module('modioAdminPortal')
 	};
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
-			$window.open(ENV.doctorApp+'/#/admin/act-as/'+response.data.token, '_blank');
+			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
 			toasty.success({
 				title: 'Success!',
 				msg: 'Doctor Acted As.',

@@ -36,9 +36,9 @@ module.exports = function (grunt) {
 	};
 	
 	var docApps = {
-		development: 'http://localhost:8600',
+		development: 'http://localhost:8600/#',
 		staging: 'https://www.modiohealth.net/physicians/#',
-		production: 'https://www.modiohealth.com' 
+		production: 'https://www.modiohealth.com/physicians/#' 
 	};
 	
 	console.log('genv: '+gruntEnvironment);
