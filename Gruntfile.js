@@ -37,8 +37,8 @@ module.exports = function (grunt) {
 	
 	var docApps = {
 		development: 'http://localhost:8600',
-		staging: 'https://modiohealth.net',
-		production: 'https://modiohealth.com' 
+		staging: 'https://www.modiohealth.net',
+		production: 'https://www.modiohealth.com' 
 	};
 	
 	console.log('genv: '+gruntEnvironment);
