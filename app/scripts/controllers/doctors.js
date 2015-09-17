@@ -43,11 +43,19 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 			score_low: _this.score_low,
 			score_high: _this.score_high
 		};
-		doctorFactory.queryDoctors(queryData).then(function(response) {
+		doctorFactory.queryDoctors(queryData).success(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
 			_this.loading = false;
+		}).error(function(data, status, headers, config){
+			_this.loading = false;
+			toasty.error({
+				title: 'Error!',
+				msg: 'Bad Query',
+				showClose: true,
+				clickToClose: true
+			});
 		});
 	}
 

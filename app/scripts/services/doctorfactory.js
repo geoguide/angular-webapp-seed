@@ -99,11 +99,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				request += '&sort_by='+sortBy;
 			}
 			request += '&sort_direction='+sortDirection;
-			return $http.get(request).then(function(response) {
-				return response.data;
-			}, function(error){
-				$log.error(error);
-			});
+			return $http.get(request);
 		}, queryCoordinators: function(queryData){
 			//Put these all in array (or get as an array) and just parse the array for easiness
 			var searchQuery,pageNumber, sortBy, sortDirection;
