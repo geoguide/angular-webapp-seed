@@ -22,13 +22,14 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 			return config;
 		},
 		//If you get a 401 or 403 from the server delete the token and go to login
-		responseError: function(response) {
-			if (response.status === 401 || response.status === 403) {
-				$log.log('error delete');
+		responseError: function(rejection) {
+			if (rejection.status === 401 || rejection.status === 403) {
 				localStorageService.remove('adminAuthToken');
 				$location.path('/login');
+			} else {
+				$log.log(rejection);
 			}
-			return $q.reject(response);
+			return $q.reject(rejection);
 		}
 	};
 });

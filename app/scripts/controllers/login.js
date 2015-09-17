@@ -9,6 +9,7 @@
  */
 angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,Auth,localStorageService,$log,toasty) {
 	var loginInfo;
+	var _this = this;
 	this.login = loginInfo = {};
 	this.loading = false;
 	this.authenticate = function(){
@@ -19,8 +20,7 @@ angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$htt
 			$location.path('/dashboard');
 			$scope.$emit('login');
 		}).error(function(data, status, headers, config){
-			this.loading = false;
-			$log.error('error');
+			_this.loading = false;
 			toasty.error({
 				title: 'Error!',
 				msg: 'Authentication error',
