@@ -91,6 +91,23 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			});
 		});
 	};
+	
+	this.archiveJob = function(jid){
+		var jobData = {
+			id: jid,
+			archived: 1
+		};
+		jobFactory.saveJob(jobData).then(function(data){
+			_this.getResults();
+		},function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
 
 	this.getResults(1);
 

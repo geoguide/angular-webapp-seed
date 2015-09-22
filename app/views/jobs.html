@@ -221,10 +221,11 @@
 								<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
 								<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
 								<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
-								<th ng-click="jobsCtrl.sortResult('active')">Status</th>
+								<th ng-click="jobsCtrl.sortResult('status')">Status</th>
 								<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
 								<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
 								<th>Matches</th>
+								<th>Archive</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -234,10 +235,11 @@
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.active].job_status }}</td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button>View Matches</button></td>
+								<td ng-really-click="jobsCtrl.archiveJob(job.id)" ng-really-message="Are you sure you want to archive this job?"><button>Archive</button></td>
 							</tr>
 						</tbody>
 					</table>

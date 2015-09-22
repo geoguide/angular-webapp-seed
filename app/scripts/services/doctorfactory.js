@@ -74,32 +74,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			searchState = queryData.search_state;
 			pageNumber = queryData.page_number || 1;
 			sortBy = queryData.sort_by;
-			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			scoreLow = queryData.score_low || null;
-			scoreHigh = (queryData.score_high != 100) ? queryData.score_high : null;
+			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			queryData.score_low = queryData.score_low || null;
+			queryData.score_high = (queryData.score_high != 100) ? queryData.score_high : null;
 			
-			var request = API_URL+'/admin/doctors?q='+searchQuery+'&p='+pageNumber;
+			var request = API_URL+'/admin/doctors';
 			
-			if(searchSpecialty){
-				request += '&specialty_id='+searchSpecialty;
-			}
-			if(scoreHigh){
-				request += '&score_high='+scoreHigh;
-			}
-			if(scoreLow){
-				request += '&score_low='+scoreLow;
-			}
-			if(searchDisposition){
-				request += '&disposition='+searchDisposition;
-			}
-			if(searchState) {
-				request += '&state='+searchState;
-			}
-			if(sortBy){
-				request += '&sort_by='+sortBy;
-			}
-			request += '&sort_direction='+sortDirection;
-			return $http.get(request);
+			return $http.get(request, {params: queryData});
 		}, queryCoordinators: function(queryData){
 			//Put these all in array (or get as an array) and just parse the array for easiness
 			var searchQuery,pageNumber, sortBy, sortDirection;

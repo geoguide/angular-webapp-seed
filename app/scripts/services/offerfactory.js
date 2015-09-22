@@ -32,20 +32,13 @@ angular.module('modioAdminPortal').factory('offerFactory', function ($http,API_U
 		}, createOffer: function(offerData){
 			return $http.post(API_URL+'/admin/offers/',offerData);
 		}, queryOffers: function(queryData){
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection, jobStatus, jobSource;
-			searchQuery = queryData.search_query || '';
-			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			sortBy = queryData.sort_by;
-			pageNumber = queryData.pageNumber || 1;
+			queryData.q = queryData.q || '';
+			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			queryData.p = queryData.p || 1;
 			
-			var request = API_URL+'/admin/offers?q='+searchQuery+'&p='+pageNumber;
+			var request = API_URL+'/admin/offers';
 			
-			
-			if(sortBy){
-				request += '&sort_by='+sortBy;
-			}
-			request += '&sort_direction='+sortDirection;
-			return $http.get(request).then(function(response) {
+			return $http.get(request,{params: queryData}).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

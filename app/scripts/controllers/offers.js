@@ -46,12 +46,12 @@ angular.module('modioAdminPortal').controller('OffersCtrl', function ($modal, $m
 	
 	/* Methods */
 	
-	this.getResults = function(pageNumber) {
+	this.getResults = function() {
 		_this.loading = true;
-		pageNumber = pageNumber || 1;
+		_this.currentPage = _this.currentPage || 1;
 		var queryData = {
-			search_query: _this.searchQuery,
-			page_number: _this.pageNumber,
+			q: _this.searchQuery,
+			p: _this.currentPage,
 			sort_by: _this.sortBy,
 			sort_direction: _this.sortDirection
 		};

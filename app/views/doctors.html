@@ -1,5 +1,6 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
 <div>
+	
 	<script type="text/ng-template" id="create-doctor-modal2"> 
 		<form name="new_doctor_form" ng-submit="drsCtrl.submitForm()" novalidate>
 			<div class="modal-header"> 
@@ -47,6 +48,7 @@
 			</div>
 		</form>
 	</script>
+	
 	<section class="row">
 		<div class="col-md-6">
 			<h4>Doctors</h4>
@@ -55,13 +57,15 @@
 			<button class="btn btn-primary btn-block" role="button" type="button" ng-click="drsCtrl.open()">Create Doctor</button>
 		</div>
 	</section>
+	
 	<section id="doctor-search-filters">
 		<form ng-submit="drsCtrl.getResults()">
 			<div class="row">
-				<div class="col-md-4 col-sm-12  form-group">
-					
+				<div class="col-md-5 col-sm-12  form-group">
 					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" placeholder="Search Providers... " />
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-3 col-sm-6 form-group">
 					<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Specialty --</option>
@@ -78,6 +82,12 @@
 					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Disposition --</option>
 						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
+					</select>
+				</div>
+				<div class="col-md-3 form-group">
+					<select class="form-control" ng-model="drsCtrl.doctor_title" ng-change="drsCtrl.getResults()">
+						<option value="">-- Select Title --</option>
+						<option ng-repeat="title in appCtrl.doctorTitles" value="{{title}}">{{title}}</option>
 					</select>
 				</div>
 			</div>
@@ -127,6 +137,7 @@
 								<th ng-click="drsCtrl.sortResult('last_name')">Last</th>
 								<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
 								<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
+								<th ng-click="drsCtrl.sortResult('title')">Title</th>
 								<th>States</th>
 								<th ng-click="drsCtrl.sortResult('score')">Score</th>
 								<th>Matches</th>
@@ -139,6 +150,7 @@
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.last_name }}</td>
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
+								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.doctor_title }}</td>
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.medical_licenses}}</td>
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}')">{{ doc.score}}</td>
 								<td ng-click="appCtrl.goTo('/doctor/{{doc.id}}/matches')"><button>View Matches</button></td>

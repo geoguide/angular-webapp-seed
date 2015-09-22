@@ -30,18 +30,17 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Job Status</label>
-				<select class="form-control" ng-model="jobCtrl.jobData.active"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
+				<select class="form-control" ng-model="jobCtrl.jobData.status"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Doctor Title</label>
 				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
-	        <label>Job Rank</label>
-	        <select ng-model="jobCtrl.jobData.job_rank" class="form-control">
-	          <option value="3">Low</option>
-	          <option value="2">Medium</option>
-	          <option value="1">High</option>
+	        <label>Archived</label>
+	        <select ng-model="jobCtrl.jobData.archived" class="form-control">
+	          <option value="0">No</option>
+	          <option value="1">Soft Delete</option>
 	        </select>
 	      </div>
 		</div>
@@ -55,6 +54,14 @@
 				<label>Source</label>
 				<select class="form-control" ng-model="jobCtrl.jobData.source"  ng-options="sr.id as sr.source for sr in appCtrl.jobSources"></select>
 			</div>
+			<div class="col-md-2 form-group">
+	        <label>Job Rank</label>
+	        <select ng-model="jobCtrl.jobData.job_rank" class="form-control">
+	          <option value="3">Low</option>
+	          <option value="2">Medium</option>
+	          <option value="1">High</option>
+	        </select>
+	      </div>
 		</div>
 		<div class="row">
 			<div class="form-group col-md-7">

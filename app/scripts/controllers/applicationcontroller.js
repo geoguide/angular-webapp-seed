@@ -58,15 +58,18 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		},{
 			id: 1,
 			job_status: 'Active'
-    },{
-      id: 2,
-      job_status: 'Pending Review'
+		},{
+	      id: 2,
+	      job_status: 'Pending Review'
 		},{
 			id: 3,
 			job_status: 'Closed by Modio'
 		},{
 			id: 4,
 			job_status: 'Closed by Client'
+		},{
+			id:5,
+			job_status: 'In Progress'
 		}
 	];
 	this.jobSources = [

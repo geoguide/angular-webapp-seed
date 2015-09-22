@@ -33,15 +33,16 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	function getResultsPage(pageNumber) {
 		_this.loading = true;
 		var queryData = {
-			search_query: _this.searchQuery,
-			search_specialty: _this.searchSpecialty,
-			search_state: _this.searchState,
-			page_number: pageNumber,
+			q: _this.searchQuery,
+			specialty_id: _this.searchSpecialty,
+			state: _this.searchState,
+			p: pageNumber,
 			sort_by: _this.sortBy,
 			sort_direction: _this.sortDirection,
-			search_disposition: _this.disposition,
+			disposition: _this.disposition,
 			score_low: _this.score_low,
-			score_high: _this.score_high
+			score_high: _this.score_high,
+			doctor_title: _this.doctor_title
 		};
 		doctorFactory.queryDoctors(queryData).success(function(response) {
 			_this.doctors = response.doctors;
