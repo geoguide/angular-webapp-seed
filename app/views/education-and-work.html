@@ -93,9 +93,9 @@
 			</article>
 		</accordion-group>
 		<accordion-group is-open="true">
-			<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 1}).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 1 }">
-				<div><h4>{{obj.institution}}</h4></div>
+			<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 2}).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 2 }">
+				<h4>{{obj.institution}}</h4>
 				<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
 				<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
 				<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
@@ -107,9 +107,9 @@
 			</article>
 		</accordion-group>
 		<accordion-group is-open="true">
-			<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 2}).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 2 }">
-				<h4>{{obj.institution}}</h4>
+			<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 1}).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 1 }">
+				<div><h4>{{obj.institution}}</h4></div>
 				<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
 				<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
 				<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
