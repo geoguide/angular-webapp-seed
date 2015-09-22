@@ -41,7 +41,7 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			jobSource = queryData.source;
 			doctor_title = queryData.doctor_title;
 			
-			var request = API_URL+'/admin/jobs?q='+searchQuery+'&p='+pageNumber;
+			var request = API_URL+'/admin/jobs?q='+searchQuery+'&page='+pageNumber;
 			if(searchSpecialty){
 				request += '&specialty_id='+searchSpecialty;
 			}
