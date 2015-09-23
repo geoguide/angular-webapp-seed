@@ -251,7 +251,7 @@
 				<div class="col-md-6">
 					<label>Start Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -261,7 +261,7 @@
 				<div class="col-md-6">
 					<label>End Date</label>
 					<p class="input-group date-picker-group" ng-show="modal.parentCtrl.opened['modalend'] || modal.modalObject.end_date">
-						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="false" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1930'" max-date="appCtrl.today" ng-required="false" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -319,7 +319,7 @@
 				<div class="form-group col-xs-6">
 					<label>Issue Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.issue_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="appCtrl.today" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -328,7 +328,7 @@
 				<div class="form-group col-xs-6">
 					<label>Expiration Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.expiration_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.expiration_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -366,7 +366,7 @@
 				<div class="form-group col-xs-6">
 					<label>Policy Effective Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_effective_date" is-open="modal.parentCtrl.opened['policy_effective']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_effective_date" is-open="modal.parentCtrl.opened['policy_effective']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'policy_effective')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -375,7 +375,7 @@
 				<div class="form-group col-xs-6">
 					<label>Policy Expiration Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_expiration_date" is-open="modal.parentCtrl.opened['policy_expire']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.policy_expiration_date" is-open="modal.parentCtrl.opened['policy_expire']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'policy_expire')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -384,7 +384,7 @@
 				<div class="form-group col-xs-6">
 					<label>Policy Retroactive Date</label>
 					<div class="input-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.retroactive_date" is-open="modal.parentCtrl.opened['retroactive_date']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.retroactive_date" is-open="modal.parentCtrl.opened['retroactive_date']" min-date="'01/01/1980'" max-date="'06/22/2025'" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'retroactive_date')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>

@@ -103,7 +103,7 @@
 				<div class="form-group col-md-3">
 					<label>Date of Birth</label>
 					<div class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" readonly />
+						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close"  placeholder="MM/DD/YYYY" />
 						<span class="input-group-btn">
 		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>

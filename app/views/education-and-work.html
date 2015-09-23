@@ -50,7 +50,7 @@
 			<div class="form-group col-xs-3">
 				<label>Start Date</label>
 				<div class="input-group">
-					<input readonly type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" />
+					<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="dr.open($event,'start')"><i class="fa fa-calendar fa-fw"></i></button>
 					</span>
@@ -59,7 +59,7 @@
 			<div class="form-group col-xs-3">
 				<label>End Date</label>
 				<div class="input-group date-picker-group" ng-show="dr.medicalSchool.end_date || dr.opened['end']">
-					<input readonly type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened['end']" max-date="appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="false" close-text="Close" />
+					<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened['end']" max-date="appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="false" close-text="Close" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="dr.open($event,'end')"><i class="fa fa-calendar fa-fw"></i></button>
 					</span>
@@ -216,7 +216,7 @@
 				<div class="col-md-6">
 					<label>Start Date</label>
 					<div class="input-group">
-						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -226,7 +226,7 @@
 				<div class="col-md-6">
 					<label>End Date</label>
 					<div class="input-group date-picker-group" ng-show="modal.parentCtrl.opened['modalend'] || modal.modalObject.end_date">
-						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1940'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1940'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -314,7 +314,7 @@
 				<div class="col-md-6">
 					<label>Start Date</label>
 					<p class="input-group date-picker-group">
-	              <input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
+	              <input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.start_date" is-open="modal.parentCtrl.opened['modalstart']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
 	                <button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalstart')"><i class="glyphicon glyphicon-calendar"></i></button>
 	              </span>
@@ -324,7 +324,7 @@
 				<div class="col-md-6">
 					<label>End Date</label>
 					<p class="input-group date-picker-group" ng-show="modal.parentCtrl.opened['modalend'] || modal.modalObject.end_date">
-						<input readonly type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="false" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="'01/01/1915'" max-date="modal.parentCtrl.today" ng-required="false" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="modal.parentCtrl.open($event,'modalend')"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>

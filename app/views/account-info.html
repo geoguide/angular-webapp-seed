@@ -100,7 +100,7 @@
 			<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
 				<label>Issue Date</label>
 				<div class="input-group">
-						<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.issue_date" is-open="ai.opened['board_cert_expire_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.issue_date" is-open="ai.opened['board_cert_expire_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_expire_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>
@@ -109,7 +109,7 @@
 			<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
 				<label>Expiration Date</label>
 				<div class="input-group">
-						<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.expiration_date" is-open="ai.opened['board_cert_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.expiration_date" is-open="ai.opened['board_cert_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>
@@ -148,7 +148,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="input-group">
-					<input readonly type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+					<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
 					</span>
