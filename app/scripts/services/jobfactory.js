@@ -30,41 +30,13 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 		}, deleteJob: function(jobId){
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
 		}, queryJobs: function(queryData){
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy,sortDirection, jobStatus, jobSource, doctor_title;
-			searchQuery = queryData.search_query || '';
-			searchState = queryData.search_state;
-			pageNumber = queryData.page_number || 1;
-			searchSpecialty = queryData.search_specialty;
-			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			sortBy = queryData.sort_by;
-			jobStatus = queryData.job_status;
-			jobSource = queryData.source;
-			doctor_title = queryData.doctor_title;
+			queryData.q = queryData.q || '';
+			queryData.p = queryData.p || 1;
+			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			
-			var request = API_URL+'/admin/jobs?q='+searchQuery+'&page='+pageNumber;
-			if(searchSpecialty){
-				request += '&specialty_id='+searchSpecialty;
-			}
-			if(searchState) {
-				request += '&state='+searchState;
-			}
-			if(sortBy){
-				request += '&sort_by='+sortBy;
-			}
-			if(jobStatus || jobStatus === 0){
-				request += '&job_status='+jobStatus;
-			}
-			if(jobSource){
-				request += '&source='+jobSource;
-			}
-			if(doctor_title){
-				request += '&doctor_title='+doctor_title;
-			}
-			if(queryData.tag){
-				request += '&tag='+queryData.tag;
-			}
-			request += '&sort_direction='+sortDirection;
-			return $http.get(request).then(function(response) {
+			var request = API_URL+'/admin/jobs';
+
+			return $http.get(request, {params: queryData}).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
@@ -78,6 +50,6 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			return $http.get(API_URL+'/admin/jobs/'+jobIdIn+'/candidates').then(function(response) {
 				return response.data;
 			});
-		}
+		}, queryData: {}
 	};
 });

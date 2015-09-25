@@ -62,18 +62,18 @@
 		<form ng-submit="drsCtrl.getResults()">
 			<div class="row">
 				<div class="col-md-5 col-sm-12  form-group">
-					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" placeholder="Search Providers... " />
+					<input type="search" class="form-control" ng-model="drsCtrl.queryData.q" value="" placeholder="Search Providers... " />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.searchSpecialty" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.specialty_id" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Specialty --</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
 				<div class="col-md-2 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.searchState" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.state" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select State --</option>
 						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
@@ -98,17 +98,13 @@
 				<div class="col-md-2 col-sm-6 col-xs-6 form-group">
 					<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" placeholder="Score High" />
 				</div>-->
-				<div class="col-md-4 form-group">
+				<div class="col-md-4 form-group" ng-show="!drsCtrl.loading">
 					<label>Score</label>
-				    <rzslider rz-slider-on-change="drsCtrl.getResults()" 
-				    rz-slider-floor="drsCtrl.priceSlider.floor"
-				    rz-slider-ceil="drsCtrl.priceSlider.ceil"
-				    rz-slider-model="drsCtrl.score_low"
-				    rz-slider-high="drsCtrl.score_high"></rzslider>
+					<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low" model-max="drsCtrl.queryData.score_high" on-handle-up="drsCtrl.getResults()"></div>    
 				</div>
-			</div>
-			<div class="row">
+				
 				<div class="col-md-2 form-group">
+					<label>&nbsp;</label>
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 				</div>
 			</div>
@@ -122,7 +118,7 @@
 	<div ng-show="!drsCtrl.loading">
 		<section class="row">
 			<div class="col-sm-9">
-				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 		<section class="row">
@@ -163,7 +159,7 @@
 		
 		<section class="row">
 			<div class="col-sm-12">
-				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 	</div>

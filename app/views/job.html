@@ -1,6 +1,6 @@
 <section>
 	<div class="row">
-		<div class="col-xs-12"><h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}} ({{jobCtrl.jobData.id}})</h4></div>
+		<div class="col-xs-12"><h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}} ({{jobCtrl.jobData.id}}) <a ng-click="jobCtrl.bookmark(jobCtrl.jobData.id)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': jobCtrl.favorite, 'fa-bookmark-o': !jobCtrl.favorite }"></i></a></h4></div>
 		<div id="no-data" ng-show="jobCtrl.error" class="ng-cloak col-xs-12">Job Not Found</div>
 		
 	</div>

@@ -171,6 +171,9 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/coordinators/'+coordId+'/memberships/');
 		}, actAs: function(userIdIn){
 			return $http.post(API_URL+'/admin/'+userIdIn+'/act-as');
+		}, queryData: {
+			score_low: 0,
+			score_high: 100
 		}
 	};
 });

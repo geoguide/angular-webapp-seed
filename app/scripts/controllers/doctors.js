@@ -23,28 +23,18 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.maxSize = 8;
 	this.score_low = 0;
 	this.score_high = 100;
-	this.priceSlider = {
-		ceil: 100,
-		floor: 0
-	};
-	this.loading = true;
 
+	this.loading = true;
+	
+	this.queryData = doctorFactory.queryData;
+	this.queryData.score_low = 0;
+	this.queryData.score_high = 100;
+	
 	/* Private Functions */
-	function getResultsPage(pageNumber) {
+	this.getResults = function() {
 		_this.loading = true;
-		var queryData = {
-			q: _this.searchQuery,
-			specialty_id: _this.searchSpecialty,
-			state: _this.searchState,
-			p: pageNumber,
-			sort_by: _this.sortBy,
-			sort_direction: _this.sortDirection,
-			disposition: _this.disposition,
-			score_low: _this.score_low,
-			score_high: _this.score_high,
-			doctor_title: _this.doctor_title
-		};
-		doctorFactory.queryDoctors(queryData).success(function(response) {
+
+		doctorFactory.queryDoctors(_this.queryData).success(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
@@ -58,19 +48,13 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 				clickToClose: true
 			});
 		});
-	}
-
-	this.doSomething = function(){
-		console.log('something did');
 	};
+
 	/* Public Functions */
 	this.sortResult = function(sortOn){
 		_this.sortDirection = !_this.sortDirection;
 		_this.sortBy = sortOn;
-		getResultsPage(this.currentPage);
-	};
-	this.getResults = function(){
-		return getResultsPage(this.currentPage);
+		_this.getResults();
 	};
 
 	this.goTo = applicationFactory.goTo;
@@ -111,5 +95,5 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};
-	getResultsPage(1);
+	_this.getResults();
 });

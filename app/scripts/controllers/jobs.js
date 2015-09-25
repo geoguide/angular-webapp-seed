@@ -48,23 +48,11 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.minDate = new Date();
 
 	/* Methods */
-
+	this.queryData = jobFactory.queryData;
 	this.getResults = function() {
 		_this.loading = true;
-		var pageNumber = _this.currentPage || 1;
-		var queryData = {
-			search_query: _this.searchQuery,
-			search_specialty: _this.searchSpecialty,
-			search_state: _this.searchState,
-			page_number: pageNumber,
-			sort_by: _this.sortBy,
-			sort_direction: _this.sortDirection,
-			job_status: _this.jobStatus,
-			source: _this.searchSource,
-			doctor_title: _this.doctor_title,
-			tag: _this.tag
-		};
-		jobFactory.queryJobs(queryData).then(function(data) {
+
+		jobFactory.queryJobs(_this.queryData).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;
 			_this.totalPages = _this.totalJobs / _this.jobsPerPage;

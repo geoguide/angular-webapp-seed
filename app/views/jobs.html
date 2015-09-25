@@ -154,16 +154,16 @@
 		<form ng-submit="jobsCtrl.getResults()">
 			<div class="row">
 				<div class="col-sm-4 form-group">
-					<input type="search" class="form-control" ng-model="jobsCtrl.searchQuery" value="" />
+					<input type="search" class="form-control" ng-model="jobsCtrl.queryData.q" value="" />
 				</div>
 				<div class="col-sm-4 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.searchSpecialty" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()">
 						<option value="">-Select Specialty-</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
 				<div class="col-md-2 form-group">
-					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
+					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.queryData.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
 						<option value="">- Select Tag -</option>
 					</select>
 				</div>
@@ -171,19 +171,19 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-2 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.searchState" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.state" ng-change="jobsCtrl.getResults()">
 						<option value="">-State-</option>
 						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.searchSource" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.source" ng-change="jobsCtrl.getResults()">
 						<option value="">-Source-</option>
 						<option ng-repeat="source in appCtrl.jobSources" value="{{source.id}}">{{source.source}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 col-xs-2 form-group">
-					<select class="form-control" ng-model="jobsCtrl.jobStatus" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
+					<select class="form-control" ng-model="jobsCtrl.queryData.job_status" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
 					</select>
 				</div>
 				<div class="col-md-2 form-group">
@@ -206,7 +206,7 @@
 	<div ng-show="!jobsCtrl.loading">
 		<section class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 		<section class="row">
@@ -249,7 +249,7 @@
 	
 		<section class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.currentPage" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 	</div>

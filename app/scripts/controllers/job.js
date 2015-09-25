@@ -78,6 +78,9 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		});
 	};
 	
+	this.bookmark = function(idIn){
+		this.favorite = !!!this.favorite;
+	};
 
 	var init = function(){
 		jobFactory.getJob(_this.jobId).then(function(data){

@@ -34,8 +34,8 @@
 		'angular-toasty',
 		'ui.bootstrap',
 		'ngFileUpload',
-		'rzModule',
-		'ngTagsInput'
+		'ngTagsInput',
+		'ui-rangeSlider'
 	]);
 
 
