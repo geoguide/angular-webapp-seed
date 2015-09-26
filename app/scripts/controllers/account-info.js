@@ -359,7 +359,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	};
 
 	var loadJobs = function(){
-		jobFactory.queryJobs('',0).then(function(jobsInfo){
+		jobFactory.queryJobs({}).then(function(jobsInfo){
 			_this.jobs = jobsInfo.jobs;
 		});
 	};

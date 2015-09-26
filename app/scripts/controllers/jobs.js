@@ -51,7 +51,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.queryData = jobFactory.queryData;
 	this.getResults = function() {
 		_this.loading = true;
-
+		
 		jobFactory.queryJobs(_this.queryData).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;
