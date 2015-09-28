@@ -1,7 +1,7 @@
 <section>
 	
 	<div id="no-data" ng-show="offerCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4><a ng-href="#/doctor/{{offerCtrl.offerData.doctor_id}}" style="font-variant: small-caps">{{offerCtrl.offerData.doctor_name}}</a> applied to <a style="font-variant: small-caps" ng-href="#/jobs/{{offerCtrl.offerData.job_id}}">&quot;{{offerCtrl.offerData.job_title}}&quot;</a> <span style="font-variant: small-caps">[{{offerCtrl.offerData.status || 'In Progress' }}]</span></h4>
+	<h4><a ng-href="#/providers/{{offerCtrl.offerData.doctor_id}}" style="font-variant: small-caps">{{offerCtrl.offerData.doctor_name}}</a> applied to <a style="font-variant: small-caps" ng-href="#/jobs/{{offerCtrl.offerData.job_id}}">&quot;{{offerCtrl.offerData.job_title}}&quot;</a> <span style="font-variant: small-caps">[{{offerCtrl.offerData.status || 'In Progress' }}]</span></h4>
 	<form id="offer-form" name="edit_offer_form" ng-submit="offerCtrl.save()" ng-show="offerCtrl.offerData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-3 form-group">

@@ -43,7 +43,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="doc in userCtrl.bookmarkedProviders" data-doc-id="{{doc.bookmark_id}}" ng-click="appCtrl.goTo('/doctor/{{doc.bookmark_id}}')">
+							<tr ng-repeat="doc in userCtrl.bookmarkedProviders" data-doc-id="{{doc.bookmark_id}}" ng-click="appCtrl.goTo('/providers/{{doc.bookmark_id}}')">
 								<td>{{ doc.bookmark_id }}</td>
 								<td>{{ doc.first_name }} {{ doc.last_name }}</td>
 							</tr>

@@ -30,7 +30,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="can in jcc.candidates" class="doctor-row search-row" data-doctor-id="{{can.doctor_id}}" ng-click="appCtrl.goTo('/doctor/{{can.doctor_id}}')">
+					<tr ng-repeat="can in jcc.candidates" class="doctor-row search-row" data-doctor-id="{{can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{can.doctor_id}}')">
 						<td>{{ can.doctor_id }}</td>
 						<td>{{ can.first_name }}</td>
 						<td>{{ can.last_name }}</td>

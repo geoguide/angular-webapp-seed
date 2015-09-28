@@ -45,17 +45,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	};
 	this.goTo = applicationFactory.goTo;
 	this.submitForm = function() {
-		/*facilityFactory.createDoctor(_this.formData).then(function(data) {
-			applicationFactory.goTo('/doctor/' + data.id);
-			$modalStack.dismissAll();
-		}, function(error) {
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});*/
+
 	};
 	this.open = function() {
 		this.modalInstance = $modal.open({

@@ -96,7 +96,7 @@
 							<td>{{ appCtrl.dispositionMap[lead.disposition]}}</td>
 							<td>{{ appCtrl.sourceMap[lead.source]}}</td>
 							<td ng-show="lead.doctor_id">
-				            <button ng-click="appCtrl.goTo('/doctor/{{lead.doctor_id}}')">View</button>
+				            <button ng-click="appCtrl.goTo('/providers/{{lead.doctor_id}}')">View</button>
 							</td>
 							<td ng-hide="lead.doctor_id">
 				            N/A

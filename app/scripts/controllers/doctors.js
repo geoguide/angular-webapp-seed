@@ -61,7 +61,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 
 	this.submitForm = function(){
 		doctorFactory.createDoctor(_this.formData).then(function(data){
-			applicationFactory.goTo('/doctor/'+data.id);
+			applicationFactory.goTo('/providers/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
 			toasty.error({

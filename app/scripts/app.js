@@ -124,7 +124,7 @@
 			access: {requiredLogin: true },
 			controller: 'OfferCtrl',
 			controllerAs: 'offerCtrl'
-		}).when('/doctor/:id/uploads', {
+		}).when('/providers/:id/uploads', {
 			tab: 'users',
 			access: { requiredLogin: true },
 			templateUrl: 'views/uploads.html',
