@@ -14,6 +14,8 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 	this.oldPassword = '';
 	this.newPassword = '';
 	this.passwordRepeat = '';
+	this.bookmarkedJobs = [];
+	this.bookmarkedProviders = [];
 
 	this.updatePassword = function(){
 		if(_this.oldPassword){
@@ -49,6 +51,16 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 				clickToClose: true
 			});
 		}
+	};
+	
+	this.getBookmarks = function(){
+		userFactory.getBookmarks().then(function(books){
+			console.log(books);
+			_this.bookmarkedJobs = books.jobs;
+			_this.bookmarkedProviders = books.providers;
+		},function(error){
+			console.error(error);
+		});
 	};
 
 });

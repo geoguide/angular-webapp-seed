@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'https://api.modiohealth.com',s3Bucket:'files.modiohealth.com',doctorApp:'https://www.modiohealth.com/physicians/#'})
+.constant('ENV', {name:'development',apiEndpoint:'http://localhost:3001',s3Bucket:'files.modiohealth.test',doctorApp:'http://localhost:8600/#'})
 
 ;

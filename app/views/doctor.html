@@ -3,13 +3,18 @@
 	<h3 id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor {{dr.doctorId}} Does Not Exist</h3>
 	<div ng-show="dr.doctorData">
 		<div class="row">
-			<ul class="nav nav-pills">
-			  <li role="presentation" class="active"><a href="#">General Info</a></li>
-			  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/account-info')">Account Info</a></li>
-			  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/education-and-work')">Education &amp; Work</a></li>
-			  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/qualifications')">Qualifications</a></li>
-			  <li role="presentation"><a ng-click="appCtrl.goTo('/doctor/{{dr.doctorId}}/uploads')">Uploads</a></li>
-			</ul>
+			<div class="col-md-11">
+				<ul class="nav nav-pills">
+				  <li role="presentation" class="active"><a href="#">General Info</a></li>
+				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/account-info')">Account Info</a></li>
+				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/qualifications')">Qualifications</a></li>
+				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/uploads')">Uploads</a></li>
+				</ul>
+			</div>
+			<div class="col-md-1 text-right">
+				<a ng-click="dr.bookmark(dr.doctorId)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i></a>
+			</div>
 		</div>
 		<hr />
 		<form id="doctor-form" ng-submit="dr.save()" ng-show="dr.doctorData" class="ng-cloak">
@@ -103,7 +108,7 @@
 				<div class="form-group col-md-3">
 					<label>Date of Birth</label>
 					<div class="input-group">
-						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close"  placeholder="MM/DD/YYYY" />
+						<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" close-text="Close"  placeholder="MM/DD/YYYY" />
 						<span class="input-group-btn">
 		                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 						</span>

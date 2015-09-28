@@ -174,6 +174,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 		}, queryData: {
 			score_low: 0,
 			score_high: 100
+		}, bookmark: function(idIn){
+			return $http.post(API_URL+'/admin/doctors/'+idIn+'/bookmark');
+		}, removeBookmark: function(idIn){
+			return $http.delete(API_URL+'/admin/doctors/'+idIn+'/bookmark');
 		}
 	};
 });

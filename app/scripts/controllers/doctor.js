@@ -34,6 +34,7 @@ angular.module('modioAdminPortal')
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;
 			_this.drSpecialties = data.specialties;
 			_this.rates = data.rates;
+			_this.bookmarked = data.bookmarked;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
@@ -98,6 +99,24 @@ angular.module('modioAdminPortal')
 				clickToClose: true
 			});
 		});
+	};
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
 	};
 
 

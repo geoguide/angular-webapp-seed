@@ -187,7 +187,7 @@
 					</select>
 				</div>
 				<div class="col-md-2 form-group">
-					<select class="form-control" ng-model="jobsCtrl.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="dt as dt for dt in appCtrl.doctorTitles">
+					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="dt as dt for dt in appCtrl.doctorTitles">
 						<option value="">-- Choose Title --</option>
 					</select>
 				</div>

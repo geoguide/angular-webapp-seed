@@ -34,6 +34,8 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
+	
+	this.bookmarkedJobs = [];
 
 	this.save = function(){
 		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : _this.jobData.start_date;
@@ -79,12 +81,27 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	};
 	
 	this.bookmark = function(idIn){
-		this.favorite = !!!this.favorite;
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			jobFactory.bookmarkJob(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			jobFactory.removeBookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
 	};
 
 	var init = function(){
 		jobFactory.getJob(_this.jobId).then(function(data){
 			data.tags = JSON.parse(data.tags);
+			_this.bookmarked = data.bookmarked;
 			_this.jobData = data;
 			_this.error = false;
 		},function(error){

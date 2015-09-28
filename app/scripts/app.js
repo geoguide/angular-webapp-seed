@@ -63,7 +63,7 @@
 			templateUrl: 'views/signup.html',
 			access: { requiredLogin: false },
 			controller: 'SignupCtrl'
-      }).when('/doctors', {
+      }).when('/providers', {
 			tab: 'users',
 			templateUrl: 'views/doctors.html',
 			access: { requiredLogin: true },
@@ -94,25 +94,25 @@
 			access: { requiredLogin: true },
 			controller: 'DashboardCtrl',
 			controllerAs: 'dash'
-		}).when('/doctor/:id', {
+		}).when('/providers/:id', {
 			tab: 'users',
 			templateUrl: 'views/doctor.html',
 			access: { requiredLogin: true },
 			controller: 'DoctorCtrl',
 			controllerAs: 'dr'
-		}).when('/doctor/:id/account-info', {
+		}).when('/providers/:id/account-info', {
 			tab: 'users',
 			templateUrl: 'views/account-info.html',
 			access: { requiredLogin: true },
 			controller: 'AccountInfoCtrl',
 			controllerAs: 'ai'
-		}).when('/doctor/:id/education-and-work', {
+		}).when('/providers/:id/education-and-work', {
 			tab: 'users',
 			templateUrl: 'views/education-and-work.html',
 			access: { requiredLogin: true },
 			controller: 'EducationWorkCtrl',
 			controllerAs: 'dr'
-		}).when('/doctor/:id/qualifications', {
+		}).when('/providers/:id/qualifications', {
 			tab: 'users',
 			templateUrl: 'views/qualifications.html',
 			access: { requiredLogin: true },
@@ -134,6 +134,11 @@
 			templateUrl: 'views/change-password.html',
 			controller: 'ChangePasswordCtrl',
 			controllerAs: 'cpCtrl',
+			access: {requiredLogin: true}
+		}).when('/my-bookmarks', {
+			templateUrl: 'views/my-bookmarks.html',
+			controller: 'ChangePasswordCtrl',
+			controllerAs: 'userCtrl',
 			access: {requiredLogin: true}
 		}).when('/partners', {
 			templateUrl: 'views/partners.html',
