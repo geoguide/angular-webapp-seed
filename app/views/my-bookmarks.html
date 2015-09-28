@@ -1,0 +1,57 @@
+
+<!-- used to have ng-controller, but now realize the route handles it -->
+<div class="ng-cloak">
+	<section class="row">
+		<div class="col-md-6">
+			<h4>Bookmarks</h4>
+		</div>
+	</section>
+	<div class="text-center row" ng-show="userCtrl.loading">
+		<div class="col-md-12">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
+		</div>
+	</div>
+	<div ng-show="!userCtrl.loading" ng-init="userCtrl.getBookmarks()">
+		
+		<section class="row">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{userCtrl.bookmarkedJobs.length}}</strong> Jobs Bookmarked</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Job Id</th>
+								<th>Job Title</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="job in userCtrl.bookmarkedJobs" data-job-id="{{job.bookmark_id}}" ng-click="appCtrl.goTo('/jobs/{{job.bookmark_id}}')">
+								<td>{{ job.bookmark_id }}</td>
+								<td>{{ job.job_title }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{userCtrl.bookmarkedProviders.length}}</strong> Providers Bookmarked</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Provider Id</th>
+								<th>Provider Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="doc in userCtrl.bookmarkedProviders" data-doc-id="{{doc.bookmark_id}}" ng-click="appCtrl.goTo('/doctor/{{doc.bookmark_id}}')">
+								<td>{{ doc.bookmark_id }}</td>
+								<td>{{ doc.first_name }} {{ doc.last_name }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+</div>
