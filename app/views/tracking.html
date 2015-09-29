@@ -1,0 +1,46 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{track.doctorId}}')" class="ng-cloak">General Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{track.doctorId}}/account-info')">Account Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{track.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{track.doctorId}}/qualifications')">Qualifications</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{track.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation" class="active"><a>Tracking <span class="badge">{{track.trackingData.length}}</span></a></li>
+		</ul>
+	</div>
+</div>
+<hr />
+<div ng-repeat="t in track.trackingData">
+	<h4>Campaign: {{t.campaign}}</h4>
+	<div class="row">
+		<div class="form-group col-md-3">
+			{{t.ip_address}}
+		</div>
+		<div class="col-md-3">
+			{{t.page_uuid}}
+		</div>
+		<div class="col-md-3">
+			{{t.source}}
+		</div>
+		<div class="col-md-3">
+			{{t.date_created}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			{{t.page_name}}
+		</div>
+		<div class="col-md-3">
+			{{t.page_url}}
+		</div>
+		<div class="col-md-3">
+			{{t.variant}}
+		</div>
+		<div class="col-md-3">
+			{{t.user_agent}}
+		</div>
+	</div>
+	<hr />
+</div>

@@ -78,9 +78,28 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	
 	this.getMemberships = function(coordIdIn){
 		doctorFactory.getMemberships(coordIdIn).then(function(result){
-			_this.memberships = result.data;
+			_this.memberships = result;
 		},function(error){
 			$log.error(error);
+		});
+	};
+	
+	this.deleteFacilityMembership = function(expId){
+		doctorFactory.removeMembership(_this.coordId,expId).then(function(data){
+			toasty.success({
+				title: 'Success!',
+				msg: 'Training Deleted.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.getMemberships(_this.coordId);
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
 		});
 	};
 	

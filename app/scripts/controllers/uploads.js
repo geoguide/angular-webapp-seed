@@ -7,7 +7,7 @@
  * # UploadsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$scope,s3factory,$routeParams,$log,$timeout,$window) {
+angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$scope,s3factory,doctorFactory,$routeParams,$log,$timeout,$window) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -19,6 +19,7 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 
 	this.downloads = [];
 	this.uploads = [];
+	this.trackingData = [];
 
 	this.uploadTypes = [
 		{
@@ -206,6 +207,9 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 
     var init = function(){
 	   _this.loadUploads();
+	   doctorFactory.getTracking(_this.doctorId).then(function(result){
+			_this.trackingData = result;
+		});
     };
 
     init();

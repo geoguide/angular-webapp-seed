@@ -130,6 +130,12 @@
 			templateUrl: 'views/uploads.html',
 			controller: 'UploadsCtrl',
 			controllerAs: 'up'
+		}).when('/providers/:id/tracking', {
+			tab: 'users',
+			access: { requiredLogin: true },
+			templateUrl: 'views/tracking.html',
+			controller: 'TrackingCtrl',
+			controllerAs: 'track'
 		}).when('/change-password', {
 			templateUrl: 'views/change-password.html',
 			controller: 'ChangePasswordCtrl',

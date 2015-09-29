@@ -7,12 +7,8 @@
  * # QualificationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($scope, $routeParams, toasty, $log, qualificationFactory, specialtyFactory, $modal,$q) {
-	this.awesomeThings = [
-	'HTML5 Boilerplate',
-	'AngularJS',
-	'Karma'
-	];
+angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($scope, $routeParams, toasty, $log, qualificationFactory, doctorFactory, specialtyFactory, $modal,$q) {
+
 	var _this = this;
 	this.doctorId = $routeParams.id;
 
@@ -33,6 +29,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	this.licenseTypes.push('State');
 	this.licenseTypes.push('DEA License');
 	this.licenseTypes.push('State Ctrl Substance');
+	this.trackingData = [];
 
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
@@ -296,6 +293,9 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		loadQualifications();
 		specialtyFactory.getSpecialties().then(function(data){
 			_this.specialties = data;
+		});
+		doctorFactory.getTracking(_this.doctorId).then(function(result){
+			_this.trackingData = result;
 		});
 	};
 

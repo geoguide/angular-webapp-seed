@@ -164,11 +164,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				$log.error(error);
 			});
 		}, submitMembership: function(coordId,memData){
-			return $http.post(API_URL+'/admin/coordinators/'+coordId+'/memberships', memData);
+			return $http.post(API_URL+'/admin/providers/'+coordId+'/memberships', memData);
 		}, removeMembership: function(coordId,membershipId){
-			return $http.delete(API_URL+'/admin/coordinators/'+coordId+'/memberships/'+membershipId);
+			return $http.delete(API_URL+'/admin/providers/'+coordId+'/memberships/'+membershipId);
 		}, getMemberships: function(coordId){
-			return $http.get(API_URL+'/admin/coordinators/'+coordId+'/memberships/');
+			return $http.get(API_URL+'/admin/providers/'+coordId+'/memberships/').then(function(response){
+				return response.data;
+			});
 		}, actAs: function(userIdIn){
 			return $http.post(API_URL+'/admin/'+userIdIn+'/act-as');
 		}, queryData: {
@@ -178,6 +180,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.post(API_URL+'/admin/doctors/'+idIn+'/bookmark');
 		}, removeBookmark: function(idIn){
 			return $http.delete(API_URL+'/admin/doctors/'+idIn+'/bookmark');
+		}, getTracking: function(idIn){
+			return $http.get(API_URL+'/admin/doctors/'+idIn+'/tracking').then(function(response){
+				return response.data;
+			});
 		}
 	};
 });

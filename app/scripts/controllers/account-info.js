@@ -21,6 +21,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.additionalCerts = [];
 	this.abmsCertifications = [];
 	this.boardSpecialties = [];
+	this.trackingData = [];
 	this.additional_certification_types = [
 		{ id: 0, name: 'ATLS/ACLS'},
 		{ id: 1, name: 'PALS'},
@@ -377,6 +378,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		});
 		loadJobs();
 		loadOffers();
+		doctorFactory.getTracking(_this.doctorId).then(function(result){
+			_this.trackingData = result;
+		});
 	};
 	init();
 });

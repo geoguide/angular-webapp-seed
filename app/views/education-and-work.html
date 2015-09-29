@@ -8,6 +8,7 @@
 				<a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/qualifications')">Qualifications</a>
 			</li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/tracking')">Tracking <span class="badge">{{dr.trackingData.length}}</span></a></li>
 		</ul>
 	</div>
 </div>
@@ -146,6 +147,25 @@
 	</div>
 </div>
 
+<h2>Facility Memberships </h2>
+<accordion close-others="false">
+	<accordion-group is-open="true">
+		<accordion-heading>Memberships<span class="badge pull-right">{{(dr.memberships).length}}</span></accordion-heading>
+		<article ng-repeat="(key,obj) in dr.memberships">
+			<h4>{{obj.facility_name}}</h4>
+			<h5>Dept: {{obj.department}}</h5>
+			<div><strong>{{obj.email}}</strong></div>
+			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)">Delete</button>
+			<a class="btn btn-info" ng-click="dr.openMembershipModal('facility-membership-modal',obj)">Edit</a>
+		</article>
+	</accordion-group>
+</accordion>
+<div class="row">
+	<div class="col-md-12 text-right">
+		<button class="btn btn-primary" ng-click="dr.openMembershipModal('facility-membership-modal',{})">Add Facility Membership</button>
+	</div>
+</div>
+
 <script type="text/ng-template" id="training-modal">
 	<div class="modal-header">
 		<h3 class="modal-title">{{modal.title}}</h3>
@@ -251,6 +271,7 @@
 					<input type="text" class="form-control" ng-model="modal.modalObject.program_completed_reason" />
 				</div>
 			</div>
+		</form>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
@@ -347,6 +368,53 @@
 				</div>
 			</div>
 		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+	</div>
+</script>
+
+
+<script type="text/ng-template" id="facility-membership-modal">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		<form novalidate>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Facility</label>
+					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id" typeahead-editable="false" />
+					<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Status</label>
+					<select class="form-control" ng-model="modal.modalObject.status">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Email</label>
+					<input type="email" class="form-control" ng-model="modal.modalObject.email" />
+				</div>
+				<div class="form-group col-xs-6">
+					<label>Department</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.department" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-6">
+					<label>Job Title</label>
+					<input type="text" class="form-control" ng-model="modal.modalObject.job_title" />
+				</div>
+			</div>
+		</form>
+
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>

@@ -24,11 +24,14 @@ angular.module('modioAdminPortal')
 
 		_this.opened = true;
 	};
-
+	this.trackingData = [];
+	
 	this.get = function(doctorId){
 
 		var doctorData = doctorFactory.getDoctor(doctorId);
-
+		doctorFactory.getTracking(doctorId).then(function(result){
+			_this.trackingData = result;
+		});
 		doctorData.then(function(data){
 			_this.doctorData = data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;

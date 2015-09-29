@@ -80,9 +80,12 @@
 	<accordion close-others="false">
 		<accordion-group is-open="true">
 			<accordion-heading>Memberships<span class="badge pull-right">{{(coord.memberships).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in coord.memberships" ng-click="coord.openMembershipModal('membership-modal',obj)">
+			<article ng-repeat="(key,obj) in coord.memberships" >
 				<h4>{{obj.facility_name}} ({{coord.memberStatuses[obj.status].status}})</h4>
 				<h5>{{obj.department}}</h5>
+				
+				<a class="btn btn-info" ng-click="coord.openMembershipModal('membership-modal',obj)">Edit</a>
+				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
 				<hr />
 			</article>
 		</accordion-group>
