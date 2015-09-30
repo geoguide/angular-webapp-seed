@@ -14,9 +14,27 @@
 <hr />
 <section>
 	<h4>Job Matches</h4>
-	<div class="row" ng-repeat="match in jm.matches">
-		<div class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')">{{match.job_title}}</a></div>
-		<div class="col-xs-6">{{match.facility_name}}</div>
-		<div class="col-xs-3">{{match.job_specialty}} {{match.job_jobtype}}</div>
+	<div class="table-responsive">
+		<caption class="ng-cloak"><strong>{{invoice.invoices.length}}</strong> Invoices Found</caption>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Report Id</th>
+					<th>Provider</th>
+					<th>Total Amount</th>
+					<th>Date Updated</th>
+					<th>Description</th>
+					<th>Facility Name</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<div class="row" ng-repeat="match in jm.matches">
+					<div class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')">{{match.job_title}}</a></div>
+					<div class="col-xs-6">{{match.facility_name}}</div>
+					<div class="col-xs-3">{{match.job_specialty}} {{match.job_jobtype}}</div>
+				</div>
+			</tbody>
+		</table>
 	</div>
 </section>

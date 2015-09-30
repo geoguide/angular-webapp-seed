@@ -23,12 +23,28 @@
 	<div class="row">
 		<section class="col-md-8">
 			<h4>Matches</h4>
-			<div ng-repeat="match in dash.twoWayMatches" class="row">
-				<a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')" class="col-xs-4">{{match.facility_name}} {{JOB_TYPE}}</a>
-				<a ng-click="appCtrl.goTo('/providers/{{match.doctor_id}}')" class="col-xs-3">{{match.first_name}} {{match.last_name}} ({{match.dr_job_type}})</a>
-				<span class="col-xs-2">{{ match.Licensed == 0 ? 'No' : 'Yes' }}</span>
-				<span class="col-xs-3">{{match.job_specialty}}  in {{match.doctor_desired_state}}</span>
-			</div>
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Facility</th>
+							<th>Provider Name</th>
+							<th>Licensed?</th>
+							<th>Specialty</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr ng-repeat="match in dash.twoWayMatches">
+							<td ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')" class="col-xs-4">{{match.facility_name}} {{JOB_TYPE}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{match.doctor_id}}')" class="col-xs-3">{{match.first_name}} {{match.last_name}} ({{match.dr_job_type}})</td>
+							<td class="col-xs-2">{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
+							<td class="col-xs-3">{{match.job_specialty}}  in {{match.doctor_desired_state}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
 		</section>
 		<section class="col-md-4">
 			<h4>Stats</h4>

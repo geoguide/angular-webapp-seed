@@ -188,6 +188,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/doctors/'+idIn+'/matches').then(function(response){
 				return response.data;
 			});
+		}, getJobMatchTotals: function(){
+			return $http.get(API_URL+'/admin/doctors/match-count').then(function(response) {
+				return response.data;
+			});
 		}
 	};
 });

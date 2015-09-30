@@ -24,6 +24,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.opened = { 'start': false, 'end':false };
 	this.tags = [];
 	this.loading = true;
+	this.matchList = [];
 
 	/* Calendar */
 	this.open = function($event,which) {
@@ -105,6 +106,16 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			_this.tags = result;
 		});
 		
+		jobFactory.getJobMatchTotals().then(function(result){
+			_this.matchList = result;
+			/*for(var m=0;m<result.length;m++){
+				var jobId = result[m].job_id;
+				var mt = result[m].matches;
+				console.log(jobId+' has '+mt+' matches');
+				_this.matchList[jobId] = mt;
+			}
+			console.log(_this.matchList);*/
+		});
 
 	};
 

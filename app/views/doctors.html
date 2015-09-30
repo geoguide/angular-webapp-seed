@@ -62,25 +62,25 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.specialty_id" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.specialty_id" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Specialty --</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
 				<div class="col-md-2 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.state" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select State --</option>
 						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group">
-					<select class="form-control" ng-model="drsCtrl.disposition" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.disposition" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Disposition --</option>
 						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group">
-					<select class="form-control" ng-model="drsCtrl.doctor_title" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()">
 						<option value="">-- Select Title --</option>
 						<option ng-repeat="title in appCtrl.doctorTitles" value="{{title}}">{{title}}</option>
 					</select>
@@ -146,7 +146,7 @@
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.claim_id ? 'Yes' : 'No' }}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')"><button>View Matches</button></td>
+								<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>
 							</tr>
 						</tbody>
 					</table>

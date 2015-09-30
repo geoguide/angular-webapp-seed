@@ -25,6 +25,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.score_high = 100;
 
 	this.loading = true;
+	this.matchList = [];
 	
 	this.queryData = doctorFactory.queryData;
 	this.queryData.score_low = 0;
@@ -96,4 +97,10 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 		$modalStack.dismissAll();
 	};
 	_this.getResults();
+	
+	doctorFactory.getJobMatchTotals().then(function(result){
+		_this.matchList = result;
+	},function(error){
+		$log.error(error);
+	});
 });

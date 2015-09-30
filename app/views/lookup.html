@@ -38,10 +38,10 @@
 		<form ng-submit="look.getResults()">
 			<div class="row">
 				<div class="col-md-3 col-sm-6 form-group">
-					<input type="search" class="form-control" ng-model="look.searchQuery" placeholder="Search Name..." value="" />
+					<input type="search" class="form-control" ng-model="look.queryData.q" placeholder="Search Name..." value="" />
 				</div>
 				<div class="col-md-3 col-sm-6 form-group">
-					<input type="search" class="form-control" ng-model="look.searchSpecialty" placeholder="Search Specialty..." value="" />
+					<input type="search" class="form-control" ng-model="look.queryData.specialty" placeholder="Search Specialty..." value="" />
 				</div>
 				<div class="col-md-3 col-sm-12 form-group">
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
@@ -58,7 +58,7 @@
 	<div ng-show="!look.loading">
 		<section class="row">
 			<div class="col-sm-12 form-group">
-				<pagination total-items="look.totalDoctors" ng-model="look.currentPage" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 		<section class="row">
@@ -90,7 +90,7 @@
 		
 		<section class="row">
 			<div class="col-sm-12">
-				<pagination total-items="look.totalDoctors" ng-model="look.currentPage" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
 			</div>
 		</section>
 	</div>

@@ -71,15 +71,28 @@
 				<label>Job Title</label>
 				<input class="form-control" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
 			</div>
-      
-      <div class="col-md-4">
-	      <label>Tags (Separate with commas)</label>
-	      <tags-input ng-model="jobCtrl.jobData.tags" add-on-comma="true">
-	      	<auto-complete source="appCtrl.queryTags($query)"></auto-complete>
-	      </tags-input>
-      </div>
-	</div>
-    <div class="row">
+			<div class="col-md-4 form-group">
+				<label>Account Manager</label>
+				<select ng-model="jobCtrl.jobData.account_manager" class="form-control">
+					<option value="">Unassigned</option>
+					<option value="Tom Clifford">Tom Clifford </option>
+					<option value="Gary Goldman">Gary Goldman </option>
+					<option value="James Oleksa">James Oleksa </option>
+					<option value="John Bou">John Bou </option>
+					<option value="Kirk Heath">Kirk Heath </option>
+					<option value="Tom Saulnier">Tom Saulnier </option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7">
+		      <label>Tags (Separate with commas)</label>
+		      <tags-input ng-model="jobCtrl.jobData.tags" add-on-comma="true">
+		      	<auto-complete source="appCtrl.queryTags($query)"></auto-complete>
+		      </tags-input>
+	      </div>
+		</div>
+		<div class="row">
 			<div class="form-group col-md-10">
 				<label>Job Description</label>
 				<textarea class="form-control" name="job_title" ng-model="jobCtrl.jobData.description" rows="20"  ng-required="true"></textarea>

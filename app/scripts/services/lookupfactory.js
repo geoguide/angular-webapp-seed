@@ -41,23 +41,13 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		}, queryLookup: function(queryData){
+			console.log(queryData);
 			//Put these all in array (or get as an array) and just parse the array for easiness
-			var searchQuery, searchSpecialty, searchState, pageNumber, sortBy, sortDirection,scoreLow,scoreHigh;
-			searchQuery = queryData.search_query || '';
-			searchSpecialty = queryData.search_specialty;
-			pageNumber = queryData.page_number || 1;
-			sortBy = queryData.sort_by;
-			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			
-			var request = API_URL+'/admin/lookup?q='+searchQuery+'&p='+pageNumber;
-			if(searchSpecialty){
-				request += '&specialty='+searchSpecialty;
-			}
-			if(sortBy){
-				request += '&sort_by='+sortBy;
-			}
-			request += '&sort_direction='+sortDirection;
-			return $http.get(request).then(function(response) {
+			var  searchSpecialty, searchState, pageNumber, sortBy, sortDirection,scoreLow,scoreHigh;
+			queryData.p = queryData.p || 1;
+			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+
+			return $http.get(API_URL+'/admin/lookup', { params: queryData }).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
@@ -74,6 +64,6 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
-		}
+		}, queryData: {}
 	};
 });

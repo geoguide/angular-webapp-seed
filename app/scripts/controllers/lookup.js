@@ -23,16 +23,13 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.totalPages = this.totalDoctors/this.doctorsPerPage;
 	this.maxSize = 8;
 	this.loading = true;
+	this.queryData = lookupFactory.queryData;
 
 
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
 		_this.loading = true;
-		var queryData = {
-			search_query: _this.searchQuery,
-			search_specialty: _this.searchSpecialty
-		};
-		lookupFactory.queryLookup(queryData).then(function(response) {
+		lookupFactory.queryLookup(_this.queryData).then(function(response) {
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
