@@ -24,7 +24,9 @@ angular.module('modioAdminPortal').controller('TrackingCtrl', function (ENV,$rou
 
 	var init = function(){
 		_this.get(_this.doctorId);
-
+		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			_this.matches = result;
+		});
 	};
 
 	init();

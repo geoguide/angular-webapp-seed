@@ -210,6 +210,17 @@
 			templateUrl: 'views/candidates.html',
 			controller: 'JobCandidatesCtrl',
 			controllerAs: 'jcc'
+		}).when('/providers/:id/job-matches', {
+			tab: 'users',
+			access: { requiredLogin: true },
+			templateUrl: 'views/job-matches.html',
+			controller: 'JobMatchesCtrl',
+			controllerAs: 'jm'
+		}).when('/invoices', {
+			templateUrl: 'views/invoices.html',
+			controller: 'InvoicesCtrl',
+			controllerAs: 'invoice',
+			access: { requiredLogin: true },
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view

@@ -30,7 +30,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	this.licenseTypes.push('DEA License');
 	this.licenseTypes.push('State Ctrl Substance');
 	this.trackingData = [];
-
+	this.matches = [];
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
 		$event.preventDefault();
@@ -296,6 +296,9 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		});
 		doctorFactory.getTracking(_this.doctorId).then(function(result){
 			_this.trackingData = result;
+		});
+		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			_this.matches = result;
 		});
 	};
 

@@ -16,6 +16,10 @@
 	display: none !important;
 }
 
+[ng\:click], [ng-click] {
+	cursor:pointer !important;
+}
+
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
 	border-color:red;
@@ -24,6 +28,11 @@ select.ng-invalid.ng-touched {
 //Move these to partials later
 button:disabled, button[disabled] {
 	cursor:no-drop !important;
+}
+
+.table > thead > tr > th {
+	background-color:#5386c5;
+	color:white;
 }
 
 .panel .form-group {

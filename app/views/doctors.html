@@ -129,6 +129,7 @@
 								<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
 								<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
 								<th ng-click="drsCtrl.sortResult('title')">Title</th>
+								<th>Claimed</th>
 								<th>States</th>
 								<th ng-click="drsCtrl.sortResult('score')">Score</th>
 								<th>Matches</th>
@@ -142,9 +143,10 @@
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.doctor_title }}</td>
+								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.claim_id ? 'Yes' : 'No' }}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}/matches')"><button>View Matches</button></td>
+								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')"><button>View Matches</button></td>
 							</tr>
 						</tbody>
 					</table>

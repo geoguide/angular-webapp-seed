@@ -184,6 +184,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/doctors/'+idIn+'/tracking').then(function(response){
 				return response.data;
 			});
+		}, getJobMatches: function(idIn){
+			return $http.get(API_URL+'/admin/doctors/'+idIn+'/matches').then(function(response){
+				return response.data;
+			});
 		}
 	};
 });

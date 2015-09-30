@@ -11,13 +11,9 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
     // Service logic
     // ...
 
-    var meaningOfLife = 42;
-
     // Public API here
     return {
-      someMethod: function () {
-        return meaningOfLife;
-      }, getLeads: function(queryData){
+      getLeads: function(queryData){
 	      queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			return $http.get(API_URL+'/admin/leads',{params: queryData}).then(function(response) {
 				return response.data;
@@ -36,6 +32,10 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
 			return $http.post(API_URL+'/admin/leads/',leadInfo);
 		}, get2Way: function(){
 			return $http.get(API_URL+'/admin/two-way-matches').then(function(response){
+				return response.data;
+			});
+		}, getDashboardStats: function(){
+			return $http.get(API_URL+'/admin/dashboard-stats').then(function(response){
 				return response.data;
 			});
 		}

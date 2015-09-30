@@ -1,72 +1,66 @@
-<div class="row">
-	<div class="col-md-6"><h4>Leads</h4></div>
-	<div class="col-md-2 col-md-offset-4">
-		<button class="btn btn-primary btn-block" type="button" role="button" ng-click="dash.openNewLeadForm()">Create Lead</button>
-	</div>
-</div>
-<section>
-	<form ng-submit="dash.getResults()">
-		<div class="row">
-			<div class="col-sm-4 form-group">
-				<input type="search" class="form-control" ng-model="dash.searchQuery" value="" />
-			</div>
-			<div class="col-sm-3 col-xs-6 form-group">
-				<select class="form-control" ng-model="dash.searchSpecialty" ng-change="dash.getResults()">
-					<option value="">-Select Specialty-</option>
-					<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
-				</select>
-			</div>
-			<div class="col-sm-2 col-xs-6 form-group">
-				<select class="form-control" ng-model="dash.searchState" ng-change="dash.getResults()">
-					<option value="">-State-</option>
-					<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
-				</select>
-			</div>
-			
-		</div>
-		<div class="row">
-			<div class="col-md-2 col-sm-6 form-group">
-				<label>Score Low</label>
-				<input type="number" ng-model="dash.score_low" class="form-control" min="0" max="100" />
-			</div>
-			<div class="col-md-2 col-sm-6 form-group">
-				<label>Score High</label>
-				<input type="number" ng-model="dash.score_high" class="form-control" min="0" max="100" />
-			</div>
-			<div class="col-md-3 form-group">
-				<label>Disposition</label>
-				<select class="form-control" ng-model="dash.disposition" ng-change="dash.getResults()">
-					<option value="">-- Select Disposition --</option>
-					<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
-				</select>
-			</div>
-			<div class="col-sm-2 form-group">
-				<label>&nbsp;</label>
-				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
-			</div>
-		</div>
-		
-	</form>
-</section>
-
-
+<h3>Dashboard</h3>
 <div class="text-center row" ng-show="dash.loading">
 	<div class="col-md-12 form-group">
 	  <i class="fa fa-refresh fa-spin fa-4x"></i>
 	</div>
 </div>
-
+<!--
+	{
+    "job_id": 1,
+    "facility_name": "Sentara Virginia Beach General Hospital (Virginia Beach- VA)",
+    "job_title": "General surgeon needed",
+    "job_specialty": "Surgery: General",
+    "JOB_TYPE": "Locum",
+    "doctor_id": 5978,
+    "first_name": "Angelita",
+    "last_name": "Wolf",
+    "dr_job_type": "Locum",
+    "doctor_desired_state": "VA",
+    "Licensed": 0
+  },
+-->
 <div ng-show="!dash.loading">
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="dash.total" ng-model="dash.currentPage" max-size="dash.maxSize" class="pagination-sm" boundary-links="true" ng-change="dash.getResults()" items-per-page="25"></pagination>
-		</div>
-	</section>
-	<section class="row">
+	<div class="row">
+		<section class="col-md-8">
+			<h4>Matches</h4>
+			<div ng-repeat="match in dash.twoWayMatches" class="row">
+				<a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')" class="col-xs-4">{{match.facility_name}} {{JOB_TYPE}}</a>
+				<a ng-click="appCtrl.goTo('/providers/{{match.doctor_id}}')" class="col-xs-3">{{match.first_name}} {{match.last_name}} ({{match.dr_job_type}})</a>
+				<span class="col-xs-2">{{ match.Licensed == 0 ? 'No' : 'Yes' }}</span>
+				<span class="col-xs-3">{{match.job_specialty}}  in {{match.doctor_desired_state}}</span>
+			</div>
+		</section>
+		<section class="col-md-4">
+			<h4>Stats</h4>
+			<div class="form-group">
+				<label>Specialties (last day)</label>
+				<div ng-repeat="s in dash.stats.specialtyData">{{s.specialty}} ({{s.count}})</div>
+			</div>
+			<div class="form-group">
+				<label>New Providers</label>
+				<div>{{dash.stats.providerDailyTotal}}</div>
+			</div>
+			<div class="form-group">
+				<label>Total Registered</label>
+				<div>{{dash.stats.providerRegisteredTotal}}</div>
+			</div>
+			<div class="form-group">
+				<label>Total Providers</label>
+				<div>{{dash.stats.providerTotal}}</div>
+			</div>
+			<div class="form-group">
+				<label>Offers to Date</label>
+				<div>{{dash.stats.offersToDate}}</div>
+			</div>
+			
+		</section>
+	</div>
+	
+	<!--<section class="row">
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{dash.total}}</strong> Leads Found</caption>
-	
+				<caption class="ng-cloak"><strong>{{dash.twoWayMatches.length}}</strong> Matches Found</caption>
+				
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
@@ -106,83 +100,5 @@
 				</table>
 			</div>
 		</div>
-	</section>
+	</section>-->
 </div>
-
-
-
-<script type="text/ng-template" id="create-lead-modal">
-	<form name="create_lead_form" ng-submit="dash.submitLead()" novalidate>
-		<div class="modal-header">
-			<h3 class="modal-title">Create Lead</h3>
-		</div>
-
-		<div class="modal-body">
-			
-			<div class="row">
-				<div class="col-md-6 form-group">
-					<label>First Name</label>
-					<input class="form-control" type="text" ng-model="dash.newLead.first_name" />
-				</div>
-				<div class="col-md-6 form-group">
-					<label>Last Name</label>
-					<input class="form-control" type="text" ng-model="dash.newLead.last_name" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 form-group">
-		        <label>Account Manager</label>
-		        <select ng-model="dash.newLead.account_manager" class="form-control">
-		          <option value="Tom Clifford">Tom Clifford</option>
-		          <option value="Gary Goldman">Gary Goldman</option>
-		          <option value="James Oleksa">James Oleksa</option>
-		          <option value="John Bou">John Bou</option>
-		          <option value="Kirk Heath">Kirk Heath</option>
-		          <option value="Tom Saulnier">Tom Saulnier</option>
-		        </select>
-		      </div>
-				<div class="col-md-6 form-group">
-					<label>Specialty</label>
-					<select class="form-control" ng-model="dash.newLead.specialty" ng-required="true" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties"></select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 form-group">
-					<label>Source</label>
-		        <select class="form-control" ng-options="src.id as src.name for src in appCtrl.source" ng-model="dash.newLead.source"></select>
-		      </div>
-				<div class="col-md-6 form-group">
-					<label>Provider Title</label>
-					<select class="form-control" ng-model="dash.newLead.doctor_title">
-						<option value="MD">MD</option>
-						<option value="DO">DO</option>
-						<option value="DPM">DPM</option>
-						<option value="DDS">DDS</option>
-						<option value="DMD">DMD</option>
-						<option value="CRNA">CRNA</option>
-						<option value="PA">PA</option>
-						<option value="NP">NP</option>
-						<option value="LPN">LNP</option>
-						<option value="RN">RN</option>
-					</select>
-				</div>
-			</div>
-			
-			
-			<div class="row">
-				<div class="col-md-6 form-group">
-					<label>Email</label>
-					<input class="form-control" type="email" ng-model="dash.newLead.email" />
-				</div>
-				<div class="col-md-6 form-group">
-					<label>Home Phone</label>
-					<input class="form-control" type="text" ui-mask="(999) 999-9999" ng-model="dash.newLead.home_phone" />
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-primary" role="submit" ng-disabled="new_job_form.$invalid">OK</button>
-			<button class="btn btn-warning" role="button" type="button" ng-click="dash.closeModal()">Cancel</button>
-		</div>
-	</form>
-	</script>

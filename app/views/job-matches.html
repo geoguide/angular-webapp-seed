@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}')" class="ng-cloak">General Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/account-info')">Account Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/qualifications')">Qualifications</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/tracking')">Tracking <span class="badge">{{jm.trackingData.length}}</span></a></li>
+			<li role="presentation" class="active"><a>Matches <span class="badge">{{jm.matches.length}}</span></a></li>
+		</ul>
+	</div>
+</div>
+<hr />
+<section>
+	<h4>Job Matches</h4>
+	<div class="row" ng-repeat="match in jm.matches">
+		<div class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')">{{match.job_title}}</a></div>
+		<div class="col-xs-6">{{match.facility_name}}</div>
+		<div class="col-xs-3">{{match.job_specialty}} {{match.job_jobtype}}</div>
+	</div>
+</section>

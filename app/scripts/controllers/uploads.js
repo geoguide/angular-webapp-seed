@@ -210,6 +210,9 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	   doctorFactory.getTracking(_this.doctorId).then(function(result){
 			_this.trackingData = result;
 		});
+		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			_this.matches = result;
+		});
     };
 
     init();

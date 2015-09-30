@@ -31,6 +31,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	this.medicalSchools = [];
 	this.trackingData = [];
 	this.memberships = [];
+	this.matches = [];
 
 	this.today = new Date();
 	var dd = this.today.getDate();
@@ -310,6 +311,9 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 		loadMedicalSchools();
 		doctorFactory.getTracking(_this.doctorId).then(function(result){
 			_this.trackingData = result;
+		});
+		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			_this.matches = result;
 		});
 	};
 	init();

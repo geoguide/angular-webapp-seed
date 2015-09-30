@@ -32,6 +32,7 @@ angular.module('modioAdminPortal')
 		doctorFactory.getTracking(doctorId).then(function(result){
 			_this.trackingData = result;
 		});
+		
 		doctorData.then(function(data){
 			_this.doctorData = data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;
@@ -127,7 +128,9 @@ angular.module('modioAdminPortal')
 
 	var init = function(){
 		_this.get(_this.doctorId);
-
+		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			_this.matches = result;
+		});
 	};
 
 	init();
