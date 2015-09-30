@@ -7,8 +7,7 @@
  * # dashboardFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal')
-  .factory('dashboardFactory', function ($http,API_URL,$log) {
+angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,API_URL,$log) {
     // Service logic
     // ...
 
@@ -35,6 +34,10 @@ angular.module('modioAdminPortal')
 			return $http.put(API_URL+'/admin/leads/'+leadId,leadInfo);
 		}, submitLead: function(leadInfo){
 			return $http.post(API_URL+'/admin/leads/',leadInfo);
+		}, get2Way: function(){
+			return $http.get(API_URL+'/admin/two-way-matches').then(function(response){
+				return response.data;
+			});
 		}
     };
   });

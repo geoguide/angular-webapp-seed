@@ -12,6 +12,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,
 	var _this = this;
 	this.leads = [];
 	this.loading = true;
+	this.twoWayMatches = [];
 	
 	
 	_this.getResults = function() {
@@ -81,5 +82,13 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,
 		});
 	};
 	
-	_this.getResults();
+	this.get2Way = function(){
+		dashboardFactory.get2Way().then(function(result){
+			_this.twoWayMatches = result;
+		},function(error){
+			$log.error(error);
+		});
+	};
+	
+	this.get2Way();
 });
