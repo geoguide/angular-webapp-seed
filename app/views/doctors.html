@@ -62,27 +62,23 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.queryData.specialty_id" ng-change="drsCtrl.getResults()">
-						<option value="">-- Select Specialty --</option>
-						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+					<select class="form-control" ng-model="drsCtrl.queryData.specialty_id" ng-change="drsCtrl.getResults()" ng-options="s.id as s.specialty for s in appCtrl.specialties">
+						<option value="">-- Specialty--</option>
 					</select>
 				</div>
 				<div class="col-md-2 col-sm-6 form-group">
-					<select class="form-control" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()" ng-options="st.abbreviation as st.abbreviation for st in appCtrl.usStates">
 						<option value="">-- Select State --</option>
-						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group">
-					<select class="form-control" ng-model="drsCtrl.queryData.disposition" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.disposition" ng-change="drsCtrl.getResults()" ng-options="disp.id as disp.name for disp in appCtrl.disposition">
 						<option value="">-- Select Disposition --</option>
-						<option ng-repeat="disp in appCtrl.disposition" value="{{disp.id}}">{{disp.name}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group">
-					<select class="form-control" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()">
+					<select class="form-control" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()" ng-options="title as title for title in appCtrl.doctorTitles">
 						<option value="">-- Select Title --</option>
-						<option ng-repeat="title in appCtrl.doctorTitles" value="{{title}}">{{title}}</option>
 					</select>
 				</div>
 			</div>
@@ -129,7 +125,7 @@
 								<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
 								<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
 								<th ng-click="drsCtrl.sortResult('title')">Title</th>
-								<th>Claimed</th>
+								<th>Registered</th>
 								<th>States</th>
 								<th ng-click="drsCtrl.sortResult('score')">Score</th>
 								<th>Matches</th>
@@ -143,7 +139,7 @@
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.doctor_title }}</td>
-								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.claim_id ? 'Yes' : 'No' }}</td>
+								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
 								<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
 								<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>

@@ -157,7 +157,7 @@
 					<input type="search" class="form-control" ng-model="jobsCtrl.queryData.q" value="" />
 				</div>
 				<div class="col-sm-4 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties">
 						<option value="">-Select Specialty-</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
@@ -171,15 +171,13 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-2 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.state" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.state" ng-change="jobsCtrl.getResults()" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 						<option value="">-State-</option>
-						<option ng-repeat="state in appCtrl.usStates" value="{{state.abbreviation}}">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.source" ng-change="jobsCtrl.getResults()">
+					<select class="form-control" ng-model="jobsCtrl.queryData.source" ng-change="jobsCtrl.getResults()" ng-options="source.id as source.source for source in appCtrl.jobSources">
 						<option value="">-Source-</option>
-						<option ng-repeat="source in appCtrl.jobSources" value="{{source.id}}">{{source.source}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 col-xs-2 form-group">
@@ -238,7 +236,7 @@
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
 								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button ng-show="(jobsCtrl.matchList | filter: {job_id: job.id})[0].matches > 0">{{(jobsCtrl.matchList | filter: {job_id: job.id})[0].matches}} Candidates</button></td>
+								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button ng-show="(jobsCtrl.matchList | filter:{job_id: job.id}:true)[0].matches > 0">{{(jobsCtrl.matchList | filter: {job_id: job.id}:true)[0].matches}} Candidates</button></td>
 								<td ng-really-click="jobsCtrl.archiveJob(job.id)" ng-really-message="Are you sure you want to archive this job?"><button>Archive</button></td>
 							</tr>
 						</tbody>
