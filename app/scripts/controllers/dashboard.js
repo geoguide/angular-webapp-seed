@@ -35,6 +35,17 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function ($scope,
 		});
 	};
 	
+	this.dynamicPopover = {
+		content: 'Hello, World!',
+		templateUrl: 'notes-template.html',
+		title: 'Doctor Notes'
+	};
+	
+	this.setTooltip = function(item){
+		_this.tooltipSales = item.sales_notes;
+		_this.tooltipJob = item.modio_notes;
+	};
+	
 	this.getStats();
 	this.get2Way();
 });

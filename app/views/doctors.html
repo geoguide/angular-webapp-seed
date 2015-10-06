@@ -142,12 +142,10 @@
 							<thead>
 								<tr>
 									<th ng-click="drsCtrl.sortResult('id')">id</th>
-									<th ng-click="drsCtrl.sortResult('first_name')">First</th>
-									<th ng-click="drsCtrl.sortResult('last_name')">Last</th>
+									<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
 									<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
 									<th ng-click="drsCtrl.sortResult('source')">Source</th>
 									<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
-									<th ng-click="drsCtrl.sortResult('title')">Title</th>
 									<th>Registered</th>
 									<th>States</th>
 									<th ng-click="drsCtrl.sortResult('score')">Score</th>
@@ -157,12 +155,10 @@
 							<tbody>
 								<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.last_name }}</td>
+									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.doctor_title }}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
 									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>

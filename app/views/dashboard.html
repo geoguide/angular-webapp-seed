@@ -37,12 +37,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="match in dash.twoWayMatches">
+						<tr ng-repeat="match in dash.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td>{{match.job_id}}</td>
-							<td ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')" class="col-xs-4">{{match.facility_name}} {{JOB_TYPE}}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{match.doctor_id}}')" class="col-xs-3">{{match.first_name}} {{match.last_name}} ({{match.dr_job_type}})</td>
-							<td class="col-xs-2">{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
-							<td class="col-xs-3">{{match.job_specialty}}  in {{match.doctor_desired_state}}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')">{{match.facility_name}} {{JOB_TYPE}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{match.doctor_id}}')">{{match.first_name}} {{match.last_name}} ({{match.dr_job_type}})</td>
+							<td>{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
+							<td>{{match.job_specialty}}  in {{match.doctor_desired_state}}</td>
 							<td>{{match.score}}</td>
 							<td>{{match.account_manager}}</td>
 						</tr>
@@ -79,50 +79,17 @@
 			
 		</section>
 	</div>
-	
-	<!--<section class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{dash.twoWayMatches.length}}</strong> Matches Found</caption>
-				
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
-						<tr>
-							<th ng-click="dash.sortResult('id')">id</th>
-							<th ng-click="dash.sortResult('last_name')">Name</th>
-							<th ng-click="dash.sortResult('title')">Title</th>
-							<th ng-click="dash.sortResult('specialty')">Specialty</th>
-							<th>States</th>
-							<th>Job Type</th>
-							<th ng-click="dash.sortResult('score')">Score</th>
-							<th>Acct. Mgr</th>
-							<th ng-click="dash.sortResult('disposition')">Disposition</th>
-							<th>Source</th>
-							<th>User</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="lead in dash.leads" class="doctor-row search-row" data-lead-id="{{lead.id}}" ng-click="appCtrl.goTo('/lead/{{lead.id}}')">
-							<td>{{ lead.id }}</td>
-							<td>{{ lead.first_name }} {{ lead.last_name }}</td>
-							<td>{{ lead.doctor_title }}</td>
-							<td>{{ lead.specialty_description }} ({{ lead.specialty }})</td>
-							<td>{{ lead.states}}</td>
-							<td>{{ lead.job_type_desired}}</td>
-							<td>{{ lead.score}}</td>
-							<td>{{ lead.account_manager}}</td>
-							<td>{{ appCtrl.dispositionMap[lead.disposition]}}</td>
-							<td>{{ appCtrl.sourceMap[lead.source]}}</td>
-							<td ng-show="lead.doctor_id">
-				            <button ng-click="appCtrl.goTo('/providers/{{lead.doctor_id}}')">View</button>
-							</td>
-							<td ng-hide="lead.doctor_id">
-				            N/A
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+	<script type="text/ng-template" id="notes-template.html">
+		<div class="form-group" ng-show="dash.tooltipSales">
+			<label>Provider Notes</label>
+			<div>{{dash.tooltipSales}}</div>
 		</div>
-	</section>-->
+		<div class="form-group" ng-show="dash.tooltipJob">
+			<label>Job Notes</label>
+			<div>{{dash.tooltipJob}}</div>
+		</div>
+		<div class="form-group" ng-show="!dash.tooltipSales && !dash.tooltipJob">
+			<div>No notes.</div>
+		</div>
+	</script>
 </div>

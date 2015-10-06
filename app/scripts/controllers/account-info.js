@@ -55,7 +55,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
 			_this.drSpecialties = data.specialties;
 			_this.error = false;
-
+			_this.auth_email = (_this.auth_email) ? _this.auth_email : _this.doctorData.email;
 		}).error(function(error){
 			_this.error = true;
 			_this.doctorData = null;

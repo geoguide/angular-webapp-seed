@@ -25,25 +25,44 @@
 
 <div ng-hide="ai.loading || ai.error" class="ng-hide">
 
-	<section id="authentication-section" ng-show="ai.doctorData.user_id">
-		<div class="row"><div class="col-md-12"><h2>Authentication</h2></div></div>
-		<div class="row">
-			<div class="form-group col-md-4">
-				<label for="email">Authenication Email</label>
-				<div class="input-group">
-					<input type="email" class="form-control" id="email" ng-model="ai.doctorData.auth_email">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.updateAuthEmail()">Update Email</button>
-					</span>
+	<section id="authentication-section">
+		<div ng-show="ai.doctorData.user_id">
+			<div class="row"><div class="col-md-12"><h2>Authentication</h2></div></div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label for="email">Authentication Email</label>
+					<div class="input-group">
+						<input type="email" class="form-control" id="email" ng-model="ai.doctorData.auth_email">
+						<span class="input-group-btn">
+							<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.updateAuthEmail()">Update Email</button>
+						</span>
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="password">Password</label>
+					<div class="input-group">
+						<input type="password" class="form-control" ng-model="ai.newPassword" minlength="8" />
+						<span class="input-group-btn">
+							<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
+						</span>
+					</div>
 				</div>
 			</div>
-			<div class="form-group col-md-4">
-				<label for="password">Password</label>
-				<div class="input-group">
-					<input type="password" class="form-control" ng-model="ai.newPassword" minlength="8" />
-					<span class="input-group-btn">
-						<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
-					</span>
+		</div>
+		<div ng-show="!ai.doctorData.user_id">
+			<div class="row"><div class="col-md-12"><h2>Create Authentication</h2></div></div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label>Authentication Email</label>
+					<input type="email" class="form-control" id="email" ng-model="ai.auth_email">
+				</div>
+				<div class="form-group col-md-4">
+					<label>Password</label>
+					<input type="password" class="form-control" ng-model="ai.password" minlength="8" />
+				</div>
+				<div class="col-md-4 form-group">
+					<br />
+					<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.createAuth()">Update Email</button>
 				</div>
 			</div>
 		</div>
