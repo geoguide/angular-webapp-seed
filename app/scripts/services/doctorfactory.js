@@ -26,8 +26,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				return response.data;
 			});
 		}, getDoctor: function(doctorId){
-			return $http.get(API_URL+'/admin/doctors/'+doctorId).then(function(response) {
+			return $http.get(API_URL+'/admin/doctors/'+doctorId).success(function(response) {
 				return response.data;
+			}).error(function(error,status){
+				return {status: status,error: error};
 			});
 		}, getCoordinator: function(idId){
 			return $http.get(API_URL+'/admin/coordinators/'+idId).then(function(response) {
@@ -47,6 +49,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			});
 		}, saveDoctor: function(formData){
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
+				return response.data;
+			});
+		}, saveUser: function(formData){
+			return $http.put(API_URL+'/admin/users',formData).then(function(response) {
 				return response.data;
 			});
 		}, saveCoordinator: function(formData){
@@ -100,12 +106,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
-		}, updatePassword: function(doctorId, newPass){
-			$log.info('changing '+doctorId+'s password to '+newPass);
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/change-password',{password: newPass}).then(function(response) {
+		}, updatePassword: function(userIdIn, newPass){
+			return $http.post(API_URL+'/admin/users/'+userIdIn+'/change-password',{password: newPass}).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
+				return error;
+				
 			});
 		}, getStates: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/states').then(function(response) {

@@ -15,6 +15,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		//$scope.currentUser = AuthService.currentUser();
 	});
 
+	this.appLoading = true;
 	this.today = new Date();
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
@@ -301,16 +302,14 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			for(var s=0;s<_this.specialties.length;s++){
 				_this.specialtiesMap[_this.specialties[s].id] = _this.specialties[s].specialty;
 			}
-		});
-
-		experienceFactory.getMedicalSchools().then(function(data){
+			return experienceFactory.getMedicalSchools();
+		}).then(function(data){
 			_this.medicalSchools = data;
-		},function(error){
-			$log.error(error);
-		});
-
-		specialtyFactory.getABMSCertifications().then(function(data){
+			
+			return specialtyFactory.getABMSCertifications();
+		}).then(function(data){
 			_this.abmsCertifications = data;
+			_this.appLoading = true;
 		},function(error){
 			$log.error(error);
 		});

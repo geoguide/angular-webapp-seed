@@ -16,10 +16,11 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 			deferred.notify('just trying to let you know i am delegating');
 		},0);
 		if(refreshToken){
-			$http.post(API_URL+'/admin/delegate', { refresh_token: refreshToken }).success(function(data, status, headers, config){
-				localStorageService.set('adminAuthToken', data.token);
-				localStorageService.set('refreshToken', data.refresh_token);
-				deferred.resolve(data);
+			$http.post(API_URL+'/admin/delegate', { refresh_token: refreshToken }).success(function(response, status, headers, config){
+				
+				localStorageService.set('adminAuthToken', response.data.token);
+				localStorageService.set('refreshToken', response.data.refresh_token);
+				deferred.resolve(response.data);
 			}).error(function(){
 				deferred.reject('error');
 			});

@@ -13,6 +13,8 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
 	this.memberships = [];
+	this.loading = true;
+	this.error = false;
 	
 	this.jobStatuses = [
 		{
@@ -64,13 +66,14 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	};
 
 	this.get = function(coordId){
-
+		_this.loading = true;
 		var coordinatorData = doctorFactory.getCoordinator(coordId);
-
 		coordinatorData.then(function(data){
+			_this.loading = false;
 			_this.coordinatorData = data;
 			_this.error = false;
 		},function(error){
+			_this.loading = false;
 			_this.error = true;
 			_this.coordinatorData = null;
 		});

@@ -40,6 +40,9 @@
 			<h4>Coordinators</h4>
 		</div>
 	</section>
+	
+	
+	
 	<section id="doctor-search-filters">
 		<form ng-submit="coord.getResults()">
 			<div class="row">
@@ -55,42 +58,58 @@
 			</div>
 		</form>
 	</section>
-	<div slider ng-model="test.single" start=1 end=10></div>
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
+	
+	<div class="text-center row" ng-show="coord.loading">
+		<div class="col-md-12 form-group">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{coord.totalCoordinators}}</strong> Coordinators Found</caption>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
-						<tr>
-							<th ng-click="coord.sortResult('id')">id</th>
-							<th ng-click="coord.sortResult('first_name')">First</th>
-							<th ng-click="coord.sortResult('last_name')">Last</th>
-							<th ng-click="coord.sortResult('email')">Email</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="appCtrl.goTo('/coordinator/{{doc.id}}')">
-							<td>{{ doc.id }}</td>
-							<td>{{ doc.first_name }}</td>
-							<td>{{ doc.last_name }}</td>
-							<td>{{ doc.email }}</td>
-						</tr>
-					</tbody>
-				</table>
+	</div>
+	
+	<div class="text-center row ng-hide" ng-hide="coord.totalCoordinators > 0 || coord.loading">
+		<div class="col-md-12 form-group">
+		  <h4>No Coordinators meet your search.</h4>
+		</div>
+	</div>
+	
+	<section id="search-results" ng-hide="coord.loading || coord.totalCoordinators == 0" class="ng-hide">
+		<div class="row">
+			<div class="col-sm-12">
+				<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
 			</div>
 		</div>
-	</section>
-	
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
+		
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong>{{coord.totalCoordinators}}</strong> Coordinators Found</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th ng-click="coord.sortResult('id')">id</th>
+								<th ng-click="coord.sortResult('first_name')">First</th>
+								<th ng-click="coord.sortResult('last_name')">Last</th>
+								<th ng-click="coord.sortResult('email')">Email</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="appCtrl.goTo('/coordinator/{{doc.id}}')">
+								<td>{{ doc.id }}</td>
+								<td>{{ doc.first_name }}</td>
+								<td>{{ doc.last_name }}</td>
+								<td>{{ doc.email }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<pagination total-items="coord.totalCoordinators" ng-model="coord.currentPage" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="25"></pagination>
+			</div>
 		</div>
 	</section>
 	

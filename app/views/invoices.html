@@ -19,7 +19,7 @@
 				<tbody>
 					<tr ng-repeat="i in invoice.invoices">
 						<td>{{i.report_id}}</td>
-						<td>{{i.doctor_name}}</td>
+						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i.doctor_id)">{{i.doctor_name}}</td>
 						<td>${{i.total_amount}}</td>
 						<td>{{i.date_updated}}</td>
 						<td class="col-md-3 col-sm-2">{{i.description}}</td>

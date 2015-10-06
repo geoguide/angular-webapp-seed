@@ -7,7 +7,7 @@
  * # InvoicesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,invoiceFactory,$log,toasty) {
+angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,invoiceFactory,doctorFactory,ENV,$window,$log,toasty) {
 	var _this = this;
    this.statusList = [
 		{ id: 0, name: 'Draft'},
@@ -23,6 +23,25 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 			_this.invoices = result;
 		}, function(error){
 			$log.error(error);
+		});
+	};
+	
+	this.actAs = function(docIdIn){
+		doctorFactory.actAs(docIdIn).then(function(response){
+			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
+			toasty.success({
+				title: 'Success!',
+				msg: 'Doctor Acted As.',
+				showClose: true,
+				clickToClose: true
+			});
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
 		});
 	};
 	

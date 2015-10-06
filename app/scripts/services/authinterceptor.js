@@ -7,7 +7,7 @@
  * # AuthInterceptor
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $location, localStorageService,$log) {
+angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $location, localStorageService) {
 	return {
 		//Look for the token and if we have it attach it to every request
 		request: function(config) {

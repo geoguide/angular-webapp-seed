@@ -17,15 +17,21 @@
 <div ng-repeat="t in track.trackingData">
 	<h4>Campaign: {{t.campaign}}</h4>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
+			<label>Date Created:</label>
+			{{t.date_created}}
+		</div>
+		<div class="col-md-6">
 			<label>IP Address:</label>
 			{{t.ip_address}}
 		</div>
-		<div class="col-md-4">
+	</div>
+	<div class="row">
+		<div class="col-md-6">
 			<label>Source:</label>
 			{{t.source}}
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<label>Campaign:</label>
 			{{t.campaign}}
 		</div>
@@ -41,15 +47,11 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-3">
-			<label>Date Created:</label>
-			{{t.date_created}}
-		</div>
-		<div class="col-md-3">
-			<label>Variant:</label>
+		<div class="col-md-6">
+			<label>Page Variant:</label>
 			{{t.variant}}
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-6">
 			<label>Page ID:</label>
 			{{t.page_uuid}}
 		</div>

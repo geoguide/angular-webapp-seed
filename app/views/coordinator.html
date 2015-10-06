@@ -1,7 +1,14 @@
 <section id="coordinator-info">
 	
-	<h3 id="no-data" ng-show="!coord.coordinatorData" class="ng-cloak">Coordinator #{{coord.coordId}} Does Not Exist</h3>
-	<div ng-show="coord.coordinatorData">
+	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak ng-hide">Coordinator #{{coord.coordId}} Does Not Exist</h3>
+	
+	<div class="text-center row" ng-show="coord.loading">
+		<div class="col-md-12 form-group">
+		  <i class="fa fa-refresh fa-spin fa-4x"></i>
+		</div>
+	</div>
+	
+	<div ng-hide="coord.loading || coord.error" class="ng-hide">
 		<h3>Coordinator: <strong>{{coord.coordinatorData.first_name}} {{coord.coordinatorData.last_name}}</strong></h3>
 		<hr />
 		<form id="coordinator-form" ng-submit="coord.save()" ng-show="coord.coordinatorData" class="ng-cloak">
@@ -73,24 +80,26 @@
 		</form>
 	</div>
 	
+	<!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
+	<div id="membership-section">
+		<accordion close-others="false">
+			<accordion-group is-open="true">
+				<accordion-heading>Memberships<span class="badge pull-right">{{(coord.memberships).length}}</span></accordion-heading>
+				<article ng-repeat="(key,obj) in coord.memberships" >
+					<h4>{{obj.facility_name}} ({{coord.memberStatuses[obj.status].status}})</h4>
+					<h5>{{obj.department}}</h5>
+					
+					<a class="btn btn-info" ng-click="coord.openMembershipModal('membership-modal',obj)">Edit</a>
+					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
+					<hr />
+				</article>
+			</accordion-group>
+		</accordion>
+	</div>
+
+	
 </section>
 
-<!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
-<section id="membership-section">
-	<accordion close-others="false">
-		<accordion-group is-open="true">
-			<accordion-heading>Memberships<span class="badge pull-right">{{(coord.memberships).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in coord.memberships" >
-				<h4>{{obj.facility_name}} ({{coord.memberStatuses[obj.status].status}})</h4>
-				<h5>{{obj.department}}</h5>
-				
-				<a class="btn btn-info" ng-click="coord.openMembershipModal('membership-modal',obj)">Edit</a>
-				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
-				<hr />
-			</article>
-		</accordion-group>
-	</accordion>
-</section>
 
 <div class="row">
 	<div class="col-xs-12 text-right">

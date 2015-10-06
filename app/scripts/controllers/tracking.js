@@ -7,7 +7,7 @@
  * # TrackingCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('TrackingCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, offerFactory) {
+angular.module('modioAdminPortal').controller('TrackingCtrl', function ($routeParams, doctorFactory, toasty, $log, $modal) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;

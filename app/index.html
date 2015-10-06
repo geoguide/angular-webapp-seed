@@ -56,21 +56,18 @@
 
 						<div class="col-sm-6"><a class="navbar-brand" href="/">
 							<img src="images/modio-logotype.svg" style="height: 80%;width:auto;margin: 4% 0">
-
-							<!--<img src="images/logo_white.png" style="height:100%" alt="ModioAdminPortal" />-->
 						</a></div>
 
-						<div class="col-sm-6 text-right ng-cloak">
+						<div class="col-sm-6 text-right ng-hide" ng-hide="!appCtrl.appLoading">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
 								<li class="dropdown" dropdown>
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle ng-cloak" dropdown-toggle>{{appCtrl.userInfo.email}} <span class="caret"></span></a>
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle>{{appCtrl.userInfo.email}} <span class="caret"></span></a>
 									<ul role="menu" class="dropdown-menu">
-										<!--<li class="dropdown-header">Actions</li>
-										<li><a>Action</a></li>-->
+										<!--<li class="dropdown-header">Actions</li>-->
 										<li><a ng-href="#/my-bookmarks">View Bookmarks</a></li>
 										<li><a ng-href="#/invoices">View Invoices</a></li>
 										<li><a ng-href="#/change-password">Change Password</a></li>
-										<!--<li class="divider"></li>-->
+										<li class="divider"></li>
 										<li><a ng-click="appCtrl.logout()">Sign Out</a></li>
 									</ul>
 								</li>

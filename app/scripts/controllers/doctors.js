@@ -28,7 +28,6 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.matchList = [];
 	
 	this.queryData = doctorFactory.queryData;
-	console.log(_this.queryData);
 	this.queryData.score_low = 0;
 	this.queryData.score_high = 100;
 	

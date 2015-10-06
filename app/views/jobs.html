@@ -150,6 +150,8 @@
 		</div>
 	</div>
 	
+	
+	
 	<section>
 		<form ng-submit="jobsCtrl.getResults()">
 			<div class="row">
@@ -196,18 +198,26 @@
 			
 		</form>
 	</section>
+	
 	<div class="text-center row" ng-show="jobsCtrl.loading">
 		<div class="col-md-12 form-group">
 		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
 	</div>
-	<div ng-show="!jobsCtrl.loading">
-		<section class="row">
+	
+	<div class="text-center row ng-hide" ng-hide="jobsCtrl.totalJobs > 0 || jobsCtrl.loading">
+		<div class="col-md-12 form-group">
+		  <h4>No Jobs meet your search.</h4>
+		</div>
+	</div>
+	
+	<section ng-hide="jobsCtrl.loading || jobsCtrl.error || jobsCtrl.totalJobs == 0" class="ng-hide">
+		<div class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 			</div>
-		</section>
-		<section class="row">
+		</div>
+		<div class="row">
 			<div class="col-sm-12">
 				<div class="table-responsive">
 					<caption class="ng-cloak"><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
@@ -243,13 +253,11 @@
 					</table>
 				</div>
 			</div>
-		</section>
+		</div>
 	
-		<section class="row">
+		<div class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="25"></pagination>
+				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 			</div>
-		</section>
-	</div>
-
-</div>
+		</div>
+	</section>

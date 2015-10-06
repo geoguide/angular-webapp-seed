@@ -12,230 +12,268 @@
 		</ul>
 	</div>
 </div>
+
+
 <hr />
-<div class="row">
-	<div class="form-group col-md-4">
-		<label for="email">Email Address</label>
-		<div class="input-group">
-			<input type="email" class="form-control" id="email" ng-model="ai.doctorData.email">
-			<span class="input-group-btn">
-				<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.updateEmail()">Update Email</button>
-			</span>
-		</div>
-	</div>
-	<div class="form-group col-md-4">
-		<label for="password">Password</label>
-		<div class="input-group">
-			<input type="password" class="form-control" ng-model="ai.newPassword" minlength="8" />
-			<span class="input-group-btn">
-				<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
-			</span>
-		</div>
-	</div>
-	
-	<div class="form-group col-md-4">
-		<label for="password">Account Manager</label>
-		<div class="input-group">
-			<select class="form-control" ng-model="ai.account_manager">
-				<option value="">Unassigned</option>
-				<option value="Tom Clifford">Tom Clifford </option>
-				<option value="Gary Goldman">Gary Goldman </option>
-				<option value="James Oleksa">James Oleksa </option>
-				<option value="John Bou">John Bou </option>
-				<option value="Kirk Heath">Kirk Heath </option>
-				<option value="Tom Saulnier">Tom Saulnier </option>
-			</select>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<h2>States Subscribed</h2>	
-	</div>
-	<div class="col-md-2" ng-repeat="(key, value) in appCtrl.usStates">
-		<label>{{value.abbreviation}}</label>
-		<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<h2>Specialties</h2>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-3">
-		<label>Specialty</label>
-	</div>
-	<div class="col-md-2">
-		<label>Actions</label>
-	</div>
-</div>
-<div class="row" ng-repeat="dspec in ai.specialtyData track by $index">
-	<form novalidate ng-submit="ai.submitSpecialty(dspec)">
-		<div class="col-md-3 form-group">
-			<select class="form-control" ng-model="dspec.specialty_id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ><option value="">-- None --</option></select>
-		</div>
-		<div class="col-md-4 form-group">
-			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id"><i class="fa fa-trash-o"></i> Delete</button>
-			<button class="btn btn-primary">Submit</button>
-		</div>
-	</form>
-</div>
-<br />
-<div class="row">
-	<div class="col-md-12 text-right form-group">
-		<button class="btn btn-success" ng-click="ai.addSpecialty()"><i class="fa fa-plus"></i> Add Specialty</button>
+<div class="text-center row" ng-show="ai.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
 	</div>
 </div>
 
-<!-- Board Certifications -->
-<div class="row">
-	<div class="col-md-12">
-		<h2>ABMS Certifications</h2>	
-	</div>
-</div>
-<div ng-repeat="bc in ai.abmsCertifications track by $index">
-	<form novalidate ng-submit="ai.submitABMSCertifications(bc)">
-		<div class="row">
-			<div class="col-md-4 form-group">
-				<label>Board</label>
-				<select class="form-control" ng-model="bc.abms" ng-options="board.abms as board.abms for board in appCtrl.abmsCertifications">
-					<option value="">-- Select Board --</option>
-				</select>
-			</div>
-			<div class="col-md-4 form-group">
-				<label>Specialty</label>
-				<select class="form-control" ng-model="bc.specialty_id" ng-options="cert.id as cert.specialty for cert in appCtrl.abmsCertifications | filter: {abms : bc.abms}">
-					 
-					<option value="">-- Select Specialty --</option>
-					
-					<option ng-repeat="" value="{{board.id}}">{{board.specialty}}</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
-				<label>Issue Date</label>
-				<div class="input-group">
-						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.issue_date" is-open="ai.opened['board_cert_expire_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_expire_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
-						</span>
-					</div>
-			</div>
-			<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
-				<label>Expiration Date</label>
-				<div class="input-group">
-						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.expiration_date" is-open="ai.opened['board_cert_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
-						</span>
-					</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 form-group text-right" ng-show="bc.abms && bc.specialty_id">
-				<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteABMSCertification(bc.id)" ng-show="bc.id"><i class="fa fa-trash-o"></i>
-	 Delete</button>
-				<button class="btn btn-primary" role="submit"><i class="fa fa-check"></i> Save</button>
-			</div>
-		</div>
-	</form>
-	<hr />
-</div>
-<div class="row">
-	<div class="col-md-12 text-right form-group">
-		<button class="btn btn-success" ng-click="ai.addABMSCertification()"><i class="fa fa-plus"></i>
- Add ABMS Certification</button>
-	</div>
-</div>
 
-<!-- Additional Certifications -->
-<div class="row">
-	<div class="col-md-12">
-		<h2>Additional Certifications</h2>	
-	</div>
-</div>
-<div class="row" ng-repeat="dcert in ai.additionalCerts track by $index">
-	<form novalidate ng-submit="ai.submitAdditionalCertification(dcert)">
-		<div class="col-md-4">
-			<select class="form-control" ng-model="dcert.type_id" ng-options="cert.id as cert.name for cert in ai.additional_certification_types" >
-				<option value="">-- None --</option>
-			</select>
-		</div>
-		<div class="col-md-4">
-			<div class="input-group">
-					<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+
+<div ng-hide="ai.loading || ai.error" class="ng-hide">
+
+	<section id="authentication-section" ng-show="ai.doctorData.user_id">
+		<div class="row"><div class="col-md-12"><h2>Authentication</h2></div></div>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="email">Authenication Email</label>
+				<div class="input-group">
+					<input type="email" class="form-control" id="email" ng-model="ai.doctorData.auth_email">
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-default" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+						<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.updateAuthEmail()">Update Email</button>
 					</span>
 				</div>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="password">Password</label>
+				<div class="input-group">
+					<input type="password" class="form-control" ng-model="ai.newPassword" minlength="8" />
+					<span class="input-group-btn">
+						<button class="btn btn-primary" ng-really-message="Are you sure you want to change the password?" ng-really-click="ai.updatePassword()">Change Password</button>
+					</span>
+				</div>
+			</div>
 		</div>
-		<div class="col-md-4 form-group text-right">
-			<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id"><i class="fa fa-trash-o"></i>
- Delete Certification</button>
-			<button class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+	</section>
+	
+	<section id="account-section">
+		<div class="row"><div class="col-md-12"><h2>Personal Info</h2></div></div>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="email">Email Address</label>
+				<div class="input-group">
+					<input type="email" class="form-control" id="email" ng-model="ai.doctorData.email">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" ng-really-message="Are you sure you want to change the email?" ng-really-click="ai.updateEmail()">Update Email</button>
+					</span>
+				</div>
+			</div>
+		
+			
+			<div class="form-group col-md-4">
+				<label for="password">Account Manager</label>
+				<div>
+					<select class="form-control" ng-model="ai.account_manager">
+						<option value="">Unassigned</option>
+						<option value="Tom Clifford">Tom Clifford </option>
+						<option value="Gary Goldman">Gary Goldman </option>
+						<option value="James Oleksa">James Oleksa </option>
+						<option value="John Bou">John Bou </option>
+						<option value="Kirk Heath">Kirk Heath </option>
+						<option value="Tom Saulnier">Tom Saulnier </option>
+					</select>
+				</div>
+			</div>
 		</div>
-	</form>
-</div>
-<div class="row">
-	<div class="col-md-12 text-right form-group">
-		<button class="btn btn-success" ng-click="ai.addCertification()"><i class="fa fa-plus"></i>
- Add Additional Certification</button>
-	</div>
-</div>
-
-<!-- Job Offers -->
-<div class="row">
-	<div class="col-md-12">
-		<h2>Job Offers</h2>
-		<article ng-repeat="(key,obj) in ai.offers" class="row">
-			<div class="col-md-6"><h4>{{obj.job_title}} ({{obj.status}})</h4></div>
-			<div class="col-md-6">
-				<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/offers/{{obj.id}}')">Edit</a>
-				<button class="btn btn-primary" ng-click="ai.acceptOffer(obj.id)">Accept</button>
-				<button class="btn btn-danger" ng-click="ai.acceptOffer(obj.id)">Reject</button></div>
-			<hr />
-		</article>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<h2>New Job Offer</h2>
-	</div>
-</div>
-
-<form id="job-offer-form" name="ai.edit_offer_form" ng-submit="ai.submitOffer()" ng-show="ai.newOffer" class="ng-cloak" novalidate>
+	</section>
+	
+	
+	
+	
 	<div class="row">
-		<div class="col-xs-3 form-group">
-			<label>Job</label>
-			<select class="form-control" ng-model="ai.newOffer.job_id" ng-options="job.id as job.job_title for job in ai.jobs"><option value="">-- Choose Job --</option></select>
+		<div class="col-md-12">
+			<h2>States Subscribed</h2>	
 		</div>
-		<div class="col-xs-3 form-group">
-			<label>Visible</label>
-			<select class="form-control" ng-model="ai.newOffer.visible"  ng-required="true">
-				<option value="1">Visible</option>
-				<option value="0">Archived</option>
-			</select>
+		<div class="col-md-2" ng-repeat="(key, value) in appCtrl.usStates">
+			<label>{{value.abbreviation}}</label>
+			<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
 		</div>
 	</div>
-
-	<div class="row"><div class="col-sm-12"><hr /></div></div>
-
 	<div class="row">
-		<div class="col-sm-12">
-			<h4>Rates</h4>
+		<div class="col-md-12">
+			<h2>Specialties</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<label>Specialty</label>
+		</div>
+		<div class="col-md-2">
+			<label>Actions</label>
 		</div>
 	</div>
 	
+	
+	<div class="row" ng-repeat="dspec in ai.specialtyData track by $index">
+		<form novalidate ng-submit="ai.submitSpecialty(dspec)">
+			<div class="col-md-3 form-group">
+				<select class="form-control" ng-model="dspec.specialty_id" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties" ><option value="">-- None --</option></select>
+			</div>
+			<div class="col-md-4 form-group">
+				<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteSpecialty(dspec.id)" ng-show="dspec.id"><i class="fa fa-trash-o"></i> Delete</button>
+				<button class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+	<br />
 	<div class="row">
-		<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
-			<label>{{rate.name}}</label>
-			<input type="number" class="form-control" ng-model="ai.newOffer[rate.field]" />
-		</div>	
+		<div class="col-md-12 text-right form-group">
+			<button class="btn btn-success" ng-click="ai.addSpecialty()"><i class="fa fa-plus"></i> Add Specialty</button>
+		</div>
 	</div>
-	<div class="row"><div class="col-sm-12"><hr /></div></div>
-	<div class="modal-footer"> 
-		<button class="btn btn-primary" role="submit" ng-disabled="new_offer_form.$invalid">Submit</button> 
+	
+	<!-- Board Certifications -->
+	<div class="row">
+		<div class="col-md-12">
+			<h2>ABMS Certifications</h2>	
+		</div>
 	</div>
-</form>
+	<div ng-repeat="bc in ai.abmsCertifications track by $index">
+		<form novalidate ng-submit="ai.submitABMSCertifications(bc)">
+			<div class="row">
+				<div class="col-md-4 form-group">
+					<label>Board</label>
+					<select class="form-control" ng-model="bc.abms" ng-options="board.abms as board.abms for board in appCtrl.abmsCertifications">
+						<option value="">-- Select Board --</option>
+					</select>
+				</div>
+				<div class="col-md-4 form-group">
+					<label>Specialty</label>
+					<select class="form-control" ng-model="bc.specialty_id" ng-options="cert.id as cert.specialty for cert in appCtrl.abmsCertifications | filter: {abms : bc.abms}">
+						 
+						<option value="">-- Select Specialty --</option>
+						
+						<option ng-repeat="" value="{{board.id}}">{{board.specialty}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
+					<label>Issue Date</label>
+					<div class="input-group">
+							<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.issue_date" is-open="ai.opened['board_cert_expire_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_expire_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+							</span>
+						</div>
+				</div>
+				<div class="col-md-4 form-group" ng-show="bc.specialty_id && bc.abms">
+					<label>Expiration Date</label>
+					<div class="input-group">
+							<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="bc.expiration_date" is-open="ai.opened['board_cert_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="ai.open($event,'board_cert_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+							</span>
+						</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 form-group text-right" ng-show="bc.abms && bc.specialty_id">
+					<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteABMSCertification(bc.id)" ng-show="bc.id"><i class="fa fa-trash-o"></i>
+		 Delete</button>
+					<button class="btn btn-primary" role="submit"><i class="fa fa-check"></i> Save</button>
+				</div>
+			</div>
+		</form>
+		<hr />
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-right form-group">
+			<button class="btn btn-success" ng-click="ai.addABMSCertification()"><i class="fa fa-plus"></i>
+	 Add ABMS Certification</button>
+		</div>
+	</div>
+	
+	<!-- Additional Certifications -->
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Additional Certifications</h2>	
+		</div>
+	</div>
+	<div class="row" ng-repeat="dcert in ai.additionalCerts track by $index">
+		<form novalidate ng-submit="ai.submitAdditionalCertification(dcert)">
+			<div class="col-md-4">
+				<select class="form-control" ng-model="dcert.type_id" ng-options="cert.id as cert.name for cert in ai.additional_certification_types" >
+					<option value="">-- None --</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<div class="input-group">
+						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+						</span>
+					</div>
+			</div>
+			<div class="col-md-4 form-group text-right">
+				<button class="btn btn-danger" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id"><i class="fa fa-trash-o"></i>
+	 Delete Certification</button>
+				<button class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-right form-group">
+			<button class="btn btn-success" ng-click="ai.addCertification()"><i class="fa fa-plus"></i>
+	 Add Additional Certification</button>
+		</div>
+	</div>
+	
+	<!-- Job Offers -->
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Job Offers</h2>
+			<article ng-repeat="(key,obj) in ai.offers" class="row">
+				<div class="col-md-6"><h4>{{obj.job_title}} ({{obj.status}})</h4></div>
+				<div class="col-md-6">
+					<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/offers/{{obj.id}}')">Edit</a>
+					<button class="btn btn-primary" ng-click="ai.acceptOffer(obj.id)">Accept</button>
+					<button class="btn btn-danger" ng-click="ai.acceptOffer(obj.id)">Reject</button></div>
+				<hr />
+			</article>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h2>New Job Offer</h2>
+		</div>
+	</div>
+	
+	<form id="job-offer-form" name="ai.edit_offer_form" ng-submit="ai.submitOffer()" ng-show="ai.newOffer" class="ng-cloak" novalidate>
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>Job</label>
+				<select class="form-control" ng-model="ai.newOffer.job_id" ng-options="job.id as job.job_title for job in ai.jobs"><option value="">-- Choose Job --</option></select>
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Visible</label>
+				<select class="form-control" ng-model="ai.newOffer.visible"  ng-required="true">
+					<option value="1">Visible</option>
+					<option value="0">Archived</option>
+				</select>
+			</div>
+		</div>
+	
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+	
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Rates</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
+				<label>{{rate.name}}</label>
+				<input type="number" class="form-control" ng-model="ai.newOffer[rate.field]" />
+			</div>	
+		</div>
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+		<div class="modal-footer"> 
+			<button class="btn btn-primary" role="submit" ng-disabled="new_offer_form.$invalid">Submit</button> 
+		</div>
+	</form>
+</div>
