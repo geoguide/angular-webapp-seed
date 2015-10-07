@@ -7,7 +7,7 @@
  * # DoctorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,API_URL,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log,localStorageService) {
 	var _this = this;
 
 	this.doctors = [];
@@ -30,6 +30,8 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.queryData = doctorFactory.queryData;
 	this.queryData.score_low = 0;
 	this.queryData.score_high = 100;
+	
+	this.csvEndpoint = API_URL+'/public/download-users-csv?token='+localStorageService.get('adminAuthToken');
 	
 	/* Private Functions */
 	this.getResults = function() {
@@ -96,6 +98,8 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,$m
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};
+	
+	
 	_this.getResults();
 	
 	doctorFactory.getJobMatchTotals().then(function(result){

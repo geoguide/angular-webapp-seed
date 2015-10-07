@@ -199,6 +199,10 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.get(API_URL+'/admin/doctors/match-count').then(function(response) {
 				return response.data;
 			});
+		}, submitAuthInfo: function(doctorIdIn,authInfo){
+			return $http.post(API_URL+'/admin/doctors/'+doctorIdIn+'/auth',authInfo).then(function(response) {
+				return response.data;
+			});
 		}
 	};
 });

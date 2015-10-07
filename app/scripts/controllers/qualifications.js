@@ -11,6 +11,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.loading = true;
 
 	this.additional_certification_types = [
 		{ id: 0, name: 'ATLS/ACLS'},
@@ -50,25 +51,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	this.facilityAffiliations = [];
 	this.medicalLicenses = [];
 	this.insurance = [];
-
-
-	var loadQualifications = function(){
-		qualificationFactory.getClinicalEvaluations(_this.doctorId).then(function(data){
-			_this.clinicalEvaluations = data;
-			return qualificationFactory.getFacilityAffiliations(_this.doctorId);
-		}).then(function(data){
-			_this.facilityAffiliations = data;
-			return qualificationFactory.getMedicalLicenses(_this.doctorId);
-		}).then(function(data){
-			_this.medicalLicenses = data;
-			return qualificationFactory.getInsurance(_this.doctorId);
-		}).then(function(data){
-			_this.insurance = data.data;	
-		},function(error){
-			$log.error(error);
-		});
-	};
-
+	
 	/* Modals */
 
 	this.openClinicalEvaluationModal = function(modalId,dataIn){
@@ -93,7 +76,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 		_this.modalInstance.result.then(function (data) {
 			qualificationFactory.submitClinicalEvaluation(_this.doctorId,data).then(function(){
-				loadQualifications();
+				init();
 			},function(error){
 				$log.error(error);
 			});
@@ -125,7 +108,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 		_this.modalInstance.result.then(function (data) {
 			qualificationFactory.submitInsurance(_this.doctorId,data).then(function(){
-				loadQualifications();
+				init();
 			},function(error){
 				$log.error(error);
 			});
@@ -158,7 +141,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 		_this.modalInstance.result.then(function (data) {
 			qualificationFactory.submitMedicalLicense(_this.doctorId,data).then(function(){
-				loadQualifications();
+				init();
 			},function(error){
 				$log.error(error);
 			});
@@ -190,7 +173,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 		_this.modalInstance.result.then(function (data) {
 			qualificationFactory.submitFacilityAffiliation(_this.doctorId,data).then(function(){
-				loadQualifications();
+				init();
 			},function(error){
 				$log.error(error);
 			});
@@ -210,7 +193,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 				showClose: true,
 				clickToClose: true
 			});
-			loadQualifications();
+			init();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -229,7 +212,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 				showClose: true,
 				clickToClose: true
 			});
-			loadQualifications();
+			init();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -248,7 +231,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 				showClose: true,
 				clickToClose: true
 			});
-			loadQualifications();
+			init();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -267,7 +250,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 				showClose: true,
 				clickToClose: true
 			});
-			loadQualifications();
+			init();
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -290,15 +273,28 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 	};
 
 	var init = function(){
-		loadQualifications();
-		specialtyFactory.getSpecialties().then(function(data){
+		_this.loading = true;
+		qualificationFactory.getClinicalEvaluations(_this.doctorId).then(function(data){
+			_this.clinicalEvaluations = data;
+			return qualificationFactory.getFacilityAffiliations(_this.doctorId);
+		}).then(function(data){
+			_this.facilityAffiliations = data;
+			return qualificationFactory.getMedicalLicenses(_this.doctorId);
+		}).then(function(data){
+			_this.medicalLicenses = data;
+			return qualificationFactory.getInsurance(_this.doctorId);
+		}).then(function(data){
+			_this.insurance = data.data;	
+			return specialtyFactory.getSpecialties();
+		}).then(function(data){
 			_this.specialties = data;
-		});
-		doctorFactory.getTracking(_this.doctorId).then(function(result){
+			return doctorFactory.getTracking(_this.doctorId);
+		}).then(function(result){
 			_this.trackingData = result;
-		});
-		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			return doctorFactory.getJobMatches(_this.doctorId);
+		}).then(function(result){
 			_this.matches = result;
+			_this.loading = false;
 		});
 	};
 

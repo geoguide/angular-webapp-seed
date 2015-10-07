@@ -82,6 +82,7 @@ angular.module('modioAdminPortal')
 				showClose: true,
 				clickToClose: true
 			});
+			_this.doctorData = null;
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -91,6 +92,7 @@ angular.module('modioAdminPortal')
 			});
 		});
 	};
+	
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');

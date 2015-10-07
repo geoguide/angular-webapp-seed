@@ -13,6 +13,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.jobId = $routeParams.id;
 	this.jobData.tags = [];
 	this.tags = [];
+	_this.loading = true;
 
 	//Date picker
 	_this.opened = { 'start': false, 'end': false };
@@ -104,6 +105,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			_this.bookmarked = data.bookmarked;
 			_this.jobData = data;
 			_this.error = false;
+			_this.loading = false;
 		},function(error){
 			_this.error = true;
 			_this.jobData = null;

@@ -1,45 +1,49 @@
-<div class="row">
-	<div class="col-xs-12"><h4>Candidates for {{jcc.jobData.job_title}} @ {{jcc.jobData.facility_name}} ({{jcc.jobData.id}})</h4></div>
-	<div id="no-data" ng-show="jcc.error" class="ng-cloak col-xs-12">Job Not Found</div>
-	
+<div class="row" ng-show="jcc.error">
+	<div id="no-data" class="col-xs-12">Job Not Found</div>	
 </div>
-<div class="row">
-	<div class="col-xs-12">
-		<ul class="nav nav-pills">
-		   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id)">General Info</a></li>
-		   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/files')">Files</a></li>
-		   <li role="presentation" class="active"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/candidates')">Candidates</a></li>
-		</ul>
+
+<div class="text-center row" ng-show="jcc.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 	</div>
 </div>
-<hr />
-<section class="row">
-	<div class="col-sm-12">
-		<div class="table-responsive">
-			<caption class="ng-cloak"><strong>{{jcc.candidates.length}}</strong> Candidates Found</caption>
-			<table class="table table-condensed table-striped table-hover">
-				<thead>
-					<tr>
-						<th ng-click="jcc.sortResult('id')">id</th>
-						<th ng-click="jcc.sortResult('first_name')">First</th>
-						<th ng-click="jcc.sortResult('last_name')">Last</th>
-						<th ng-click="jcc.sortResult('state')">State</th>
-						<th ng-click="jcc.sortResult('specialty')">Specialty</th>
-						<th ng-click="jcc.sortResult('disposition')">Job Type</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="can in jcc.candidates" class="doctor-row search-row" data-doctor-id="{{can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{can.doctor_id}}')">
-						<td>{{ can.doctor_id }}</td>
-						<td>{{ can.first_name }}</td>
-						<td>{{ can.last_name }}</td>
-						<td>{{ can.state }}</td>
-						<td>{{ can.v_specialty_name }}</td>
-						<td>{{ can.job_type}}</td>
-					</tr>
-				</tbody>
-			</table>
+<div class="ng-hide" ng-hide="jcc.loading">
+	<div class="row">
+		<div class="col-xs-12">
+			<ul class="nav nav-pills">
+			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id)">General Info</a></li>
+			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/files')">Files</a></li>
+			   <li role="presentation" class="active"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/candidates')">Candidates</a></li>
+			</ul>
 		</div>
 	</div>
-</section>
+	<hr />
+	<div class="row"><div class="col-xs-12"><h4>Candidates for {{jcc.jobData.job_title}} @ {{jcc.jobData.facility_name}} ({{jcc.jobData.id}})</h4></div></div>
+	<div class="table-responsive">
+		
+		<caption class="ng-cloak"><strong>{{jcc.candidates.length}}</strong> Candidates Found</caption>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th ng-click="jcc.sortResult('id')">id</th>
+					<th ng-click="jcc.sortResult('first_name')">First</th>
+					<th ng-click="jcc.sortResult('last_name')">Last</th>
+					<th ng-click="jcc.sortResult('state')">State</th>
+					<th ng-click="jcc.sortResult('specialty')">Specialty</th>
+					<th ng-click="jcc.sortResult('disposition')">Job Type</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="can in jcc.candidates" class="doctor-row search-row" data-doctor-id="{{can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{can.doctor_id}}')">
+					<td>{{ can.doctor_id }}</td>
+					<td>{{ can.first_name }}</td>
+					<td>{{ can.last_name }}</td>
+					<td>{{ can.state }}</td>
+					<td>{{ can.v_specialty_name }}</td>
+					<td>{{ can.job_type}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

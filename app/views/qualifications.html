@@ -16,97 +16,107 @@
 
 <hr />
 
-<accordion close-others="false">
-	<accordion-group is-open="true">
-		<accordion-heading>Clinical Evaluations<span class="badge pull-right">{{(dr.clinicalEvaluations).length}}</span></accordion-heading>
-		<article ng-repeat="(key,obj) in dr.clinicalEvaluations">
-			<h4>{{obj.name}}</h4>
-			<div><label>Phone: </label> {{obj.phone | tel}}</div>
-			<div><label>Email: </label> {{obj.email}}</div>
-			<div class="text-right">
-				<a class="btn btn-info" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',obj)">Edit</a>
-				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteClinicalEvaluation(obj.id)">Delete</button>
-				
-			</div>
-			<hr />
-		</article>
-		<div class="row">
-			<div class="col-md-12 text-right">
-				<button class="btn btn-primary" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',{})">Add Clinical Evaluation</button>
-			</div>
-		</div>
-	</accordion-group>
-	<accordion-group is-open="true">
-		<accordion-heading>Facility Affiliations<span class="badge pull-right">{{(dr.facilityAffiliations).length}}</span></accordion-heading>
-		<article ng-repeat="(key,obj) in dr.facilityAffiliations">
-			<h4>{{obj.facility_name}}</h4>
-			<div><label>Reference: </label> {{obj.reference_name}} ({{obj.reference_title}})</div>
-			<div class="text-right">
-				<a class="btn btn-info" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)">Edit</a>
-				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityAffiliation(obj.id)">Delete</button>
-			</div>
-			<hr />
-		</article>
-		<div class="row">
-			<div class="col-md-12 text-right">
-				<button class="btn btn-primary" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',{})">Add Facility Affiliation</button>
-			</div>
-		</div>
-	</accordion-group>
-	<accordion-group is-open="true">
-		<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
-		<div class="row hidden-xs hidden-sm">
-			<div class="col-md-3"><label>Type</label></div>
-			<div class="col-md-1"><label>State</label></div>
-			<div class="col-md-2"><label>Number</label></div>
-			<div class="col-md-3"><label>Expiration</label></div>
-			<div class="col-md-3 text-right"><label>Actions</label></div>
-		</div>
-		<article ng-repeat="(key,obj) in dr.medicalLicenses" class="row">
-			<div class="col-md-3">{{dr.licenseTypes[obj.type_id] || 'unk'}}</div>
-			<div class="col-md-1" ng-show="obj.type_id != 1">{{obj.state || 'n/a'}}</div>
-			<div class="col-md-1" ng-hide="obj.type_id != 1">n/a</div>
-			<div class="col-md-2">{{obj.number}}</div>
-			<div class="col-md-3">{{obj.expiration_date}}</div>
-			<div class="text-right col-md-3">
-				<a class="btn btn-info" ng-click="dr.openMedicalLicenseModal('medical-license-modal',obj)">Edit</a>
-				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteMedicalLicense(obj.id)">Delete</button>
-			</div>
-			<hr />
-		</article>
-		<div class="row">
-			<div class="col-md-12 text-right">
-				<button class="btn btn-primary" ng-click="dr.openMedicalLicenseModal('medical-license-modal',{})">Add Medical License</button>
-			</div>
-		</div>
-	</accordion-group>
-	
-		<accordion-group is-open="true">
-		<accordion-heading>Insurance <span class="badge pull-right">{{(dr.insurance).length}}</span></accordion-heading>
-		<div class="row hidden-xs hidden-sm">
-			<div class="col-md-3"><label>Type</label></div>
-			<div class="col-md-3"><label>Policy Number</label></div>
-			<div class="col-md-3"><label>Expiration</label></div>
-			<div class="col-md-3 text-right"><label>Actions</label></div>
-		</div>
-		<article ng-repeat="(key,obj) in dr.insurance" class="row">
-			<div class="col-md-3">{{dr.insuranceTypes[obj.type_id].name}}</div>
-			<div class="col-md-3">{{obj.policy_number}}</div>
-			<div class="col-md-3">{{obj.policy_expiration_date}}</div>
-			<div class="text-right col-md-3">
-				<a class="btn btn-info" ng-click="dr.openInsuranceModal('insurance-modal',obj)">Edit</a>
-				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteInsurance(obj.id)">Delete</button>
-			</div>
-			<hr />
-		</article>
-		<div class="row">
-			<div class="col-md-12 text-right">
-				<button class="btn btn-primary" ng-click="dr.openInsuranceModal('insurance-modal',{})">Add Insurance</button>
-			</div>
-		</div>
-	</accordion-group>
 
-</accordion>
+<div class="text-center row" ng-show="dr.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+
+
+<div ng-hide="dr.loading" class="ng-hide">
+	<accordion close-others="false">
+		<accordion-group is-open="true">
+			<accordion-heading>Clinical Evaluations<span class="badge pull-right">{{(dr.clinicalEvaluations).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.clinicalEvaluations">
+				<h4>{{obj.name}}</h4>
+				<div><label>Phone: </label> {{obj.phone | tel}}</div>
+				<div><label>Email: </label> {{obj.email}}</div>
+				<div class="text-right">
+					<a class="btn btn-info" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',obj)">Edit</a>
+					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteClinicalEvaluation(obj.id)">Delete</button>
+					
+				</div>
+				<hr />
+			</article>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button class="btn btn-primary" ng-click="dr.openClinicalEvaluationModal('clinical-evaluation-modal',{})">Add Clinical Evaluation</button>
+				</div>
+			</div>
+		</accordion-group>
+		<accordion-group is-open="true">
+			<accordion-heading>Facility Affiliations<span class="badge pull-right">{{(dr.facilityAffiliations).length}}</span></accordion-heading>
+			<article ng-repeat="(key,obj) in dr.facilityAffiliations">
+				<h4>{{obj.facility_name}}</h4>
+				<div><label>Reference: </label> {{obj.reference_name}} ({{obj.reference_title}})</div>
+				<div class="text-right">
+					<a class="btn btn-info" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)">Edit</a>
+					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityAffiliation(obj.id)">Delete</button>
+				</div>
+				<hr />
+			</article>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button class="btn btn-primary" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',{})">Add Facility Affiliation</button>
+				</div>
+			</div>
+		</accordion-group>
+		<accordion-group is-open="true">
+			<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right">{{(dr.medicalLicenses).length}}</span></accordion-heading>
+			<div class="row hidden-xs hidden-sm">
+				<div class="col-md-3"><label>Type</label></div>
+				<div class="col-md-1"><label>State</label></div>
+				<div class="col-md-2"><label>Number</label></div>
+				<div class="col-md-3"><label>Expiration</label></div>
+				<div class="col-md-3 text-right"><label>Actions</label></div>
+			</div>
+			<article ng-repeat="(key,obj) in dr.medicalLicenses" class="row">
+				<div class="col-md-3">{{dr.licenseTypes[obj.type_id] || 'unk'}}</div>
+				<div class="col-md-1" ng-show="obj.type_id != 1">{{obj.state || 'n/a'}}</div>
+				<div class="col-md-1" ng-hide="obj.type_id != 1">n/a</div>
+				<div class="col-md-2">{{obj.number}}</div>
+				<div class="col-md-3">{{obj.expiration_date}}</div>
+				<div class="text-right col-md-3">
+					<a class="btn btn-info" ng-click="dr.openMedicalLicenseModal('medical-license-modal',obj)">Edit</a>
+					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteMedicalLicense(obj.id)">Delete</button>
+				</div>
+				<hr />
+			</article>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button class="btn btn-primary" ng-click="dr.openMedicalLicenseModal('medical-license-modal',{})">Add Medical License</button>
+				</div>
+			</div>
+		</accordion-group>
+		
+			<accordion-group is-open="true">
+			<accordion-heading>Insurance <span class="badge pull-right">{{(dr.insurance).length}}</span></accordion-heading>
+			<div class="row hidden-xs hidden-sm">
+				<div class="col-md-3"><label>Type</label></div>
+				<div class="col-md-3"><label>Policy Number</label></div>
+				<div class="col-md-3"><label>Expiration</label></div>
+				<div class="col-md-3 text-right"><label>Actions</label></div>
+			</div>
+			<article ng-repeat="(key,obj) in dr.insurance" class="row">
+				<div class="col-md-3">{{dr.insuranceTypes[obj.type_id].name}}</div>
+				<div class="col-md-3">{{obj.policy_number}}</div>
+				<div class="col-md-3">{{obj.policy_expiration_date}}</div>
+				<div class="text-right col-md-3">
+					<a class="btn btn-info" ng-click="dr.openInsuranceModal('insurance-modal',obj)">Edit</a>
+					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteInsurance(obj.id)">Delete</button>
+				</div>
+				<hr />
+			</article>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<button class="btn btn-primary" ng-click="dr.openInsuranceModal('insurance-modal',{})">Add Insurance</button>
+				</div>
+			</div>
+		</accordion-group>
+	
+	</accordion>
+</div>
 
 <script type="text/ng-template" id="clinical-evaluation-modal">
 	<div class="modal-header">

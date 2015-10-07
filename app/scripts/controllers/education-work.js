@@ -16,6 +16,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.loading = true;
 
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
@@ -282,7 +283,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	/* General */
 
 	var loadExperience = function(){
-		experienceFactory.getTraining(_this.doctorId).then(function(data){
+		return experienceFactory.getTraining(_this.doctorId).then(function(data){
 			_this.training = data;
 			return experienceFactory.getMedicalSchool(_this.doctorId);
 		}).then(function(data){
@@ -307,14 +308,18 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	/* Init */
 
 	var init = function(){
-		loadExperience();
-		loadMedicalSchools();
-		doctorFactory.getTracking(_this.doctorId).then(function(result){
+		loadExperience().then(function(result){
+			return loadMedicalSchools();
+		}).then(function(){
+			return doctorFactory.getTracking(_this.doctorId);
+		}).then(function(result){
 			_this.trackingData = result;
-		});
-		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+			return doctorFactory.getJobMatches(_this.doctorId);
+		}).then(function(result){
 			_this.matches = result;
+			_this.loading = false;
 		});
+		
 	};
 	init();
 

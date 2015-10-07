@@ -14,7 +14,12 @@
 <hr />
 <section>
 	<h4>Job Matches</h4>
-	<div class="table-responsive">
+	<div class="text-center row" ng-show="jm.loading" style="margin:30px 0">
+		<div class="col-md-2 col-md-offset-5 form-group" >
+		  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+		</div>
+	</div>
+	<div class="table-responsive ng-hide" ng-hide="jm.loading">
 		<caption class="ng-cloak"><strong>{{jm.matches.length}}</strong> Matches Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>

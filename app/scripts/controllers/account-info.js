@@ -330,6 +330,30 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			});
 		});
 	};
+	
+	this.submitAuthInfo = function(){
+		var postData = {
+			email: _this.auth_email,
+			password: _this.password
+		};
+		console.log('pd: '+JSON.stringify(postData));
+		doctorFactory.submitAuthInfo(_this.doctorId,postData).then(function(data){
+			toasty.success({
+				title: 'Success!',
+				msg: 'Auth Created Updated.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.get(_this.doctorId);
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
 
 	this.rejectOffer = function(offerId){
 		offerFactory.rejectOffer(offerId).then(function(data){

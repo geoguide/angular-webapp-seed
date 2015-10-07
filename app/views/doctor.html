@@ -1,6 +1,23 @@
 
 
 <h3 id="no-data" ng-show="dr.error && !dr.loading" class="ng-cloak ng-hide text-center">Provider {{dr.doctorId}} Does Not Exist</h3>
+<div class="row" ng-hide="dr.error && !dr.loading">
+	<div class="col-md-11">
+		<ul class="nav nav-pills">
+		  <li role="presentation" class="active"><a href="#">General Info</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/account-info')">Account Info</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/qualifications')">Qualifications</a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/uploads')">Uploads</a></li>
+		  <li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/tracking')">Tracking <span class="badge">{{dr.trackingData.length}}</span></a></li>
+		  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/job-matches')">Matches <span class="badge">{{dr.matches.length}}</span></a></li>
+		</ul>
+	</div>
+	<div class="col-md-1 text-right">
+		<a ng-click="dr.bookmark(dr.doctorId)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i></a>
+	</div>
+</div>
+<hr />
 
 <div class="text-center row" ng-show="dr.loading">
 	<div class="col-md-12 form-group">
@@ -9,26 +26,8 @@
 </div>
 
 
-
 <section ng-hide="dr.loading || dr.error" class="ng-hide">
 	<form id="doctor-form" ng-submit="dr.save()" class="ng-cloak">
-		<div class="row">
-			<div class="col-md-11">
-				<ul class="nav nav-pills">
-				  <li role="presentation" class="active"><a href="#">General Info</a></li>
-				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/account-info')">Account Info</a></li>
-				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/education-and-work')">Education &amp; Work</a></li>
-				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/qualifications')">Qualifications</a></li>
-				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/uploads')">Uploads</a></li>
-				  <li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/tracking')">Tracking <span class="badge">{{dr.trackingData.length}}</span></a></li>
-				  <li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/job-matches')">Matches <span class="badge">{{dr.matches.length}}</span></a></li>
-				</ul>
-			</div>
-			<div class="col-md-1 text-right">
-				<a ng-click="dr.bookmark(dr.doctorId)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i></a>
-			</div>
-		</div>
-		<hr />
 		<div class="row">
 			<div class="col-sm-12">
 				<h4>Personal Data</h4>
@@ -92,6 +91,10 @@
 				<label>Zip</label>
 				<input type="text" class="form-control" ui-mask="99999" ng-model="dr.doctorData.home_zip">
 			</div>
+			<div class="form-group col-md-4">
+				<label for="email">Email Address</label>
+				<input type="email" class="form-control" ng-model="dr.doctorData.email">
+			</div>
 		</div>
 
 		<div class="row">
@@ -103,6 +106,7 @@
 				<label>Text OK?</label><br />
 				<input type="checkbox" ng-model="dr.doctorData.text_ok" ng-true-value="1" ng-false-value="0" />
 			</div>
+			
 		</div>
 
 		<div class="row">

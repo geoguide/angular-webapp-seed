@@ -12,12 +12,15 @@ angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (job
 	this.candidates = [];
 	this.jobData = {};
 	this.jobId = $routeParams.id;
+	_this.loading = true;
 
 	this.findCandidates = function(){
+		_this.loading = true;
 		jobFactory.findCandidates(_this.jobId).then(function(data){
 			console.log(JSON.stringify(data, false, 1));
 			_this.candidates = data;
 			_this.error = false;
+			_this.loading = false;
 		},function(error){
 			_this.error = true;
 			_this.jobData = null;
