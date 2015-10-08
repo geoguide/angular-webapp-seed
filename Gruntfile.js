@@ -52,69 +52,6 @@ module.exports = function (grunt) {
 	// Define the configuration for all the tasks
 	grunt.initConfig({
 
-		ngconstant: {
-			// Options for all targets
-			options: {
-				space: '  ',
-				wrap: '\'use strict\';\n\n {%= __ngModule %}',
-				name: 'config',
-			},
-			// Environment targets
-			development: {
-				options: {
-		      dest: '<%= yeoman.app %>/config.js'
-			},
-		    constants: {
-		      ENV: {
-		        name: 'development',
-		        apiEndpoint: apiEndpoints[gruntEnvironment],
-	            s3Bucket: s3Buckets[gruntEnvironment],
-	            doctorApp: docApps[gruntEnvironment]
-		      }
-		    }
-		  },
-		  production: {
-		    options: {
-		      dest: '<%= yeoman.dist %>/configs/production.js'
-		    },
-		    constants: {
-		      ENV: {
-		        name: 'production',
-		        apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment],
-            doctorApp: docApps[gruntEnvironment]
-          }
-		    }
-		  },
-		  staging: {
-		    options: {
-		      dest: '<%= yeoman.dist %>/configs/staging.js'
-		    },
-		    constants: {
-		      ENV: {
-		        name: 'staging',
-		        apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment],
-            doctorApp: docApps[gruntEnvironment]
-          }
-		    }
-		  },
-      uk_staging: {
-        options: {
-          dest: '<%= yeoman.dist %>/config.js'
-        },
-        constants: {
-          ENV: {
-            name: 'uk_staging',
-            apiEndpoint: apiEndpoints[gruntEnvironment],
-            s3Bucket: s3Buckets[gruntEnvironment],
-            doctorApp: docApps[gruntEnvironment]
-          }
-        }
-      }
-		},
-
-
     // Project settings
     yeoman: appConfig,
 
@@ -530,7 +467,6 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-		'ngconstant:development', // ADD THIS
       'clean:server',
       'wiredep',
       'concurrent:server',
@@ -546,7 +482,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-	'ngconstant:development', // ADD THIS
     'clean:server',
     'wiredep',
     'concurrent:test',
@@ -569,10 +504,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin',
-    'ngconstant:development',
-    'ngconstant:staging',
-    'ngconstant:production'
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [
