@@ -114,6 +114,15 @@
 	</form>
 </section>
 
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
+		</ul>
+	</div>
+</div>
 
 <div class="text-center row" ng-show="drsCtrl.loading" style="margin:30px 0">
 	<div class="col-md-2 col-md-offset-5 form-group" >
@@ -126,15 +135,8 @@
 	  <h4>No Doctors meet your search.</h4>
 	</div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<ul class="nav nav-tabs">
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
-		</ul>
-	</div>
-</div>
+
+
 <section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
 	
 	<div class="row">
