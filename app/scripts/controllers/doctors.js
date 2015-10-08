@@ -28,6 +28,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.matchList = [];
 	
 	this.queryData = doctorFactory.queryData;
+	this.queryData.job_type_desired = 1;
 	this.queryData.score_low = 0;
 	this.queryData.score_high = 100;
 	
@@ -51,6 +52,12 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 				clickToClose: true
 			});
 		});
+	};
+	
+	this.changeDoctorType = function(jobTypeDesired){
+		_this.queryData.job_type_desired = jobTypeDesired;
+		console.log(_this.queryData.job_type_desired);
+		_this.getResults();
 	};
 
 	/* Public Functions */

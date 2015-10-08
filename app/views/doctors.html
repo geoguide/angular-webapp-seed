@@ -129,132 +129,60 @@
 
 <section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
 	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-tabs">
+			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
+			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
+			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-sm-9">
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length"></pagination>
 		</div>
 	</div>
-	<tabset>
-		<tab heading="Searching Job">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
-						<table class="table table-condensed table-striped table-hover">
-							<thead>
-								<tr>
-									<th ng-click="drsCtrl.sortResult('id')">id</th>
-									<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
-									<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
-									<th ng-click="drsCtrl.sortResult('source')">Source</th>
-									<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
-									<th>Registered</th>
-									<th>States</th>
-									<th ng-click="drsCtrl.sortResult('score')">Score</th>
-									<th>Matches</th>
-									<th>jtd</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="doc in drsCtrl.doctors | filter: {job_type_desired: '!'+0}" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-									<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>
-									<td>{{ doc.job_type_desired}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="drsCtrl.sortResult('id')">id</th>
+							<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
+							<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
+							<th ng-click="drsCtrl.sortResult('source')">Source</th>
+							<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
+							<th>Registered</th>
+							<th>States</th>
+							<th ng-click="drsCtrl.sortResult('score')">Score</th>
+							<th>Matches</th>
+							<th>jtd</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
+							<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>
+							<td>{{ doc.job_type_desired}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</tab>
-		<tab heading="Credentialing Only">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
-						<table class="table table-condensed table-striped table-hover">
-							<thead>
-								<tr>
-									<th ng-click="drsCtrl.sortResult('id')">id</th>
-									<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
-									<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
-									<th ng-click="drsCtrl.sortResult('source')">Source</th>
-									<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
-									<th>Registered</th>
-									<th>States</th>
-									<th ng-click="drsCtrl.sortResult('score')">Score</th>
-									<th>Matches</th>
-									<th>jtd</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="doc in drsCtrl.doctors | filter: {job_type_desired: 0}" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-									<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>
-									<td>{{ doc.job_type_desired}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</tab>
-		<tab heading="All">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
-						<table class="table table-condensed table-striped table-hover">
-							<thead>
-								<tr>
-									<th ng-click="drsCtrl.sortResult('id')">id</th>
-									<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
-									<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
-									<th ng-click="drsCtrl.sortResult('source')">Source</th>
-									<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
-									<th>Registered</th>
-									<th>States</th>
-									<th ng-click="drsCtrl.sortResult('score')">Score</th>
-									<th>Matches</th>
-									<th>jtd</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
-									<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-									<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches > 0">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id})[0].matches }} Matches</button></td>
-									<td>{{ doc.job_type_desired}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</tab>
-  </tabset>
-  <div class="row">
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-sm-12">
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length"></pagination>
 		</div>
 	</div>
+  
 </section>
