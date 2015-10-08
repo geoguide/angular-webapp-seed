@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 		  },
 		  production: {
 		    options: {
-		      dest: '<%= yeoman.dist %>/config.js'
+		      dest: '<%= yeoman.dist %>/configs/production.js'
 		    },
 		    constants: {
 		      ENV: {
@@ -88,7 +88,7 @@ module.exports = function (grunt) {
 		  },
 		  staging: {
 		    options: {
-		      dest: '<%= yeoman.dist %>/config.js'
+		      dest: '<%= yeoman.dist %>/configs/staging.js'
 		    },
 		    constants: {
 		      ENV: {
@@ -570,7 +570,9 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'ngconstant:'+gruntEnvironment
+    'ngconstant:development',
+    'ngconstant:staging',
+    'ngconstant:production'
   ]);
 
   grunt.registerTask('default', [

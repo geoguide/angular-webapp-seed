@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+# sanity check: fails unless we get 200 response
+curl -H 'Host: admin.modiohealth.com' http://localhost --fail

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+mkdir -p /var/www/modio-app/tmp
+touch /var/www/modio-app/tmp/restart.txt
