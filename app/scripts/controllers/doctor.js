@@ -52,7 +52,7 @@ angular.module('modioAdminPortal')
 	};
 
 	this.save = function(){
-		console.log(_this.doctorData.date_of_birth);
+
 		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
 		delete _this.doctorData.rates;
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){

@@ -55,8 +55,20 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 
 		_this.modalInstance.result.then(function (data) {
 			doctorFactory.submitMembership(_this.coordId,data).then(function(){
+				toasty.success({
+					title: 'Success!',
+					msg: 'Membership Submitted.',
+					showClose: true,
+					clickToClose: true
+				});
 				_this.getMemberships(_this.coordId);
 			},function(error){
+				toasty.error({
+					title: 'Error!',
+					msg: error,
+					showClose: true,
+					clickToClose: true
+				});
 				$log.error(error);
 			});
 		}, function () {
