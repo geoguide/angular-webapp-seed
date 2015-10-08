@@ -90,14 +90,14 @@
 				</select>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row ng-hide" ng-hide="drsCtrl.loading">
 			<!--<div class="col-md-2 col-sm-6 col-xs-6 form-group">
 				<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" placeholder="Score Low" />
 			</div>
 			<div class="col-md-2 col-sm-6 col-xs-6 form-group">
 				<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" placeholder="Score High" />
 			</div>-->
-			<div class="col-md-4 form-group ng-hide" ng-hide="drsCtrl.loading">
+			<div class="col-md-4 form-group">
 				<label>Score</label>
 				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low" model-max="drsCtrl.queryData.score_high" on-handle-up="drsCtrl.getResults()"></div>    
 			</div>
@@ -126,17 +126,17 @@
 	  <h4>No Doctors meet your search.</h4>
 	</div>
 </div>
-
-<section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
-	<div class="row">
-		<div class="col-md-12">
-			<ul class="nav nav-tabs">
-			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
-			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
-			  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
-			</ul>
-		</div>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
+		</ul>
 	</div>
+</div>
+<section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
+	
 	<div class="row">
 		<div class="col-sm-9">
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length"></pagination>
