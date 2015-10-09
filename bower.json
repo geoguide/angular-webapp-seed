@@ -2,7 +2,7 @@
   "name": "modio-admin-portal",
   "version": "1.0.1",
   "dependencies": {
-    "angular": "1.3.18",
+    "angular": "~1.4.7",
     "angular-animate": "1.3.18",
     "angular-aria": "1.3.0",
     "angular-bootstrap": "0.13.3",
