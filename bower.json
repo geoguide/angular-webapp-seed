@@ -1,4 +1,3 @@
-
 {
   "name": "modio-admin-portal",
   "version": "1.0.1",
@@ -28,5 +27,8 @@
     "angular-mocks": "1.4.4"
   },
   "appPath": "app",
-  "moduleName": "modioAdminPortal"
+  "moduleName": "modioAdminPortal",
+  "resolutions": {
+    "angular": "1.3.15"
+  }
 }
