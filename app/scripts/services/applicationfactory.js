@@ -19,8 +19,8 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
         return meaningOfLife;
       },
       //Easy navigation
-		goTo: function (path) {
-			$location.path(path);
+		goTo: function (path,search) {
+			$location.path(path).search('type',search);
 		}
 	};
 	

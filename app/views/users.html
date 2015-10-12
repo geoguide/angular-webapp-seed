@@ -7,9 +7,9 @@
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-2 text-center">
 		<div class="thumbnail big-link">
-			<i class="fa fa-user-md fa-4x"></i>
+			<i class="fa fa-briefcase fa-4x"></i>
 			<hr />
-			<div class="padded"><a ng-click="appCtrl.goTo('/providers')" class="btn btn-primary btn-block">Providers</a></div>
+			<div class="padded"><a ng-click="appCtrl.goTo('/providers')" class="btn btn-primary btn-block">Job Seeking Providers</a></div>
 		</div>
 	</div>
 	<div class="col-sm-4 text-center">
@@ -18,6 +18,24 @@
 			<i class="fa fa-users fa-4x"></i>
 			<hr />
 			<div class="padded"><a ng-click="appCtrl.goTo('/coordinators')" class="btn btn-primary btn-block">Coordinators</a></div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-2 text-center">
+		<div class="thumbnail big-link">
+			<i class="fa fa-book fa-4x"></i>
+			<hr />
+			<div class="padded"><a ng-click="appCtrl.goTo('/providers','credentialing')" class="btn btn-primary btn-block">Credentialing Only Providers</a></div>
+		</div>
+	</div>
+	<div class="col-sm-4 text-center">
+		
+		<div class="thumbnail big-link">
+			<i class="fa fa-user-md fa-4x"></i>
+			<hr />
+			<div class="padded"><a ng-click="appCtrl.goTo('/providers','all')" class="btn btn-primary btn-block">All Providers</a></div>
 		</div>
 	</div>
 </div>

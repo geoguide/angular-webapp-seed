@@ -41,7 +41,6 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		}, queryLookup: function(queryData){
-			console.log(queryData);
 			//Put these all in array (or get as an array) and just parse the array for easiness
 			var  searchSpecialty, searchState, pageNumber, sortBy, sortDirection,scoreLow,scoreHigh;
 			queryData.p = queryData.p || 1;

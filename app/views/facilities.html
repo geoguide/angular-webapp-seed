@@ -69,7 +69,7 @@
 						<tbody>
 							<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
 								<td>{{ f.id }}</td>
-								<td>{{ f.facility_name }}</td>
+								<td>{{ f.facility_name }} ({{f.city}}, {{f.state}})</td>
 								<td>{{ f.address }}</td>
 								<td>{{ f.city }}</td>
 								<td>{{ f.state }}</td>

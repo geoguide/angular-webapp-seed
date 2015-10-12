@@ -67,6 +67,11 @@
 					<option value="true">True</option>
 				</select>
 			</div>
+			<div class="col-md-3 form-group">
+				<select class="form-control" ng-model="drsCtrl.queryData.facility_id" ng-change="drsCtrl.getResults()" ng-options="f.id as f.facility_name for f in drsCtrl.facilitiesWithMembers">
+					<option value="">-- Facility Members --</option>
+				</select>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-sm-6 form-group">

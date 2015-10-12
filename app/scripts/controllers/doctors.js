@@ -7,12 +7,14 @@
  * # DoctorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,API_URL,$modal,$modalStack,doctorFactory,toasty,applicationFactory,$log,localStorageService) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,API_URL,$modal,$location,$modalStack,doctorFactory,facilityFactory,toasty,applicationFactory,$log,localStorageService) {
 	var _this = this;
 
 	this.doctors = [];
+	this.facilitiesWithMembers = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
+	var typeIn = $location.search().type;
 
 	/* Variables */
 	this.formData = {};
@@ -56,7 +58,6 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	
 	this.changeDoctorType = function(jobTypeDesired){
 		_this.queryData.job_type_desired = jobTypeDesired;
-		console.log(_this.queryData.job_type_desired);
 		_this.getResults();
 	};
 
@@ -108,6 +109,15 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	
 	
 	_this.getResults();
+	
+	if(typeIn == 'credentialing'){
+		_this.changeDoctorType(0);
+	} else if(typeIn == 'all'){
+		_this.changeDoctorType();
+	}
+	facilityFactory.facilitiesWithMembers().then(function(response){
+		_this.facilitiesWithMembers = response;
+	});
 	
 	doctorFactory.getJobMatchTotals().then(function(result){
 		_this.matchList = result;

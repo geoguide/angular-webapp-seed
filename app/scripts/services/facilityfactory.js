@@ -37,7 +37,13 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			}, function(error){
 				$log.error(error);
 			});
-		},queryMedicalSchools: function(queryIn){
+		}, facilitiesWithMembers: function(){
+			return $http.get(API_URL+'/admin/facilities/memberships').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		}, queryMedicalSchools: function(queryIn){
 			
 			var searchQuery, pageNumber, sortBy, sortDirection;
 			sortBy = queryIn.sort_by;

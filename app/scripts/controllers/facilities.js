@@ -9,6 +9,7 @@
 angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, $modal, $modalStack, facilityFactory, toasty, applicationFactory, $log) {
 	var _this = this;
 	this.facilities = [];
+	this.facilitiesWithMembers = [];
 	this.searchQuery = '';
 	this.modalInstance = ''; /* Variables */
 	this.formData = {};

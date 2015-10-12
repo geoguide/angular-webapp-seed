@@ -226,9 +226,9 @@
 		}); // Render 404 view
 	});
 
-  webapp.config(function($httpProvider) {
-      $httpProvider.interceptors.push('AuthInterceptor');
-    });
+	webapp.config(function($httpProvider) {
+		$httpProvider.interceptors.push('AuthInterceptor');
+	});
 
 	webapp.config([
     'toastyConfigProvider',
@@ -247,51 +247,44 @@
 
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			//Route should have access level set
-			if(nextRoute.access){
+			if(!nextRoute.access){
+				nextRoute.access.requiredLogin = true;	
+			}
+			//Lets store the tokens in Auth so we don't have to use localStorage here
+			//If route requires login and we don't have an email or adminAuthToken do interrogation
+			if (nextRoute.access.requiredLogin && (!localStorageService.get('adminAuthToken') || !Auth.user().email)) {
 
-				//Lets store the tokens in Auth so we don't have to use localStorage here
-				//If route requires login and we don't have an email or adminAuthToken do interrogation
-				if (nextRoute.access.requiredLogin && (!localStorageService.get('adminAuthToken') || !Auth.user().email)) {
+				if(localStorageService.get('refreshToken')){
 
-					if(localStorageService.get('refreshToken')){
-
-						Auth.delegate().then(function(result){
-							//Success
-							if(!localStorageService.get('adminAuthToken')){
-								event.preventDefault();
-								$log.warn('Delegate Failed to Populate adminAuthToken');
-								webapp.value('loggedIn', false);
-								$location.path('/login');
-							} else {
-								$log.info('Delegation Successful');
-							}
-						}, function(reason){
-							//Error
-							webapp.value('loggedIn', false);
-							$log.error('delegation fail: '+reason);
+					Auth.delegate().then(function(result){
+						//Success
+						if(!localStorageService.get('adminAuthToken')){
 							event.preventDefault();
+							$log.warn('Delegate Failed to Populate adminAuthToken');
+							webapp.value('loggedIn', false);
 							$location.path('/login');
-						}, function(update){
-							//Notifications of in progress promises
-							$log.info('sweet notification: '+update);
-						});
-					} else {
+						} else {
+							$log.info('Delegation Successful');
+						}
+					}, function(reason){
+						//Error
 						webapp.value('loggedIn', false);
-						$log.warn('no refresh token');
+						$log.error('delegation fail: '+reason);
+						event.preventDefault();
 						$location.path('/login');
-					}
-
-				} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('adminAuthToken')){
-					//You've got an adminAuthToken but are trying to go to the login page, send to real page
-					$location.path(Auth.defaultAuthPage());
+					}, function(update){
+						//Notifications of in progress promises
+						$log.info('sweet notification: '+update);
+					});
+				} else {
+					webapp.value('loggedIn', false);
+					$log.warn('no refresh token');
+					$location.path('/login');
 				}
 
-			} else {
-				//Complain that something is wrong to draw attention to the code, all pages should have this variable set
-				event.preventDefault();
-				$log.warn('route did not have access level set: '+JSON.stringify(nextRoute));
-				webapp.value('loggedIn', false);
-				$location.path('/login');
+			} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('adminAuthToken')){
+				//You've got an adminAuthToken but are trying to go to the login page, send to real page
+				$location.path(Auth.defaultAuthPage());
 			}
 		});
 		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
