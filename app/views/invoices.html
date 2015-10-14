@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="table-responsive">
-			<caption class="ng-cloak"><strong>{{invoice.invoices.length}}</strong> Invoices Found</caption>
+			<caption class="ng-cloak"><strong ng-bind="invoice.invoices.length"></strong> Invoices Found</caption>
 			<table class="table table-condensed table-striped table-hover">
 				<thead>
 					<tr>
@@ -18,12 +18,12 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="i in invoice.invoices">
-						<td>{{i.report_id}}</td>
-						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i.doctor_id)">{{i.doctor_name}}</td>
-						<td>${{i.total_amount}}</td>
-						<td>{{i.date_updated}}</td>
-						<td class="col-md-3 col-sm-2">{{i.description}}</td>
-						<td>{{i.facility_name}}</td>
+						<td ng-bind="i.report_id"></td>
+						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i.doctor_id)" ng-bind="i.doctor_name"></td>
+						<td>$<span ng-bind="i.total_amount"></span></td>
+						<td ng-bind="i.date_updated"></td>
+						<td class="col-md-3 col-sm-2" ng-bind="i.description"></td>
+						<td ng-bind="i.facility_name"></td>
 						<td><select ng-change="invoice.updateInvoice(i)" ng-model="i.status" class="form-control" ng-options="item.id as item.name for item in invoice.statusList"></select></td>
 					</tr>
 				</tbody>

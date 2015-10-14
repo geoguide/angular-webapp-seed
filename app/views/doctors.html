@@ -50,10 +50,6 @@
 	</div>
 </section>
 
-
-
-
-
 <section id="doctor-search-filters">
 	<form ng-submit="drsCtrl.getResults()">
 		<div class="row">
@@ -96,24 +92,23 @@
 			</div>
 		</div>
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
-			<!--<div class="col-md-2 col-sm-6 col-xs-6 form-group">
-				<input type="number" ng-model="drsCtrl.score_low" class="form-control" min="0" max="100" placeholder="Score Low" />
-			</div>
-			<div class="col-md-2 col-sm-6 col-xs-6 form-group">
-				<input type="number" ng-model="drsCtrl.score_high" class="form-control" min="0" max="100" placeholder="Score High" />
-			</div>-->
 			<div class="col-md-4 form-group">
 				<label>Score</label>
 				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low" model-max="drsCtrl.queryData.score_high" on-handle-up="drsCtrl.getResults()"></div>    
 			</div>
-			
+			<div class="col-md-4 form-group">
+				<label>Account Manager</label>
+				<select class="form-control" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+					<option value="">-- Select Manager --</option>
+				</select>   
+			</div>
 			<div class="col-md-2 form-group">
 				<label>&nbsp;</label>
 				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>&nbsp;</label>
-				<a class="btn btn-info btn-block" href="{{drsCtrl.csvEndpoint}}">Download CSV</a>
+				<a class="btn btn-info btn-block" href="{{::drsCtrl.csvEndpoint}}">Download CSV</a>
 			</div>
 		</div>
 	</form>
@@ -152,7 +147,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
+				<caption><strong ng-bind="drsCtrl.totalDoctors"></strong> Doctors Found</caption>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
@@ -165,21 +160,19 @@
 							<th>States</th>
 							<th ng-click="drsCtrl.sortResult('score')">Score</th>
 							<th>Matches</th>
-							<th>jtd</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.id }}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.first_name}} {{ doc.last_name }} {{ doc.doctor_title }}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.specialtiesMap[doc.specialty_id]}}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.source[doc.source].name}}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ appCtrl.dispositionMap[doc.disposition]}}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.user_id ? 'Yes' : 'No' }}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.medical_licenses}}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{doc.id}}')">{{ doc.score}}</td>
-							<td><button ng-click="appCtrl.goTo('/providers/{{doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 ">{{ (drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches }} Matches</button></td>
-							<td>{{ doc.job_type_desired}}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.id"</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"><span ng-bind="doc.first_name"> <span ng-bind="doc.last_name"></span> <span ng-bind="doc.doctor_title"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.specialtiesMap[doc.specialty_id]"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.source[doc.source].name"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.dispositionMap[doc.disposition]"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')">{{ ::doc.user_id ? 'Yes' : 'No' }}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.medical_licenses"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.score"></td>
+							<td><button ng-click="appCtrl.goTo('/providers/{{::doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 "><span ng-bind="(drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches"></span> Matches</button></td>
 						</tr>
 					</tbody>
 				</table>

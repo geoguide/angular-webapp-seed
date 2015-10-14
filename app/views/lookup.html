@@ -1,98 +1,93 @@
 
-<!-- used to have ng-controller, but now realize the route handles it -->
-<div class="ng-cloak">
-	<script type="text/ng-template" id="create-lookup-modal"> 
-		<form name="new_lookup_form" ng-submit="look.submitForm()" novalidate>
-			<div class="modal-header"> 
-				<h3 class="modal-title">Create Lookup Doctor</h3> 
-			</div> 
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Full Name</label>
-					<input class="form-control" type="text" ng-model="look.formData.full_name" ng-required="true" />
-				</div>
-				<div class="form-group">
-					<label>npi</label>
-					<input class="form-control" type="text" ng-minlength="8" ng-model="look.formData.npi"  ng-required="false" />
-				</div>
-				<div class="form-group">
-					<label>Specialty</label>
-					<input class="form-control" type="text" ng-model="look.formData.specialty"  ng-required="true" />
-				</div>
-			</div> 
-			<div class="modal-footer"> 
-				<button class="btn btn-primary" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button> 
-				<button class="btn btn-warning" role="button" type="button" ng-click="look.closeModal()">Cancel</button> 
+<script type="text/ng-template" id="create-lookup-modal"> 
+	<form name="new_lookup_form" ng-submit="look.submitForm()" novalidate>
+		<div class="modal-header"> 
+			<h3 class="modal-title">Create Lookup Doctor</h3> 
+		</div> 
+		<div class="modal-body">
+			<div class="form-group">
+				<label>Full Name</label>
+				<input class="form-control" type="text" ng-model="look.formData.full_name" ng-required="true" />
 			</div>
-		</form>
-	</script>
+			<div class="form-group">
+				<label>npi</label>
+				<input class="form-control" type="text" ng-minlength="8" ng-model="look.formData.npi"  ng-required="false" />
+			</div>
+			<div class="form-group">
+				<label>Specialty</label>
+				<input class="form-control" type="text" ng-model="look.formData.specialty"  ng-required="true" />
+			</div>
+		</div> 
+		<div class="modal-footer"> 
+			<button class="btn btn-primary" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button> 
+			<button class="btn btn-warning" role="button" type="button" ng-click="look.closeModal()">Cancel</button> 
+		</div>
+	</form>
+</script>
+<section class="row">
+	<div class="col-md-6">
+		<h4>Leads Lookup Doctors</h4>
+	</div>
+	<div class="col-md-2 col-md-offset-4 col-sm-12 form-group text-right">
+		<button class="btn btn-primary btn-block" role="button" type="button" ng-click="look.open()">Create Lookup Doctor</button>
+	</div>
+</section>
+<section id="doctor-search-filters">
+	<form ng-submit="look.getResults()">
+		<div class="row">
+			<div class="col-md-3 col-sm-6 form-group">
+				<input type="search" class="form-control" ng-model="look.queryData.q" placeholder="Search Name..." value="" />
+			</div>
+			<div class="col-md-3 col-sm-6 form-group">
+				<input type="search" class="form-control" ng-model="look.queryData.specialty" placeholder="Search Specialty..." value="" />
+			</div>
+			<div class="col-md-3 col-sm-12 form-group">
+				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
+			</div>
+			
+		</div>
+	</form>
+</section>
+<div class="text-center row" ng-show="look.loading">
+	<div class="col-md-12">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+<div ng-show="!look.loading">
 	<section class="row">
-		<div class="col-md-6">
-			<h4>Leads Lookup Doctors</h4>
-		</div>
-		<div class="col-md-2 col-md-offset-4 col-sm-12 form-group text-right">
-			<button class="btn btn-primary btn-block" role="button" type="button" ng-click="look.open()">Create Lookup Doctor</button>
+		<div class="col-sm-12 form-group">
+			<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
 		</div>
 	</section>
-	<section id="doctor-search-filters">
-		<form ng-submit="look.getResults()">
-			<div class="row">
-				<div class="col-md-3 col-sm-6 form-group">
-					<input type="search" class="form-control" ng-model="look.queryData.q" placeholder="Search Name..." value="" />
-				</div>
-				<div class="col-md-3 col-sm-6 form-group">
-					<input type="search" class="form-control" ng-model="look.queryData.specialty" placeholder="Search Specialty..." value="" />
-				</div>
-				<div class="col-md-3 col-sm-12 form-group">
-					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
-				</div>
-				
+	<section class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong ng-bind="look.totalDoctors"></strong> Doctors Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="look.sortResult('claim_id')">Claim Id</th>
+							<th ng-click="look.sortResult('Full Name')">Full Name</th>
+							<th ng-click="look.sortResult('specialty')">Specialty</th>
+							<th ng-click="look.sortResult('npi')">NPI</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="doc in look.doctors" class="doctor-row search-row" data-doctor-id="{{doc.claim_id}}" ng-click="appCtrl.goTo('/lookup-doctor/{{doc.claim_id}}')">
+							<td ng-bind="doc.claim_id"></td>
+							<td ng-bind="doc.full_name"></td>
+							<td ng-bind="doc.specialty"></td>
+							<td ng-bind="doc.npi"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</form>
-	</section>
-	<div class="text-center row" ng-show="look.loading">
-		<div class="col-md-12">
-		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
-	</div>
-	<div ng-show="!look.loading">
-		<section class="row">
-			<div class="col-sm-12 form-group">
-				<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
-			</div>
-		</section>
-		<section class="row">
-			<div class="col-sm-12">
-				<div class="table-responsive">
-					<caption class="ng-cloak"><strong>{{look.totalDoctors}}</strong> Doctors Found</caption>
-					<table class="table table-condensed table-striped table-hover">
-						<thead>
-							<tr>
-								<th ng-click="look.sortResult('claim_id')">Claim Id</th>
-								<th ng-click="look.sortResult('Full Name')">Full Name</th>
-								<th ng-click="look.sortResult('specialty')">Specialty</th>
-								<th ng-click="look.sortResult('npi')">NPI</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="doc in look.doctors" class="doctor-row search-row" data-doctor-id="{{doc.claim_id}}" ng-click="appCtrl.goTo('/lookup-doctor/{{doc.claim_id}}')">
-								<td>{{ doc.claim_id }}</td>
-								<td>{{ doc.full_name }}</td>
-								<td>{{ doc.specialty }}</td>
-								<td>{{ doc.npi }}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</section>
-		
-		<section class="row">
-			<div class="col-sm-12">
-				<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
-			</div>
-		</section>
-	</div>
+	</section>
 	
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="look.totalDoctors" ng-model="look.queryData.p" max-size="look.maxSize" class="pagination-sm" boundary-links="true" ng-change="look.getResults()" items-per-page="25"></pagination>
+		</div>
+	</section>
 </div>

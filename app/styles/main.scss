@@ -8,6 +8,12 @@
 @import "partials/layout";
 @import "partials/search-tables";
 
+a,
+a:hover,
+a:active,
+[ng\:click], [ng-click] {
+	outline: none !important;
+}
 .lg-modal-window .modal-dialog {
   width: 650px;
 }

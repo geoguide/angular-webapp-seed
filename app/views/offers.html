@@ -26,7 +26,7 @@
 	<section class="row">
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{offersCtrl.totalOffers}}</strong> Offers Found</caption>
+				<caption class="ng-cloak"><strong ng-bind="offersCtrl.totalOffers"></strong> Offers Found</caption>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
@@ -39,11 +39,11 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="offer in offersCtrl.offers" class="search-row" data-job-id="{{offer.id}}" ng-click="appCtrl.goTo('/offers/{{offer.id}}')">
-							<td>{{ offer.id }}</td>
-							<td>{{ offer.job_id }}</td>
-							<td>{{ offer.job_title }}</td>
-							<td>{{ offer.doctor_id}}</td>
-							<td>{{ offer.doctor_name }}</td>
+							<td ng-bind="offer.id"></td>
+							<td ng-bind="offer.job_id"></td>
+							<td ng-bind="offer.job_title"></td>
+							<td ng-bind="offer.doctor_id"></td>
+							<td ng-bind="offer.doctor_name"></td>
 						</tr>
 					</tbody>
 				</table>

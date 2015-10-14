@@ -19,7 +19,7 @@
 	<div class="row">
 		
 		<div class="col-md-2" ng-repeat="obj in files.uploadTypes">
-			<h4>{{obj.title}}</h4>
+			<h4 ng-bind="obj.title"></h4>
 			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.type)"
 		ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
 		ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Drop Images, Documents or PDFs files here</div>
@@ -40,10 +40,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="file in files.files">
-					<td>{{file.filename}}</td>
-					<td>{{file.filesize}}</td>
-					<td>{{file.date_created}}</td>
-					<td>{{file.tag}}</td>
+					<td ng-bind="file.filename"></td>
+					<td ng-bind="file.filesize"></td>
+					<td ng-bind="file.date_created"></td>
+					<td ng-bind="file.tag"></td>
 					<td>
 						<button class="btn btn-primary" ng-click="files.getFileLink(file)">Download</button>
 						<button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?" ng-really-click="files.deleteUpload(file)">Delete</button>

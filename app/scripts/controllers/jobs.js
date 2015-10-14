@@ -98,25 +98,18 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		});
 	};
 
-	this.getResults(1);
 
 
 	var init = function(){
 		jobFactory.getJobTags().then(function(result){
 			_this.tags = result;
-		});
-		
-		jobFactory.getJobMatchTotals().then(function(result){
+			return jobFactory.getJobMatchTotals();
+		}).then(function(result){
 			_this.matchList = result;
-			/*for(var m=0;m<result.length;m++){
-				var jobId = result[m].job_id;
-				var mt = result[m].matches;
-				console.log(jobId+' has '+mt+' matches');
-				_this.matchList[jobId] = mt;
-			}
-			console.log(_this.matchList);*/
+			_this.getResults(1);
+		},function(error){
+			console.error(error);
 		});
-
 	};
 
 	//New job modal

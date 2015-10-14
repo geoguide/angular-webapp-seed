@@ -166,7 +166,6 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 
     this.getFileLink = function(type){
 	    s3factory.getSignedUrl(1, _this.uploads[type].id).then(function(response){
-		    $log.info(response);
 		 	_this.downloads[type] = response;
 		 	$window.location.href = response;
 		 	//$timeout(function(){ _this.downloads[type] = null; }, 60000);
@@ -175,7 +174,6 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 
     this.loadUploads = function(){
 		s3factory.getUploads(1, _this.doctorId, function(result){
-      $log.log(result);
 			var files = [];
 			for(var d=0;d<result.length;d++){
 				var key = result[d].tag;
@@ -185,20 +183,17 @@ angular.module('modioAdminPortal').controller('UploadsCtrl', function (Upload,$s
 	};
 
 	this.deleteUpload = function(type){
-    $log.log('deleteUpload:' + _this.uploads[type].id);
 
     s3factory.deleteObject(1, _this.doctorId, _this.uploads[type].id,
       function(data, status, headers, config) {
         //Success
         $log.log('Deleted file info: ' + type);
-        $log.log(data);
         _this.uploads = _this.downloads = [];
         _this.loadUploads();
       },
       function(data, status, headers, config) {
         //Error
         $log.log('FAILED to delete file info: ' + type);
-        $log.log(data);
         _this.uploads = _this.downloads = [];
         _this.loadUploads();
       }

@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory,specialtyFactory, toasty, $log, $modal, offerFactory, jobFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, specialtyFactory, toasty, $log, $modal, offerFactory, jobFactory) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -235,26 +235,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		}
 
 	};
-
-	//Should be outdated and updated with the rest of the info
-	this.updateEmail = function(){
-		doctorFactory.saveDoctor({id: _this.doctorId, email:_this.doctorData.email}).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Email Changed.',
-				showClose: true,
-				clickToClose: true
-			});
-			_this.doctorData = data;
-		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: JSON.stringify(error.data),
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
 	
 	this.updateAuthEmail = function(){
 		doctorFactory.saveUser({id: _this.doctorData.user_id, email:_this.doctorData.auth_email}).then(function(data){
@@ -269,6 +249,30 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			toasty.error({
 				title: 'Error!',
 				msg: JSON.stringify(error.data),
+				showClose: true,
+				clickToClose: true
+			});
+		});
+	};
+	
+	this.submitAuthInfo = function(){
+		var postData = {
+			email: _this.auth_email,
+			password: _this.password
+		};
+		console.log('pd: '+JSON.stringify(postData));
+		doctorFactory.submitAuthInfo(_this.doctorId,postData).then(function(data){
+			toasty.success({
+				title: 'Success!',
+				msg: 'Auth Created Updated.',
+				showClose: true,
+				clickToClose: true
+			});
+			_this.get(_this.doctorId);
+		}, function(error){
+			toasty.error({
+				title: 'Error!',
+				msg: error.data,
 				showClose: true,
 				clickToClose: true
 			});
@@ -309,6 +313,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.addABMSCertification = function(){
 		_this.abmsCertifications.push({});
 	};
+	
 
 	/* Offers */
 
@@ -321,30 +326,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				clickToClose: true
 			});
 			loadOffers();
-		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};
-	
-	this.submitAuthInfo = function(){
-		var postData = {
-			email: _this.auth_email,
-			password: _this.password
-		};
-		console.log('pd: '+JSON.stringify(postData));
-		doctorFactory.submitAuthInfo(_this.doctorId,postData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Auth Created Updated.',
-				showClose: true,
-				clickToClose: true
-			});
-			_this.get(_this.doctorId);
 		}, function(error){
 			toasty.error({
 				title: 'Error!',

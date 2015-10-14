@@ -7,16 +7,46 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, jobFactory, $log) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, jobFactory, $log,jwtHelper) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
 		_this.userInfo = Auth.user();
+		applicationFactory.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 	});
 
 	this.appLoading = true;
 	this.today = new Date();
+	this.twoWayMatches = [];
+	
+	this.get2Way = function(){
+		_this.loading = true;
+		applicationFactory.get2Way().then(function(result){
+			_this.twoWayMatches = result;
+			_this.loading = false;
+		},function(error){
+			_this.loading = false;
+			$log.error(error);
+		});
+	};
+	
+	this.stats = {};
+	
+	this.getStats = function(){
+		_this.loading = true;
+		applicationFactory.getDashboardStats().then(function(result){
+			_this.stats = result;
+			_this.loading = false;
+		},function(error){
+			_this.loading = false;
+			$log.error(error);
+		});
+	};
+	
+	this.getStats();
+	
+	this.get2Way();
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
 	var yyyy = this.today.getFullYear();
@@ -159,6 +189,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ name: 'WISCONSIN', abbreviation: 'WI'},
 		{ name: 'WYOMING', abbreviation: 'WY' }
 	];
+	this.accountManagers = [
+		{ value:'', name: 'Unassigned' },
+		{ value:'Tom Clifford', name: 'Tom Clifford' },
+		{ value:'Gary Goldman', name: 'Gary Goldman' },
+		{ value:'James Oleksa',name: 'James Oleksa' },
+		{ value:'John Bou', name: 'John Bou' },
+		{ value:'Kirk Heath', name: 'Kirk Heath' },
+		{ value:'Tom Saulnier', name: 'Tom Saulnier' }
+	];
 
 	this.disposition = [
 		{
@@ -176,10 +215,10 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}, {
 			id: 5,
 			name: 'Active'
-    }, {
-      id: 6,
-      name: 'Archived'
-    }
+		}, {
+			id: 6,
+			name: 'Archived'
+		}
 	];
 
   this.source = [

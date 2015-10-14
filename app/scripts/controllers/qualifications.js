@@ -7,7 +7,7 @@
  * # QualificationsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($scope, $routeParams, toasty, $log, qualificationFactory, doctorFactory, specialtyFactory, $modal,$q) {
+angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($scope, $routeParams, toasty, $log, qualificationFactory, doctorFactory, specialtyFactory, $modal, $q) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -285,6 +285,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			return qualificationFactory.getInsurance(_this.doctorId);
 		}).then(function(data){
 			_this.insurance = data.data;	
+			_this.loading = false;
 			return specialtyFactory.getSpecialties();
 		}).then(function(data){
 			_this.specialties = data;
@@ -294,7 +295,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
-			_this.loading = false;
+			
 		});
 	};
 

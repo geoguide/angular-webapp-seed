@@ -34,6 +34,8 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
 			_this.loading = false;
+		},function(error){
+			$log.error(error);
 		});
 	}
 
@@ -47,8 +49,6 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	this.getResults = function(){
 		return getResultsPage(this.currentPage);
 	};
-
-	this.goTo = applicationFactory.goTo;
 
 	this.submitForm = function(){
 		lookupFactory.createLookup(_this.formData).then(function(data){

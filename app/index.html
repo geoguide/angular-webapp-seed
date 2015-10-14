@@ -53,7 +53,6 @@
 			<div class="container-fluid">
 				<div class="row">
 					<nav class="navbar-header col-sm-12">
-
 						<div class="col-sm-6"><a class="navbar-brand" href="/">
 							<img src="images/modio-logotype.svg" style="height: 80%;width:auto;margin: 4% 0">
 						</a></div>
@@ -61,7 +60,7 @@
 						<div class="col-sm-6 text-right ng-hide" ng-hide="!appCtrl.appLoading">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
 								<li class="dropdown" dropdown>
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle>{{appCtrl.userInfo.email}} <span class="caret"></span></a>
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle><span ng-bind="appCtrl.userInfo.email"></span> <span class="caret"></span></a>
 									<ul role="menu" class="dropdown-menu">
 										<!--<li class="dropdown-header">Actions</li>-->
 										<li><a ng-href="#/my-bookmarks">View Bookmarks</a></li>
@@ -117,6 +116,37 @@
 					</a></li>
 				</ul>
 				<br />
+				<section class="hidden-sm">
+					<hr />
+					<h4 class="text-center" ng-click="appCtrl.showStats = !!!appCtrl.showStats"><span ng-show="appCtrl.showStats">Hide </span><span ng-show="!appCtrl.showStats">Show </span>Stats</h4>
+					<article  ng-hide="appCtrl.loading || !appCtrl.showStats" class="ng-hide">
+						<div class="form-group">
+							<label>Matches</label>
+							<div ng-bind="appCtrl.twoWayMatches.length"></div>
+						</div>
+						<div class="form-group" ng-hide="appCtrl.stats.specialtyData.length ==0">
+							<label>Specialties (last day)</label>
+							<div ng-repeat="s in appCtrl.stats.specialtyData"><span ng-bind="s.specialty"></span> (<span ng-bind="s.count"></span>)</div>
+						</div>
+						<div class="form-group">
+							<label>New Providers</label>
+							<div ng-bind="appCtrl.stats.providerDailyTotal"></div>
+						</div>
+						<div class="form-group">
+							<label>Total Registered</label>
+							<div ng-bind="appCtrl.stats.providerRegisteredTotal"></div>
+						</div>
+						<div class="form-group">
+							<label>Total Providers</label>
+							<div ng-bind="appCtrl.stats.providerTotal"></div>
+						</div>
+						<div class="form-group">
+							<label>Offers to Date</label>
+							<div ng-bind="appCtrl.stats.offersToDate"></div>
+						</div>
+					</article>
+				</section>
+
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div ng-class="isLoggedIn ? 'authenticated col-md-10 col-sm-10' : 'col-md-12'" id="authenticated-content">
@@ -127,7 +157,7 @@
 
 	<div class="footer">
 		<div class="container-fluid">
-			<p><i class="fa fa-copyright"></i> 2015 ModioHealth</p>
+			<div class="row"><div class="col-xs-12 text-right"><p><i class="fa fa-copyright"></i> 2015 ModioHealth</p></div></div>
 		</div>
 	</div>
 
@@ -195,7 +225,6 @@
 <script src="scripts/filters/filters.js"></script>
 <script src="scripts/controllers/change-password.js"></script>
 <script src="scripts/services/userfactory.js"></script>
-<script src="scripts/controllers/partners.js"></script>
 <script src="scripts/controllers/facilities.js"></script>
 <script src="scripts/controllers/facility.js"></script>
 <script src="scripts/controllers/lookup.js"></script>
@@ -203,7 +232,6 @@
 <script src="scripts/services/lookupfactory.js"></script>
 <script src="scripts/controllers/coordinators.js"></script>
 <script src="scripts/controllers/coordinator.js"></script>
-<script src="scripts/controllers/lead.js"></script>
 <script src="scripts/controllers/jobfiles.js"></script>
 <script src="scripts/services/dashboardfactory.js"></script>
 <script src="scripts/controllers/jobcandidates.js"></script>

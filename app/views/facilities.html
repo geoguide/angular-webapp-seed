@@ -3,7 +3,7 @@
 	<script type="text/ng-template" id="create-doctor-modal2"> 
 		<form name="edit-facility-form" ng-submit="fac.submitForm()" novalidate>
 			<div class="modal-header"> 
-				<h3 class="modal-title">Edit {{fac.facilityData.facility_name}}</h3> 
+				<h3 class="modal-title">Edit <span ng-bind="fac.facilityData.facility_name"></span></h3> 
 			</div> 
 			<div class="modal-body">
 				<div class="form-group">
@@ -53,7 +53,7 @@
 		<section class="row">
 			<div class="col-sm-12">
 				<div class="table-responsive">
-					<caption class="ng-cloak"><strong>{{fac.totalFacilities}}</strong> Facilities Found</caption>
+					<caption class="ng-cloak"><strong ng-bind="fac.totalFacilities"></strong> Facilities Found</caption>
 					<table class="table table-condensed table-striped table-hover">
 						<thead>
 							<tr>
@@ -68,12 +68,12 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
-								<td>{{ f.id }}</td>
-								<td>{{ f.facility_name }} ({{f.city}}, {{f.state}})</td>
-								<td>{{ f.address }}</td>
-								<td>{{ f.city }}</td>
-								<td>{{ f.state }}</td>
-								<td>{{ f.zip }}</td>
+								<td ng-bind="f.id"></td>
+								<td><span ng-bind="f.facility_name"></span> (<span ng-bind="f.city"></span>, <span ng-bind="f.state"></span>)</td>
+								<td ng-bind="f.address"></td>
+								<td ng-bind="f.city"></td>
+								<td ng-bind="f.state"></td>
+								<td ng-bind="f.zip"></td>
 							</tr>
 						</tbody>
 					</table>

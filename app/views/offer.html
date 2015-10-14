@@ -1,16 +1,18 @@
 <section>
 	
 	<div id="no-data" ng-show="offerCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4><a ng-href="#/providers/{{offerCtrl.offerData.doctor_id}}" style="font-variant: small-caps">{{offerCtrl.offerData.doctor_name}}</a> applied to <a style="font-variant: small-caps" ng-href="#/jobs/{{offerCtrl.offerData.job_id}}">&quot;{{offerCtrl.offerData.job_title}}&quot;</a> <span style="font-variant: small-caps">[{{offerCtrl.offerData.status || 'In Progress' }}]</span></h4>
+	<h4><a ng-href="#/providers/{{::offerCtrl.offerData.doctor_id}}" ng-bind="offerCtrl.offerData.doctor_name"></a> applied to <a ng-href="#/jobs/{{::offerCtrl.offerData.job_id}}" ng-bind="offerCtrl.offerData.job_title"></a> [<span ng-bind="offerCtrl.offerData.status || 'In Progress'"></span>]</h4>
 	<form id="offer-form" name="edit_offer_form" ng-submit="offerCtrl.save()" ng-show="offerCtrl.offerData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-3 form-group">
 				<label>Job ID</label>
 				<input class="form-control" type="text" name="job_id" ng-model="offerCtrl.offerData.job_id"  ng-required="true" readonly />
-			</div>
-			<div class="col-xs-3 form-group">
 				<label>Doctor ID</label>
 				<input class="form-control" type="text" name="doctor_id" ng-model="offerCtrl.offerData.doctor_id"  ng-required="true" readonly />
+			</div>
+			<div class="col-xs-3">
+				<label>Notes</label>
+				<textarea class="form-control" ng-model="offerCtrl.offerData.notes"></textarea>
 			</div>
 			<div class="col-xs-3 form-group">
 				<label>Visible</label>
@@ -35,7 +37,7 @@
 		
 		<div class="row">
 			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
-				<label>{{rate.name}}</label>
+				<label ng-bind="rate.name"></label>
 				<input type="number" class="form-control" ng-model="offerCtrl.offerData[rate.field]" />
 			</div>
 		</div>

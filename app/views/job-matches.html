@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}')" class="ng-cloak">General Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/account-info')">Account Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/education-and-work')">Education &amp; Work</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/qualifications')">Qualifications</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/uploads')">Uploads</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{jm.doctorId}}/tracking')">Tracking <span class="badge">{{jm.trackingData.length}}</span></a></li>
-			<li role="presentation" class="active"><a>Matches <span class="badge">{{jm.matches.length}}</span></a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}')" class="ng-cloak">General Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/account-info')">Account Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/qualifications')">Qualifications</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="jm.trackingData.length"></span></a></li>
+			<li role="presentation" class="active"><a>Matches <span class="badge" ng-bind="jm.matches.length"></span></a></li>
 		</ul>
 	</div>
 </div>
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="table-responsive ng-hide" ng-hide="jm.loading">
-		<caption class="ng-cloak"><strong>{{jm.matches.length}}</strong> Matches Found</caption>
+		<caption class="ng-cloak"><strong ng-bind="jm.matches.length"></strong> Matches Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>
 				<tr>
@@ -32,10 +32,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="match in jm.matches">
-					<td>{{match.job_id}}</td>
-					<td class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{match.job_id}}')">{{match.job_title}}</a></td>
-					<td class="col-xs-6">{{match.facility_name}}</td>
-					<td class="col-xs-3">{{match.job_specialty}} {{match.job_jobtype}}</td>
+					<td ng-bind="match.job_id"></td>
+					<td class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.job_title"></a></td>
+					<td class="col-xs-6" ng-bind="match.facility_name"></td>
+					<td class="col-xs-3">{{::match.job_specialty}} {{::match.job_jobtype}}</td>
 				</tr>
 			</tbody>
 		</table>

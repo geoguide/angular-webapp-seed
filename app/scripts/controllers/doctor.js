@@ -8,14 +8,14 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal')
-  .controller('DoctorCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, offerFactory, s3factory, Upload, localStorageService) {
+angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.doctorData = null;
 	this.loading = true;
 	this.error = false;
+	this.trackingData = [];
 
 	//Date of Birth Picker
 	this.opened = false;
@@ -26,25 +26,28 @@ angular.module('modioAdminPortal')
 
 		_this.opened = true;
 	};
-	this.trackingData = [];
 	
 	this.get = function(doctorId){
 		_this.loading = true;
 
-		var doctorDataGet = doctorFactory.getDoctor(doctorId);
-		doctorFactory.getTracking(doctorId).then(function(result){
-			_this.trackingData = result;
-		});
-		
-		doctorDataGet.success(function(data){
-			_this.doctorData = data;
+		doctorFactory.getDoctor(doctorId).then(function(response){
+			_this.doctorData = response.data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;
-			_this.drSpecialties = data.specialties;
-			_this.rates = data.rates;
-			_this.bookmarked = data.bookmarked;
+			_this.drSpecialties = response.data.specialties;
+			_this.rates = response.data.rates;
+			_this.bookmarked = response.data.bookmarked;
 			_this.error = false;
 			_this.loading = false;
-		}).error(function(error,status){
+			return doctorFactory.getTracking(doctorId);
+		}).then(function(result){
+			_this.trackingData = result;
+			return doctorFactory.getJobMatches(_this.doctorId);
+		}).then(function(result){
+			_this.matches = result;
+			return qualificationFactory.getMedicalLicenses(_this.doctorId);
+		}).then(function(result){
+			_this.licenses = result;
+		},function(error,status){
 			_this.loading = false;
 			_this.error = true;
 			_this.doctorData = null;
@@ -71,6 +74,11 @@ angular.module('modioAdminPortal')
 				clickToClose: true
 			});
 		});
+	};
+	
+	this.archive = function(){
+		_this.doctorData.disposition = 6;
+		_this.save();
 	};
 
 	this.delete = function(){
@@ -132,14 +140,6 @@ angular.module('modioAdminPortal')
 
 
 	/* Init */
-
-	var init = function(){
-		_this.get(_this.doctorId);
-		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
-			_this.matches = result;
-		});
-	};
-
-	init();
+	_this.get(_this.doctorId);
 
 });

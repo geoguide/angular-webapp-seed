@@ -146,12 +146,6 @@
 			controller: 'ChangePasswordCtrl',
 			controllerAs: 'userCtrl',
 			access: {requiredLogin: true}
-		}).when('/partners', {
-			templateUrl: 'views/partners.html',
-			controller: 'PartnersCtrl',
-			controllerAs: 'part',
-			access: {requiredLogin: true },
-			tab: 'users'
 		}).when('/facilities', {
 			templateUrl: 'views/facilities.html',
 			controller: 'FacilitiesCtrl',
@@ -226,9 +220,9 @@
 		}); // Render 404 view
 	});
 
-	webapp.config(function($httpProvider) {
-		$httpProvider.interceptors.push('AuthInterceptor');
-	});
+  webapp.config(function($httpProvider) {
+      $httpProvider.interceptors.push('AuthInterceptor');
+    });
 
 	webapp.config([
     'toastyConfigProvider',

@@ -1,15 +1,15 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}')">General Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/account-info')">Account Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}')">General Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/account-info')">Account Info</a></li>
 			<li role="presentation" class="active"><a>Education &amp; Work</a></li>
 			<li role="presentation">
-				<a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/qualifications')">Qualifications</a>
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/qualifications')">Qualifications</a>
 			</li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/uploads')">Uploads</a></li>
-			<li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/tracking')">Tracking <span class="badge">{{dr.trackingData.length}}</span></a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{dr.doctorId}}/job-matches')">Matches <span class="badge">{{dr.matches.length}}</span></a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="dr.trackingData.length"></span></a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="dr.matches.length"></span></a></li>
 		</ul>
 	</div>
 </div>
@@ -91,7 +91,7 @@
 			<accordion-group is-open="true">
 				<accordion-heading>Fellowships<span class="badge pull-right">{{(dr.training | filter: { training_type: 0}).length}}</span></accordion-heading>
 				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 0 }">
-					<div><h4>{{obj.institution}}</h4></div>
+					<div><h4 ng-bind="obj.institution"></h4></div>
 					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
 					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
 					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
@@ -105,7 +105,7 @@
 			<accordion-group is-open="true">
 				<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 2}).length}}</span></accordion-heading>
 				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 2 }">
-					<h4>{{obj.institution}}</h4>
+					<h4 ng-bind="obj.institution"></h4>
 					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
 					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
 					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
@@ -119,7 +119,7 @@
 			<accordion-group is-open="true">
 				<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 1}).length}}</span></accordion-heading>
 				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 1 }">
-					<div><h4>{{obj.institution}}</h4></div>
+					<div><h4 ng-bind="obj.institution"></h4></div>
 					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
 					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
 					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
@@ -143,8 +143,8 @@
 		<accordion-group is-open="true">
 			<accordion-heading>Work History<span class="badge pull-right">{{(dr.workHistory).length}}</span></accordion-heading>
 			<article ng-repeat="(key,obj) in dr.workHistory">
-				<h4>{{obj.position_held}}</h4>
-				<div><strong>{{obj.employer}}</strong> ({{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }})</div>
+				<h4 ng-bind="obj.position_held"></h4>
+				<div><strong ng-bind="obj.employer"></strong> ({{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }})</div>
 				<div><label>Supervisor: </label> {{obj.supervisor}}</div>
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteWorkHistory(obj.id)">Delete</button>
 				<a class="btn btn-info" ng-click="dr.openWorkHistoryModal('work-history-modal',obj)">Edit</a>
@@ -157,14 +157,14 @@
 		</div>
 	</div>
 	
-	<h2>Facility Memberships </h2>
+	<h2>Facility Memberships</h2>
 	<accordion close-others="false">
 		<accordion-group is-open="true">
 			<accordion-heading>Memberships<span class="badge pull-right">{{(dr.memberships).length}}</span></accordion-heading>
 			<article ng-repeat="(key,obj) in dr.memberships">
-				<h4>{{obj.facility_name}}</h4>
+				<h4 ng-bind="obj.facility_name"></h4>
 				<h5>Dept: {{obj.department}}</h5>
-				<div><strong>{{obj.email}}</strong></div>
+				<div><strong ng-bind="obj.email"></strong></div>
 				<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)">Delete</button>
 				<a class="btn btn-info" ng-click="dr.openMembershipModal('facility-membership-modal',obj)">Edit</a>
 			</article>
@@ -413,9 +413,9 @@
 				<div class="form-group col-xs-6">
 					<label>Status</label>
 					<select class="form-control" ng-model="modal.modalObject.status">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
+						<option value="0">Inactive</option>
+						<option value="1">Active</option>
+						<option value="2">What does 2 mean?</option>
 					</select>
 				</div>
 			</div>

@@ -2,26 +2,24 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}')" class="ng-cloak">General Info</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}')" class="ng-cloak">General Info</a></li>
 			<li role="presentation" class="active"><a>Account Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}/qualifications')">Qualifications</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}/uploads')">Uploads</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}/tracking')">Tracking <span class="badge">{{ai.trackingData.length}}</span></a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{ai.doctorId}}/job-matches')">Matches <span class="badge">{{ai.matches.length}}</span></a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/qualifications')">Qualifications</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/uploads')">Uploads</a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="ai.trackingData.length"></span></a></li>
+			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="ai.matches.length"></span></a></li>
 		</ul>
 	</div>
 </div>
 
-
 <hr />
+
 <div class="text-center row" ng-show="ai.loading">
 	<div class="col-md-12 form-group">
 	  <i class="fa fa-refresh fa-spin fa-4x"></i>
 	</div>
 </div>
-
-
 
 <div ng-hide="ai.loading || ai.error" class="ng-hide">
 
@@ -73,7 +71,7 @@
 			<h2>States Subscribed</h2>	
 		</div>
 		<div class="col-md-2" ng-repeat="(key, value) in appCtrl.usStates">
-			<label>{{value.abbreviation}}</label>
+			<label ng-bind="value.abbreviation"></label>
 			<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
 		</div>
 	</div>
@@ -131,7 +129,7 @@
 						 
 						<option value="">-- Select Specialty --</option>
 						
-						<option ng-repeat="" value="{{board.id}}">{{board.specialty}}</option>
+						<option ng-repeat="" value="{{board.id}}" ng-bind="board.specialty"></option>
 					</select>
 				</div>
 			</div>
@@ -212,9 +210,9 @@
 		<div class="col-md-12">
 			<h2>Job Offers</h2>
 			<article ng-repeat="(key,obj) in ai.offers" class="row">
-				<div class="col-md-6"><h4>{{obj.job_title}} ({{obj.status}})</h4></div>
+				<div class="col-md-6"><h4>{{::obj.job_title}} ({{::obj.status}})</h4></div>
 				<div class="col-md-6">
-					<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/offers/{{obj.id}}')">Edit</a>
+					<a class="btn btn-info" role="button" ng-click="appCtrl.goTo('/offers/{{::obj.id}}')">Edit</a>
 					<button class="btn btn-primary" ng-click="ai.acceptOffer(obj.id)">Accept</button>
 					<button class="btn btn-danger" ng-click="ai.acceptOffer(obj.id)">Reject</button></div>
 				<hr />
@@ -252,7 +250,7 @@
 		
 		<div class="row">
 			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
-				<label>{{rate.name}}</label>
+				<label ng-bind="rate.name"></label>
 				<input type="number" class="form-control" ng-model="ai.newOffer[rate.field]" />
 			</div>	
 		</div>
@@ -261,4 +259,5 @@
 			<button class="btn btn-primary" role="submit" ng-disabled="new_offer_form.$invalid">Submit</button> 
 		</div>
 	</form>
+	
 </div>

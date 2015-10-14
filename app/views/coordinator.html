@@ -1,6 +1,6 @@
 <section id="coordinator-info">
 	
-	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak ng-hide">Coordinator #{{coord.coordId}} Does Not Exist</h3>
+	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak ng-hide">Coordinator #<span ng-bind="coord.coordId"></span> Does Not Exist</h3>
 	
 	<div class="text-center row" ng-show="coord.loading">
 		<div class="col-md-12 form-group">
@@ -9,7 +9,7 @@
 	</div>
 	
 	<div ng-hide="coord.loading || coord.error" class="ng-hide">
-		<h3>Coordinator: <strong>{{coord.coordinatorData.first_name}} {{coord.coordinatorData.last_name}}</strong></h3>
+		<h3>Coordinator: <strong><span ng-bind="coord.coordinatorData.first_name"></span> <span ng-bind="coord.coordinatorData.last_name"></span></strong></h3>
 		<hr />
 		<form id="coordinator-form" ng-submit="coord.save()" ng-show="coord.coordinatorData" class="ng-cloak">
 			<div class="row">
@@ -27,7 +27,7 @@
 				</div>
 				<div class="col-md-2 form-group">
 					<label>Created</label>
-					<div>{{coord.coordinatorData.date_created}}</div>
+					<div ng-bind="coord.coordinatorData.date_created"></div>
 				</div>
 			</div>
 			<div class="row">
@@ -84,10 +84,10 @@
 	<div id="membership-section">
 		<accordion close-others="false">
 			<accordion-group is-open="true">
-				<accordion-heading>Memberships<span class="badge pull-right">{{(coord.memberships).length}}</span></accordion-heading>
+				<accordion-heading>Memberships<span class="badge pull-right" ng-bind="(coord.memberships).length"></span></accordion-heading>
 				<article ng-repeat="(key,obj) in coord.memberships" >
-					<h4>{{obj.facility_name}} ({{coord.memberStatuses[obj.status].status}})</h4>
-					<h5>{{obj.department}}</h5>
+					<h4><span ng-bind="obj.facility_name"></span> (<span ng-bind="coord.memberStatuses[obj.status].status"></span>)</h4>
+					<h5 ng-bind="obj.department"></h5>
 					
 					<a class="btn btn-info" ng-click="coord.openMembershipModal('membership-modal',obj)">Edit</a>
 					<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
@@ -110,7 +110,7 @@
 <!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
 <script type="text/ng-template" id="membership-modal">
 	<div class="modal-header">
-		<h3 class="modal-title">{{modal.title}}</h3>
+		<h3 class="modal-title" ng-bind="modal.title"></h3>
 	</div>
 	<div class="modal-body">
 		<form novalidate>

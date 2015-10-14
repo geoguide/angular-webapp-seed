@@ -40,22 +40,11 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 
 	this.get = function(doctorId){
 
-		var doctorData = lookupFactory.getLookupDoctor(doctorId);
-
-		doctorData.then(function(data){
+		lookupFactory.getLookupDoctor(doctorId).then(function(data){
 			_this.doctorData = data;
-			_this.error = false;
-		},function(error){
-			_this.error = true;
-			_this.doctorData = null;
-		});
-	};
-
-	this.getLicenses = function(doctorId){
-
-
-		lookupFactory.getLicenses(doctorId).then(function(data){
-			_this.licenseData = data;
+			return lookupFactory.getLicenses(_this.doctorId);
+		}).then(function(result){
+			_this.licenseData = result;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
@@ -101,7 +90,7 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 		});
 	};
 
-    this.setPrimaryLicense = function(obj){
+	this.setPrimaryLicense = function(obj){
       for(var i=0;i<_this.licenseData.length;i++){
         var license = _this.licenseData[i];
         //$log.info('license:' + license);
@@ -147,7 +136,6 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 				licenseAction = lookupFactory.addLicense(_this.doctorId,data);
 			}
 			licenseAction.then(function(){
-				_this.getLicenses(_this.doctorId);
 				_this.get(_this.doctorId);
 			},function(error){
 				$log.error(error);
@@ -160,13 +148,6 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 
 
 	/* Init */
-
-	var init = function(){
-		_this.get(_this.doctorId);
-		_this.getLicenses(_this.doctorId);
-
-	};
-
-	init();
-
+	_this.get(_this.doctorId);
+	
 });

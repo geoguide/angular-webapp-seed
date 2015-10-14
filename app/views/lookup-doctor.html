@@ -27,6 +27,7 @@
 	this.model = function(dataIn) { return JSON.parse(JSON.stringify(new LookupDoctor(dataIn))); };
 };
 </script>
+
 <section id="lookup-doctor-info">
 
 	<h3 id="no-data" ng-show="!lookdoc.doctorData" class="ng-cloak">Record Not Found</h3>
@@ -156,14 +157,14 @@
 	</section>
 
 	<article ng-repeat="obj in lookdoc.licenseData">
-		<div><h4>{{obj.id}}</h4></div>
-		<div><h4>NPI:{{obj.npi}}</h4></div>
-		<div><strong>#{{obj.license_number}}</strong> in <strong>{{obj.license_state}}</strong></div>
+		<div><h4 ng-bind="obj.id"></h4></div>
+		<div><h4>NPI:<span ng-bind="obj.npi"></span></h4></div>
+		<div><strong>#<span ng-bind="obj.license_number"></span></strong> in <strong><span ng-bind="obj.license_state"></span></strong></div>
 		<div>
       <button ng-show="obj.primary_license===1" class="btn btn-success">Primary</button>
       <button ng-show="obj.primary_license===0" class="btn btn-info" ng-click="lookdoc.setPrimaryLicense(obj)">Make Primary</button>
     </div>
-		<div>Exp: {{obj.expiration_date}}</div>
+		<div>Exp: <span ng-bind="obj.expiration_date"></span></div>
 		<div class="text-right">
 			<a class="btn btn-info" ng-click="lookdoc.openModal('license-modal',obj)">Edit</a>
 			<button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="lookdoc.deleteLicense(obj.id)">Delete</button>
@@ -185,7 +186,7 @@
 
 <script type="text/ng-template" id="license-modal">
 	<div class="modal-header">
-		<h3 class="modal-title">{{modal.title}}</h3>
+		<h3 class="modal-title" ng-bind="modal.title"></h3>
 	</div>
 	<div class="modal-body">
 		<form novalidate>
