@@ -335,8 +335,8 @@
 			<div class="col-md-12 text-right">
 				<div class="form-group">
 					<button type="button" class="btn btn-warning" ng-really-message="Are you sure you want to act as this doctor" ng-really-click="dr.actAs()">Act As This Doctor</button>
-					<button type="button" class="btn btn-danger" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Archive</button>
-					<button type="button" class="btn btn-danger ng-hide" ng-hide="appCtrl.is_super != 1" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
+					<button type="button" class="btn btn-danger" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
+					<button type="button" class="btn btn-danger ng-hide" ng-hide="appCtrl.userInfo.is_super != 1" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>

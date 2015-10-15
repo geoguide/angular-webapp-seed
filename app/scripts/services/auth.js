@@ -35,6 +35,7 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		if(storedJwt){
 			var storedPayload = jwtHelper.decodeToken(storedJwt);
 			userInfo = storedPayload;
+			console.log(JSON.stringify(userInfo));
 			if(jwtHelper.isTokenExpired(storedJwt)){
 				//$log.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
 				localStorageService.remove('adminAuthToken');
