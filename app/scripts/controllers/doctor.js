@@ -16,7 +16,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.loading = true;
 	this.error = false;
 	this.trackingData = [];
-	this.eggActivated = false;
+	//this.eggActivated = false;
 
 	//Date of Birth Picker
 	this.opened = false;
@@ -86,16 +86,18 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 		doctorFactory.deleteDoctor(_this.doctorId).then(function(data){
 			_this.doctorData = null;
 			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Deleted.',
+				title: 'Admin Wins!',
+				msg: 'Flawless Victory.',
 				showClose: true,
 				clickToClose: true
 			});
 			_this.doctorData = null;
+			_this.error = true;
+			_this.eggActivated = false;
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
-				msg: error.data,
+				msg: 'Please Insert More Credits',
 				showClose: true,
 				clickToClose: true
 			});
@@ -137,10 +139,6 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			});	
 		}
 		
-	};
-	
-	this.showDelete = function(){
-		_this.eggActivated = true;
 	};
 
 
