@@ -342,7 +342,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-md-offset-9">
-				<div data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,a,b"><img style="width:80%;" src="images/finish.gif" ng-really-message="Are you sure?" ng-really-click="dr.delete()" ng-click /></div>
+				<div data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,a,b" class="clearfix">
+					<img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure?" ng-really-click="dr.delete()" ng-click />
+					<img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure?" ng-really-click="dr.delete()" ng-click />
+				</div>
 				
 			</div>
 	</form>
