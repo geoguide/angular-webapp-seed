@@ -336,10 +336,13 @@
 				<div class="form-group">
 					<button type="button" class="btn btn-warning" ng-really-message="Are you sure you want to act as this doctor" ng-really-click="dr.actAs()">Act As This Doctor</button>
 					<button type="button" class="btn btn-danger" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
-					<button type="button" class="btn btn-danger ng-hide" ng-hide="appCtrl.userInfo.is_super != 1" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<button type="button" class="btn btn-danger" data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,a,b" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
+			</div>
 	</form>
 </section>

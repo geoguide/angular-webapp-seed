@@ -35,7 +35,8 @@
 		'ui.bootstrap',
 		'ngFileUpload',
 		'ngTagsInput',
-		'ui-rangeSlider'
+		'ui-rangeSlider',
+		'ngEgg'
 	]);
 
 

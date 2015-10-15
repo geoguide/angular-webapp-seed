@@ -16,6 +16,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.loading = true;
 	this.error = false;
 	this.trackingData = [];
+	this.eggActivated = false;
 
 	//Date of Birth Picker
 	this.opened = false;
@@ -136,6 +137,10 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			});	
 		}
 		
+	};
+	
+	this.showDelete = function(){
+		_this.eggActivated = true;
 	};
 
 
