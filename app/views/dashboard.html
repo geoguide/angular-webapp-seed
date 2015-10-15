@@ -1,13 +1,13 @@
 <div class="row">
 	<section class="col-md-12">
 		<h3 class="page-header">Dashboard</h3>
-		<div class="text-center row ng-hide" ng-hide="!appCtrl.loading" style="margin:30px 0">
+		<div class="text-center row ng-hide" ng-hide="!dash.loading" style="margin:30px 0">
 			<div class="col-md-2 col-md-offset-5 form-group" >
 			  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 			</div>
 		</div>
-		<article ng-hide="appCtrl.loading" class="ng-hide">
-			<h4>Matches <i ng-click="appCtrl.get2Way()" class="fa fa-refresh"></i></h4>
+		<article ng-hide="dash.loading" class="ng-hide">
+			<h4><span ng-bind="dash.twoWayMatches.length"></span> Matches <i ng-click="dash.get2Way()" class="fa fa-refresh"></i></h4>
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="match in appCtrl.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+						<tr ng-repeat="match in dash.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
 							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
