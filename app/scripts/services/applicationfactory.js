@@ -11,20 +11,10 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 	// Service logic
 	// ...
 	var _this = this;
-	var meaningOfLife = 42;
-
 	// Public API here
 	return {
-      someMethod: function () {
-        return meaningOfLife;
-      },
-      //Easy navigation
 		goTo: function (path,search) {
 			$location.path(path).search('type',search);
-		},get2Way: function(){
-			return $http.get(API_URL+'/admin/two-way-matches').then(function(response){
-				return response.data;
-			});
 		}, userInfo: {
 			
 		}, getDashboardStats: function(){

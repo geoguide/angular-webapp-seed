@@ -14,39 +14,19 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		_this.userInfo = Auth.user();
 		applicationFactory.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
+		if(isLoggedIn){
+			applicationFactory.getDashboardStats().then(function(response){
+				_this.stats = response;
+			},function(error){
+				$log.error('error in the watch: '+JSON.stringify(error));
+			});	
+		}
+		
 	});
 
 	this.appLoading = true;
 	this.today = new Date();
-	this.twoWayMatches = [];
 	
-	this.get2Way = function(){
-		_this.loading = true;
-		applicationFactory.get2Way().then(function(result){
-			_this.twoWayMatches = result;
-			_this.loading = false;
-		},function(error){
-			_this.loading = false;
-			$log.error(error);
-		});
-	};
-	
-	this.stats = {};
-	
-	this.getStats = function(){
-		_this.loading = true;
-		applicationFactory.getDashboardStats().then(function(result){
-			_this.stats = result;
-			_this.loading = false;
-		},function(error){
-			_this.loading = false;
-			$log.error(error);
-		});
-	};
-	
-	this.getStats();
-	
-	this.get2Way();
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
 	var yyyy = this.today.getFullYear();
@@ -71,6 +51,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.specialties = [];
 	this.medicalSchools = [];
 	this.abmsCertifications = [];
+	//_this.twoWayMatches = applicationFactory.twoWayMatches;
+	
+	/*applicationFactory.getDashboardStats().then(function(response){
+		_this.stats = response;
+	},function(error){
+		console.error(error);
+	});*/
+	
+	
 
 	this.insuranceTypes = [
 		{
@@ -328,7 +317,6 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	    startingDay: 1
 	};
 	this.specialtiesMap = [];
-	
 	_this.queryTags = function(query){
 		return jobFactory.getJobTags(query);
 	};

@@ -165,7 +165,7 @@
 					<tbody>
 						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.id"</td>
-							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"><span ng-bind="doc.first_name"> <span ng-bind="doc.last_name"></span> <span ng-bind="doc.doctor_title"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"><span ng-bind="doc.first_name"></span> <span ng-bind="doc.last_name"></span> <span ng-bind="doc.doctor_title"></span></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.specialtiesMap[doc.specialty_id]"></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.source[doc.source].name"></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.dispositionMap[doc.disposition]"></td>

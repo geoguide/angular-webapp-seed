@@ -2,6 +2,7 @@
   "name": "angularwebappseed",
   "version": "0.0.0",
   "dependencies": {
+    "ng-surprise": "^0.2.0"
   },
   "repository": {},
   "devDependencies": {

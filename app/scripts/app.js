@@ -35,7 +35,8 @@
 		'ui.bootstrap',
 		'ngFileUpload',
 		'ngTagsInput',
-		'ui-rangeSlider'
+		'ui-rangeSlider',
+		'ngEgg'
 	]);
 
 
@@ -47,9 +48,11 @@
 	webapp.config(function ($routeProvider, ENV) {
 
 		$routeProvider.when('/', {
-			templateUrl: 'views/main.html',
+			tab: 'dashboard',
+			templateUrl: 'views/dashboard.html',
 			access: { requiredLogin: true },
-			controller: 'MainCtrl'
+			controller: 'DashboardCtrl',
+			controllerAs: 'dash'
       }).when('/about', {
 			templateUrl: 'views/about.html',
 			access: { requiredLogin: true },

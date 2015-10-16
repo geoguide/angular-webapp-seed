@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,Auth,localStorageService,$log,toasty) {
+angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,Auth,localStorageService,$log,toasty,applicationFactory) {
 	var loginInfo;
 	var _this = this;
 	this.login = loginInfo = {};
@@ -19,6 +19,7 @@ angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$htt
 			localStorageService.set('refreshToken',data.refresh_token);
 			$location.path('/dashboard');
 			$scope.$emit('login');
+			applicationFactory.init();
 		}).error(function(data, status, headers, config){
 			_this.loading = false;
 			toasty.error({

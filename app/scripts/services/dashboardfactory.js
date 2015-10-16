@@ -10,7 +10,8 @@
 angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,API_URL,$log) {
     // Service logic
     // ...
-
+	 var _this = this;
+	 _this.twoWayMatches = [];
     // Public API here
     return {
       getLeads: function(queryData){
@@ -30,6 +31,11 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
 			return $http.put(API_URL+'/admin/leads/'+leadId,leadInfo);
 		}, submitLead: function(leadInfo){
 			return $http.post(API_URL+'/admin/leads/',leadInfo);
-		}
+		}, get2Way: function(){
+			return $http.get(API_URL+'/admin/two-way-matches').then(function(response){
+				_this.twoWayMatches = response.data;
+				return response.data;
+			});
+		}, twoWayMatches: _this.twoWayMatches
     };
   });
