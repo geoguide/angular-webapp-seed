@@ -26,19 +26,22 @@ module.exports = function (grunt) {
 	var apiEndpoints = {
 		development: 'http://localhost:3001',
 		staging: 'https://api.modiohealth.net',
-		production: 'https://api.modiohealth.com'
+		production: 'https://api.modiohealth.com',
+		uk_staging: 'http://modio-api.ukeess.net'
 	};
 	
 	var s3Buckets = {
 		development: 'files.modiohealth.test',
 		staging: 'files.modiohealth.test',
-		production: 'files.modiohealth.com'
+		production: 'files.modiohealth.com',
+		uk_staging: 'files.modiohealth.test'
 	};
 	
 	var docApps = {
 		development: 'http://localhost:8600/#',
 		staging: 'https://www.modiohealth.net/physicians/#',
-		production: 'https://www.modiohealth.com/physicians/#' 
+		production: 'https://www.modiohealth.com/physicians/#',
+		uk_staging: 'http://modio-sta.ukeess.net'
 	};
 	
 	console.log('genv: '+gruntEnvironment);
@@ -95,7 +98,20 @@ module.exports = function (grunt) {
             doctorApp: docApps[gruntEnvironment]
           }
 		    }
-		  }
+		  },
+      uk_staging: {
+        options: {
+          dest: '<%= yeoman.dist %>/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'uk_staging',
+            apiEndpoint: apiEndpoints[gruntEnvironment],
+            s3Bucket: s3Buckets[gruntEnvironment],
+            doctorApp: docApps[gruntEnvironment]
+          }
+        }
+      }
 		},
 
 
