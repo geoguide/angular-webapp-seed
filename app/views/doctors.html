@@ -141,7 +141,7 @@
 	
 	<div class="row">
 		<div class="col-sm-9">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length"></pagination>
+			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
 		</div>
 	</div>
 	<div class="row">
@@ -181,7 +181,7 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length"></pagination>
+			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
 		</div>
 	</div>
   

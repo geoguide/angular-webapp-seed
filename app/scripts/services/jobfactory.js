@@ -32,8 +32,8 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 		}, queryJobs: function(queryData){
 			queryData.q = queryData.q || '';
 			queryData.p = queryData.p || 1;
-			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			
+			queryData.sort_direction = (queryData.sortDirection === true) ? 'ASC' : 'DESC';
+
 			var request = API_URL+'/admin/jobs';
 
 			return $http.get(request, {params: queryData}).then(function(response) {

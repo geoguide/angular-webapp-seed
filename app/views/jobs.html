@@ -14,7 +14,7 @@
 						<select name="job_type" class="form-control" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
 							<option value="1">Locum</option>
 							<option value="2">Permanent</option>
-              <option value="3">Both</option>
+							<option value="3">Both</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -192,6 +192,13 @@
 					</select>
 				</div>
 				<div class="col-sm-2 form-group">
+					<select name="job_type" class="form-control" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()"  ng-required="true">
+						<option value="">-- Choose Type --</option>
+						<option value="1">Locum</option>
+						<option value="2">Permanent</option>
+					</select>
+				</div>
+				<div class="col-sm-2 form-group">
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 				</div>
 			</div>
@@ -214,7 +221,7 @@
 	<section ng-hide="jobsCtrl.loading || jobsCtrl.error || jobsCtrl.totalJobs == 0" class="ng-hide">
 		<div class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
+				<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 			</div>
 		</div>
 		<div class="row">
@@ -257,7 +264,7 @@
 	
 		<div class="row">
 			<div class="col-sm-12">
-				<pagination total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
+				<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 			</div>
 		</div>
 	</section>

@@ -62,8 +62,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	};
 
 	this.sortResult = function(sortOn){
-		_this.sortDirection = !_this.sortDirection;
-		_this.sortBy = sortOn;
+		_this.queryData.sortDirection = !(_this.queryData.sortDirection);
+		_this.queryData.sort_by = sortOn;
 		_this.getResults();
 	};
 
@@ -108,7 +108,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			_this.matchList = result;
 			_this.getResults(1);
 		},function(error){
-			console.error(error);
+			$log.error(error);
 		});
 	};
 

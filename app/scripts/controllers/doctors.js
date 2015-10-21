@@ -40,12 +40,12 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.getResults = function() {
 		_this.loading = true;
 
-		doctorFactory.queryDoctors(_this.queryData).success(function(response) {
-			_this.doctors = response.doctors;
-			_this.totalDoctors = response.total;
+		doctorFactory.queryDoctors(_this.queryData).then(function(response) {
+			_this.doctors = response.data.doctors;
+			_this.totalDoctors = response.data.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;
 			_this.loading = false;
-		}).error(function(data, status, headers, config){
+		},function(error){
 			_this.loading = false;
 			toasty.error({
 				title: 'Error!',

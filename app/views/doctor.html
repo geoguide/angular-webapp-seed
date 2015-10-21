@@ -83,9 +83,7 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>State</label>
-				<select class="form-control" ng-model="dr.doctorData.home_state">
-					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
-				</select>
+				<select class="form-control" ng-model="dr.doctorData.home_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
 			</div>
 			<div class="form-group col-md-2">
 				<label>Zip</label>
@@ -106,7 +104,11 @@
 				<label>Text OK?</label><br />
 				<input type="checkbox" ng-model="dr.doctorData.text_ok" ng-true-value="1" ng-false-value="0" />
 			</div>
-			
+			<div class="form-group col-md-4">
+				<label>SSN</label><br />
+				<a class="btn btn-primary" ng-click="dr.ssn.show = true" ng-hide="dr.ssn.show">Show</a>
+				<input class="ng-hide form-control" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
+			</div>
 		</div>
 
 		<div class="row">
@@ -116,8 +118,7 @@
 			</div>
 			<div class="form-group col-md-2">
 				<label>Drivers License State</label>
-				<select class="form-control" ng-model="dr.doctorData.drivers_license_state">
-					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+				<select class="form-control" ng-model="dr.doctorData.drivers_license_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 				</select>
 			</div>
 			<div class="col-md-3 form-group">
@@ -334,7 +335,7 @@
 		<div class="row">
 			<div class="col-md-12 text-right">
 				<div class="form-group">
-					<button type="button" class="btn btn-warning" ng-really-message="Are you sure you want to act as this doctor" ng-really-click="dr.actAs()">Act As This Doctor</button>
+					<button type="button" class="btn btn-warning" ng-click="dr.actAs()">Act As This Doctor</button>
 					<button type="button" class="btn btn-danger" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
@@ -342,9 +343,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-md-offset-9">
+				<button class="btn btn-danger ng-hide" ng-hide="dr.env.name == 'production'" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
 				<div data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,b,a" class="clearfix">
-					<img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure you want to COMPLETELY DESTROY THIS USER?" ng-really-click="dr.delete()" ng-click />
-					<img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure you want to COMPLETELY DESTROY THIS USER?" ng-really-click="dr.delete()" ng-click />
+					<img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
+					<img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
 				</div>
 				
 			</div>

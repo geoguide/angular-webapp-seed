@@ -90,7 +90,6 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
-		console.log('hi');
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
 			deferred.resolve(data.facilities);
 		},function(error){

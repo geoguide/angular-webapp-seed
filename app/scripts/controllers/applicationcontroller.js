@@ -241,6 +241,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
     },{
       id: 9,
       name: 'Email'
+    }, {
+	    id:10,
+	    name: 'Coordinator'
     }
   ];
 

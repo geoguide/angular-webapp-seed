@@ -20,7 +20,7 @@
 <div ng-show="!offersCtrl.loading">
 	<section class="row">
 		<div class="col-sm-12">
-			<pagination total-items="offersCtrl.totalOffers" ng-model="offersCtrl.currentPage" max-size="offersCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="offersCtrl.getResults()" items-per-page="25"></pagination>
+			<pagination total-items="offersCtrl.totalOffers" ng-model="offersCtrl.currentPage" max-size="offersCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="offersCtrl.getResults()" items-per-page="25" ng-if="offersCtrl.totalOffers" ></pagination>
 		</div>
 	</section>
 	<section class="row">
@@ -53,7 +53,7 @@
 	
 	<section class="row">
 		<div class="col-sm-12">
-			<pagination total-items="offersCtrl.totalOffers" ng-model="offersCtrl.currentPage" max-size="offersCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="offersCtrl.getResults()" items-per-page="25"></pagination>
+			<pagination ng-if="offersCtrl.totalOffers" total-items="offersCtrl.totalOffers" ng-model="offersCtrl.currentPage" max-size="offersCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="offersCtrl.getResults()" items-per-page="25"></pagination>
 		</div>
 	</section>
 </div>
