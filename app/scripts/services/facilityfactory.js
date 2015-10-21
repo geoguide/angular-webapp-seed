@@ -28,8 +28,7 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 		}, saveFacility: function(formData){
 			return $http.put(API_URL+'/admin/facilities/'+formData.id,formData);
 		}, queryFacilities: function(queryIn){
-			
-			queryIn.sort_direction = (queryIn.sort_direction === true) ? 'DESC' : 'ASC';
+			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
 			return $http.get(API_URL+'/admin/facilities',{params: queryIn}).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -42,10 +41,7 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 				$log.error(error);
 			});
 		}, queryMedicalSchools: function(queryIn){
-			
-			var searchQuery, pageNumber, sortBy, sortDirection;
-			sortBy = queryIn.sort_by;
-			queryIn.sort_direction = (queryIn.sort_direction === true) ? 'DESC' : 'ASC';
+			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
 			return $http.get(API_URL+'/admin/medical-schools',{params: queryIn}).then(function(response) {
 				return response.data;
 			}, function(error){

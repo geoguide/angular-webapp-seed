@@ -31,8 +31,8 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	
 	/* Public Functions */
 	this.sortResult = function(sortOn) {
-		_this.sort_direction = !_this.sortDirection;
-		_this.sort_by = sortOn;
+		_this.queryData.sortDirection = !_this.queryData.sortDirection;
+		_this.queryData.sort_by = sortOn;
 		_this.getResults();
 	};
 	this.goTo = applicationFactory.goTo;
