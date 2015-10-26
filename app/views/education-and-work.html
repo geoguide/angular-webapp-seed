@@ -224,8 +224,7 @@
 				</div>
 				<div class="form-group col-xs-2">
 					<label>State</label>
-					<select class="form-control" ng-model="modal.modalObject.state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
-					</select>
+					<select class="form-control" ng-model="modal.modalObject.state" ng-options="state.abbreviation as state.abbreviation for state in modal.parentCtrl.usStates"></select>
 				</div>
 				<div class="form-group col-xs-4">
 					<label>Zip</label>

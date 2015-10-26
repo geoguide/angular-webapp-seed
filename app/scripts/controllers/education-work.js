@@ -7,7 +7,7 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory, $q, experienceFactory, $modal) {
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory,applicationFactory, $q, experienceFactory, $modal) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -103,6 +103,8 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 				}
 			}
 		});
+		
+		this.usStates = applicationFactory.usStates;
 
 		_this.modalInstance.result.then(function (data) {
 			experienceFactory.submitTraining(_this.doctorId,data).then(function(){

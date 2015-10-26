@@ -156,7 +156,7 @@
 		<form ng-submit="jobsCtrl.getResults()">
 			<div class="row">
 				<div class="col-sm-4 form-group">
-					<input type="search" class="form-control" ng-model="jobsCtrl.queryData.q" value="" />
+					<input type="search" class="form-control" ng-model="jobsCtrl.queryData.q" value="" placeholder="Search Job Title..." />
 				</div>
 				<div class="col-sm-4 col-xs-6 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties">
@@ -164,12 +164,10 @@
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
 					</select>
 				</div>
-				<div class="col-md-2 form-group">
-					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.queryData.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
-						<option value="">- Select Tag -</option>
-					</select>
+				<div class="col-sm-4 col-xs-4 form-group">
+					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.queryData.facility_id = $item.id;jobsCtrl.getResults();" typeahead-editable="false" placeholder="Search Facilities..." />
+					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 				</div>
-
 			</div>
 			<div class="row">
 				<div class="col-sm-2 col-xs-6 form-group">
@@ -182,13 +180,14 @@
 						<option value="">-Source-</option>
 					</select>
 				</div>
-				<div class="col-sm-2 col-xs-2 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.job_status" ng-change="jobsCtrl.getResults()" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"><option value="">-- Choose Status --</option></select>
-					</select>
-				</div>
 				<div class="col-md-2 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="dt as dt for dt in appCtrl.doctorTitles">
 						<option value="">-- Choose Title --</option>
+					</select>
+				</div>
+				<div class="col-md-2 form-group">
+					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.queryData.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
+						<option value="">- Select Tag -</option>
 					</select>
 				</div>
 				<div class="col-sm-2 form-group">
@@ -205,7 +204,18 @@
 			
 		</form>
 	</section>
-	
+	<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 1 }"><a ng-click="jobsCtrl.queryData.job_status = 1;jobsCtrl.getResults()">Active</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 0 }"><a ng-click="jobsCtrl.queryData.job_status = 0;jobsCtrl.getResults()">Inactive</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 2 }"><a ng-click="jobsCtrl.queryData.job_status = 2;jobsCtrl.getResults()">Pending Review</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 3 }"><a ng-click="jobsCtrl.queryData.job_status = 3;jobsCtrl.getResults()">Closed by Modio</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 4 }"><a ng-click="jobsCtrl.queryData.job_status = 4;jobsCtrl.getResults()">Closed by Client</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 5 }"><a ng-click="jobsCtrl.queryData.job_status = 5;jobsCtrl.getResults()">In Progress</a></li>
+		</ul>
+	</div>
+</div>
 	<div class="text-center row" ng-show="jobsCtrl.loading">
 		<div class="col-md-12 form-group">
 		  <i class="fa fa-refresh fa-spin fa-4x"></i>
