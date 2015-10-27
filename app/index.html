@@ -117,9 +117,9 @@
 					</a></li>
 				</ul>
 				<br />
-				<section class="hidden-sm">
+				<section class="hidden-sm hidden-xs">
 					<hr />
-					<h4 class="text-center" ng-click="appCtrl.showStats = !!!appCtrl.showStats"><span ng-show="appCtrl.showStats">Hide </span><span ng-show="!appCtrl.showStats">Show </span>Stats</h4>
+					<h4 class="text-center" ng-click="appCtrl.showStats = !!!appCtrl.showStats"><span class="ng-hide" ng-hide="!appCtrl.showStats">Hide </span><span class="ng-hide" ng-hide="appCtrl.showStats">Show </span>Stats</h4>
 					<article  ng-hide="appCtrl.loading || !appCtrl.showStats" class="ng-hide" ng-init="appCtrl.getStats()">
 						<div class="form-group" ng-hide="appCtrl.stats.specialtyData.length ==0">
 							<label>Specialties (last day)</label>
@@ -238,6 +238,7 @@
 <script src="scripts/controllers/invoices.js"></script>
 <script src="scripts/services/invoicefactory.js"></script>
 <script src="scripts/controllers/orders.js"></script>
+<script src="scripts/services/orderfactory.js"></script>
 	<!-- endbuild -->
 	<!--<div ng-controller="toasty-controller">-->
 		<!--<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        -->

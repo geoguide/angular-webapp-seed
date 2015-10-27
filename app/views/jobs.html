@@ -155,50 +155,49 @@
 	<section>
 		<form ng-submit="jobsCtrl.getResults()">
 			<div class="row">
-				<div class="col-sm-3 form-group">
+				<div class="col-sm-6 col-md-3 col-xs-12 form-group">
 					<input type="search" class="form-control" ng-model="jobsCtrl.queryData.q" value="" placeholder="Search Job Title..." />
 				</div>
-				<div class="col-sm-3 col-xs-6 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties">
-						<option value="">-Partner Job Id-</option>
-						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
-					</select>
-				</div>
-				<div class="col-sm-3 col-xs-4 form-group">
+				<div class="col-sm-6 col-md-3 col-xs-12 form-group">
 					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.queryData.facility_id = $item.id;jobsCtrl.getResults();" typeahead-editable="false" placeholder="Search Facilities..." />
 					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 				</div>
-				<div class="col-sm-3 col-xs-4 form-group">
+				<div class="col-sm-6 col-xs-6 col-md-3 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.specialty_id" ng-change="jobsCtrl.getResults()" ng-options="spec.id as spec.specialty for spec in appCtrl.specialties">
-						<option value="">-Select Specialty-</option>
+						<option value="">- Select Specialty -</option>
 						<option ng-repeat="spec in appCtrl.specialties" value="{{spec.id}}">{{spec.specialty}}</option>
+					</select>
+				</div>
+				<div class="col-sm-6 col-xs-6 col-md-3 form-group">
+					<select class="form-control" ng-model="jobsCtrl.queryData.partner_job_number" ng-change="jobsCtrl.getResults()" ng-options="jid as jid for jid in jobsCtrl.partnerIds">
+						<option value="">- Partner Job Id -</option>
 					</select>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-2 col-xs-6 form-group">
+				<div class="col-sm-6 col-xs-6 col-md-3 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.state" ng-change="jobsCtrl.getResults()" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
-						<option value="">-State-</option>
+						<option value="">- State -</option>
 					</select>
 				</div>
-				<div class="col-sm-2 col-xs-6 form-group">
+				<div class="col-sm-6 col-xs-6 col-md-3 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.source" ng-change="jobsCtrl.getResults()" ng-options="source.id as source.source for source in appCtrl.jobSources">
-						<option value="">-Source-</option>
+						<option value="">- Source -</option>
 					</select>
 				</div>
-				<div class="col-md-2 form-group">
+				<div class="col-md-2 col-sm-4 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="dt as dt for dt in appCtrl.doctorTitles">
-						<option value="">-- Choose Title --</option>
+						<option value="">- Choose Title -</option>
 					</select>
 				</div>
-				<div class="col-md-2 form-group">
+				<div class="col-md-2 col-sm-4 col-xs-6 form-group">
 					<select class="form-control" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.queryData.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
 						<option value="">- Select Tag -</option>
 					</select>
 				</div>
-				<div class="col-sm-2 form-group">
+				<div class="col-sm-4 col-xs-6 col-md-2 form-group">
 					<select name="job_type" class="form-control" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()"  ng-required="true">
-						<option value="">-- Choose Type --</option>
+						<option value="">- Choose Type -</option>
 						<option value="1">Locum</option>
 						<option value="2">Permanent</option>
 					</select>
@@ -222,65 +221,65 @@
 		</ul>
 	</div>
 </div>
-	<div class="text-center row" ng-show="jobsCtrl.loading">
-		<div class="col-md-12 form-group">
-		  <i class="fa fa-refresh fa-spin fa-4x"></i>
+<div class="text-center row" ng-show="jobsCtrl.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+
+<div class="text-center row ng-hide" ng-hide="jobsCtrl.totalJobs > 0 || jobsCtrl.loading">
+	<div class="col-md-12 form-group">
+	  <h4>No Jobs meet your search.</h4>
+	</div>
+</div>
+
+<section ng-hide="jobsCtrl.loading || jobsCtrl.error || jobsCtrl.totalJobs == 0" class="ng-hide">
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 		</div>
 	</div>
-	
-	<div class="text-center row ng-hide" ng-hide="jobsCtrl.totalJobs > 0 || jobsCtrl.loading">
-		<div class="col-md-12 form-group">
-		  <h4>No Jobs meet your search.</h4>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="jobsCtrl.sortResult('id')">id</th>
+							<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
+							<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
+							<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
+							<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
+							<th ng-click="jobsCtrl.sortResult('status')">Status</th>
+							<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
+							<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
+							<th>Matches</th>
+							<th>Archive</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}">
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.id }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_title }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button ng-show="(jobsCtrl.matchList | filter:{job_id: job.id}:true)[0].matches > 0">{{(jobsCtrl.matchList | filter: {job_id: job.id}:true)[0].matches}} Candidates</button></td>
+							<td ng-really-click="jobsCtrl.archiveJob(job.id)" ng-really-message="Are you sure you want to archive this job?"><button>Archive</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	
-	<section ng-hide="jobsCtrl.loading || jobsCtrl.error || jobsCtrl.totalJobs == 0" class="ng-hide">
-		<div class="row">
-			<div class="col-sm-12">
-				<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
-			</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="table-responsive">
-					<caption class="ng-cloak"><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
-					<table class="table table-condensed table-striped table-hover">
-						<thead>
-							<tr>
-								<th ng-click="jobsCtrl.sortResult('id')">id</th>
-								<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
-								<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
-								<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
-								<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
-								<th ng-click="jobsCtrl.sortResult('status')">Status</th>
-								<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
-								<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
-								<th>Matches</th>
-								<th>Archive</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}">
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.id }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_title }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
-								<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button ng-show="(jobsCtrl.matchList | filter:{job_id: job.id}:true)[0].matches > 0">{{(jobsCtrl.matchList | filter: {job_id: job.id}:true)[0].matches}} Candidates</button></td>
-								<td ng-really-click="jobsCtrl.archiveJob(job.id)" ng-really-message="Are you sure you want to archive this job?"><button>Archive</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	
-		<div class="row">
-			<div class="col-sm-12">
-				<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
-			</div>
-		</div>
-	</section>
+	</div>
+</section>

@@ -41,9 +41,10 @@
 
 
 	webapp.value('loggedIn', false);
-	webapp.config(function(ENV,$provide){
+	webapp.config(function(ENV,$provide,$animateProvider){
 		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 		$provide.constant('DOC_URL', ENV.doctorApp);
+		$animateProvider.classNameFilter(/animate/);
 	});
 	webapp.config(function ($routeProvider, ENV) {
 
@@ -221,7 +222,7 @@
 		}).when('/orders', {
 			templateUrl: 'views/orders.html',
 			controller: 'OrdersCtrl',
-			controllerAs: 'order',
+			controllerAs: 'orderCtrl',
 			access: { requiredLogin: true }
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }

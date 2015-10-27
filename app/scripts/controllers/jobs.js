@@ -23,6 +23,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	this.specialties = [];
 	this.opened = { 'start': false, 'end':false };
 	this.tags = [];
+	this.partnerIds = [];
 	this.loading = true;
 	this.matchList = [];
 
@@ -102,12 +103,16 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 
 
 	var init = function(){
+		_this.loading = true;
 		jobFactory.getJobTags().then(function(result){
 			_this.tags = result;
+			return jobFactory.getPartnerIds();
+		}).then(function(result){
+			_this.partnerIds = result;
 			return jobFactory.getJobMatchTotals();
 		}).then(function(result){
 			_this.matchList = result;
-			_this.getResults(1);
+			_this.getResults();
 		},function(error){
 			$log.error(error);
 		});

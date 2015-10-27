@@ -1,1 +1,33 @@
-<p>This is the orders view.</p>
+<h3>DEA Renewal Orders</h3>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<caption class="ng-cloak"><strong ng-bind="orderCtrl.orders.length"></strong> Orders Found</caption>
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Order Id</th>
+						<th>Provider</th>
+						<th>DEA Number</th>
+						<th>Expiration Date</th>
+						<th>Schedules</th>
+						<th>State License Info</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="o in orderCtrl.orders">
+						<td ng-bind="o.id"></td>
+						<td ng-bind="o.provider_name"></td>
+						<td ng-bind="o.number"></td>
+						<td ng-bind="o.expiration_date"></td>
+						<td ng-bind="o.schedules"></td>
+						<td ng-bind="o.state_license"></td>
+						<td><select ng-change="orderCtrl.updateOrder(o)" ng-model="o.status" class="form-control" ng-options="item.id as item.name for item in orderCtrl.statusList"></select></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

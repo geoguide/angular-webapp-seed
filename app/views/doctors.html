@@ -42,10 +42,10 @@
 </script>
 
 <section class="row">
-	<div class="col-md-6">
+	<div class="col-md-6 col-xs-6 form-group">
 		<h4>Providers</h4>
 	</div>
-	<div class="col-md-3 col-md-offset-3 pull-right">
+	<div class="col-md-3 col-xs-6 col-md-offset-3 pull-right form-group">
 		<button class="btn btn-primary btn-block" role="button" type="button" ng-click="drsCtrl.open()">Create Provider</button>
 	</div>
 </section>
@@ -53,15 +53,18 @@
 <section id="doctor-search-filters">
 	<form ng-submit="drsCtrl.getResults()">
 		<div class="row">
-			<div class="col-md-5 col-sm-6  form-group">
+			<div class="col-md-3 col-sm-6  form-group">
 				<input type="search" class="form-control" ng-model="drsCtrl.queryData.q" value="" placeholder="Search Providers... " />
 			</div>
-			<div class="col-md-3 form-group">
-				<select class="form-control" ng-model="drsCtrl.queryData.match_only" ng-change="drsCtrl.getResults()">
-					<option value="">--Match Only--</option>
-					<option value="false">False</option>
-					<option value="true">True</option>
+			<div class="col-md-3 col-sm-3 form-group">
+				<select class="form-control" ng-model="drsCtrl.queryData.specialty_id" ng-change="drsCtrl.getResults()" ng-options="s.id as s.specialty for s in appCtrl.specialties">
+					<option value="">-- Specialty--</option>
 				</select>
+			</div>
+			<div class="col-sm-3 form-group">
+				<select class="form-control" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+					<option value="">-- Select Manager --</option>
+				</select>   
 			</div>
 			<div class="col-md-3 form-group">
 				<select class="form-control" ng-model="drsCtrl.queryData.facility_id" ng-change="drsCtrl.getResults()" ng-options="f.id as f.facility_name for f in drsCtrl.facilitiesWithMembers">
@@ -71,11 +74,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-sm-6 form-group">
-				<select class="form-control" ng-model="drsCtrl.queryData.specialty_id" ng-change="drsCtrl.getResults()" ng-options="s.id as s.specialty for s in appCtrl.specialties">
-					<option value="">-- Specialty--</option>
+				<select class="form-control" ng-model="drsCtrl.queryData.match_only" ng-change="drsCtrl.getResults()">
+					<option value="">--Match Only--</option>
+					<option value="false">False</option>
+					<option value="true">True</option>
 				</select>
 			</div>
-			<div class="col-md-2 col-sm-6 form-group">
+			
+			<div class="col-md-3 col-sm-6 form-group">
 				<select class="form-control" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()" ng-options="st.abbreviation as st.abbreviation for st in appCtrl.usStates">
 					<option value="">-- Select State --</option>
 				</select>
@@ -92,21 +98,15 @@
 			</div>
 		</div>
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
-			<div class="col-md-4 form-group">
+			<div class="col-md-4 col-xs-12 form-group">
 				<label>Score</label>
 				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low" model-max="drsCtrl.queryData.score_high" on-handle-up="drsCtrl.getResults()"></div>    
 			</div>
-			<div class="col-md-4 form-group">
-				<label>Account Manager</label>
-				<select class="form-control" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
-					<option value="">-- Select Manager --</option>
-				</select>   
-			</div>
-			<div class="col-md-2 form-group">
+			<div class="col-md-2 col-xs-6 form-group">
 				<label>&nbsp;</label>
 				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 			</div>
-			<div class="col-md-2 form-group">
+			<div class="col-md-2 col-xs-6 form-group">
 				<label>&nbsp;</label>
 				<a class="btn btn-info btn-block" href="{{::drsCtrl.csvEndpoint}}">Download CSV</a>
 			</div>
