@@ -39,25 +39,6 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-xs-3">
-					<label>Graduated?</label>
-					<select ng-model="dr.medicalSchool.graduated" class="form-control">
-						<option value="0">No</option>
-						<option value="1">Yes</option>
-					</select>
-				</div>
-				<div class="form-group col-xs-3">
-					<div ng-show="dr.medicalSchool.graduated == 0">
-						<label>Reason not graduated</label>
-						<input class="form-control" ng-model="dr.medicalSchool.not_graduated_reason" />
-					</div>
-					<div ng-show="dr.medicalSchool.graduated == 1">
-						<label>Degree Awarded</label>
-						<input type="text" class="form-control" ng-model="dr.medicalSchool.degree_awarded" />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-3">
 					<label>Start Date</label>
 					<div class="input-group">
 						<input  placeholder="MM/DD/YYYY" type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="dr.medicalSchool.end_date || appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" />
@@ -75,6 +56,23 @@
 						</span>
 					</div>
 					<button class="btn btn-success btn-block"  ng-show="!dr.medicalSchool.end_date && !dr.opened['end']" ng-click="dr.open($event,'end')">Incomplete</button>
+				</div>
+				<div class="form-group col-xs-3">
+					<label>Graduated?</label>
+					<select ng-model="dr.medicalSchool.graduated" class="form-control">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+					</select>
+				</div>
+				<div class="form-group col-xs-3">
+					<div ng-show="dr.medicalSchool.graduated == 0">
+						<label>Reason not graduated</label>
+						<input class="form-control" ng-model="dr.medicalSchool.not_graduated_reason" />
+					</div>
+					<div ng-show="dr.medicalSchool.graduated == 1">
+						<label>Degree Awarded</label>
+						<input type="text" class="form-control" ng-model="dr.medicalSchool.degree_awarded" />
+					</div>
 				</div>
 			</div>
 			<div class="row">

@@ -217,15 +217,20 @@
 			templateUrl: 'views/invoices.html',
 			controller: 'InvoicesCtrl',
 			controllerAs: 'invoice',
-			access: { requiredLogin: true },
+			access: { requiredLogin: true }
+		}).when('/orders', {
+			templateUrl: 'views/orders.html',
+			controller: 'OrdersCtrl',
+			controllerAs: 'order',
+			access: { requiredLogin: true }
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view
 	});
 
-  webapp.config(function($httpProvider) {
-      $httpProvider.interceptors.push('AuthInterceptor');
-    });
+	webapp.config(function($httpProvider) {
+		$httpProvider.interceptors.push('AuthInterceptor');
+	});
 
 	webapp.config([
     'toastyConfigProvider',
