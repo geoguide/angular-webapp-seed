@@ -260,7 +260,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			email: _this.auth_email,
 			password: _this.password
 		};
-		console.log('pd: '+JSON.stringify(postData));
 		doctorFactory.submitAuthInfo(_this.doctorId,postData).then(function(data){
 			toasty.success({
 				title: 'Success!',

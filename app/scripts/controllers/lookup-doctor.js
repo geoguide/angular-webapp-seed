@@ -127,7 +127,6 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 		});
 
 		_this.modalInstance.result.then(function (data) {
-			console.log(data);
 			var licenseAction;
 			if(data.id){
 				licenseAction = lookupFactory.updateLicense(_this.doctorId,data);

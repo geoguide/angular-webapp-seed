@@ -7,7 +7,7 @@
  * # ChangePasswordCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (userFactory, toasty) {
+angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (userFactory, toasty, $log) {
 
 	var _this = this;
 
@@ -55,11 +55,10 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 	
 	this.getBookmarks = function(){
 		userFactory.getBookmarks().then(function(books){
-			console.log(books);
 			_this.bookmarkedJobs = books.jobs;
 			_this.bookmarkedProviders = books.providers;
 		},function(error){
-			console.error(error);
+			$log.error(error);
 		});
 	};
 

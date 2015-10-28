@@ -45,18 +45,18 @@ angular.module('modioAdminPortal').factory('s3factory', function ($http,ENV,API_
                 },
                 function(data, status, headers, config) {
                   //Success
-                  console.log('Saved file info: ' + filename);
+                  $log.info('Saved file info: ' + filename);
                   success();
                 },
                 function(data, status, headers, config) {
                   //Error
-                  console.log('FAILED to save file info: ' + filename);
+                  $log.error('FAILED to save file info: ' + filename);
                   error();
                 });
             }
           }).on('httpUploadProgress', function (progress) {
             //In order to show this it needs to be in the controller, in order to do this we need to returned abstracted out getCredentials and putObject into different methods,
-            console.log(progress);
+            $log.log(progress);
           });
           //return creds.data;
         });

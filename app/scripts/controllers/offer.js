@@ -115,7 +115,6 @@ angular.module('modioAdminPortal')
 	var init = function(){
 
 		offerFactory.getOffer(_this.offerId).then(function(data){
-			console.log(data);
 			_this.offerData = data;
 			_this.error = false;
 		},function(error){

@@ -17,7 +17,6 @@ angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (job
 	this.findCandidates = function(){
 		_this.loading = true;
 		jobFactory.findCandidates(_this.jobId).then(function(data){
-			console.log(JSON.stringify(data, false, 1));
 			_this.candidates = data;
 			_this.error = false;
 			_this.loading = false;

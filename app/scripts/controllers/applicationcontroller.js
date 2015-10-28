@@ -51,13 +51,6 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.specialties = [];
 	this.medicalSchools = [];
 	this.abmsCertifications = [];
-	//_this.twoWayMatches = applicationFactory.twoWayMatches;
-	
-	/*applicationFactory.getDashboardStats().then(function(response){
-		_this.stats = response;
-	},function(error){
-		console.error(error);
-	});*/
 	
 	
 
