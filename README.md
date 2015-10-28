@@ -5,6 +5,8 @@ version 0.11.1.
 
 ## Build & development
 
+Install compass: `$sudo gem install compass`
+
 Run `grunt` for building and `grunt serve` for preview.
 
 Staging/QA: `grunt --environment=staging`
