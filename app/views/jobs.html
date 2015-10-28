@@ -186,7 +186,7 @@
 					</select>
 				</div>
 				<div class="col-md-2 col-sm-4 form-group">
-					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title"  ng-required="false" ng-change="jobsCtrl.getResults()" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles">
+					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title" ng-change="jobsCtrl.getResults()" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles">
 						<option value="">- Choose Title -</option>
 					</select>
 				</div>
@@ -196,7 +196,7 @@
 					</select>
 				</div>
 				<div class="col-sm-4 col-xs-6 col-md-2 form-group">
-					<select name="job_type" class="form-control" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()"  ng-required="true">
+					<select name="job_type" class="form-control" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()">
 						<option value="">- Choose Type -</option>
 						<option value="1">Locum</option>
 						<option value="2">Permanent</option>
