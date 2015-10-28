@@ -45,7 +45,7 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Doctor Title</label>
-				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
+				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
 	        <label>Archived</label>

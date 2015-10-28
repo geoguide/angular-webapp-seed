@@ -92,7 +92,7 @@
 				</select>
 			</div>
 			<div class="col-md-3 form-group">
-				<select class="form-control" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()" ng-options="title as title for title in appCtrl.doctorTitles">
+				<select class="form-control" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles">
 					<option value="">-- Select Title --</option>
 				</select>
 			</div>

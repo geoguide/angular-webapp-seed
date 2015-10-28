@@ -48,18 +48,7 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Title</label>
-				<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title">
-					<option value="MD">MD</option>
-					<option value="DO">DO</option>
-					<option value="DPM">DPM</option>
-					<option value="DDS">DDS</option>
-					<option value="DMD">DMD</option>
-					<option value="CRNA">CRNA</option>
-					<option value="PA">PA</option>
-					<option value="NP">NP</option>
-					<option value="LPN">LNP</option>
-					<option value="RN">RN</option>
-				</select>
+				<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Created</label>

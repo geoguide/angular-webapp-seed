@@ -42,7 +42,7 @@
 					<td ng-bind="can.state"></td>
 					<td ng-bind="can.v_specialty_name"></td>
 					<td ng-bind="can.job_type"></td>
-					<td ng-bind="can.licensed"></td>
+					<td ng-bind="(can.Licensed == 0) ? 'No' : 'Yes'"></td>
 				</tr>
 			</tbody>
 		</table>

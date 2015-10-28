@@ -100,14 +100,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 	this.doctorTitles = [
-		'MD',
-		'DO',
-		'DPM',
-		'DDS',
-		'DMD',
-		'CRNA',
-		'PA',
-		'NP'
+		{ group: 'Doctors', title:'MD'	},
+		{ group: 'Doctors', title:'DO'	},
+		{ group: 'Doctors', title:'DPM'	},
+		{ group: 'Doctors', title:'DDS'	},
+		{ group: 'Doctors', title:'DMD'	},
+		{ group: 'Nurses', title:'CRNA'	},
+		{ group: 'Nurses', title:'PA'		},
+		{ group: 'Nurses', title:'RN'		},
+		{ group: 'Nurses', title:'NP'		}
 	];
 
 	this.usStates = applicationFactory.usStates;
