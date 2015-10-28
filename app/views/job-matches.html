@@ -28,6 +28,7 @@
 					<th>Job Title</th>
 					<th>Facility Name</th>
 					<th>Details</th>
+					<th>Licensed?</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,7 +36,8 @@
 					<td ng-bind="match.job_id"></td>
 					<td class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.job_title"></a></td>
 					<td class="col-xs-6" ng-bind="match.facility_name"></td>
-					<td class="col-xs-3">{{::match.job_specialty}} {{::match.job_jobtype}}</td>
+					<td class="col-xs-3" ng-bind="match.job_specialty+' '+match.job_jobtype"></td>
+					<td ng-bind="match.licensed"></td>
 				</tr>
 			</tbody>
 		</table>
