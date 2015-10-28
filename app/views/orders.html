@@ -12,7 +12,6 @@
 						<th>DEA Number</th>
 						<th>Expiration Date</th>
 						<th>Schedules</th>
-						<th>State License Info</th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -23,7 +22,6 @@
 						<td ng-bind="o.number"></td>
 						<td ng-bind="o.expiration_date"></td>
 						<td ng-bind="o.schedules"></td>
-						<td ng-bind="o.state_license"></td>
 						<td><select ng-change="orderCtrl.updateOrder(o)" ng-model="o.status" class="form-control" ng-options="item.id as item.name for item in orderCtrl.statusList"></select></td>
 					</tr>
 				</tbody>
