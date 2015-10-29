@@ -6,5 +6,5 @@
   name:'qa',
   apiEndpoint:'https://api.modiohealth.net',
   s3Bucket:'files.modiohealth.test',
-  doctorApp:'https://www.modiohealth.net/#'
+  doctorApp:'https://www.modiohealth.net/#/physicians'
 });
