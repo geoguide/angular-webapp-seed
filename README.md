@@ -27,7 +27,6 @@ Then visit the admin interface in your browser at: http://localhost:9000
 
 To build this on prod, you'll need to run the following:
 
-    grunt build --environment=prod
-    cp app/config.js dist
+    grunt build
 
 This will output to `dist`.  On the production environment, this should be placed in `<modio-webapp-server>/webapps/admin`.
