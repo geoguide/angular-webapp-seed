@@ -34,7 +34,7 @@ module.exports = function(config) {
       'bower_components/angular-toasty/dist/angular-toasty.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-ui-mask/dist/mask.js',
-      'bower_components/angularjs-slider/dist/rzslider.js',
+      'bower_components/angularjs-slider/rzslider.js',
       'bower_components/api-check/dist/api-check.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
