@@ -6,6 +6,7 @@ This is the administrative interface for modiohealth.
 
 You can get started by doing the following:
 
+    gem install --no-ri --no-rdoc compass
     brew install nodejs npm
     npm install -g bower gulp
 
