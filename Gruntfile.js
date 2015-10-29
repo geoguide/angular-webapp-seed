@@ -21,33 +21,9 @@ module.exports = function (grunt) {
 		dist: 'dist'
 	};
 
-	var gruntEnvironment = grunt.option('environment') || 'development';
+	var gruntEnvironment = grunt.option('environment') || 'dev';
 	
-	var apiEndpoints = {
-		development: 'http://localhost:3001',
-		staging: 'https://api.modiohealth.net',
-		production: 'https://api.modiohealth.com',
-		uk_staging: 'http://modio-api.ukeess.net'
-	};
-	
-	var s3Buckets = {
-		development: 'files.modiohealth.test',
-		staging: 'files.modiohealth.test',
-		production: 'files.modiohealth.com',
-		uk_staging: 'files.modiohealth.test'
-	};
-	
-	var docApps = {
-		development: 'http://localhost:8600/#',
-		staging: 'https://www.modiohealth.net/physicians/#',
-		production: 'https://www.modiohealth.com/physicians/#',
-		uk_staging: 'http://modio-sta.ukeess.net'
-	};
-	
-	console.log('genv: '+gruntEnvironment);
-	console.log('api endpoint: '+apiEndpoints[gruntEnvironment]);
-	console.log('s3 bucket: '+s3Buckets[gruntEnvironment]);
-	console.log('doc app: '+docApps[gruntEnvironment]);
+	console.log('Environment: '+gruntEnvironment);
 
 	// Define the configuration for all the tasks
 	grunt.initConfig({
@@ -104,6 +80,14 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              function(req,res,next){
+                if( req.url == "/config.js" ){
+                  res.end(grunt.file.read('./app/configs/' + gruntEnvironment + '.js'));
+                }
+                else {
+                  next();
+                }
+              },
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -414,7 +398,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'configs/*.js'
           ]
         }, {
           expand: true,
