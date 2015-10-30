@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 		dist: 'dist'
 	};
 
-	var gruntEnvironment = grunt.option('environment') || 'dev';
+	var gruntEnvironment = grunt.option('environment') || 'development';
 	
 	console.log('Environment: '+gruntEnvironment);
 
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               function(req,res,next){
-                if( req.url == "/config.js" ){
+                if( req.url == '/config.js' ){
                   res.end(grunt.file.read('./app/configs/' + gruntEnvironment + '.js'));
                 }
                 else {

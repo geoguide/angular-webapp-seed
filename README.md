@@ -12,11 +12,22 @@ You can get started by doing the following:
 
     npm install # install node dependencies
     bower install # install javascript dependencies
-    grunt serve # can also run grunt --environment=staging
+    grunt serve # can also run grunt --environment=qa
 
 Then visit the admin interface in your browser at: http://localhost:9000
 
 *IMPORTANT*: This requires that the API is running on `localhost:3001`.
+
+## configuration
+
+The following environments are available (can be specified with `grunt --environment=<ENV>`)::
+
+- `development`: for local development
+- `qa`: for qa development (modiohealth.net)
+- `prod_com`: for production dotcom (modiohealth.com)
+- `prod_org`: for production dotorg (modiohealth.org)
+
+If you don't specify an environment, it will default to `development`.
 
 ## important code locations
 
