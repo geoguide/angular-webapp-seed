@@ -4,7 +4,7 @@
 
 .constant('ENV', {
   name:'dev',
-  apiEndpoint:'http://localhost:3000',
+  apiEndpoint:'http://localhost:3001',
   s3Bucket:'files.modiohealth.test',
-  doctorApp:'http://localhost:8000/#'
+  doctorApp:'http://localhost:8600/#'
 });
