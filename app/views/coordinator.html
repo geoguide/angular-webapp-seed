@@ -1,6 +1,6 @@
 <section id="coordinator-info">
 	
-	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak ng-hide">Coordinator #<span ng-bind="coord.coordId"></span> Does Not Exist</h3>
+	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak text-center ng-hide">Coordinator #<span ng-bind="coord.coordId"></span> Does Not Exist</h3>
 	
 	<div class="text-center row" ng-show="coord.loading">
 		<div class="col-md-12 form-group">
@@ -80,7 +80,7 @@
 	</div>
 	
 	<!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
-	<div id="membership-section">
+	<div id="membership-section" class="ng-hide" ng-hide="coord.loading || coord.error || coord == null">
 		<accordion close-others="false">
 			<accordion-group is-open="true">
 				<accordion-heading>Memberships<span class="badge pull-right" ng-bind="(coord.memberships).length"></span></accordion-heading>
@@ -94,17 +94,17 @@
 				</article>
 			</accordion-group>
 		</accordion>
+		<div class="row">
+		<div class="col-xs-12 text-right">
+				<button class="btn btn-success" ng-click="coord.openMembershipModal('membership-modal',{})">Add Membership</button
+			</div>
+		</div>
 	</div>
 
-	
 </section>
 
 
-<div class="row">
-	<div class="col-xs-12 text-right">
-		<button class="btn btn-success" ng-click="coord.openMembershipModal('membership-modal',{})">Add Membership</button
-	</div>
-</div>
+
 
 <!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
 <script type="text/ng-template" id="membership-modal">

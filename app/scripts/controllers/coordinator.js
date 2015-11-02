@@ -61,7 +61,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 					showClose: true,
 					clickToClose: true
 				});
-				_this.getMemberships(_this.coordId);
+				_this.get(_this.coordId);
 			},function(error){
 				toasty.error({
 					title: 'Error!',
@@ -81,21 +81,17 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		_this.loading = true;
 		var coordinatorData = doctorFactory.getCoordinator(coordId);
 		coordinatorData.then(function(data){
-			_this.loading = false;
 			_this.coordinatorData = data;
+			return doctorFactory.getMemberships(coordId);
+		}).then(function(result){
+			_this.memberships = result;
+			_this.loading = false;
 			_this.error = false;
 		},function(error){
+			$log.error(error);
 			_this.loading = false;
 			_this.error = true;
 			_this.coordinatorData = null;
-		});
-	};
-	
-	this.getMemberships = function(coordIdIn){
-		doctorFactory.getMemberships(coordIdIn).then(function(result){
-			_this.memberships = result;
-		},function(error){
-			$log.error(error);
 		});
 	};
 	
@@ -107,7 +103,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 				showClose: true,
 				clickToClose: true
 			});
-			_this.getMemberships(_this.coordId);
+			_this.get(_this.coordId);
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -191,7 +187,6 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 
 	var init = function(){
 		_this.get(_this.coordId);
-		_this.getMemberships(_this.coordId);
 
 	};
 

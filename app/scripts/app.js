@@ -251,6 +251,7 @@
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			//Route should have access level set
 			if(!nextRoute.access){
+				nextRoute.access = {};
 				nextRoute.access.requiredLogin = true;	
 			}
 			//Lets store the tokens in Auth so we don't have to use localStorage here
