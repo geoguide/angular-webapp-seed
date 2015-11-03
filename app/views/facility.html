@@ -37,6 +37,10 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-xs-6 form-group">
+				<label>Country</label>
+				<select class="form-control" ng-model="fac.facilityData.country"  ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
+			</div>
 			<div class="col-xs-3 form-group">
 				<label>Phone</label>
 				<input class="form-control" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.tel" />

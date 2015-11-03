@@ -112,6 +112,8 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	];
 
 	this.usStates = applicationFactory.usStates;
+	this.countries = applicationFactory.countries;
+	
 	this.accountManagers = [
 		{ value:'', name: 'Unassigned' },
 		{ value:'Tom Clifford', name: 'Tom Clifford' },
