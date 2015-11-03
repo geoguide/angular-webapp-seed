@@ -44,7 +44,7 @@
 				<select class="form-control" ng-model="jobCtrl.jobData.status"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
 			</div>
 			<div class="col-md-2 form-group">
-				<label>Doctor Title</label>
+				<label>Title</label>
 				<select class="form-control" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
