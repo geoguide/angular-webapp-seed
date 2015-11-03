@@ -331,12 +331,12 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-md-offset-9">
-				<button class="btn btn-danger ng-hide" ng-hide="dr.env.name == 'production'" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
 				<div data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,b,a" class="clearfix">
 					<img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
 					<img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
 				</div>
 				
 			</div>
-	</form>
+		</form>
+		<button class="btn btn-danger ng-hide" ng-hide="dr.env.name != 'production'" type="button" role="button" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
 </section>

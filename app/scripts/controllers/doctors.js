@@ -110,7 +110,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 		_this.changeDoctorType();
 	}
 	
-	facilityFactory.facilitiesWithMembers().then(function(response){
+	facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
 		_this.facilitiesWithMembers = response;
 		return doctorFactory.getJobMatchTotals();
 	}).then(function(result){

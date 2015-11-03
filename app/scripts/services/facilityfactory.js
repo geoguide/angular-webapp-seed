@@ -34,8 +34,8 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			}, function(error){
 				$log.error(error);
 			});
-		}, facilitiesWithMembers: function(){
-			return $http.get(API_URL+'/admin/facilities/memberships').then(function(response) {
+		}, facilitiesWithMembers: function(query){
+			return $http.get(API_URL+'/admin/facilities/memberships',{params: query}).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

@@ -88,20 +88,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			
 			return $http.get(request, {params: queryData});
 		}, queryCoordinators: function(queryData){
-			//Put these all in array (or get as an array) and just parse the array for easiness
-			var searchQuery,pageNumber, sortBy, sortDirection;
-			searchQuery = queryData.search_query || '';
-			pageNumber = queryData.page_number || 1;
-			sortBy = queryData.sort_by;
-			sortDirection = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
+			delete queryData.score_low;
+			delete queryData.score_high;
+			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			
-			var request = API_URL+'/admin/coordinators?q='+searchQuery+'&p='+pageNumber;
+			var request = API_URL+'/admin/coordinators';
 			
-			if(sortBy){
-				request += '&sort_by='+sortBy;
-			}
-			request += '&sort_direction='+sortDirection;
-			return $http.get(request).then(function(response) {
+			return $http.get(request, { params: queryData }).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
