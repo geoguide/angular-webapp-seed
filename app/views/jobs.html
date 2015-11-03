@@ -108,7 +108,7 @@
 					</div>
 					<div class="col-xs-6">
 						<label>Title</label>
-						<select class="form-control" ng-model="jobsCtrl.newJob.doctor_title"  ng-required="false" ng-options="dt as dt for dt in appCtrl.doctorTitles"></select>
+						<select class="form-control" ng-model="jobsCtrl.newJob.doctor_title" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
 					</div>
 				</div>
 				<div class="row">
