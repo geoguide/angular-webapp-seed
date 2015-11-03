@@ -185,7 +185,7 @@
 						<option value="">- Source -</option>
 					</select>
 				</div>
-				<div class="col-md-2 col-sm-4 form-group">
+				<div class="col-md-2 col-sm-4 col-xs-6 form-group">
 					<select class="form-control" ng-model="jobsCtrl.queryData.doctor_title" ng-change="jobsCtrl.getResults()" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles">
 						<option value="">- Choose Title -</option>
 					</select>
@@ -202,7 +202,7 @@
 						<option value="2">Permanent</option>
 					</select>
 				</div>
-				<div class="col-sm-2 form-group">
+				<div class="col-sm-2 col-xs-6 form-group">
 					<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
 				</div>
 			</div>
