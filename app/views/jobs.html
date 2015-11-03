@@ -213,11 +213,13 @@
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 1 }"><a ng-click="jobsCtrl.queryData.job_status = 1;jobsCtrl.getResults()">Active</a></li>
+		  
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 0 }"><a ng-click="jobsCtrl.queryData.job_status = 0;jobsCtrl.getResults()">Inactive</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 2 }"><a ng-click="jobsCtrl.queryData.job_status = 2;jobsCtrl.getResults()">Pending Review</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 3 }"><a ng-click="jobsCtrl.queryData.job_status = 3;jobsCtrl.getResults()">Closed by Modio</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 4 }"><a ng-click="jobsCtrl.queryData.job_status = 4;jobsCtrl.getResults()">Closed by Client</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 5 }"><a ng-click="jobsCtrl.queryData.job_status = 5;jobsCtrl.getResults()">In Progress</a></li>
+		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == null }"><a ng-click="jobsCtrl.queryData.job_status = null;jobsCtrl.getResults()">All</a></li>
 		</ul>
 	</div>
 </div>
