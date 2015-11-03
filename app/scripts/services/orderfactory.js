@@ -15,8 +15,9 @@ angular.module('modioAdminPortal').factory('orderFactory', function ($http,$log,
 	
 	// Public API here
 	return {
-		getOrders: function(){
-			return $http.get(API_URL+'/admin/orders').then(function(response) {
+		getOrders: function(queryData){
+			console.log(queryData);
+			return $http.get(API_URL+'/admin/orders',{params: queryData }).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

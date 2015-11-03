@@ -27,9 +27,9 @@ angular.module('modioAdminPortal').controller('OrdersCtrl', function ($log, orde
 		}
 		
 	];
-	
+	this.queryData = {};
 	this.getOrders = function(){
-		orderFactory.getOrders().then(function(result){
+		orderFactory.getOrders(_this.queryData).then(function(result){
 			_this.orders = result;
 		}, function(error){
 			$log.error(error);
