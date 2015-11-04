@@ -24,7 +24,6 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 		dashboardFactory.get2Way().then(function(result){
 			_this.twoWayMatches = result;
 			dashboardFactory.twoWayMatches = result;
-//			applicationFactory.twoWayMatches = result;
 			_this.loading = false;
 		},function(error){
 			_this.loading = false;
@@ -35,6 +34,24 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	this.setTooltip = function(item){
 		_this.tooltipSales = item.sales_notes;
 		_this.tooltipJob = item.modio_notes;
+	};
+	this.includeMatch = function(data){
+		data.exclude = false;
+		dashboardFactory.matchExclusion(data).then(function(result){
+			_this.get2Way();
+		},function(eror){
+			$log.error('error');
+		});
+		$log.info('include match: '+data.job_id+','+data.doctor_id);
+	};
+	this.excludeMatch = function(data){
+		data.exclude = true;
+		dashboardFactory.matchExclusion(data).then(function(result){
+			_this.get2Way();
+		},function(eror){
+			$log.error('error');
+		});
+		$log.warn('exclude match: '+data.job_id+','+data.doctor_id);
 	};
 	this.twoWayMatches = dashboardFactory.twoWayMatches;
 

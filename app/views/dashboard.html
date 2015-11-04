@@ -20,10 +20,11 @@
 							<th>Specialty</th>
 							<th>Score</th>
 							<th>Account Manager</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="match in dash.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
 							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
@@ -32,6 +33,14 @@
 							<td><span ng-bind="match.job_specialty"></span>  in <span ng-bind="match.doctor_desired_state"></span></td>
 							<td ng-bind="match.score"></td>
 							<td ng-bind="match.account_manager"></td>
+							<td>
+								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
+									<i class="fa fa-check text-success"></i>
+								</a>
+								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
+									<i class="fa fa-ban text-danger"></i>
+								</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>

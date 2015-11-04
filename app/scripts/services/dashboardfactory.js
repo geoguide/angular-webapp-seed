@@ -36,6 +36,17 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
 				_this.twoWayMatches = response.data;
 				return response.data;
 			});
+		}, matchExclusion: function(data){
+			var url;
+			if(!data.exclude){
+				url = API_URL+'/admin/include-match';
+			} else {
+				url = API_URL+'/admin/exclude-match';
+			}
+			return $http.post(url,data).then(function(response){
+				return response.data;
+			});
 		}, twoWayMatches: _this.twoWayMatches
+		
     };
   });
