@@ -24,7 +24,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
 							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
@@ -34,10 +34,10 @@
 							<td ng-bind="match.score"></td>
 							<td ng-bind="match.account_manager"></td>
 							<td>
-								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
+								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id, index: $index})" ng-if="match.excluded == 1">
 									<i class="fa fa-user-times text-muted"></i>
 								</a>
-								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
+								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id, index: $index})" ng-if="match.excluded != 1">
 									<i class="fa fa-user-times"></i>
 								</a>
 							</td>

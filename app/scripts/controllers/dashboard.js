@@ -38,7 +38,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	this.includeMatch = function(data){
 		data.exclude = false;
 		dashboardFactory.matchExclusion(data).then(function(result){
-			_this.get2Way();
+			_this.twoWayMatches[data.index].excluded = 0;
 		},function(eror){
 			$log.error('error');
 		});
@@ -47,7 +47,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	this.excludeMatch = function(data){
 		data.exclude = true;
 		dashboardFactory.matchExclusion(data).then(function(result){
-			_this.get2Way();
+			_this.twoWayMatches[data.index].excluded = 1;
 		},function(eror){
 			$log.error('error');
 		});
@@ -61,5 +61,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	} else {
 		_this.loading = false;
 	}
+	
+	dashboardFactory.tempDEA();
 	
 });

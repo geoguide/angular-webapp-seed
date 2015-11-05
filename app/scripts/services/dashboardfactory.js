@@ -46,6 +46,11 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
 			return $http.post(url,data).then(function(response){
 				return response.data;
 			});
+		}, tempDEA: function(data){
+			var url = API_URL+'/admin/services/dea-data';
+			return $http.post(url,data).then(function(response){
+				return response.data;
+			});
 		}, twoWayMatches: _this.twoWayMatches
 		
     };
