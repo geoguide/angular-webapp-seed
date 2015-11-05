@@ -36,7 +36,8 @@
 		'ngFileUpload',
 		'ngTagsInput',
 		'ui-rangeSlider',
-		'ngEgg'
+		'ngEgg',
+		'angular.filter'
 	]);
 
 
