@@ -35,10 +35,10 @@
 							<td ng-bind="match.account_manager"></td>
 							<td>
 								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
-									<i class="fa fa-check text-success"></i>
+									<i class="fa fa-user-times text-muted"></i>
 								</a>
 								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
-									<i class="fa fa-ban text-danger"></i>
+									<i class="fa fa-user-times"></i>
 								</a>
 							</td>
 						</tr>
