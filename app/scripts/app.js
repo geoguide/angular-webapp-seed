@@ -240,7 +240,8 @@
         //sound: false,
         //shake: true,
         clickToClose: true,
-        timeout: 10000,
+        timeout: 4000,
+        theme:'material'
       });
     }
   ]);
