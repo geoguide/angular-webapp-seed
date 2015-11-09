@@ -6,7 +6,6 @@
 			<li role="presentation" class="active"><a>Account Info</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/education-and-work')">Education &amp; Work</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/qualifications')">Qualifications</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/uploads')">Uploads</a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="ai.trackingData.length"></span></a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::ai.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="ai.matches.length"></span></a></li>
 		</ul>

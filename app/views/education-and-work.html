@@ -7,7 +7,6 @@
 			<li role="presentation">
 				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/qualifications')">Qualifications</a>
 			</li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/uploads')">Uploads</a></li>
 			<li role="presentation"><a  ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="dr.trackingData.length"></span></a></li>
 			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="dr.matches.length"></span></a></li>
 		</ul>
