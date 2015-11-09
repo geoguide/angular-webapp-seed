@@ -33,7 +33,6 @@
 		'ngAnimate',
 		'angular-toasty',
 		'ui.bootstrap',
-		'ngFileUpload',
 		'ngTagsInput',
 		'ui-rangeSlider',
 		'ngEgg',
