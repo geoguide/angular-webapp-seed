@@ -115,7 +115,7 @@
 					<div class="col-md-6">
 						<label>Start Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.start_date || jobsCtrl.opened['start']">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" clear-text="ASAP" readonly />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" clear-text="ASAP" min-date="jobsCtrl.minDate" max-date="jobsCtrl.newJob.end_date" readonly />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'start')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
@@ -126,7 +126,7 @@
 					<div class="col-md-6">
 						<label>End Date</label>
 						<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.end_date || jobsCtrl.opened['end']">
-							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']" min-date="jobsCtrl.minDate" datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly clear-text="Ongoing" />
+							<input type="text" class="form-control" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']"  datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly clear-text="Ongoing" min-date="jobsCtrl.newJob.start_date" />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="jobsCtrl.open($event,'end')"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>

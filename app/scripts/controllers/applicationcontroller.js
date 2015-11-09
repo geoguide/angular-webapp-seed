@@ -108,7 +108,8 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ group: 'Nurses', title:'CRNA'	},
 		{ group: 'Nurses', title:'PA'		},
 		{ group: 'Nurses', title:'RN'		},
-		{ group: 'Nurses', title:'NP'		}
+		{ group: 'Nurses', title:'NP'		},
+		{ group: 'Nurses', title: 'LPN'}
 	];
 
 	this.usStates = applicationFactory.usStates;
