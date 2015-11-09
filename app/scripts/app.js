@@ -36,8 +36,7 @@
 		'ngTagsInput',
 		'ui-rangeSlider',
 		'ngEgg',
-		'angular.filter',
-		'ui.grid'
+		'angular.filter'
 	]);
 
 
