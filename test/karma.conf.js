@@ -42,6 +42,7 @@ module.exports = function(config) {
       'bower_components/ng-tags-input/ng-tags-input.min.js',
       'bower_components/angular-egg/release/angular-egg.js',
       'bower_components/angular-filter/dist/angular-filter.min.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -6,6 +6,7 @@
 			  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 			</div>
 		</div>
+		<div ui-grid="dash.gridOptions" class="myGrid" ui-grid-auto-resize></div>
 		<article ng-hide="dash.loading" class="ng-hide">
 			<h5><span ng-bind="dash.twoWayMatches.length"></span> Matches <i ng-click="dash.get2Way()" class="fa fa-refresh"></i></h5>
 			<div class="table-responsive">
@@ -34,10 +35,10 @@
 							<td ng-bind="match.score"></td>
 							<td ng-bind="match.account_manager"></td>
 							<td>
-								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id, index: $index})" ng-if="match.excluded == 1">
+								<a ng-click="dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
 									<i class="fa fa-user-times text-muted"></i>
 								</a>
-								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id, index: $index})" ng-if="match.excluded != 1">
+								<a ng-click="dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
 									<i class="fa fa-user-times"></i>
 								</a>
 							</td>
