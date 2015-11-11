@@ -82,7 +82,7 @@
 	<div class="container-fluid" id="menu-container">
 		<div class="row">
 			<div class="col-md-2 col-sm-2 col-xs-12 ng-cloak ng-hide" ng-show="isLoggedIn">
-				<ul class="nav row" id="main-nav">
+				<ul class="nav nav-list row" id="main-nav">
 					<li ng-class="{'active': appCtrl.tab == 'dashboard'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/dashboard">
 						<i class="fa fa-tachometer hidden-xs hidden-sm"></i>
 						<i class="fa fa-tachometer fa-2x visible-xs-block visible-sm-block" tooltip="Dashboard" tooltip-placement="bottom"></i>
@@ -93,12 +93,42 @@
 						<i class="fa fa-search fa-2x visible-xs-block visible-sm-block" tooltip="Provider Lookup" tooltip-placement="bottom"></i>
 						<span class="hidden-xs hidden-sm">Provider Lookup</span>
 					</a></li>
-					<li ng-class="{'active': appCtrl.tab == 'users'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/users">
-						<i class="fa fa-user hidden-xs hidden-sm"></i>
-						<i class="fa fa-user fa-2x visible-xs-block visible-sm-block" tooltip="Users" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Users</span>
-
-					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'users'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm">
+					
+						<a data-target="#users-sub" data-toggle="collapse" class="hidden-xs hidden-sm">
+							<i class="fa fa-user hidden-xs"></i>
+							<span class="hidden-xs hidden-sm">Users</span>
+						</a>
+						<a ng-href="#/users" class="visible-xs visible-sm">
+							<i class="fa fa-user fa-2x visible-xs-block visible-sm-block" tooltip="Users" tooltip-placement="bottom"></i>
+						</a>
+						<ul id="users-sub" class="nav nav-pills nav-stacked collapse hidden-sm hidden-xs">
+							<li>
+								<a ng-href="#/providers">&nbsp;&nbsp;
+									<i class="fa fa-briefcase hidden-xs hidden-sm"></i>
+									<i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Job Seekers" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Job Seekers</span>
+								</a>
+							</li>
+							<li>
+								<a ng-href="#/coordinators">&nbsp;&nbsp;
+									<i class="fa fa-users hidden-xs hidden-sm"></i>
+									<i class="fa fa-users fa-2x visible-xs-block visible-sm-block" tooltip="Coordinators" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Coordinators</span>
+								</a>
+							</li>
+							<li>
+								<a ng-href="#/providers?type=credentialing">&nbsp;&nbsp;
+									<i class="fa fa-book hidden-xs hidden-sm"></i>
+									<i class="fa fa-book fa-2x visible-xs-block visible-sm-block" tooltip="Credentialing Only" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Credentialing Only</span>
+								</a>
+							</li>
+							<li>
+								<a ng-href="#/providers?type=all">&nbsp;&nbsp;
+									<i class="fa fa-user-md hidden-xs hidden-sm"></i>
+									<i class="fa fa-user-md fa-2x visible-xs-block visible-sm-block" tooltip="All Providers" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">All Providers</span>
+								</a>
+							</li>
+						</ul>
+					</li>
 					<li ng-class="{'active': appCtrl.tab == 'jobs'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/jobs">
 						<i class="fa fa-briefcase hidden-xs hidden-sm"></i>
 						<i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Jobs" tooltip-placement="bottom"></i>
