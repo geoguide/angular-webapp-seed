@@ -233,10 +233,8 @@
 		$httpProvider.interceptors.push('AuthInterceptor');
 	});
 
-	webapp.config([
-    'toastyConfigProvider',
-    function(toastyConfigProvider) {
-      toastyConfigProvider.setConfig({
+	webapp.config(['toastyConfigProvider', function(toastyConfigProvider) {
+		toastyConfigProvider.setConfig({
         //sound: false,
         //shake: true,
         clickToClose: true,

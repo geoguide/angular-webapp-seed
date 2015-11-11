@@ -47,12 +47,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 			_this.loading = false;
 		},function(error){
 			_this.loading = false;
-			toasty.error({
-				title: 'Error!',
-				msg: 'Bad Query',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error({ title: 'Error!', msg: 'Bad Query' });
 		});
 	};
 	
@@ -72,12 +67,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 			applicationFactory.goTo('/providers/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
 

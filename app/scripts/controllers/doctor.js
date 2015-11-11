@@ -59,22 +59,14 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.save = function(){
 
 		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : _this.doctorData.date_of_birth;
+		
 		delete _this.doctorData.rates;
+		
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success({ title: 'Success!', msg: 'Doctor Saved.' });
 			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
 	
@@ -86,41 +78,21 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.delete = function(){
 		doctorFactory.deleteDoctor(_this.doctorId).then(function(data){
 			_this.doctorData = null;
-			toasty.success({
-				title: 'Admin Wins!',
-				msg: 'Flawless Victory.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success({ title: 'Admin Wins!', msg: 'Flawless Victory.' });
 			_this.doctorData = null;
 			_this.error = true;
 			_this.eggActivated = false;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: 'Please Insert More Credits',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error({ title: 'Error!', msg: 'Please Insert More Credits'});
 		});
 	};
 	
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_self');
-			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Acted As.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success({ title: 'Success!', msg: 'Doctor Acted As.' });
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
 	
