@@ -13,18 +13,18 @@
 					<thead>
 						<tr>
 							<th>id</th>
-							<th>Facility</th>
+							<th ng-click="dash.sortColumn('facility_name')">Facility</th>
 							<th>Job Types<br />(Job | Provider)</th>
-							<th>Provider Name</th>
-							<th>Licensed?</th>
-							<th>Specialty</th>
-							<th>Score</th>
-							<th>Account Manager</th>
+							<th ng-click="dash.sortColumn('last_name')">Provider Name</th>
+							<th ng-click="dash.sortColumn('Licensed')">Licensed?</th>
+							<th ng-click="dash.sortColumn('job_specialty')">Specialty</th>
+							<th ng-click="dash.sortColumn('score')">Score</th>
+							<th ng-click="dash.sortColumn('account_manager')">Account Manager</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0}  track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0} | orderBy: dash.sortBy : dash.sortDir track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
 							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>

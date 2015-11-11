@@ -12,6 +12,17 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	var _this = this;
 	this.loading = true;
 	
+	this.sortBy = null;
+	this.sortDir = true;
+	
+	this.sortColumn = function(column){
+		if(_this.sortBy != column){
+			_this.sortBy = column;	
+		} else {
+			_this.sortDir = !_this.sortDir;
+		}
+	};
+	
 	this.dynamicPopover = {
 		content: 'Hello, World!',
 		templateUrl: 'notes-template.html',
