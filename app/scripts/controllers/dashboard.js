@@ -69,6 +69,4 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 		_this.loading = false;
 	}
 	
-	dashboardFactory.tempDEA();
-	
 });
