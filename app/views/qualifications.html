@@ -268,7 +268,7 @@
 				<div class="form-group col-xs-6">
 					<label>Facility</label>
 					<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id;modal.modalObject.address = $item.address;modal.modalObject.city = $item.city;modal.modalObject.zip = $item.zip;modal.modalObject.state = $item.state;modal.modalObject.tel = $item.tel;modal.modalObject.fax = $item.fax;" typeahead-editable="false" />
-					<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+					<i ng-show="loadingLocations" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 				</div>
 				<div class="form-group col-xs-3">
 					<label>Primary?</label>

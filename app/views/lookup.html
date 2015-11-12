@@ -16,7 +16,7 @@
 			<div class="form-group">
 				<label>Specialty</label>
 				<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="look.formData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" />
-				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
+				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 			</div>
 		</div> 
 		<div class="modal-footer"> 
@@ -27,10 +27,10 @@
 </script>
 <section class="row">
 	<div class="col-md-6">
-		<h4>Leads Lookup Doctors</h4>
+		<h4>Leads Lookup Providers</h4>
 	</div>
 	<div class="col-md-3 col-md-offset-3 col-xs-12 form-group text-right">
-		<button class="btn btn-primary btn-block btn-sm" role="button" type="button" ng-click="look.open()">Create Lookup Doctor</button>
+		<button class="btn btn-primary btn-block btn-sm" role="button" type="button" ng-click="look.open()">Create Lookup Provider</button>
 	</div>
 </section>
 <section id="doctor-search-filters">
@@ -64,7 +64,7 @@
 	<section class="row">
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong ng-bind="look.totalDoctors"></strong> Doctors Found</caption>
+				<caption class="ng-cloak"><strong ng-bind="look.totalDoctors"></strong> Providers Found</caption>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
