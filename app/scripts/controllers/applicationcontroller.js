@@ -60,6 +60,19 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 	
+	this.trainingTypes = [
+		{
+			id:0,
+			type:'Fellowship'
+		},{
+			id:1,
+			type: 'Internship'
+		},{
+			id:2,
+			type: 'Residency'
+		}
+	];
+	
 	this.memberStatuses = [
 		{
 			id: 0,

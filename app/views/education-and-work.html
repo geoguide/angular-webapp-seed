@@ -22,160 +22,163 @@
 
 
 <div ng-hide="dr.loading" class="ng-hide">
-	<section id="medical-school">
-		<h4>Medical School</h4>
-		<form novalidate ng-submit="dr.submitMedicalSchool()">
-			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>Institution</label>
-					<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="dr.medicalSchool.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryMedicalSchools($viewValue)" typeahead-on-select="dr.medicalSchool.facility_id = $item.id" typeahead-editable="false" />
-					<i ng-show="loadingLocations" class="fa fa-spinner fa-pulse"></i>
-				</div>
-				<div class="form-group col-xs-3">
-					<label>Actions</label>
-					<button role="button" type="button" class="btn-primary btn-sm btn btn-block" ng-click="appCtrl.goTo('/facility/'+dr.medicalSchool.facility_id)">Edit this school</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-3">
-					<label>Start Date</label>
-					<div class="input-group">
-						<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="dr.medicalSchool.end_date || appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" />
-						<span class="input-group-btn">
-		                <button type="button" class="btn btn-sm btn-default" ng-click="dr.open($event,'start')"><i class="fa fa-calendar fa-fw"></i></button>
-						</span>
+	<section id="medical-school" class="row form-group">
+		<div class="col-md-12">
+			<h4>Medical School</h4>
+			<form novalidate ng-submit="dr.submitMedicalSchool()">
+				<div class="row">
+					<div class="form-group col-xs-6">
+						<label>Institution</label>
+						<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="dr.medicalSchool.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryMedicalSchools($viewValue)" typeahead-on-select="dr.medicalSchool.facility_id = $item.id" typeahead-editable="false" />
+						<i ng-show="loadingLocations" class="fa fa-spinner fa-pulse"></i>
+					</div>
+					<div class="form-group col-xs-3">
+						<label>Actions</label>
+						<button role="button" type="button" class="btn-primary btn-sm btn btn-block" ng-click="appCtrl.goTo('/facility/'+dr.medicalSchool.facility_id)">Edit this school</button>
 					</div>
 				</div>
-				<div class="form-group col-xs-3">
-					<label>End Date</label>
-					<div class="input-group date-picker-group" ng-show="dr.medicalSchool.end_date || dr.opened['end']">
-						<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened['end']" max-date="appCtrl.today" min-date="dr.medicalSchool.start_date || '01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="false" close-text="Close" />
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default btn-sm" ng-click="dr.open($event,'end')"><i class="fa fa-calendar fa-fw"></i></button>
-						</span>
+				<div class="row">
+					<div class="form-group col-xs-3">
+						<label>Start Date</label>
+						<div class="input-group">
+							<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.start_date" is-open="dr.opened['start']" max-date="dr.medicalSchool.end_date || appCtrl.today" min-date="'01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="true" close-text="Close" />
+							<span class="input-group-btn">
+			                <button type="button" class="btn btn-sm btn-default" ng-click="dr.open($event,'start')"><i class="fa fa-calendar fa-fw"></i></button>
+							</span>
+						</div>
 					</div>
-					<button class="btn btn-success btn-block btn-sm"  ng-show="!dr.medicalSchool.end_date && !dr.opened['end']" ng-click="dr.open($event,'end')">Incomplete</button>
-				</div>
-				<div class="form-group col-xs-2">
-					<label>Graduated?</label><br />
-					<input type="checkbox" ng-model="dr.medicalSchool.graduated" ng-true-value="1" ng-false-value="0">
-				</div>
-				<div class="form-group col-xs-4">
-					<div ng-show="dr.medicalSchool.graduated == 0">
-						<label>Reason not graduated</label>
-						<input class="form-control input-sm" ng-model="dr.medicalSchool.not_graduated_reason" />
+					<div class="form-group col-xs-3">
+						<label>End Date</label>
+						<div class="input-group date-picker-group" ng-show="dr.medicalSchool.end_date || dr.opened['end']">
+							<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.medicalSchool.end_date" is-open="dr.opened['end']" max-date="appCtrl.today" min-date="dr.medicalSchool.start_date || '01/01/1915'"  datepicker-options="appCtrl.dateOptions" ng-required="false" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" ng-click="dr.open($event,'end')"><i class="fa fa-calendar fa-fw"></i></button>
+							</span>
+						</div>
+						<button class="btn btn-success btn-block btn-sm"  ng-show="!dr.medicalSchool.end_date && !dr.opened['end']" ng-click="dr.open($event,'end')">Incomplete</button>
 					</div>
-					<div ng-show="dr.medicalSchool.graduated == 1">
-						<label>Degree Awarded</label>
-						<input type="text" class="form-control input-sm" ng-model="dr.medicalSchool.degree_awarded" />
+					<div class="form-group col-xs-2">
+						<label>Graduated?</label><br />
+						<input type="checkbox" ng-model="dr.medicalSchool.graduated" ng-true-value="1" ng-false-value="0">
+					</div>
+					<div class="form-group col-xs-4">
+						<div ng-show="!dr.medicalSchool.graduated || dr.medicalSchool.graduated == 0">
+							<label>Reason not graduated</label>
+							<input class="form-control input-sm" ng-model="dr.medicalSchool.not_graduated_reason" />
+						</div>
+						<div ng-show="dr.medicalSchool.graduated == 1">
+							<label>Degree Awarded</label>
+							<input type="text" class="form-control input-sm" ng-model="dr.medicalSchool.degree_awarded" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 text-right">
-					<button role="submit" class="btn btn-success btn-sm">Submit Medical School Info</button>
+				<div class="row">
+					<div class="col-xs-12 text-right">
+						<button role="submit" class="btn btn-success btn-sm">Submit Medical School Info</button>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</section>
 
-	<section id="training-section" class="row">
-		<h4 class="col-md-12">Training</h4>
-		<accordion close-others="false" class="col-sm-4">
-			<accordion-group is-open="true">
-				<accordion-heading>Fellowships<span class="badge pull-right">{{(dr.training | filter: { training_type: 0}).length}}</span></accordion-heading>
-				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 0 }">
-					<div><h4 ng-bind="obj.institution"></h4></div>
-					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
-					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
-					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
-					<div class="text-right">
-						<a class="btn btn-info btn-sm" ng-click="dr.openModal('training-modal',obj)">Edit</a>
-						<button class="btn btn-danger btn-sm" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
+
+	<hr />
+
+
+	<div class="row form-group">
+		<section id="training-section" class="col-md-6">
+			<accordion close-others="false">
+				<accordion-group is-open="true">
+					<accordion-heading>Training<span class="badge pull-right">{{(dr.training).length}}</span></accordion-heading>
+					<div class="table table-responsive">
+						<table class="table table-condensed table-striped">
+							<thead>
+								<th>Type</th>
+								<th>Institution</th>
+								<th>Dates</th>
+								<th>Completed</th>
+								<th>&nbsp;</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="(key,obj) in dr.training | orderBy: 'training_type'">
+									<td ng-click="dr.openModal('training-modal',obj)" ng-bind="appCtrl.trainingTypes[obj.training_type].type"></td>
+									<td ng-click="dr.openModal('training-modal',obj)" ng-bind="obj.institution"></td>
+									<td ng-click="dr.openModal('training-modal',obj)" ng-bind="obj.start_date | date : 'yyyy-MM-dd' +' - ' +obj.end_date | date : 'yyyy-MM-dd'"></td>
+									<td ng-click="dr.openModal('training-modal',obj)">
+										<i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i>
+									</td>
+									<td>
+										<a ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)"><i class="fa fa-ban text-danger"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<hr />
-				</article>
-			</accordion-group>
-		</accordion>
-		<accordion close-others="false" class="col-sm-4">
-			<accordion-group is-open="true">
-				<accordion-heading>Residencies<span class="badge pull-right">{{(dr.training | filter: { training_type: 2}).length}}</span></accordion-heading>
-				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 2 }">
-					<h4 ng-bind="obj.institution"></h4>
-					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
-					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
-					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
-					<div class="text-right">
-						<a class="btn btn-info btn-sm" ng-click="dr.openModal('training-modal',obj)">Edit</a>
-						<button class="btn btn-danger btn-sm" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
+					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openModal('training-modal',{})">Add Training</button>
+				</accordion-group>
+			</accordion>
+		</section>
+		<section class="col-md-6">
+			<accordion close-others="false">
+				<accordion-group is-open="true">
+					<accordion-heading>Work History<span class="badge pull-right">{{(dr.workHistory).length}}</span></accordion-heading>
+					<div class="table table-responsive">
+						<table class="table table-condensed table-striped">
+							<thead>
+								<th>Position</th>
+								<th>Employer</th>
+								<th>Dates</th>
+								<th>Completed</th>
+								<th>&nbsp;</th>
+							</thead>
+							<tbody>
+
+								<tr ng-repeat="(key,obj) in dr.workHistory">
+									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.position_held"></td>
+									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.employer"></td> 
+									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="'('+obj.start_date | date : 'yyyy-MM-dd' +' - '+obj.end_date | date : 'yyyy-MM-dd' +')'">
+										</td>	
+									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.supervisor"></td>
+									<td>
+										<a ng-really-message="Are you sure?" ng-really-click="dr.deleteWorkHistory(obj.id)">
+											<i class="fa fa-ban text-danger"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<hr />
-				</article>
-			</accordion-group>
-		</accordion>
-		<accordion close-others="false" class="col-sm-4">
-			<accordion-group is-open="true">
-				<accordion-heading>Internships<span class="badge pull-right">{{(dr.training | filter: { training_type: 1}).length}}</span></accordion-heading>
-				<article ng-repeat="(key,obj) in dr.training | filter: { training_type: 1 }">
-					<div><h4 ng-bind="obj.institution"></h4></div>
-					<div><label>Dates:</label> {{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }}</div>
-					<div><label>Director:</label> {{obj.program_director}} ({{obj.program_director_email}})</div>
-					<div><label>Completed:</label> <i ng-class="{ 'fa fa-times-circle text-danger': obj.program_completed == 0, 'fa fa-check text-success' : obj.program_completed == 1 }"></i></div>
-					<div class="text-right">
-						<a class="btn btn-info btn-sm" ng-click="dr.openModal('training-modal',obj)">Edit</a>
-						<button class="btn btn-danger btn-sm" ng-really-message="Are you sure?" ng-really-click="dr.deleteTraining(obj.id)">Delete</button>
-					</div>
-					<hr />
-				</article>
-			</accordion-group>
-		</accordion>
-		<div class="col-md-12 text-right">
-			<button class="btn btn-primary btn-sm" ng-click="dr.openModal('training-modal',{})">Add Training</button>
-		</div>
-	</section>
-	
-	<h4>Work History</h4>
-	<accordion close-others="false">
-		<accordion-group is-open="true">
-			<accordion-heading>Work History<span class="badge pull-right">{{(dr.workHistory).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in dr.workHistory">
-				<h4 ng-bind="obj.position_held"></h4>
-				<div><strong ng-bind="obj.employer"></strong> ({{obj.start_date | date : 'yyyy-MM-dd' }} - {{obj.end_date | date : 'yyyy-MM-dd' }})</div>
-				<div><label>Supervisor: </label> {{obj.supervisor}}</div>
-				<button class="btn btn-danger btn-sm" ng-really-message="Are you sure?" ng-really-click="dr.deleteWorkHistory(obj.id)">Delete</button>
-				<a class="btn btn-info" ng-click="dr.openWorkHistoryModal('work-history-modal',obj)">Edit</a>
-			</article>
-		</accordion-group>
-	</accordion>
-	<div class="row">
-		<div class="col-md-12 text-right">
-			<button class="btn btn-primary btn-sm" ng-click="dr.openWorkHistoryModal('work-history-modal',{})">Add Work History</button>
-		</div>
+					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openWorkHistoryModal('work-history-modal',{})">Add Work History</button>
+				</accordion-group>
+			</accordion>
+		</section>
 	</div>
 	
-	<h4>Facility Memberships</h4>
-	<accordion close-others="false">
-		<accordion-group is-open="true">
-			<accordion-heading>Memberships<span class="badge pull-right">{{(dr.memberships).length}}</span></accordion-heading>
-			<article ng-repeat="(key,obj) in dr.memberships" class="row form-group">
-				<div class="col-md-1">
-					<img ng-src="{{obj.profileUrl}}" onerror="if (this.src != './images/default-avatar.png') this.src = './images/default-avatar.png';" class="img-responsive img-circle" style="width:100%" />
-				</div>
-				<div class="col-md-9">
-					<h4><span ng-bind="obj.facility_name"></span> <span ng-bind="'('+appCtrl.memberStatuses[obj.status].status+')'"></span></h4>
-					<h5 ng-bind="'Department: '+obj.department"></h5>
-				</div>
-				<div class="col-md-2">
-					<a class="btn btn-info btn-sm btn-block" ng-click="dr.openMembershipModal('membership-modal',obj)">Edit</a>
-					<button class="btn btn-danger btn-sm btn-block" ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)">Delete</button>
-				</div>
-				<hr />
-			</article>
-		</accordion-group>
-	</accordion>
+	<hr />
+	
 	<div class="row">
-		<div class="col-md-12 text-right">
-			<button class="btn btn-primary btn-sm" ng-click="dr.openMembershipModal('facility-membership-modal',{})">Add Facility Membership</button>
+		<div class="col-md-12">
+			<accordion close-others="false">
+				<accordion-group is-open="true">
+					<accordion-heading>Facility Memberships<span class="badge pull-right">{{(dr.memberships).length}}</span></accordion-heading>
+					<article ng-repeat="(key,obj) in dr.memberships" class="row form-group">
+						<div class="col-xs-2 col-md-1" ng-click="dr.openMembershipModal('membership-modal',obj)">
+							<img ng-src="{{obj.profileUrl}}" onerror="if (this.src != './images/default-avatar.png') this.src = './images/default-avatar.png';" class="img-responsive img-circle" style="width:100%" />
+						</div>
+						<div class="col-md-9 col-xs-8" ng-click="dr.openMembershipModal('facility-membership-modal',obj)">
+							<h4><span ng-bind="obj.facility_name"></span> <span ng-bind="'('+appCtrl.memberStatuses[obj.status].status+')'"></span></h4>
+							<h5 ng-bind="'Department: '+obj.department"></h5>
+						</div>
+						<div class="col-md-2 col-xs-2 text-right">
+							<a ng-click ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)" title="Remove">
+								<i class="fa fa-ban text-danger fa-2x"></i>
+							</a>
+						</div>
+						<hr />
+					</article>
+					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openMembershipModal('facility-membership-modal',{})">Add Facility Membership</button>
+				</accordion-group>
+			</accordion>
 		</div>
 	</div>
 </div>
@@ -265,7 +268,7 @@
 					</div>
 				</div>
 					
-				<div class="col-md-6">
+				<div class="col-md-6 form-group">
 					<label>End Date</label>
 					<div class="input-group date-picker-group" ng-show="modal.parentCtrl.opened['modalend'] || modal.modalObject.end_date">
 						<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="MM/dd/yyyy" ng-model="modal.modalObject.end_date" is-open="modal.parentCtrl.opened['modalend']" min-date="modal.modalObject.start_date || '01/01/1940'" max-date="modal.parentCtrl.today" ng-required="true" close-text="Close" />

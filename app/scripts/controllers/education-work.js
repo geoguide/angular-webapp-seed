@@ -296,8 +296,13 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			return doctorFactory.getMemberships(_this.doctorId);
 		}).then(function(result){
 			for(var fm=0;fm<result.length;fm++){
-				var url = 'https://s3.amazonaws.com/' + S3_URL + '/1/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
-				result[fm].profileUrl = url;
+				if(result[fm].file_url){
+					var url = 'https://s3.amazonaws.com/' + S3_URL + '/1/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
+					result[fm].profileUrl = url;
+				} else {
+					result[fm].profileUrl = './images/default-avatar.png';
+				}
+				
 			}
 			_this.memberships = result;
 		},function(error){

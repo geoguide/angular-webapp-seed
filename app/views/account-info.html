@@ -25,7 +25,7 @@
 	<section id="authentication-section">
 		
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-md-4">
 				<div ng-show="ai.doctorData.user_id">
 					<div><h4>Authentication</h4></div>
 					<div class="form-group">
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-md-8">
 				<h4>Specialties</h4>
 	
 				<div class="row">
@@ -99,7 +99,7 @@
 	</section>
 	<hr />
 	<div class= "row">
-		<div class="col-xs-6">
+		<div class="col-sm-4">
 			<h4>States Subscribed</h4>	
 			<accordion close-others="true">
 				<accordion-group is-open="true">
@@ -107,24 +107,23 @@
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'Northeast' }">
 						<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
-						
 					</div>
 				</accordion-group>
-				<accordion-group is-open="true">
+				<accordion-group is-open="false">
 					<accordion-heading>Midwest<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'Midwest' }">
 						<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
 					</div>
 				</accordion-group>
-				<accordion-group is-open="true">
+				<accordion-group is-open="false">
 					<accordion-heading>South<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'South' }">
 						<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
 					</div>
 				</accordion-group>
-				<accordion-group is-open="true">
+				<accordion-group is-open="false">
 					<accordion-heading>West<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'West' }">
 						<input type="checkbox" ng-model="ai.states[value.abbreviation]" ng-click="ai.updateState(value.abbreviation)" />
@@ -139,9 +138,10 @@
 		
 		
 		<!-- Board Certifications -->
-		<div class="col-xs-6">
+		<div class="col-sm-8">
 			<h4>ABMS Certifications</h4>	
 			<div ng-repeat="bc in ai.abmsCertifications track by $index">
+				<hr ng-if="$index > 0" />
 				<form novalidate ng-submit="ai.submitABMSCertifications(bc)">
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -188,7 +188,6 @@
 						</div>
 					</div>
 				</form>
-				<hr />
 			</div>
 			<div class="row">
 				<div class="col-md-12 form-group">
@@ -198,6 +197,7 @@
 			</div>
 			
 			
+			<hr />
 			
 			
 			<!-- Additional Certifications -->
@@ -242,7 +242,7 @@
 	<!-- Job Offers -->
 	<div class="row">
 		<div class="col-md-12">
-			<h4>Job Offers</h4>
+			<h4 class="text-center">Job Offers</h4>
 			<article ng-repeat="(key,obj) in ai.offers" class="row">
 				<div class="col-md-6"><h4>{{::obj.job_title}} ({{::obj.status}})</h4></div>
 				<div class="col-md-6">
