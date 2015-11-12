@@ -5,7 +5,7 @@
 	<hr></hr>
 	<form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
 		<div class="row">
-			<div class="col-xs-8 form-group">
+			<div class="col-xs-6 form-group">
 				<label>Facility Name</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true" />
 			</div>
@@ -37,12 +37,12 @@
 				<label>Zip</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.zip" />
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-6 col-sm-3 form-group">
 				<label>Country</label>
 				<select class="form-control input-sm" ng-model="fac.facilityData.country"  ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
 			</div>
-		</div>
-		<div class="row">
 			<div class="col-xs-6 col-sm-3 form-group">
 				<label>Phone</label>
 				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.tel" />
