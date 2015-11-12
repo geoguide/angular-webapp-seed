@@ -302,24 +302,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		return jobFactory.getJobTags(query);
 	};
 	
-	this.init = function(){
-		$log.info('app init called');
-
-		specialtyFactory.getABMSCertifications().then(function(data){
-			_this.abmsCertifications = data;
-			_this.appLoading = true;
-		},function(error){
-			$log.error(error);
-		});
-	};
-	
 	$scope.$on('login',function(){
 		_this.init();
 	});
-	
-	if(Auth.isAuthenticated()){
-		this.init();
-	}
 
 	//Logout
 	this.logout = Auth.logout;

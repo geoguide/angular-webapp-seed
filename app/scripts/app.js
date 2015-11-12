@@ -180,7 +180,7 @@
 			controller: 'CoordinatorsCtrl',
 			controllerAs: 'coord',
 			access: {requiredLogin: true},
-			tab: 'users'
+			tab: 'coordinators'
 		}).when('/users', {
 			templateUrl: 'views/users.html',
 			access: {requiredLogin: true},
