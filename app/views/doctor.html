@@ -35,19 +35,19 @@
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>First Name</label>
-				<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
+				<input type="text" class="form-control input-sm" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name" />
 			</div>
 			<div class="form-group col-md-2">
 				<label>Middle</label>
-				<input type="text" class="form-control" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name">
+				<input type="text" class="form-control input-sm" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name" />
 			</div>
 			<div class="col-md-3 form-group">
 				<label>Last Name</label>
-				<input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
+				<input type="text" class="form-control input-sm" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Title</label>
-				<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
+				<select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Created</label>
@@ -57,36 +57,36 @@
 		<div class="row">
 			<div class="form-group col-md-4">
 				<label>Home Address 1</label>
-				<input type="text" class="form-control" placeholder="Address" ng-model="dr.doctorData.home_address">
+				<input type="text" class="form-control input-sm" placeholder="Address" ng-model="dr.doctorData.home_address">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Home Address 2</label>
-				<input type="text" class="form-control" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
+				<input type="text" class="form-control input-sm" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
 			</div>
 		</div>
 		<div class="row">
 			<div class="form-group col-md-4">
 				<label>City</label>
-				<input type="text" class="form-control" placeholder="City" ng-model="dr.doctorData.home_city">
+				<input type="text" class="form-control input-sm" placeholder="City" ng-model="dr.doctorData.home_city">
 			</div>
 			<div class="col-md-2 form-group">
 				<label>State</label>
-				<select class="form-control" ng-model="dr.doctorData.home_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
+				<select class="form-control input-sm" ng-model="dr.doctorData.home_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
 			</div>
 			<div class="form-group col-md-2">
 				<label>Zip</label>
-				<input type="text" class="form-control" ui-mask="99999" ng-model="dr.doctorData.home_zip">
+				<input type="text" class="form-control input-sm" ui-mask="99999" ng-model="dr.doctorData.home_zip">
 			</div>
 			<div class="form-group col-md-4">
 				<label for="email">Email Address</label>
-				<input type="email" class="form-control" ng-model="dr.doctorData.email">
+				<input type="email" class="form-control input-sm" ng-model="dr.doctorData.email">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-md-4">
 				<label>Phone Number</label>
-				<input type="text" class="form-control" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
+				<input type="text" class="form-control input-sm" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Text OK?</label><br />
@@ -95,31 +95,31 @@
 			<div class="form-group col-md-4" ng-if="appCtrl.userInfo.email == 'Tom@modiohealth.com'">
 				<label>SSN</label><br />
 				<a class="btn btn-primary" ng-click="dr.ssn.show = true" ng-hide="dr.ssn.show">Show</a>
-				<input class="ng-hide form-control" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
+				<input class="ng-hide form-control input-sm" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>Drivers License #</label>
-				<input type="text" class="form-control" ng-model="dr.doctorData.drivers_license_number"  />
+				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.drivers_license_number"  />
 			</div>
 			<div class="form-group col-md-2">
-				<label>Drivers License State</label>
-				<select class="form-control" ng-model="dr.doctorData.drivers_license_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
+				<label>DL State</label>
+				<select class="form-control input-sm" ng-model="dr.doctorData.drivers_license_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 				</select>
 			</div>
 			<div class="col-md-3 form-group">
 				<label>Account Manager</label>
-				<select ng-model="dr.doctorData.account_manager" class="form-control" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+				<select ng-model="dr.doctorData.account_manager" class="form-control input-sm" ng-options="man.value as man.name for man in appCtrl.accountManagers">
 				</select>
 			</div>
 			<div class="form-group col-md-3">
 				<label>Date of Birth</label>
 				<div class="input-group">
-					<input type="text" class="form-control" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" close-text="Close"  placeholder="MM/DD/YYYY" />
+					<input type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" close-text="Close"  placeholder="MM/DD/YYYY" />
 					<span class="input-group-btn">
-	                <button type="button" class="btn btn-default" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
+	                <button type="button" class="btn btn-default btn-sm" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
 					</span>
 				</div>
 			</div>
@@ -135,7 +135,7 @@
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>Job Type Desired</label>
-				<select ng-model="dr.doctorData.job_type_desired" class="form-control">
+				<select ng-model="dr.doctorData.job_type_desired" class="form-control input-sm">
 					<option value="0">None</option>
 					<option value="1">Locum</option>
 					<option value="2">Permanent</option>
@@ -144,7 +144,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Locum Experience</label>
-				<select ng-model="dr.doctorData.locum_experience" class="form-control">
+				<select ng-model="dr.doctorData.locum_experience" class="form-control input-sm">
 					<option value="0">None</option>
 					<option value="1">Low</option>
 					<option value="2">High</option>
@@ -152,7 +152,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Tier</label>
-				<select ng-model="dr.doctorData.tier" class="form-control">
+				<select ng-model="dr.doctorData.tier" class="form-control input-sm">
 					<option value="0">Inactive</option>
 					<option value="1">Soft Registration</option>
 					<option value="2">Verified</option>
@@ -162,7 +162,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>BC/BE</label>
-				<select ng-model="dr.doctorData.bc_be" class="form-control">
+				<select ng-model="dr.doctorData.bc_be" class="form-control input-sm">
 					<option value="">Neither</option>
 					<option value="BC">BC</option>
 					<option value="BE">BE</option>
@@ -173,11 +173,11 @@
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>Clinical Experience</label>
-				<input type="text" ng-model="dr.doctorData.clinical_experience_years" class="form-control" />
+				<input type="text" ng-model="dr.doctorData.clinical_experience_years" class="form-control input-sm" />
 			</div>
 			<div class="form-group col-md-3">
 				<label>EHR Experience</label>
-				<select ng-model="dr.doctorData.ehr_experience" multiple="multiple" class="form-control">
+				<select ng-model="dr.doctorData.ehr_experience" multiple="multiple" class="form-control input-sm">
 					<option value="Allscripts">Allscripts</option>
 					<option value="Athena">Athena</option>
 					<option value="Care360">Care360</option>
@@ -192,7 +192,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Military Branch</label>
-				<select ng-model="dr.doctorData.military_experience_branch" class="form-control">
+				<select ng-model="dr.doctorData.military_experience_branch" class="form-control input-sm">
 					<option value="Air Force">Air Force</option>
 					<option value="Army">Army</option>
 					<option value="Coast Guard">Coast Guard</option>
@@ -202,7 +202,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Military Role</label>
-				<select ng-model="dr.doctorData.military_experience_role" class="form-control">
+				<select ng-model="dr.doctorData.military_experience_role" class="form-control input-sm">
 					<option value="Active Duty">Active Duty</option>
 					<option value="Select Reserve">Select Reserve</option>
 					<option value="Spouse">Spouse</option>
@@ -238,11 +238,11 @@
 		<div class="row">
 			<div class="form-group col-md-4">
 				<label>Admin Notes </label>&nbsp;<span ng-class="(dr.doctorData.admin_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.admin_notes.length || 0}} of 2000)</span>
-				<textarea ng-model="dr.doctorData.admin_notes" class="form-control"></textarea>
+				<textarea ng-model="dr.doctorData.admin_notes" class="form-control input-sm"></textarea>
 			</div>
 			<div class="form-group col-md-4">
 				<label>Sales Notes</label>&nbsp;<span ng-class="(dr.doctorData.sales.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.sales_notes.length || 0}} of 2000)</span>
-				<textarea ng-model="dr.doctorData.sales_notes" class="form-control"></textarea>
+				<textarea ng-model="dr.doctorData.sales_notes" class="form-control input-sm"></textarea>
 			</div>
 			<div class="form-group col-md-4">
 				<label>Presentation</label>
@@ -274,17 +274,17 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-2">
 				<label>Disposition</label>
-				<select class="form-control" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="dr.doctorData.disposition"></select>
+				<select class="form-control input-sm" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="dr.doctorData.disposition"></select>
 			</div>
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-1">
 				<label>Score</label>
-				<input type="number" ng-model="dr.doctorData.score" class="form-control" max="100" min="0" />
+				<input type="number" ng-model="dr.doctorData.score" class="form-control input-sm" max="100" min="0" />
 			</div>
 			<div class="form-group col-md-3">
 				<label>Source</label>
-				<select ng-model="dr.doctorData.source" class="form-control">
+				<select ng-model="dr.doctorData.source" class="form-control input-sm">
 					<option value="0">Provisioned</option>
 					<option value="1">Webapp</option>
 					<option value="2">Marketing</option>
@@ -308,23 +308,23 @@
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>NPI#</label>
-				<input type="text" class="form-control" ng-model="dr.doctorData.npi_number"  />
+				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.npi_number"  />
 			</div>
 			<div class="col-sm-3 form-group">
 				<label>Medicaid #</label>
-				<input type="text" class="form-control" ng-model="dr.doctorData.medicaid_number" />
+				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.medicaid_number" />
 			</div>
 			<div class="col-sm-3 form-group">
 				<label>Medicare #</label>
-				<input type="text" class="form-control" ng-model="dr.doctorData.medicare_number" />
+				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.medicare_number" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-right">
 				<div class="form-group">
-					<button type="button" class="btn btn-warning" ng-click="dr.actAs()">Act As This Doctor</button>
-					<button type="button" class="btn btn-danger" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-warning btn-sm" ng-click="dr.actAs()">Act As This Doctor</button>
+					<button type="button" class="btn btn-danger btn-sm" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
+					<button type="submit" class="btn btn-primary btn-sm">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -337,5 +337,5 @@
 				
 			</div>
 		</form>
-		<button class="btn btn-danger ng-hide" ng-hide="dr.env.name != 'production'" type="button" role="button" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
+		<button class="btn btn-danger ng-hide btn-sm" ng-hide="dr.env.name != 'production'" type="button" role="button" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
 </section>

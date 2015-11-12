@@ -23,9 +23,27 @@ angular.module('modioAdminPortal').factory('specialtyFactory', function($http, A
 			return $http.get(API_URL + '/admin/doctors/abms-certifications').then(function(response) {
 				return response.data;
 			});
-		},getCertificationsByBoard: function(board){
-			return $http.get(API_URL + '/admin/doctors/abms-certifications').then(function(response) {
+		},getABMSBoards: function() {
+			return $http.get(API_URL + '/admin/doctors/abms-boards').then(function(response) {
 				return response.data;
+			});
+		},getCertificationsByBoard: function(board){
+			return $http.get(API_URL + '/admin/doctors/abms-certifications',{params: board }).then(function(response) {
+				return response.data;
+			});
+		}, query: function(queryIn){
+			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
+			return $http.get(API_URL+'/admin/specialties',{params: queryIn}).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		},queryABMS: function(queryIn){
+			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
+			return $http.get(API_URL+'/admin/doctors/abms-certifications',{params: queryIn}).then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
 			});
 		}
 	};

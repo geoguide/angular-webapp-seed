@@ -18,7 +18,7 @@
 	<h4>Job Files</h4>
 	<div class="row">
 		
-		<div class="col-md-2" ng-repeat="obj in files.uploadTypes">
+		<div class="col-xs-6" ng-repeat="obj in files.uploadTypes">
 			<h4 ng-bind="obj.title"></h4>
 			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files,obj.type)"
 		ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"

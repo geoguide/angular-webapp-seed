@@ -7,7 +7,7 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window,ENV,$routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window,ENV,$routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal,S3_URL) {
 
 	var _this = this;
 	this.coordId = $routeParams.id;
@@ -23,15 +23,6 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		},{
 			id: 1,
 			job_status: 'Active'
-		}
-	];
-	this.memberStatuses = [
-		{
-			id: 0,
-			status: 'Inactive'
-		},{
-			id: 1,
-			status: 'Active'
 		}
 	];
 	
@@ -84,6 +75,11 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 			_this.coordinatorData = data;
 			return doctorFactory.getMemberships(coordId);
 		}).then(function(result){
+			for(var fm=0;fm<result.length;fm++){
+				var url = 'https://s3.amazonaws.com/' + S3_URL + '/1/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
+				result[fm].profileUrl = url;
+			}
+			
 			_this.memberships = result;
 			_this.loading = false;
 			_this.error = false;

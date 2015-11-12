@@ -7,7 +7,7 @@
  * # UploadsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobFilesCtrl', function (Upload,$scope,s3factory,$routeParams,$log,$timeout,$window) {
+angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s3factory,$routeParams,$log,$timeout,$window) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',

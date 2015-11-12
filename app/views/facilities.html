@@ -1,47 +1,30 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
 <div>
-	<script type="text/ng-template" id="create-doctor-modal2"> 
-		<form name="edit-facility-form" ng-submit="fac.submitForm()" novalidate>
-			<div class="modal-header"> 
-				<h3 class="modal-title">Edit <span ng-bind="fac.facilityData.facility_name"></span></h3> 
-			</div> 
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Facility Name</label>
-					<input class="form-control" type="text" name="email" ng-model="{fac.facilityData.facility_name" ng-required="true" />
-				</div>
-			</div>
-			<div class="modal-footer"> 
-				<button class="btn btn-primary" role="submit" ng-disabled="edit-facility-form.$invalid">OK</button> 
-				<button class="btn btn-warning" role="button" type="button" ng-click="fac.closeModal()">Cancel</button> 
-			</div>
-		</form>
-	</script>
-	
 	<h4>Facilities</h4>
 	
 	<section id="doctor-search-filters">
 		<div class="row">
 			<div class="col-md-4 col-sm-8 form-group">
 				<form ng-submit="fac.getResults()">
-					<input type="search" class="form-control" ng-model="fac.queryData.q" value="" />
+					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
+					<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 				</form>
 			</div>
 			<div class="col-md-3 col-sm-4 form-group">
-				<select class="form-control" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
+				<select class="form-control input-sm" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
 					<option value="">All</option>
 					<option value="1">Medical School</option>
 					<option value="0">Non-Medical School</option>
 				</select>
 			</div>
 			<div class="col-md-3 col-sm-12 form-group">
-				<button role="button" class="btn btn-success btn-block" type="button" ng-click="fac.getResults()">Search</button>
+				<button role="button" class="btn btn-success btn-block btn-sm" type="button" ng-click="fac.getResults()">Search</button>
 			</div>
 		</div>
 	</section>
 	<div class="text-center row" ng-show="fac.loading">
 		<div class="col-md-12 form-group">
-		  <i class="fa fa-refresh fa-spin fa-4x"></i>
+		  <i class="fa fa-spinner fa-pulse fa-4x"></i>
 		</div>
 	</div>
 	<div ng-show="!fac.loading">

@@ -2,57 +2,61 @@
 	
 	<div id="no-data" ng-show="fac.error" class="ng-cloak">Facility Not Found</div>
 	<h4 ng-bind="fac.facilityData.facility_name"></h4>
+	<hr></hr>
 	<form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
 		<div class="row">
-			<div class="col-xs-6 form-group">
+			<div class="col-xs-8 form-group">
 				<label>Facility Name</label>
-				<input class="form-control" type="text" ng-model="fac.facilityData.facility_name" ng-required="true" />
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true" />
 			</div>
-			<div class="col-xs-3 form-group">
-				<label>Is Medical School?</label>
-				<select class="form-control" type="text" ng-model="fac.facilityData.is_medical_school">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
-				</select>
+			<div class="col-xs-4 col-sm-3 form-group">
+				<label>Abbreviation</label>
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 form-group">
+			<div class="col-xs-6 col-sm-6 form-group">
 				<label>Address</label>
-				<input class="form-control" type="text" ng-model="fac.facilityData.address" />
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.address" />
+			</div>
+			<div class="col-xs-6 col-sm-3 form-group">
+				<label>Is Medical School?</label><br />
+				<input class="input-sm" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="fac.facilityData.is_medical_school" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 form-group">
+			<div class="col-xs-6 col-sm-3 form-group">
 				<label>City</label>
-				<input class="form-control" type="text" ng-model="fac.facilityData.city"  />
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.city"  />
 			</div>
-			<div class="col-xs-3 form-group">
+			<div class="col-xs-6 col-sm-3 form-group">
 				<label>State</label>
-				<select class="form-control" ng-model="fac.facilityData.state"  ng-required="true" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
+				<select class="form-control input-sm" ng-model="fac.facilityData.state"  ng-required="true" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
 			</div>
-			<div class="col-xs-3">
+			<div class="col-xs-6 col-sm-3">
 				<label>Zip</label>
-				<input class="form-control" type="text" ng-model="fac.facilityData.zip" />
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.zip" />
+			</div>
+			<div class="col-xs-6 col-sm-3 form-group">
+				<label>Country</label>
+				<select class="form-control input-sm" ng-model="fac.facilityData.country"  ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6 form-group">
-				<label>Country</label>
-				<select class="form-control" ng-model="fac.facilityData.country"  ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
-			</div>
-			<div class="col-xs-3 form-group">
+			<div class="col-xs-6 col-sm-3 form-group">
 				<label>Phone</label>
-				<input class="form-control" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.tel" />
+				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.tel" />
 			</div>
-			<div class="col-xs-3 form-group">
+			<div class="col-xs-6 col-sm-3 form-group">
 				<label>Fax</label>
-				<input class="form-control" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.fax" />
+				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.fax" />
 			</div>
 		</div>
-
-		<div class="modal-footer"> 
-			<button class="btn btn-primary" role="submit" ng-disabled="edit_facility_form.$invalid" ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Submit</button> 
+		<hr />
+		<div class="row"> 
+			<div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+				<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="edit_facility_form.$invalid" ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Submit</button> 
+			</div>
 		</div>
 	</form>
 </section>

@@ -1,29 +1,26 @@
 <section>
 	
 	<div id="no-data" ng-show="offerCtrl.error" class="ng-cloak">Job Not Found</div>
-	<h4><a ng-href="#/providers/{{::offerCtrl.offerData.doctor_id}}" ng-bind="offerCtrl.offerData.doctor_name"></a> applied to <a ng-href="#/jobs/{{::offerCtrl.offerData.job_id}}" ng-bind="offerCtrl.offerData.job_title"></a> [<span ng-bind="offerCtrl.offerData.status || 'In Progress'"></span>]</h4>
+	<h4>
+		<a ng-href="#/providers/{{::offerCtrl.offerData.doctor_id}}" ng-bind="offerCtrl.offerData.doctor_name"></a> 
+		<span ng-bind="'('+offerCtrl.offerData.doctor_id+')'"></span>
+		 applied to 
+		<a ng-href="#/jobs/{{::offerCtrl.offerData.job_id}}" ng-bind="offerCtrl.offerData.job_title"></a> <span ng-bind="'('+offerCtrl.offerData.job_id+')'"></span> </h4>
+		<h5 ng-bind="offerCtrl.offerData.status || 'In Progress'"></h5>
 	<form id="offer-form" name="edit_offer_form" ng-submit="offerCtrl.save()" ng-show="offerCtrl.offerData" class="ng-cloak" novalidate>
 		<div class="row">
-			<div class="col-xs-3 form-group">
-				<label>Job ID</label>
-				<input class="form-control" type="text" name="job_id" ng-model="offerCtrl.offerData.job_id"  ng-required="true" readonly />
-				<label>Doctor ID</label>
-				<input class="form-control" type="text" name="doctor_id" ng-model="offerCtrl.offerData.doctor_id"  ng-required="true" readonly />
-			</div>
-			<div class="col-xs-3">
+			<div class="col-sm-7 col-xs-9 form-group">
 				<label>Notes</label>
-				<textarea class="form-control" ng-model="offerCtrl.offerData.notes"></textarea>
+				<textarea class="form-control input-sm" ng-model="offerCtrl.offerData.notes" rows="5"></textarea>
 			</div>
-			<div class="col-xs-3 form-group">
-				<label>Visible</label>
-				<select class="form-control" ng-model="offerCtrl.offerData.visible"  ng-required="true">
-					<option value="1">Visible</option>
-					<option value="0">Archived</option>
-				</select>
+			<div class="col-xs-3 col-sm-2 form-group">
+				<label>Visible</label><br />
+				<input type="checkbox"  ng-model="offerCtrl.offerData.visible" ng-true-value="1" ng-false-value="0" />
 			</div>
-			<div class="col-xs-3 form-group">
-				<button class="btn-success btn btn-block" type="button" ng-click="offerCtrl.acceptOffer()">Accept</button>
-				<button class="btn-danger btn btn-block" type="button" ng-click="offerCtrl.rejectOffer()">Reject</button>
+			<div class="col-xs-12 col-sm-3 form-group">
+				<label>Actions</label>
+				<button class="btn-success btn btn-block btn-sm" type="button" ng-click="offerCtrl.acceptOffer()">Accept</button>
+				<button class="btn-danger btn btn-block btn-sm" type="button" ng-click="offerCtrl.rejectOffer()">Reject</button>
 			</div>
 		</div>
 
@@ -36,14 +33,14 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
+			<div class="col-xs-6 col-sm-4 col-md-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
 				<label ng-bind="rate.name"></label>
-				<input type="number" class="form-control" ng-model="offerCtrl.offerData[rate.field]" />
+				<input type="number" class="form-control input-sm" ng-model="offerCtrl.offerData[rate.field]" />
 			</div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>
 		<div class="modal-footer"> 
-			<button class="btn btn-primary" role="submit" ng-disabled="edit_offer_form.$invalid">Submit</button> 
+			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="edit_offer_form.$invalid">Submit</button> 
 		</div>
 	</form>
 </section>

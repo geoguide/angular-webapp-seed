@@ -20,6 +20,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.newOffer = {};
 	this.additionalCerts = [];
 	this.abmsCertifications = [];
+	this.boards = [];
 	this.boardSpecialties = [];
 	this.trackingData = [];
 	this.additional_certification_types = [
@@ -32,8 +33,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 
 
 	this.loadCertifications = function(boardName){
-		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard(boardName);
+		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard({q:boardName});
 	};
+	
 	this.get = function(doctorId){
 
 		var doctorDataGet = doctorFactory.getDoctor(doctorId);
@@ -49,7 +51,11 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		doctorFactory.getABMSCertifications(doctorId).then(function(data){
 			_this.abmsCertifications = data;
 		});
-
+		
+		specialtyFactory.getABMSBoards().then(function(result){
+			_this.boards = result;
+		});
+		
 		doctorDataGet.success(function(data){
 			_this.doctorData = data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
@@ -109,7 +115,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				showClose: true,
 				clickToClose: true
 			});
-			_this.doctorData = data;
+			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
+				_this.abmsCertifications = data;
+			});
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -131,6 +139,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				showClose: true,
 				clickToClose: true
 			});
+			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
+				_this.abmsCertifications = data;
+			});
 			_this.doctorData = data;
 		}, function(error){
 			toasty.error({
@@ -151,7 +162,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				showClose: true,
 				clickToClose: true
 			});
-			_this.doctorData = data;
+			doctorFactory.getAdditionalCertifications(_this.doctorId).then(function(data){
+				_this.additionalCerts = data;
+			});
 		}, function(error){
 			toasty.error({
 				title: 'Error!',
@@ -167,20 +180,12 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			doctorFactory.getAdditionalCertifications(_this.doctorId).then(function(data){
 				_this.additionalCerts = data;
 			});
-			toasty.success({
-				title: 'Success!',
-				msg: 'Certification Saved.',
-				showClose: true,
-				clickToClose: true
+			toasty.success('Certification Saved.');
+			doctorFactory.getAdditionalCertifications(_this.doctorId).then(function(data){
+				_this.additionalCerts = data;
 			});
-			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 
@@ -191,47 +196,22 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			doctorFactory.getSpecialties(_this.doctorId).then(function(data){
 				_this.specialtyData = data;
 			});
-			toasty.success({
-				title: 'Success!',
-				msg: 'Certification Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Certification Saved.');
 			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error('Error!');
 		});
 	};
 
 	this.updatePassword = function(){
 		if(_this.newPassword && _this.newPassword.length >= 8){
 			doctorFactory.updatePassword(_this.doctorData.user_id,_this.newPassword).then(function(data){
-				toasty.success({
-					title: 'Success!',
-					msg: 'Password Changed.',
-					showClose: true,
-					clickToClose: true
-				});
+				toasty.success('Password Changed.');
 			}, function(error){
-				toasty.error({
-					title: 'Error!',
-					msg: error.data,
-					showClose: true,
-					clickToClose: true
-				});
+				toasty.error(error.data);
 			});
 		} else {
-			toasty.error({
-				title: 'Error!',
-				msg: 'Invalid password',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error('Invalid password');
 		}
 
 	};
@@ -405,6 +385,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		}).then(function(result){
 			_this.matches = result;
 			_this.loading = false;
+		}, function(error){
+			$log.error(error);
 		});
 	};
 	init();

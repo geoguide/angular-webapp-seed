@@ -44,6 +44,7 @@
 	webapp.config(function(ENV,$provide,$animateProvider){
 		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 		$provide.constant('DOC_URL', ENV.doctorApp);
+		$provide.constant('S3_URL', ENV.s3Bucket);
 		$animateProvider.classNameFilter(/animate/);
 	});
 	webapp.config(function ($routeProvider, ENV) {

@@ -169,6 +169,10 @@ h3.page-header {
 /*  Bootstrap Angular Fix */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.typeahead-loader {
+	position: absolute;
+}
+
 .date-picker-group ul.dropdown-menu{
 	top:34px !important;
 }

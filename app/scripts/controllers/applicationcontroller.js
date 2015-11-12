@@ -46,10 +46,6 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	});
 
 	this.goTo = applicationFactory.goTo;
-
-	this.facilities = [];
-	this.specialties = [];
-	this.medicalSchools = [];
 	this.abmsCertifications = [];
 	
 	
@@ -61,6 +57,16 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}, {
 			id:1,
 			type: 'Liability'
+		}
+	];
+	
+	this.memberStatuses = [
+		{
+			id: 0,
+			status: 'Inactive'
+		},{
+			id: 1,
+			status: 'Active'
 		}
 	];
 
@@ -215,6 +221,28 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
+	
+	this.querySpecialties = function(query){
+		var deferred = $q.defer();
+	   specialtyFactory.query({q:query}).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
+	};
+	
+	this.queryABMS = function(query){
+		var deferred = $q.defer();
+	   specialtyFactory.queryABMS({q:query}).then(function(data){
+			deferred.resolve(data);
+		},function(error){
+			deferred.reject(error);
+			$log.error(error);
+		});
+		return deferred.promise;
+	};
 
 	this.rateTypes = [
 		{
@@ -256,7 +284,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
-	this.specialtiesMap = [];
+
 	_this.queryTags = function(query){
 		return jobFactory.getJobTags(query);
 	};
@@ -264,26 +292,18 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.init = function(){
 		$log.info('app init called');
 
-		specialtyFactory.getSpecialties().then(function(data){
-			_this.specialties = data;
-			for(var s=0;s<_this.specialties.length;s++){
-				_this.specialtiesMap[_this.specialties[s].id] = _this.specialties[s].specialty;
-			}
-			return experienceFactory.getMedicalSchools();
-		}).then(function(data){
-			_this.medicalSchools = data;
-			
-			return specialtyFactory.getABMSCertifications();
-		}).then(function(data){
+		specialtyFactory.getABMSCertifications().then(function(data){
 			_this.abmsCertifications = data;
 			_this.appLoading = true;
 		},function(error){
 			$log.error(error);
 		});
 	};
+	
 	$scope.$on('login',function(){
 		_this.init();
 	});
+	
 	if(Auth.isAuthenticated()){
 		this.init();
 	}

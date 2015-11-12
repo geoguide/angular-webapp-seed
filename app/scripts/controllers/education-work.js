@@ -7,7 +7,7 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory,applicationFactory, $q, experienceFactory, $modal) {
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory,applicationFactory, $q, experienceFactory, $modal, S3_URL) {
 	this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -295,6 +295,10 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			_this.workHistory = data;
 			return doctorFactory.getMemberships(_this.doctorId);
 		}).then(function(result){
+			for(var fm=0;fm<result.length;fm++){
+				var url = 'https://s3.amazonaws.com/' + S3_URL + '/1/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
+				result[fm].profileUrl = url;
+			}
 			_this.memberships = result;
 		},function(error){
 			$log.error(error);
