@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-8 form-group">
 				<form ng-submit="fac.getResults()">
-					<input type="search" class="form-control input-sm"  placeholder="Search Facilities..." />
+					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
 					<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 				</form>
 			</div>
@@ -52,7 +52,7 @@
 						<tbody>
 							<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
 								<td ng-bind="f.id"></td>
-								<td><span ng-bind="f.facility_name"></span></td>
+								<td><span ng-bind="f.facility_display"></span></td>
 								<td ng-bind="f.address"></td>
 								<td ng-bind="f.city"></td>
 								<td ng-bind="f.state"></td>

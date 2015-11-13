@@ -214,9 +214,13 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		_this.sourceMap[_this.source[s].id] = _this.source[s].name;
 	}
 
-	this.queryFacilities = function(query){
+	this.queryFacilities = function(queryIn){
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities({q:query}).then(function(data){
+		var queryData = {
+			exclude_location: true,
+			q: queryIn
+		};
+	   facilityFactory.queryFacilities(queryData).then(function(data){
 			deferred.resolve(data.facilities);
 		},function(error){
 			deferred.reject(error);

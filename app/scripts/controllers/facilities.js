@@ -20,6 +20,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 
 	this.getResults = function() {
 		_this.loading = true;
+		_this.queryData.exclude_location = true;
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
 			_this.facilities = response.facilities;
 			_this.totalFacilities = response.total;
