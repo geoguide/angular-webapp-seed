@@ -38,57 +38,30 @@ angular.module('modioAdminPortal')
 		_this.offerData.start_date = (_this.offerData.start_date === '2000-06-22') ? null : _this.offerData.start_date;
 		_this.offerData.end_date = (_this.offerData.end_date === '2000-06-22') ? null : _this.offerData.end_date;
 		offerFactory.saveOffer(_this.offerData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Saved.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 
 	this.acceptOffer = function(){
 		offerFactory.acceptOffer(_this.offerId).success(function(){
 			_this.offerData.status = 'accepted';
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Accepted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Accepted.');
 		}).error(function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 
 	this.rejectOffer = function(){
 		offerFactory.rejectOffer(_this.offerId).success(function(){
 			_this.offerData.status = 'rejected';
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Accepted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Accepted.');
 		}).error(function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 
@@ -96,19 +69,10 @@ angular.module('modioAdminPortal')
 		offerFactory.deleteOffer(_this.jobId).then(function(data){
 			_this.offerData = null;
 			_this.error = true;
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Deleted.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 

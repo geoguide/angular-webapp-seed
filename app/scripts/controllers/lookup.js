@@ -55,12 +55,7 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 			applicationFactory.goTo('/lookup-doctor/'+data.claim_id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 

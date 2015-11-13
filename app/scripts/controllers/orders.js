@@ -38,19 +38,9 @@ angular.module('modioAdminPortal').controller('OrdersCtrl', function ($log, orde
 	
 	this.updateOrder = function(orderIn){
 		orderFactory.submitOrder(orderIn).then(function(result){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Order Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Order Saved.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 			$log.error(error);
 		});
 	};

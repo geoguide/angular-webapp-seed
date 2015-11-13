@@ -7,12 +7,7 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory,applicationFactory, $q, experienceFactory, $modal, S3_URL) {
-	this.awesomeThings = [
-		'HTML5 Boilerplate',
-		'AngularJS',
-		'Karma'
-	];
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory, applicationFactory, $q, experienceFactory, $modal, S3_URL) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -153,19 +148,9 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	this.submitMedicalSchool = function(){
 		experienceFactory.submitMedicalSchool(_this.doctorId,_this.medicalSchool).then(function(data){
 			loadExperience();
-			toasty.success({
-				title: 'Success!',
-				msg: 'School Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('School Saved.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 
@@ -174,38 +159,18 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	this.submitTraining = function(data){
 		experienceFactory.submitTraining(_this.doctorId,data).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Training Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Training Saved.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 
 	this.deleteTraining = function(expId){
 		experienceFactory.deleteTraining(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Training Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Training Deleted.');
 			loadExperience();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 
@@ -214,20 +179,10 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	this.deleteWorkHistory = function(expId){
 		experienceFactory.deleteWorkHistory(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Work Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Work Deleted.');
 			loadExperience();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 	
@@ -246,39 +201,19 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	
 	this.submitFacilityMembership = function(membershipData){
 		doctorFactory.submitMembership(_this.doctorId,membershipData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Membership Submitted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Membership Submitted.');
 			loadExperience();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 	
 	this.deleteFacilityMembership = function(expId){
 		doctorFactory.removeMembership(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Training Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Training Deleted.');
 			loadExperience();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 

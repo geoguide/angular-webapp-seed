@@ -7,7 +7,7 @@
  * # JobMatchesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$routeParams, $window, doctorFactory, toasty, $log, $modal, offerFactory) {
+angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$routeParams, $window, doctorFactory, $log, $modal, offerFactory) {
 
 	var _this = this;
 	this.loading = true;

@@ -7,7 +7,7 @@
  * # OffersCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('OffersCtrl', function ($modal, $modalStack, toasty, offerFactory, $log) {
+angular.module('modioAdminPortal').controller('OffersCtrl', function ($modal, $modalStack, offerFactory, $log) {
 	
 	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
 	

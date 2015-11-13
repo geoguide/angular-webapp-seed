@@ -187,77 +187,40 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 	this.deleteFacilityAffiliation = function(expId){
 		qualificationFactory.deleteFacilityAffiliation(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Facility Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Facility Deleted.');
 			init();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
 	this.deleteMedicalLicense = function(expId){
 		qualificationFactory.deleteMedicalLicense(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'License Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('License Deleted.');
 			init();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
 	this.deleteInsurance = function(idIn){
 		qualificationFactory.deleteInsurance(_this.doctorId,idIn).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Insurance Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Insurance Deleted.');
 			init();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.deleteClinicalEvaluation = function(expId){
 		qualificationFactory.deleteClinicalEvaluation(_this.doctorId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Evaluation Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Evaluation Deleted.');
 			init();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
 

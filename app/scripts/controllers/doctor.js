@@ -66,6 +66,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			toasty.success({ title: 'Success!', msg: 'Doctor Saved.' });
 			_this.doctorData = data;
 		}, function(error){
+			$log.error(error);
 			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
@@ -83,6 +84,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			_this.error = true;
 			_this.eggActivated = false;
 		}, function(error){
+			$log.error(error);
 			toasty.error({ title: 'Error!', msg: 'Please Insert More Credits'});
 		});
 	};
@@ -92,6 +94,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_self');
 			toasty.success({ title: 'Success!', msg: 'Doctor Acted As.' });
 		}, function(error){
+			$log.error(error);
 			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};

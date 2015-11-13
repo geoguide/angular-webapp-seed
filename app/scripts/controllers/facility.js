@@ -39,41 +39,12 @@ angular.module('modioAdminPortal')
 
 	this.save = function(){
 		facilityFactory.saveFacility(_this.facilityData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Facility Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Facility Saved.');
 			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error(error.data);
 		});
 	};
-	/*
-	this.delete = function(){
-		doctorFactory.deleteDoctor(_this.doctorId).then(function(data){
-			_this.doctorData = null;
-			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
-		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
-		});
-	};*/
 
 
 	/* Init */

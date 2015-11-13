@@ -21,35 +21,16 @@ angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (us
 		if(_this.oldPassword){
 			if(_this.newPassword == _this.passwordRepeat){
 				userFactory.changePassword(_this.oldPassword,_this.newPassword).success(function(response){
-					toasty.success({
-						title: 'Success!',
-						msg: 'Password Updated.',
-						showClose: true,
-						clickToClose: true
-					});
+					toasty.success('Password Updated.');
 				}).error(function(error){
-					toasty.error({
-						title: 'Error!',
-						msg: 'Something went wrong',
-						showClose: true,
-						clickToClose: true
-					});
+					$log.error(error);
+					toasty.error('Something went wrong');
 				});
 			} else {
-				toasty.error({
-					title: 'Error!',
-					msg: 'Passwords did not match',
-					showClose: true,
-					clickToClose: true
-				});
+				toasty.error('Passwords did not match');
 			}
 		} else {
-			toasty.error({
-				title: 'Error!',
-				msg: 'Include your old password',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error('Include your old password');
 		}
 	};
 	

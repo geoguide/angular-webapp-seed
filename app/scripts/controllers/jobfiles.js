@@ -2,17 +2,13 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:UploadsCtrl
+ * @name modioAdminPortal.controller:JobFilesCtrl
  * @description
  * # UploadsCtrl
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s3factory,$routeParams,$log,$timeout,$window) {
-  this.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
+
   var _this = this;
 
   this.entityId = $routeParams.id;

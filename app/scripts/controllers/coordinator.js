@@ -7,7 +7,7 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window,ENV,$routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal,S3_URL) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL) {
 
 	var _this = this;
 	this.coordId = $routeParams.id;
@@ -46,20 +46,10 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 
 		_this.modalInstance.result.then(function (data) {
 			doctorFactory.submitMembership(_this.coordId,data).then(function(){
-				toasty.success({
-					title: 'Success!',
-					msg: 'Membership Submitted.',
-					showClose: true,
-					clickToClose: true
-				});
+				toasty.success('Membership Submitted.');
 				_this.get(_this.coordId);
 			},function(error){
-				toasty.error({
-					title: 'Error!',
-					msg: error,
-					showClose: true,
-					clickToClose: true
-				});
+				toasty.error(error);
 				$log.error(error);
 			});
 		}, function () {
@@ -93,20 +83,11 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	
 	this.deleteFacilityMembership = function(expId){
 		doctorFactory.removeMembership(_this.coordId,expId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Training Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Membership Removed');
 			_this.get(_this.coordId);
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
@@ -123,58 +104,31 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 
 	this.save = function(){
 		doctorFactory.saveCoordinator(_this.coordinatorData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Coordinator Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Coordinator Saved.');
 			_this.coordinatorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.delete = function(){
 		doctorFactory.deleteCoordinator(_this.coordId).then(function(data){
 			_this.coordinatorData = null;
-			toasty.success({
-				title: 'Success!',
-				msg: 'Coordinator Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Coordinator Deleted.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
 	this.actAs = function(){
 		doctorFactory.actAs(_this.coordId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
-			toasty.success({
-				title: 'Success!',
-				msg: 'Coord Acted As.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Coord Acted As.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 

@@ -45,39 +45,21 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		//_this.jobData.tags = JSON.stringify(_this.jobData.tags);
 		jobFactory.saveJob(_this.jobData).success(function(data){
 			data.tags = JSON.parse(data.tags);
-			toasty.success({
-				title: 'Success!',
-				msg: 'Job Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Job Saved.');
 			_this.jobData = data;
 		}).error(function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 	this.delete = function(){
 		jobFactory.deleteJob(_this.jobId).then(function(data){
 			_this.jobData = null;
 			_this.error = true;
-			toasty.success({
-				title: 'Success!',
-				msg: 'Job Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Job Deleted.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.message,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.message);
 		});
 	};
 	

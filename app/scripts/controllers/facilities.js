@@ -6,7 +6,7 @@
  * # FacilitiesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, toasty, applicationFactory, $log) {
+angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log) {
 	var _this = this;
 	this.facilities = [];
 	this.facilitiesWithMembers = [];

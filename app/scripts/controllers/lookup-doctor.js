@@ -54,39 +54,21 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 
 	this.save = function(){
 		lookupFactory.saveLookup(_this.doctorData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Record Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Record Saved.');
 			_this.get(_this.doctorId);
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.delete = function(){
 		lookupFactory.deleteLookup(_this.doctorId).then(function(data){
 			_this.doctorData = null;
-			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Deleted.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Doctor Deleted.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 

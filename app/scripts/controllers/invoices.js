@@ -29,38 +29,19 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 	this.actAs = function(docIdIn){
 		doctorFactory.actAs(docIdIn).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
-			toasty.success({
-				title: 'Success!',
-				msg: 'Doctor Acted As.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Doctor Acted As.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
 	this.updateInvoice = function(iin){
 		invoiceFactory.submitInvoice(iin).then(function(result){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Invoice Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Invoice Saved.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
 			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	

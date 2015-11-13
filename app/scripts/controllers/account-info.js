@@ -86,45 +86,27 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 
 	this.submitSpecialty = function(dspec){
 		doctorFactory.saveSpecialty(_this.doctorId,dspec).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Specialties Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Specialties Saved.');
 			doctorFactory.getSpecialties(_this.doctorId).then(function(data){
 				_this.specialtyData = _this.drSpecialties = data;
 			});
 			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.submitABMSCertifications = function(abmscert){
 
 		doctorFactory.saveABMSCertification(_this.doctorId,abmscert).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Certification Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Certification Saved.');
 			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
 				_this.abmsCertifications = data;
 			});
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
@@ -133,45 +115,27 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
 				_this.abmsCertifications = data;
 			});
-			toasty.success({
-				title: 'Success!',
-				msg: 'Certification Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Certification Saved.');
 			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
 				_this.abmsCertifications = data;
 			});
 			_this.doctorData = data;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.submitAdditionalCertification = function(dcert){
 
 		doctorFactory.saveAdditionalCertification(_this.doctorId,dcert).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Certification Saved.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Certification Saved.');
 			doctorFactory.getAdditionalCertifications(_this.doctorId).then(function(data){
 				_this.additionalCerts = data;
 			});
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
@@ -208,6 +172,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			doctorFactory.updatePassword(_this.doctorData.user_id,_this.newPassword).then(function(data){
 				toasty.success('Password Changed.');
 			}, function(error){
+				$log.error(error);
 				toasty.error(error.data);
 			});
 		} else {
@@ -218,20 +183,11 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	
 	this.updateAuthEmail = function(){
 		doctorFactory.saveUser({id: _this.doctorData.user_id, email:_this.doctorData.auth_email}).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Email Changed.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Email Changed.');
 			_this.doctorData.auth_email = data.email;
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: JSON.stringify(error.data),
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(JSON.stringify(error.data));
 		});
 	};
 	
@@ -241,20 +197,11 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			password: _this.password
 		};
 		doctorFactory.submitAuthInfo(_this.doctorId,postData).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Auth Created Updated.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Auth Created Updated.');
 			_this.get(_this.doctorId);
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
@@ -266,19 +213,10 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		 	action = doctorFactory.removeState(_this.doctorId,abbr);
 		}
 		action.then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'State Updated.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('State Updated.');
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 
 	};
@@ -298,61 +236,33 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 
 	this.acceptOffer = function(offerId){
 		offerFactory.acceptOffer(offerId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Updated.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Updated.');
 			loadOffers();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.rejectOffer = function(offerId){
 		offerFactory.rejectOffer(offerId).then(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Updated.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Updated.');
 			loadOffers();
 		}, function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
 	this.submitOffer = function(){
 		_this.newOffer.doctor_id = _this.doctorId;
 		offerFactory.createOffer(_this.newOffer).success(function(data){
-			toasty.success({
-				title: 'Success!',
-				msg: 'Offer Updated.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.success('Offer Updated.');
 			loadOffers();
 			_this.newOffer = {};
 			_this.edit_offer_form.$setPristine();
 		}).error(function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: 'Offer Bad.',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error('Offer Bad.');
 		});
 	};
 	

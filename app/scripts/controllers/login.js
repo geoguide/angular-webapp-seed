@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,Auth,localStorageService,$log,toasty,applicationFactory) {
+angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,localStorageService,$log,toasty,applicationFactory) {
 	var loginInfo;
 	var _this = this;
 	this.login = loginInfo = {};
@@ -22,12 +22,7 @@ angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$htt
 			applicationFactory.init();
 		}).error(function(data, status, headers, config){
 			_this.loading = false;
-			toasty.error({
-				title: 'Error!',
-				msg: 'Authentication error',
-				showClose: true,
-				clickToClose: true
-			});
+			toasty.error('Authentication error');
 		});
 	};
 });

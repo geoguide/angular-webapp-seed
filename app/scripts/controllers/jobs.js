@@ -74,12 +74,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			applicationFactory.goTo('/jobs/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 	
@@ -91,12 +87,8 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 		jobFactory.saveJob(jobData).then(function(data){
 			_this.getResults();
 		},function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 

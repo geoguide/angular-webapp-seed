@@ -48,12 +48,8 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 			applicationFactory.goTo('/coordinator/'+data.id);
 			$modalStack.dismissAll();
 		},function(error){
-			toasty.error({
-				title: 'Error!',
-				msg: error.data,
-				showClose: true,
-				clickToClose: true
-			});
+			$log.error(error);
+			toasty.error(error.data);
 		});
 	};
 
