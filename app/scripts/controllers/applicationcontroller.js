@@ -105,17 +105,18 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 	this.jobSources = [
-    {
-      id: 'a',
-      source: 'Entered via Admin Portal'
-    },
-    {
-      id: 'S',
-      source: 'Ingested from scraped data'
-    },
 		{
+			id: 'A',
+			source: 'Entered via Admin Portal'
+		},{
+			id: 'S',
+			source: 'Ingested from scraped data'
+		},{
 			id: 'M',
 			source: 'Modio'
+		}, {
+			id: 'C',
+			source: 'Coordinator'
 		}
 	];
 	this.doctorTitles = [
@@ -128,7 +129,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ group: 'Nurses', title:'PA'		},
 		{ group: 'Nurses', title:'RN'		},
 		{ group: 'Nurses', title:'NP'		},
-		{ group: 'Nurses', title: 'LPN'}
+		{ group: 'Nurses', title: 'LPN'	}
 	];
 
 	this.usStates = applicationFactory.usStates;
