@@ -139,7 +139,8 @@
 		
 		<!-- Board Certifications -->
 		<div class="col-sm-8">
-			<h4>ABMS Certifications</h4>	
+			<h4>ABMS Certifications</h4>
+			<h5 ng-show="(ai.abmsCertifications).length < 1" class="ng-hide">No ABMS Certifications</h5>
 			<div ng-repeat="bc in ai.abmsCertifications track by $index">
 				<hr ng-if="$index > 0" />
 				<form novalidate ng-submit="ai.submitABMSCertifications(bc)">
@@ -203,7 +204,7 @@
 			<!-- Additional Certifications -->
 
 			<h4>Additional Certifications</h4>	
-
+			<h5 ng-show="(ai.additionalCerts).length < 1" class="ng-hide">No Additional Certs</h5>
 			<div class="row" ng-repeat="dcert in ai.additionalCerts track by $index">
 				<form novalidate ng-submit="ai.submitAdditionalCertification(dcert)">
 					<div class="col-md-4">
@@ -213,11 +214,11 @@
 					</div>
 					<div class="col-md-4">
 						<div class="input-group">
-								<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-default btn-sm" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
-								</span>
-							</div>
+							<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{ai.format}}" ng-model="dcert.expiration_date" is-open="ai.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="ai.dateOptions" ng-required="true" close-text="Close" />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" ng-click="ai.open($event,'cert_expiration_date_'+$index)"><i class="fa fa-calendar fa-fw"></i></button>
+							</span>
+						</div>
 					</div>
 					<div class="col-md-4 form-group text-right">
 						<button class="btn btn-danger btn-sm" role="button" type="button" ng-click="ai.deleteCertification(dcert.id)" ng-show="dcert.id"><i class="fa fa-trash-o"></i>

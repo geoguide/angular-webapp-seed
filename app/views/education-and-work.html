@@ -91,8 +91,9 @@
 		<section id="training-section" class="col-md-6">
 			<accordion close-others="false">
 				<accordion-group is-open="true">
-					<accordion-heading>Training<span class="badge pull-right">{{(dr.training).length}}</span></accordion-heading>
-					<div class="table table-responsive">
+					<accordion-heading>Training<span class="badge pull-right" ng-bind="(dr.training).length"></span></accordion-heading>
+					<h5 ng-show="(dr.training).length < 1" class="ng-hide text-center">No Training Information</h5>
+					<div class="table table-responsive ng-hide" ng-show="(dr.training).length > 0">
 						<table class="table table-condensed table-striped">
 							<thead>
 								<th>Type</th>
@@ -162,7 +163,7 @@
 		<div class="col-md-12">
 			<accordion close-others="false">
 				<accordion-group is-open="true">
-					<accordion-heading>Facility Memberships<span class="badge pull-right">{{(dr.memberships).length}}</span></accordion-heading>
+					<accordion-heading>Facility Memberships<span class="badge pull-right" ng-bind="(dr.memberships).length"></span></accordion-heading>
 					<article ng-repeat="(key,obj) in dr.memberships" class="row form-group">
 						<div class="col-xs-2 col-md-1" ng-click="dr.openMembershipModal('membership-modal',obj)">
 							<img ng-src="{{obj.profileUrl}}" onerror="if (this.src != './images/default-avatar.png') this.src = './images/default-avatar.png';" class="img-responsive img-circle" style="width:100%" />

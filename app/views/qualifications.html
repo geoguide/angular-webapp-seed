@@ -28,7 +28,8 @@
 		<accordion close-others="false" class="col-md-6">
 			<accordion-group is-open="true">
 				<accordion-heading>Facility Affiliations<span class="badge pull-right" ng-bind="(dr.facilityAffiliations).length"></span></accordion-heading>
-				<div class="table table-responsive">
+				<h5 ng-show="(dr.facilityAffiliations).length < 1" class="ng-hide text-center">No Facility Affiliations</h5>
+				<div class="table table-responsive ng-hide" ng-show="(dr.facilityAffiliations).length > 0">
 					<table class="table table-condensed table-striped">
 						<thead>
 							<th>Facility Info</th>
@@ -61,7 +62,8 @@
 		<accordion close-others="false" class="col-md-6">
 			<accordion-group is-open="true">
 				<accordion-heading>Medical Licenses &amp; DEA <span class="badge pull-right" ng-bind="(dr.medicalLicenses).length"></span></accordion-heading>
-				<div class="table-responsive">
+				<h5 ng-show="(dr.medicalLicenses).length < 1" class="ng-hide text-center">No Medical Licenses</h5>
+				<div class="table-responsive ng-hide" ng-show="(dr.medicalLicenses).length > 0">
 					<table class="table table-condensed table-striped">
 						<thead>
 							<tr>
@@ -98,8 +100,9 @@
 		<accordion close-others="false" class="col-md-6">
 			<accordion-group is-open="true">
 				<accordion-heading>Clinical Evaluations<span class="badge pull-right" ng-bind="(dr.clinicalEvaluations).length"></span></accordion-heading>
+					<h5 ng-show="(dr.clinicalEvaluations).length < 1" class="ng-hide text-center">No Clinical Evaluations</h5>
 					<div class="table-responsive">
-						<table class="table table-condensed table-striped">
+						<table class="table table-condensed table-striped ng-hide" ng-show="(dr.clinicalEvaluations).length > 0">
 							<thead>
 								<tr>
 									<th>Name</th>
@@ -130,7 +133,8 @@
 		<accordion close-others="false" class="col-md-6">
 			<accordion-group is-open="true">
 				<accordion-heading>Insurance <span class="badge pull-right" ng-bind="(dr.insurance).length"></span></accordion-heading>
-					<div class="table-responsive">
+					<h5 ng-show="(dr.insurance).length < 1" class="ng-hide text-center">No Insurance Information</h5>
+					<div class="table-responsive ng-hide" ng-show="(dr.insurance).length > 0">
 						<table class="table table-condensed table-striped">
 							<thead>
 								<tr>
