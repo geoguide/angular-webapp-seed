@@ -11,13 +11,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
     // Service logic
     // ...
 
-    var meaningOfLife = 42;
 
     // Public API here
     return {
-		someMethod: function () {
-			return meaningOfLife;
-		}, getFacilities: function(){
+		getFacilities: function(){
 			return $http.get(API_URL+'/admin/facilities/').then(function(response) {
 				return response.data;
 			});

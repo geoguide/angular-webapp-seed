@@ -131,7 +131,7 @@
 								<th>Position</th>
 								<th>Employer</th>
 								<th>Dates</th>
-								<th>Completed</th>
+								<th>Supervisor</th>
 								<th>&nbsp;</th>
 							</thead>
 							<tbody>
@@ -139,8 +139,10 @@
 								<tr ng-repeat="(key,obj) in dr.workHistory">
 									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.position_held"></td>
 									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.employer"></td> 
-									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="'('+obj.start_date | date : 'yyyy-MM-dd' +' - '+obj.end_date | date : 'yyyy-MM-dd' +')'">
-										</td>	
+									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)">
+										<span ng-bind="(obj.start_date) ? (obj.start_date | date : 'yyyy-MM-dd') : 'none'"></span> - 
+										<span ng-bind="(obj.end_date) ? (obj.end_date | date: 'yyyy-MM-dd') : 'ongoing'"></span>
+									</td>
 									<td ng-click="dr.openWorkHistoryModal('work-history-modal',obj)" ng-bind="obj.supervisor"></td>
 									<td>
 										<a ng-really-message="Are you sure?" ng-really-click="dr.deleteWorkHistory(obj.id)">
@@ -170,7 +172,7 @@
 						</div>
 						<div class="col-md-9 col-xs-8" ng-click="dr.openMembershipModal('facility-membership-modal',obj)">
 							<h4><span ng-bind="obj.facility_name"></span> <span ng-bind="'('+appCtrl.memberStatuses[obj.status].status+')'"></span></h4>
-							<h5 ng-bind="'Department: '+obj.department"></h5>
+							<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
 						</div>
 						<div class="col-md-2 col-xs-2 text-right">
 							<a ng-click ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)" title="Remove">
