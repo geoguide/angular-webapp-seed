@@ -39,7 +39,11 @@ angular.module('modioAdminPortal').factory('specialtyFactory', function($http, A
 				$log.error(error);
 			});
 		},queryABMS: function(queryIn){
-			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
+			if(queryIn){
+				queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';	
+			} else {
+				queryIn = {};
+			}
 			return $http.get(API_URL+'/admin/doctors/abms-certifications',{params: queryIn}).then(function(response) {
 				return response.data;
 			}, function(error){

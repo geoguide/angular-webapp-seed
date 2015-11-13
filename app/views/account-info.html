@@ -153,11 +153,8 @@
 						</div>
 						<div class="col-md-6 form-group">
 							<label>Specialty</label>
-							<select class="form-control input-sm" ng-model="bc.specialty_id" ng-options="cert.id as cert.specialty for cert in appCtrl.abmsCertifications | filter: {abms : bc.abms}">
-								 
+							<select class="form-control input-sm" ng-model="bc.specialty_id" ng-options="cert.id as cert.specialty for cert in ai.abmsSpecialties | filter: {abms: bc.abms}">
 								<option value="">-- Select Specialty --</option>
-								
-								<option ng-repeat="" value="{{board.id}}" ng-bind="board.specialty"></option>
 							</select>
 						</div>
 					</div>

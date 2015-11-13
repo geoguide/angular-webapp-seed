@@ -34,6 +34,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 
 	this.loadCertifications = function(boardName){
 		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard({q:boardName});
+		console.log(_this.boardSpecialties);
 	};
 	
 	this.get = function(doctorId){
@@ -55,6 +56,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		specialtyFactory.getABMSBoards().then(function(result){
 			_this.boards = result;
 		});
+		
 		
 		doctorDataGet.success(function(data){
 			_this.doctorData = data;
@@ -294,6 +296,9 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
+			return specialtyFactory.queryABMS();
+		}).then(function(result){
+			_this.abmsSpecialties = result;
 			_this.loading = false;
 		}, function(error){
 			$log.error(error);
