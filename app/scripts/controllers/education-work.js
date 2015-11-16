@@ -12,6 +12,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.loading = true;
+	this.tab = 'education-work';
 
 	this.opened = { 'start': false, 'end': false };
 	this.open = function($event,which) {
@@ -263,7 +264,12 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
+			return doctorFactory.getJobOffers(_this.doctorId);
+		}).then(function(result){
+			_this.offers = result;
 			_this.loading = false;
+		}, function(error){
+			$log.error(error);
 		});
 		
 	};

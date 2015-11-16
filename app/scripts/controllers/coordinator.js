@@ -127,7 +127,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.actAs = function(){
 		doctorFactory.actAs(_this.coordId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
-			toasty.success('Coord Acted As.');
+			toasty.success('I is coord.');
 		}, function(error){
 			$log.error(error);
 			toasty.error(error.data);

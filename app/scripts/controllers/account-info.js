@@ -11,6 +11,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.tab = 'account-info';
 	this.newPassword = null;
 	this.doctorData = null;
 	this.states = [];

@@ -10,6 +10,7 @@
 angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$routeParams, $window, doctorFactory, $log, $modal, offerFactory) {
 
 	var _this = this;
+	this.tab = 'matches';
 	this.loading = true;
 	this.doctorId = $routeParams.id;
 	this.matches = [];
@@ -27,6 +28,12 @@ angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$r
 	
 	doctorFactory.getTracking(_this.doctorId).then(function(result){
 		_this.trackingData = result;
+	});
+	
+	doctorFactory.getJobOffers(_this.doctorId).then(function(result){
+	   _this.offers = result;
+	},function(error){
+		$log.error(error);
 	});
 
 	/* Init */

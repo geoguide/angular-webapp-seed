@@ -4,13 +4,16 @@
 	
 	<section id="doctor-search-filters">
 		<div class="row">
-			<div class="col-md-4 col-sm-8 form-group">
+			<div class="col-md-4 col-sm-5 form-group">
 				<form ng-submit="fac.getResults()">
 					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
 					<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 				</form>
 			</div>
-			<div class="col-md-3 col-sm-4 form-group">
+			<div class="col-sm-3 form-group">
+				<input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..." />
+			</div>
+			<div class="col-md-2 col-sm-4 form-group">
 				<select class="form-control input-sm" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
 					<option value="">All</option>
 					<option value="1">Medical School</option>
@@ -18,7 +21,7 @@
 				</select>
 			</div>
 			<div class="col-md-3 col-sm-12 form-group">
-				<button role="button" class="btn btn-success btn-block btn-sm" type="button" ng-click="fac.getResults()">Search</button>
+				<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="fac.getResults()">Search</button>
 			</div>
 		</div>
 	</section>

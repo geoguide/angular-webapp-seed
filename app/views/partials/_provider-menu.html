@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			<li role="presentation" ng-class="{'active': dr.tab == 'general-info'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}')">General Info</a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'account-info'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/account-info')">Account Info</a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'education-work'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/education-and-work')">Education &amp; Work</a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'qualifications'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/qualifications')">Qualifications</a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'tracking'}">
+				<a  ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="dr.trackingData.length"></span></a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'matches'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="dr.matches.length"></span></a>
+			</li>
+			<li role="presentation" ng-class="{'active': dr.tab == 'offers'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/provider-offers')">Offers <span class="badge" ng-bind="dr.offers.length"></span></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<hr />

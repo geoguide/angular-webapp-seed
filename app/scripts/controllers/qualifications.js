@@ -11,6 +11,7 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.tab = 'qualifications';
 	this.loading = true;
 
 	this.additional_certification_types = [
@@ -258,7 +259,11 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
-			
+			return doctorFactory.getJobOffers(_this.doctorId);
+		}).then(function(result){
+			_this.offers = result;
+		}, function(error){
+			$log.error(error);
 		});
 	};
 

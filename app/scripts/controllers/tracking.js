@@ -11,21 +11,21 @@ angular.module('modioAdminPortal').controller('TrackingCtrl', function ($routePa
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.tab = 'tracking';
 	this.trackingData = [];
-	this.get = function(doctorId){
-
-		doctorFactory.getTracking(doctorId).then(function(result){
-			_this.trackingData = result;
-		});
-		
-	};
 
 	/* Init */
 
 	var init = function(){
-		_this.get(_this.doctorId);
-		doctorFactory.getJobMatches(_this.doctorId).then(function(result){
+		doctorFactory.getTracking(_this.doctorId).then(function(result){
+			_this.trackingData = result;
+			return doctorFactory.getJobMatches(_this.doctorId);
+		}).then(function(result){
 			_this.matches = result;
+			return doctorFactory.getJobOffers(_this.doctorId);
+		}).then(function(result){
+			_this.offers = result;
+			_this.loading = false;
 		},function(error){
 			$log.error(error);
 		});

@@ -1,25 +1,14 @@
-<div class="row">
-	<div class="col-md-12">
-		<ul class="nav nav-pills">
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}')" class="ng-cloak">General Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/account-info')">Account Info</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/education-and-work')">Education &amp; Work</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/qualifications')">Qualifications</a></li>
-			<li role="presentation"><a ng-click="appCtrl.goTo('/providers/{{::jm.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="jm.trackingData.length"></span></a></li>
-			<li role="presentation" class="active"><a>Matches <span class="badge" ng-bind="jm.matches.length"></span></a></li>
-		</ul>
-	</div>
-</div>
-<hr />
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
 <section>
 	<h4>Job Matches</h4>
-	<div class="text-center row" ng-show="jm.loading" style="margin:30px 0">
+	<div class="text-center row" ng-show="dr.loading" style="margin:30px 0">
 		<div class="col-md-2 col-md-offset-5 form-group" >
 		  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 		</div>
 	</div>
-	<div class="table-responsive ng-hide" ng-hide="jm.loading">
-		<caption class="ng-cloak"><strong ng-bind="jm.matches.length"></strong> Matches Found</caption>
+	<div class="table-responsive ng-hide" ng-hide="dr.loading">
+		<caption class="ng-cloak"><strong ng-bind="dr.matches.length"></strong> Matches Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>
 				<tr>
@@ -31,7 +20,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="match in jm.matches">
+				<tr ng-repeat="match in dr.matches">
 					<td ng-bind="match.job_id"></td>
 					<td class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.job_title"></a></td>
 					<td class="col-xs-6" ng-bind="match.facility_name"></td>

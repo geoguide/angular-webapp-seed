@@ -12,6 +12,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
+	this.tab = 'general-info';
 	this.doctorData = null;
 	this.loading = true;
 	this.error = false;
@@ -116,6 +117,12 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 		}
 		
 	};
+	
+	doctorFactory.getJobOffers(_this.doctorId).then(function(result){
+	   _this.offers = result;
+	},function(error){
+		$log.error(error);
+	});
 
 
 	/* Init */

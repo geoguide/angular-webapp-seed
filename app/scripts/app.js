@@ -110,7 +110,7 @@
 			templateUrl: 'views/account-info.html',
 			access: { requiredLogin: true },
 			controller: 'AccountInfoCtrl',
-			controllerAs: 'ai'
+			controllerAs: 'dr'
 		}).when('/providers/:id/education-and-work', {
 			tab: 'users',
 			templateUrl: 'views/education-and-work.html',
@@ -140,7 +140,7 @@
 			access: { requiredLogin: true },
 			templateUrl: 'views/tracking.html',
 			controller: 'TrackingCtrl',
-			controllerAs: 'track'
+			controllerAs: 'dr'
 		}).when('/change-password', {
 			templateUrl: 'views/change-password.html',
 			controller: 'ChangePasswordCtrl',
@@ -214,7 +214,7 @@
 			access: { requiredLogin: true },
 			templateUrl: 'views/job-matches.html',
 			controller: 'JobMatchesCtrl',
-			controllerAs: 'jm'
+			controllerAs: 'dr'
 		}).when('/invoices', {
 			templateUrl: 'views/invoices.html',
 			controller: 'InvoicesCtrl',
@@ -225,6 +225,11 @@
 			controller: 'OrdersCtrl',
 			controllerAs: 'orderCtrl',
 			access: { requiredLogin: true }
+		}).when('/providers/:id/provider-offers', {
+		  templateUrl: 'views/provider-offers.html',
+		  controller: 'ProviderOffersCtrl',
+		  controllerAs: 'dr',
+		  access: { requiredLogin:true }
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view
