@@ -102,10 +102,11 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	
 	facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
 		_this.facilitiesWithMembers = response;
+		return _this.getResults();
+	}).then(function(result){
 		return doctorFactory.getJobMatchTotals();
 	}).then(function(result){
 		_this.matchList = result;
-		_this.getResults();
 	},function(error){
 		$log.error(error);
 	});

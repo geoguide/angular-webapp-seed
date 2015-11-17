@@ -93,7 +93,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
-			toasty.success({ title: 'Success!', msg: 'Doctor Acted As.' });
+			toasty.success('u r provider');
 		}, function(error){
 			$log.error(error);
 			toasty.error({ title: 'Error!', msg: error.data });
@@ -110,7 +110,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			});	
 		} else {
 			doctorFactory.removeBookmark(idIn).then(function(){
-				
+				//silence
 			}, function(error){
 				$log.error(error);
 			});	

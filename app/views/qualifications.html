@@ -21,10 +21,11 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="(key,obj) in dr.facilityAffiliations">
-								<td>
-									<strong ng-bind="obj.facility_name" ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)"></strong>
-									<div ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)">
-										<label>Reference: </label> <span ng-bind="obj.reference_name"></span> (<span ng-bind="obj.reference_title"></span>)
+								<td ng-click="dr.openFacilityAffiliationModal('facility-affiliation-modal',obj)">
+									<strong ng-bind="obj.facility_name"></strong>
+									<div ng-show="obj.reference_name">
+										<label>Reference: </label> <span ng-bind="obj.reference_name"></span> 
+										<span ng-show="obj.reference_title" ng-bind="'('+obj.reference_title+')'"></span>
 									</div>
 								</td>
 								<td>
