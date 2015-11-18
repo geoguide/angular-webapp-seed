@@ -7,7 +7,7 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams,$filter) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
@@ -39,8 +39,8 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.bookmarkedJobs = [];
 
 	this.save = function(){
-		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : _this.jobData.start_date;
-		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : _this.jobData.end_date;
+		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : $filter('date')(new Date(_this.jobData.start_date),'MM/dd/yyyy');
+		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : $filter('date')(new Date(_this.jobData.end_date), 'MM/dd/yyyy');
 		var tags = [];
 		//_this.jobData.tags = JSON.stringify(_this.jobData.tags);
 		jobFactory.saveJob(_this.jobData).success(function(data){
