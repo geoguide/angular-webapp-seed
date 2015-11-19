@@ -106,7 +106,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	];
 	this.jobSources = [
 		{
-			id: 'A',
+			id: 'a',
 			source: 'Entered via Admin Portal'
 		},{
 			id: 'S',
@@ -115,7 +115,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			id: 'M',
 			source: 'Modio'
 		}, {
-			id: 'C',
+			id: 'c',
 			source: 'Coordinator'
 		}
 	];
