@@ -19,7 +19,7 @@
 					</div>
 					<div class="col-md-6 form-group">
 						<label>Specialty</label>
-						<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobsCtrl.newJob.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="jobsCtrl.newJob.specialty_id = $item.id" typeahead-editable="false" />
+						<input type="search" ng-required="true" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobsCtrl.newJob.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="jobsCtrl.newJob.specialty_id = $item.id" typeahead-editable="false" />
 						<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 					</div>
 				</div>

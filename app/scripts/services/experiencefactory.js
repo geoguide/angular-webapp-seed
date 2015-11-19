@@ -8,7 +8,7 @@
  * Factory in the modioAdminPortal.
  */
 angular.module('modioAdminPortal')
-  .factory('experienceFactory', function ($http,API_URL,$log) {
+  .factory('experienceFactory', function ($http,API_URL,$log,$filter) {
     // Service logic
     // ...
 
@@ -18,9 +18,10 @@ angular.module('modioAdminPortal')
     return {
       someMethod: function () {
 			return meaningOfLife;
-		}, submitTraining: function(doctorId, formData){
-			$log.log('id recenived: '+JSON.stringify(doctorId));
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/training', formData).then(function(response) {
+		}, submitTraining: function(doctorId, data){
+			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
+			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/training', data).then(function(response) {
 				return response.data;
 			});
 		}, deleteTraining: function(doctorId,expId){
@@ -35,6 +36,8 @@ angular.module('modioAdminPortal')
 			});
 		}, submitMedicalSchool: function(doctorId,data){
 			delete data.facility_name;
+			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
+			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-school',data).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -53,6 +56,8 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		},	submitWorkHistory: function(doctorId,data){
+			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
+			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/work-history',data).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -64,7 +69,7 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
-		},deleteWorkHistory: function(doctorId,expId){
+		}, deleteWorkHistory: function(doctorId,expId){
 			return $http.delete(API_URL+'/admin/doctors/'+doctorId+'/work-history/'+expId).then(function(response) {
 				return response.data;
 			});

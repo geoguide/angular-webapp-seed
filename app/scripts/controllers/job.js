@@ -39,8 +39,6 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.bookmarkedJobs = [];
 
 	this.save = function(){
-		_this.jobData.start_date = (_this.jobData.start_date === '06/22/2015') ? null : $filter('date')(new Date(_this.jobData.start_date),'MM/dd/yyyy');
-		_this.jobData.end_date = (_this.jobData.end_date === '06/22/2015') ? null : $filter('date')(new Date(_this.jobData.end_date), 'MM/dd/yyyy');
 		var tags = [];
 		//_this.jobData.tags = JSON.stringify(_this.jobData.tags);
 		jobFactory.saveJob(_this.jobData).success(function(data){

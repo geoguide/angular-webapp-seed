@@ -72,6 +72,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 		_this.modalInstance.result.then(function (data) {
 			experienceFactory.submitWorkHistory(_this.doctorId,data).then(function(){
+				toasty.success('Work History Saved.');
 				loadExperience();
 			},function(error){
 				$log.error(error);
@@ -104,6 +105,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 		_this.modalInstance.result.then(function (data) {
 			experienceFactory.submitTraining(_this.doctorId,data).then(function(){
+				toasty.success('Training saved');
 				loadExperience();
 			},function(error){
 				$log.error(error);
@@ -134,6 +136,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 		_this.modalInstance.result.then(function (data) {
 			_this.submitFacilityMembership(data).then(function(){
+				toasty.success('Membership Saved');
 				loadExperience();
 			},function(error){
 				$log.error(error);
@@ -157,14 +160,6 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 
 	/* Training */
-
-	this.submitTraining = function(data){
-		experienceFactory.submitTraining(_this.doctorId,data).then(function(data){
-			toasty.success('Training Saved.');
-		}, function(error){
-			toasty.error(error.data);
-		});
-	};
 
 	this.deleteTraining = function(expId){
 		experienceFactory.deleteTraining(_this.doctorId,expId).then(function(data){

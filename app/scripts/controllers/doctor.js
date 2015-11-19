@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log,$filter) {
+angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log, $filter) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -58,9 +58,6 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	};
 
 	this.save = function(){
-
-		_this.doctorData.date_of_birth = (_this.doctorData.date_of_birth === '2000-06-22') ? null : $filter('date')(new Date(_this.doctorData.date_of_birth), 'MM/dd/yyyy');
-		console.log(_this.doctorData.date_of_birth);
 		
 		delete _this.doctorData.rates;
 		

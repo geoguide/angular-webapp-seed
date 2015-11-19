@@ -119,9 +119,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				_this.abmsCertifications = data;
 			});
 			toasty.success('Certification Saved.');
-			doctorFactory.getABMSCertifications(_this.doctorId).then(function(data){
-				_this.abmsCertifications = data;
-			});
 			_this.doctorData = data;
 		}, function(error){
 			$log.error(error);

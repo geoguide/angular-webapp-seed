@@ -7,7 +7,7 @@
  * # jobFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL,$log) {
+angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL,$log,$filter) {
     // Service logic
     // ...
 
@@ -18,6 +18,8 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 		someMethod: function () {
 			return meaningOfLife;
 		}, createJob: function(formData){
+			formData.start_date = (formData.start_date === '06/22/2015') ? null : $filter('date')(new Date(formData.start_date),'MM/dd/yyyy');
+			formData.end_date = (formData.end_date === '06/22/2015') ? null : $filter('date')(new Date(formData.end_date), 'MM/dd/yyyy');
 			return $http.post(API_URL+'/admin/jobs/', formData).then(function(response) {
 				return response.data;
 			});
@@ -26,6 +28,8 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 				return response.data;
 			});
 		}, saveJob: function(formData){
+			formData.start_date = (formData.start_date === '06/22/2015') ? null : $filter('date')(new Date(formData.start_date),'MM/dd/yyyy');
+			formData.end_date = (formData.end_date === '06/22/2015') ? null : $filter('date')(new Date(formData.end_date), 'MM/dd/yyyy');
 			return $http.put(API_URL+'/admin/jobs/'+formData.id,formData);
 		}, deleteJob: function(jobId){
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
