@@ -7,7 +7,7 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams,$filter) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;

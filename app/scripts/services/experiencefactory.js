@@ -7,20 +7,15 @@
  * # experienceFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal')
-  .factory('experienceFactory', function ($http,API_URL,$log,$filter) {
+angular.module('modioAdminPortal').factory('experienceFactory', function ($http,API_URL,$log,dateFactory) {
     // Service logic
     // ...
 
-    var meaningOfLife = 42;
-
     // Public API here
     return {
-      someMethod: function () {
-			return meaningOfLife;
-		}, submitTraining: function(doctorId, data){
-			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
-			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
+	    submitTraining: function(doctorId, data){
+			data.start_date = dateFactory.process(data.start_date);
+			data.end_date = dateFactory.process(data.end_date);
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/training', data).then(function(response) {
 				return response.data;
 			});
@@ -36,8 +31,10 @@ angular.module('modioAdminPortal')
 			});
 		}, submitMedicalSchool: function(doctorId,data){
 			delete data.facility_name;
-			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
-			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
+			console.log(data.start_date);
+			data.start_date = dateFactory.process(data.start_date);
+			data.end_date = dateFactory.process(data.end_date);
+
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-school',data).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -56,8 +53,8 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		},	submitWorkHistory: function(doctorId,data){
-			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
-			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
+			data.start_date = dateFactory.process(data.start_date);
+			data.end_date = dateFactory.process(data.end_date);
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/work-history',data).then(function(response) {
 				return response.data;
 			}, function(error){

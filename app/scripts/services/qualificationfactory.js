@@ -8,7 +8,7 @@
  * Factory in the modioAdminPortal.
  */
 angular.module('modioAdminPortal')
-  .factory('qualificationFactory', function ($http,$log,API_URL,$filter) {
+  .factory('qualificationFactory', function ($http,$log,API_URL,dateFactory) {
     // Service logic
     // ...
 
@@ -41,8 +41,8 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		}, submitMedicalLicense: function(doctorId,data){
-			data.issue_date = (data.issue_date === '2000-06-22') ? null : $filter('date')(new Date(data.issue_date), 'MM/dd/yyyy');
-			data.expiration_date = (data.expiration_date === '2000-06-22') ? null : $filter('date')(new Date(data.expiration_date), 'MM/dd/yyyy');
+			data.issue_date = dateFactory.process(data.issue_date);
+			data.expiration_date = dateFactory.process(data.expiration_date);
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses',data).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -68,8 +68,8 @@ angular.module('modioAdminPortal')
 				$log.error(error);
 			});
 		}, submitFacilityAffiliation: function(doctorId,data){
-			data.start_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.start_date), 'MM/dd/yyyy');
-			data.end_date = (data.start_date === '2000-06-22') ? null : $filter('date')(new Date(data.end_date), 'MM/dd/yyyy');
+			data.start_date = dateFactory.process(data.start_date);
+			data.end_date =  dateFactory.process(data.end_date);
 			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/facility-affiliations',data).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -82,11 +82,11 @@ angular.module('modioAdminPortal')
 			}, function(error){
 				$log.error(error);
 			});
-		}, submitInsurance: function(docId,insuranceData){
-			insuranceData.policy_effective_date = (insuranceData.policy_effective_date === '2000-06-22') ? null : $filter('date')(new Date(insuranceData.policy_effective_date), 'MM/dd/yyyy');
-			insuranceData.policy_expiration_date = (insuranceData.policy_expiration_date === '2000-06-22') ? null : $filter('date')(new Date(insuranceData.policy_expiration_date), 'MM/dd/yyyy');
-			insuranceData.retroactive_date = (insuranceData.retroactive_date === '2000-06-22') ? null : $filter('date')(new Date(insuranceData.retroactive_date), 'MM/dd/yyyy');
-			return $http.post(API_URL+'/admin/doctors/'+docId+'/insurance', insuranceData);
+		}, submitInsurance: function(docId,data){
+			data.policy_effective_date = dateFactory.process(data.policy_effective_date);
+			data.policy_expiration_date = dateFactory.process(data.policy_expiration_date);
+			data.retroactive_date = dateFactory.process(data.retroactive_date);
+			return $http.post(API_URL+'/admin/doctors/'+docId+'/insurance', data);
 		}, deleteInsurance: function(docId,insuranceId){
 			return $http.delete(API_URL+'/admin/doctors/'+docId+'/insurance/'+insuranceId);
 		}, getInsurance: function(docId){

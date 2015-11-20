@@ -61,11 +61,11 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		
 		doctorDataGet.success(function(data){
 			_this.doctorData = data;
-			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || '2000-06-22';
 			_this.drSpecialties = data.specialties;
+			_this.bookmarked = data.bookmarked;
 			_this.error = false;
 			_this.auth_email = (_this.auth_email) ? _this.auth_email : _this.doctorData.email;
-		}).error(function(error){
+		},function(error){
 			_this.error = true;
 			_this.doctorData = null;
 		});
@@ -179,6 +179,24 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			toasty.error('Invalid password');
 		}
 
+	};
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				//silence
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
 	};
 	
 	this.updateAuthEmail = function(){

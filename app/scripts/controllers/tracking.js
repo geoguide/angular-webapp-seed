@@ -15,10 +15,31 @@ angular.module('modioAdminPortal').controller('TrackingCtrl', function ($routePa
 	this.trackingData = [];
 
 	/* Init */
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				//silence
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
+	};
 
 	var init = function(){
 		doctorFactory.getTracking(_this.doctorId).then(function(result){
 			_this.trackingData = result;
+			return doctorFactory.getDoctor(_this.doctorId);
+		}).then(function(result){
+			_this.bookmarked = result.data.bookmarked;
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;

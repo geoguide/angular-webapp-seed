@@ -240,19 +240,32 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 			$log.error(error);
 		});
 	};
-
-
-	var loadMedicalSchools = function(){
-		//moved to application controller
-		return true;
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				//silence
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
 	};
 
 	/* Init */
 
 	var init = function(){
-		loadExperience().then(function(result){
-			return loadMedicalSchools();
-		}).then(function(){
+		doctorFactory.getDoctor(_this.doctorId).then(function(result){
+			_this.bookmarked = result.data.bookmarked;
+			return loadExperience();
+		}).then(function(result){
 			return doctorFactory.getTracking(_this.doctorId);
 		}).then(function(result){
 			_this.trackingData = result;

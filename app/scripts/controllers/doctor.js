@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log, $filter) {
+angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;

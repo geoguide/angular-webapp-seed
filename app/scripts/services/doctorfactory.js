@@ -7,17 +7,13 @@
  * # doctorFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_URL,$log,$filter) {
+angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_URL,$log,dateFactory) {
 	// Service logic
 	// ...
 
-	var meaningOfLife = 42;
-
 	// Public API here
 	return {
-		someMethod: function () {
-			return meaningOfLife;
-		}, createDoctor: function(formData){
+		createDoctor: function(formData){
 			return $http.post(API_URL+'/admin/doctors/', formData).then(function(response) {
 				return response.data;
 			});
@@ -48,7 +44,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 				return response.data;
 			});
 		}, saveDoctor: function(formData){
-			formData.date_of_birth = (formData.date_of_birth === '2000-06-22') ? null : $filter('date')(new Date(formData.date_of_birth), 'MM/dd/yyyy');
+			formData.date_of_birth = dateFactory.process(formData.date_of_birth);
 			return $http.put(API_URL+'/admin/doctors',formData).then(function(response) {
 				return response.data;
 			});
@@ -134,17 +130,17 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 			});
-		}, saveAdditionalCertification: function(doctorId,certificationInfo){
-			certificationInfo.expiration_date = (certificationInfo.expiration_date === '2000-06-22') ? null : $filter('date')(new Date(certificationInfo.expiration_date), 'MM/dd/yyyy');
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications',certificationInfo).then(function(response) {
+		}, saveAdditionalCertification: function(doctorId,data){
+			data.expiration_date = dateFactory.process(data.expiration_date);
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/additional-certifications',data).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);
 			});
-		}, saveABMSCertification: function(doctorId,certificationInfo){
-			certificationInfo.issue_date = (certificationInfo.issue_date) ? $filter('date')(new Date(certificationInfo.issue_date), 'MM/dd/yyyy') : null;
-			certificationInfo.expiration_date = (certificationInfo.expiration_date) ? $filter('date')(new Date(certificationInfo.expiration_date), 'MM/dd/yyyy') : null;
-			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/abms-certifications',certificationInfo).then(function(response) {
+		}, saveABMSCertification: function(doctorId,data){
+			data.issue_date = dateFactory.process(data.issue_date);
+			data.expiration_date = dateFactory.process(data.expiration_date);
+			return $http.post(API_URL+'/admin/doctors/'+doctorId+'/abms-certifications',data).then(function(response) {
 				return response.data;
 			}, function(error){
 				$log.error(error);

@@ -22,7 +22,30 @@ angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$r
 		doctorFactory.getJobMatches(doctorId).then(function(result){
 			_this.matches = result;
 			_this.loading = false;
+			return doctorFactory.getDoctor(doctorId);
+		}).then(function(result){
+			_this.bookmarked = result.data.bookmarked;
+		},function(error){
+			$log.error(error);
 		});
+		
+	};
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				//silence
+			}, function(error){
+				$log.error(error);
+			});	
+		}
 		
 	};
 	

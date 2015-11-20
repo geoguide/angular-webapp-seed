@@ -235,11 +235,32 @@ angular.module('modioAdminPortal').controller('QualificationsCtrl', function ($s
 		});
 		return deferred.promise;
 	};
+	
+	this.bookmark = function(idIn){
+		_this.bookmarked = !!!_this.bookmarked;
+		if(_this.bookmarked){
+			doctorFactory.bookmark(idIn).then(function(){
+				
+			}, function(error){
+				$log.error(error);
+			});	
+		} else {
+			doctorFactory.removeBookmark(idIn).then(function(){
+				//silence
+			}, function(error){
+				$log.error(error);
+			});	
+		}
+		
+	};
 
 	var init = function(){
 		_this.loading = true;
 		qualificationFactory.getClinicalEvaluations(_this.doctorId).then(function(data){
 			_this.clinicalEvaluations = data;
+			return doctorFactory.getDoctor(_this.doctorId);
+		}).then(function(result){
+			_this.bookmarked =result.data.bookmarked;
 			return qualificationFactory.getFacilityAffiliations(_this.doctorId);
 		}).then(function(data){
 			_this.facilityAffiliations = data;
