@@ -9,7 +9,7 @@
 <div ng-hide="dr.loading || dr.error" class="ng-hide">
 
 	<section id="authentication-section">
-		
+
 		<div class="row">
 			<div class="col-md-4">
 				<div ng-show="dr.doctorData.user_id">
@@ -50,7 +50,7 @@
 			</div>
 			<div class="col-md-8">
 				<h4>Specialties</h4>
-	
+
 				<div class="row">
 					<div class="col-xs-6">
 						<label>Specialty</label>
@@ -59,8 +59,8 @@
 						<label>Actions</label>
 					</div>
 				</div>
-		
-				
+
+
 				<div class="row" ng-repeat="dspec in dr.specialtyData track by $index">
 					<form novalidate ng-submit="dr.submitSpecialty(dspec)">
 						<div class="col-xs-6 form-group">
@@ -86,7 +86,7 @@
 	<hr />
 	<div class= "row">
 		<div class="col-sm-4">
-			<h4>States Subscribed</h4>	
+			<h4>States Subscribed</h4>
 			<accordion close-others="true">
 				<accordion-group is-open="true">
 					<accordion-heading>Northeast<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
@@ -118,11 +118,11 @@
 				</accordion-group>
 			</accordion>
 		</div>
-		
-		
-		
-		
-		
+
+
+
+
+
 		<!-- Board Certifications -->
 		<div class="col-sm-8">
 			<h4>ABMS Certifications</h4>
@@ -179,23 +179,25 @@
 			 Add ABMS Certification</button>
 				</div>
 			</div>
-			
-			
+
+
 			<hr />
-			
-			
+
+
 			<!-- Additional Certifications -->
 
-			<h4>Additional Certifications</h4>	
+			<h4>Additional Certifications</h4>
 			<h5 ng-show="(dr.additionalCerts).length < 1" class="ng-hide">No Additional Certs</h5>
 			<div class="row" ng-repeat="dcert in dr.additionalCerts track by $index">
 				<form novalidate ng-submit="dr.submitAdditionalCertification(dcert)">
-					<div class="col-md-4">
+					<div class="col-md-4 form-group">
+						<label>Certification</label>
 						<select class="form-control input-sm" ng-model="dcert.type_id" ng-options="cert.id as cert.name for cert in dr.additional_certification_types" >
 							<option value="">-- None --</option>
 						</select>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 form-group">
+						<label>Expiration Date</label>
 						<div class="input-group">
 							<input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{dr.format}}" ng-model="dcert.expiration_date" is-open="dr.opened['cert_expiration_date_'+$index]" max-date="'01/01/2025'"  datepicker-options="dr.dateOptions" ng-required="true" close-text="Close" />
 							<span class="input-group-btn">
@@ -221,8 +223,8 @@
 	</div>
 	<hr />
 
-	
-		
+
+
 	<!-- Job Offers -->
 	<div class="row">
 		<div class="col-md-12">
@@ -242,7 +244,7 @@
 			<h4>New Job Offer</h4>
 		</div>
 	</div>
-	
+
 	<form id="job-offer-form" name="dr.edit_offer_form" ng-submit="dr.submitOffer()" ng-show="dr.newOffer" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-3 form-group">
@@ -257,23 +259,23 @@
 				</select>
 			</div>
 		</div>
-	
+
 		<div class="row"><div class="col-sm-12"><hr /></div></div>
-	
+
 		<div class="row">
 			<div class="col-sm-12">
 				<h4>Rates</h4>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-xs-3 form-group" ng-repeat="rate in appCtrl.rateTypes">
 				<label ng-bind="rate.name"></label>
 				<input type="number" class="form-control input-sm" ng-model="dr.newOffer[rate.field]" />
-			</div>	
+			</div>
 		</div>
 		<div class="row"><div class="col-sm-12"><hr /></div></div>
-		<button class="btn btn-primary pull-right" role="submit" ng-disabled="new_offer_form.$invalid">Submit Rates</button> 
+		<button class="btn btn-primary pull-right" role="submit" ng-disabled="new_offer_form.$invalid">Submit Rates</button>
 	</form>
-	
+
 </div>
