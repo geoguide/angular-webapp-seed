@@ -141,8 +141,8 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 				} else {
 					result[fm].profileUrl = './images/default-avatar.png';
 				}
-
 			}
+			_this.memberships = result;
 			_this.loading = false;
 		}, function(error){
 			$log.error(error);
