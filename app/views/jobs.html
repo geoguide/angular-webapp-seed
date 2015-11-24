@@ -14,7 +14,6 @@
 						<select name="job_type" class="form-control input-sm" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
 							<option value="1">Locum</option>
 							<option value="2">Permanent</option>
-							<option value="3">Both</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -142,8 +141,8 @@
 			</div>
 		</form>
 	</script>
-	
-	
+
+
 	<div class="row">
 		<div class="col-sm-6">
 			<h4>Jobs</h4>
@@ -205,15 +204,15 @@
 					<button role="submit" class="btn btn-success btn-block btn-sm" type="submit">Search</button>
 				</div>
 			</div>
-			
+
 		</form>
 	</section>
-	
+
 <div class="row">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 1 }"><a ng-click="jobsCtrl.queryData.job_status = 1;jobsCtrl.getResults()">Active</a></li>
-		  
+
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 0 }"><a ng-click="jobsCtrl.queryData.job_status = 0;jobsCtrl.getResults()">Inactive</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 2 }"><a ng-click="jobsCtrl.queryData.job_status = 2;jobsCtrl.getResults()">Pending Review</a></li>
 		  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 3 }"><a ng-click="jobsCtrl.queryData.job_status = 3;jobsCtrl.getResults()">Closed by Modio</a></li>

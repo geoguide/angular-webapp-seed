@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, specialtyFactory, toasty, $log, $modal, offerFactory, jobFactory) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, specialtyFactory, toasty, $log, $modal) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -37,7 +37,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard({q:boardName});
 		console.log(_this.boardSpecialties);
 	};
-	
+
 	this.get = function(doctorId){
 
 		var doctorDataGet = doctorFactory.getDoctor(doctorId);
@@ -53,12 +53,12 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		doctorFactory.getABMSCertifications(doctorId).then(function(data){
 			_this.abmsCertifications = data;
 		});
-		
+
 		specialtyFactory.getABMSBoards().then(function(result){
 			_this.boards = result;
 		});
-		
-		
+
+
 		doctorDataGet.success(function(data){
 			_this.doctorData = data;
 			_this.drSpecialties = data.specialties;
@@ -180,25 +180,25 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		}
 
 	};
-	
+
 	this.bookmark = function(idIn){
 		_this.bookmarked = !!!_this.bookmarked;
 		if(_this.bookmarked){
 			doctorFactory.bookmark(idIn).then(function(){
-				
+
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		} else {
 			doctorFactory.removeBookmark(idIn).then(function(){
 				//silence
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		}
-		
+
 	};
-	
+
 	this.updateAuthEmail = function(){
 		doctorFactory.saveUser({id: _this.doctorData.user_id, email:_this.doctorData.auth_email}).then(function(data){
 			toasty.success('Email Changed.');
@@ -208,7 +208,7 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 			toasty.error(JSON.stringify(error.data));
 		});
 	};
-	
+
 	this.submitAuthInfo = function(){
 		var postData = {
 			email: _this.auth_email,
@@ -248,47 +248,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.addABMSCertification = function(){
 		_this.abmsCertifications.push({});
 	};
-	
-
-	/* Offers */
-
-	this.acceptOffer = function(offerId){
-		offerFactory.acceptOffer(offerId).then(function(data){
-			toasty.success('Offer Updated.');
-			loadOffers();
-		}, function(error){
-			$log.error(error);
-			toasty.error(error.data);
-		});
-	};
-
-	this.rejectOffer = function(offerId){
-		offerFactory.rejectOffer(offerId).then(function(data){
-			toasty.success('Offer Updated.');
-			loadOffers();
-		}, function(error){
-			$log.error(error);
-			toasty.error(error.data);
-		});
-	};
-
-	this.submitOffer = function(){
-		_this.newOffer.doctor_id = _this.doctorId;
-		offerFactory.createOffer(_this.newOffer).success(function(data){
-			toasty.success('Offer Updated.');
-			loadOffers();
-			_this.newOffer = {};
-			_this.edit_offer_form.$setPristine();
-		}).error(function(error){
-			toasty.error('Offer Bad.');
-		});
-	};
-	
-	var loadOffers = function(){
-		return doctorFactory.getJobOffers(_this.doctorId).then(function(data){
-			_this.offers = data;
-		});
-	};
 
 	var init = function(){
 		_this.get(_this.doctorId);
@@ -300,12 +259,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 				var abbr = _this.states[s];
 				_this.states[abbr] = true;
 			}
-			return jobFactory.queryJobs({});
-		}).then(function(jobsInfo){
-			_this.jobs = jobsInfo.jobs;
-			return doctorFactory.getJobOffers(_this.doctorId);
-		}).then(function(data){
-			_this.offers = data;
 			return doctorFactory.getTracking(_this.doctorId);
 		}).then(function(result){
 			_this.trackingData = result;
