@@ -7,7 +7,7 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, experienceFactory, jobFactory, $log,jwtHelper) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, jobFactory, $log,jwtHelper) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
@@ -19,14 +19,14 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 				_this.stats = response;
 			},function(error){
 				$log.error('error in the watch: '+JSON.stringify(error));
-			});	
+			});
 		}
-		
+
 	});
 
 	this.appLoading = true;
 	this.today = new Date();
-	
+
 	var dd = this.today.getDate();
 	var mm = this.today.getMonth()+1; //January is 0!
 	var yyyy = this.today.getFullYear();
@@ -47,8 +47,8 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 
 	this.goTo = applicationFactory.goTo;
 	this.abmsCertifications = [];
-	
-	
+
+
 
 	this.insuranceTypes = [
 		{
@@ -59,7 +59,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			type: 'Liability'
 		}
 	];
-	
+
 	this.trainingTypes = [
 		{
 			id:0,
@@ -72,7 +72,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			type: 'Residency'
 		}
 	];
-	
+
 	this.memberStatuses = [
 		{
 			id: 0,
@@ -134,7 +134,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 
 	this.usStates = applicationFactory.usStates;
 	this.countries = applicationFactory.countries;
-	
+
 	this.accountManagers = [
 		{ value:'', name: 'Unassigned' },
 		{ value:'Tom Clifford', name: 'Tom Clifford' },
@@ -239,7 +239,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
-	
+
 	this.querySpecialties = function(query){
 		var deferred = $q.defer();
 	   specialtyFactory.query({q:query}).then(function(data){
@@ -250,7 +250,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		});
 		return deferred.promise;
 	};
-	
+
 	this.queryABMS = function(query){
 		var deferred = $q.defer();
 	   specialtyFactory.queryABMS({q:query}).then(function(data){
@@ -306,7 +306,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	_this.queryTags = function(query){
 		return jobFactory.getJobTags(query);
 	};
-	
+
 	$scope.$on('login',function(){
 		_this.init();
 	});

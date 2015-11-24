@@ -47,6 +47,10 @@
 				<label>Home Address 2</label>
 				<input type="text" class="form-control input-sm" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
 			</div>
+			<div class="form-group col-md-2">
+				<label>NPI#</label>
+				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.npi_number"  />
+			</div>
 		</div>
 		<div class="row">
 			<div class="form-group col-md-4">
@@ -68,7 +72,12 @@
 		</div>
 
 		<div class="row">
-			<div class="form-group col-md-4">
+			<div class="col-md-4 form-group">
+				<label>Account Manager</label>
+				<select ng-model="dr.doctorData.account_manager" class="form-control input-sm" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+				</select>
+			</div>
+			<div class="form-group col-md-2">
 				<label>Phone Number</label>
 				<input type="text" class="form-control input-sm" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
 			</div>
@@ -81,41 +90,11 @@
 				<a class="btn btn-primary" ng-click="dr.ssn.show = true" ng-hide="dr.ssn.show">Show</a>
 				<input class="ng-hide form-control input-sm" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="form-group col-md-3">
-				<label>Drivers License #</label>
-				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.drivers_license_number"  />
-			</div>
-			<div class="form-group col-md-2">
-				<label>DL State</label>
-				<select class="form-control input-sm" ng-model="dr.doctorData.drivers_license_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
-				</select>
-			</div>
-			<div class="col-md-3 form-group">
-				<label>Account Manager</label>
-				<select ng-model="dr.doctorData.account_manager" class="form-control input-sm" ng-options="man.value as man.name for man in appCtrl.accountManagers">
-				</select>
-			</div>
-			<div class="form-group col-md-3">
-				<label>Date of Birth</label>
-				<div class="input-group">
-					<input type="text" class="form-control input-sm" datepicker-popup="{{appCtrl.dateFormat}}" ng-model="dr.doctorData.date_of_birth" is-open="dr.opened" max-date="appCtrl.today" min-date="'01/01/1885'" datepicker-options="appCtrl.dateOptions" close-text="Close"  placeholder="MM/DD/YYYY" />
-					<span class="input-group-btn">
-	                <button type="button" class="btn btn-default btn-sm" ng-click="dr.open($event)"><i class="fa fa-calendar fa-fw"></i></button>
-					</span>
-				</div>
-			</div>
 		</div>
 
 		<hr />
-		<div class="row">
-			<div class="col-sm-12">
-				<h4>Job Qualifications</h4>
-			</div>
-		</div>
-
+		<h4>Job Qualifications</h4>
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>Job Type Desired</label>
@@ -174,43 +153,26 @@
 					<option value="Practice Fusion">Practice Fusion</option>
 				</select>
 			</div>
-			<div class="form-group col-md-3">
-				<label>Military Branch</label>
-				<select ng-model="dr.doctorData.military_experience_branch" class="form-control input-sm">
-					<option value="Air Force">Air Force</option>
-					<option value="Army">Army</option>
-					<option value="Coast Guard">Coast Guard</option>
-					<option value="Marine Corp">Marine Corp</option>
-					<option value="Navy">Navy</option>
-				</select>
+			<div class="col-md-3 form-group">
+				<p>
+					<input type="checkbox" ng-model="dr.doctorData.overnight_call" ng-true-value="1" ng-false-value="0" />
+					<label>Overnight Call</label>
+				</p>
+				<p>
+					<input type="checkbox" ng-model="dr.doctorData.trauma_call" ng-true-value="1" ng-false-value="0" />
+					<label>Trauma Call</label>
+				</p>
 			</div>
-			<div class="form-group col-md-3">
-				<label>Military Role</label>
-				<select ng-model="dr.doctorData.military_experience_role" class="form-control input-sm">
-					<option value="Active Duty">Active Duty</option>
-					<option value="Select Reserve">Select Reserve</option>
-					<option value="Spouse">Spouse</option>
-					<option value="Veteran">Veteran</option>
-					<option value="Civilian">Civilian</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-3">
-				<label>Overnight Call</label>
-				<input type="checkbox" ng-model="dr.doctorData.overnight_call" ng-true-value="1" ng-false-value="0" />
-			</div>
-			<div class="form-group col-md-3">
-				<label>Trauma Call</label>
-				<input type="checkbox" ng-model="dr.doctorData.trauma_call" ng-true-value="1" ng-false-value="0" />
-			</div>
-			<div class="form-group col-md-3">
-				<label>ECFMG</label>
-				<input type="checkbox" ng-model="dr.doctorData.fmg" ng-true-value="1" ng-false-value="0" />
-			</div>
-			<div class="form-group col-md-3">
-				<label>Visa</label>
-				<input type="checkbox" ng-model="dr.doctorData.visa" ng-true-value="1" ng-false-value="0" />
+			<div class="col-md-3 form-group">
+				<p>
+					<input type="checkbox" ng-model="dr.doctorData.fmg" ng-true-value="1" ng-false-value="0" />
+					<label>ECFMG</label>
+				</p>
+				<p>
+					<input type="checkbox" ng-model="dr.doctorData.visa" ng-true-value="1" ng-false-value="0" />
+					<label>Visa</label>
+				</p>
+				</div>
 			</div>
 		</div>
 		<hr />
@@ -250,10 +212,10 @@
 					<strong>Travel & Lodging requirement:</strong>
 				</div>
 				<div>
-					<strong>Rate:</strong>					
+					<strong>Rate:</strong>
 				</div>
 				<div>
-					<strong>Current situation:</strong>					
+					<strong>Current situation:</strong>
 				</div>
 			</div>
 		</div>
@@ -283,26 +245,6 @@
 				</select>
 			</div>
 		</div>
-		<hr />
-		<div class="row">
-			<div class="col-sm-12">
-				<h4>Identifiers</h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-3">
-				<label>NPI#</label>
-				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.npi_number"  />
-			</div>
-			<div class="col-sm-3 form-group">
-				<label>Medicaid #</label>
-				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.medicaid_number" />
-			</div>
-			<div class="col-sm-3 form-group">
-				<label>Medicare #</label>
-				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.medicare_number" />
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-md-12 text-right">
 				<div class="form-group">
@@ -318,7 +260,7 @@
 					<img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
 					<img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
 				</div>
-				
+
 			</div>
 		</div>
 	</form>

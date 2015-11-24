@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, qualificationFactory, toasty, $log) {
+angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, toasty, $log) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -29,7 +29,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 
 		_this.opened = true;
 	};
-	
+
 	this.get = function(doctorId){
 		_this.loading = true;
 
@@ -47,9 +47,6 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
-			return qualificationFactory.getMedicalLicenses(_this.doctorId);
-		}).then(function(result){
-			_this.licenses = result;
 		},function(error,status){
 			_this.loading = false;
 			_this.error = true;
@@ -58,9 +55,9 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	};
 
 	this.save = function(){
-		
+
 		delete _this.doctorData.rates;
-		
+
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
 			toasty.success({ title: 'Success!', msg: 'Doctor Saved.' });
 			_this.doctorData = data;
@@ -69,7 +66,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
-	
+
 	this.archive = function(){
 		_this.doctorData.disposition = 6;
 		_this.save();
@@ -87,7 +84,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			toasty.error({ title: 'Error!', msg: 'Please Insert More Credits'});
 		});
 	};
-	
+
 	this.actAs = function(){
 		doctorFactory.actAs(_this.doctorId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
@@ -97,25 +94,25 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
-	
+
 	this.bookmark = function(idIn){
 		_this.bookmarked = !!!_this.bookmarked;
 		if(_this.bookmarked){
 			doctorFactory.bookmark(idIn).then(function(){
-				
+
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		} else {
 			doctorFactory.removeBookmark(idIn).then(function(){
 				//silence
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		}
-		
+
 	};
-	
+
 	doctorFactory.getJobOffers(_this.doctorId).then(function(result){
 	   _this.offers = result;
 	},function(error){

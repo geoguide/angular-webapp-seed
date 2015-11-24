@@ -111,7 +111,7 @@
 			access: { requiredLogin: true },
 			controller: 'AccountInfoCtrl',
 			controllerAs: 'dr'
-		}).when('/providers/:id/education-and-work', {
+		}).when('/providers/:id/facility-memberships', {
 			tab: 'users',
 			templateUrl: 'views/education-and-work.html',
 			access: { requiredLogin: true },
@@ -257,7 +257,7 @@
 			//Route should have access level set
 			if(!nextRoute.access){
 				nextRoute.access = {};
-				nextRoute.access.requiredLogin = true;	
+				nextRoute.access.requiredLogin = true;
 			}
 			//Lets store the tokens in Auth so we don't have to use localStorage here
 			//If route requires login and we don't have an email or adminAuthToken do interrogation

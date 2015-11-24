@@ -7,11 +7,8 @@
 			<li role="presentation" ng-class="{'active': dr.tab == 'account-info'}">
 				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/account-info')">Account Info</a>
 			</li>
-			<li role="presentation" ng-class="{'active': dr.tab == 'education-work'}">
-				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/education-and-work')">Education &amp; Work</a>
-			</li>
-			<li role="presentation" ng-class="{'active': dr.tab == 'qualifications'}">
-				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/qualifications')">Qualifications</a>
+			<li role="presentation" ng-class="{'active': dr.tab == 'facility-memberships'}">
+				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/facility-memberships')">Facility Memberships</a>
 			</li>
 			<li role="presentation" ng-class="{'active': dr.tab == 'tracking'}">
 				<a  ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="dr.trackingData.length"></span></a>
