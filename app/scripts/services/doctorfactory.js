@@ -80,17 +80,17 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			queryData.score_low = queryData.score_low || null;
 			queryData.score_high = (queryData.score_high != 100) ? queryData.score_high : null;
-			
+
 			var request = API_URL+'/admin/doctors';
-			
+
 			return $http.get(request, {params: queryData});
 		}, queryCoordinators: function(queryData){
 			delete queryData.score_low;
 			delete queryData.score_high;
 			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
-			
+
 			var request = API_URL+'/admin/coordinators';
-			
+
 			return $http.get(request, { params: queryData }).then(function(response) {
 				return response.data;
 			}, function(error){
@@ -102,7 +102,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			}, function(error){
 				$log.error(error);
 				return error;
-				
+
 			});
 		}, getStates: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/states').then(function(response) {
@@ -159,7 +159,7 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			});
 		}, getJobOffers: function(doctorId){
 			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/offers').then(function(response) {
-				return response.data;	
+				return response.data;
 			}, function(error){
 				$log.error(error);
 			});
@@ -196,6 +196,12 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			return $http.post(API_URL+'/admin/doctors/'+doctorIdIn+'/auth',authInfo).then(function(response) {
 				return response.data;
 			});
-		}
+		}, getMedicalLicenses: function(doctorId){
+			return $http.get(API_URL+'/admin/doctors/'+doctorId+'/medical-licenses').then(function(response) {
+				return response.data;
+			}, function(error){
+				$log.error(error);
+			});
+		},
 	};
 });
