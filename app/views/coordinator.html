@@ -1,13 +1,13 @@
 <section id="coordinator-info">
-	
+
 	<h3 id="no-data" ng-show="coord.error && !coord.loading" class="ng-cloak text-center ng-hide">Coordinator #<span ng-bind="coord.coordId"></span> Does Not Exist</h3>
-	
+
 	<div class="text-center row" ng-show="coord.loading">
 		<div class="col-md-12 form-group">
 		  <i class="fa fa-refresh fa-spin fa-4x"></i>
 		</div>
 	</div>
-	
+
 	<div ng-hide="coord.loading || coord.error" class="ng-hide">
 		<h3>Coordinator: <strong><span ng-bind="coord.coordinatorData.first_name"></span> <span ng-bind="coord.coordinatorData.last_name"></span></strong></h3>
 		<hr />
@@ -45,17 +45,24 @@
 					<label>City</label>
 					<input type="text" class="form-control" placeholder="City" ng-model="coord.coordinatorData.home_city">
 				</div>
-				<div class="col-md-2 form-group">
+				<div class="col-md-1 form-group">
 					<label>State</label>
 					<select class="form-control" ng-model="coord.coordinatorData.home_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 					</select>
 				</div>
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-1">
 					<label>Zip</label>
 					<input type="text" class="form-control" ui-mask="99999" ng-model="coord.coordinatorData.home_zip">
 				</div>
+        <div class="form-group col-md-2">
+          <label>Role</label>
+          <select class="form-control" ng-model="coord.coordinatorData.user_role">
+            <option value="C">Coordinator</option>
+            <option value="R">Recruiter</option>
+          </select>
+        </div>
 			</div>
-			
+
 			<div class="row">
 				<div class="form-group col-md-4">
 					<label>Phone Number</label>
@@ -66,7 +73,7 @@
 					<input type="email" class="form-control" ng-model="coord.coordinatorData.email">
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="col-md-12 text-right">
 					<div class="form-group">
@@ -78,7 +85,7 @@
 			</div>
 		</form>
 	</div>
-	
+
 	<!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
 	<div id="membership-section" class="ng-hide" ng-hide="coord.loading || coord.error || coord == null">
 		<accordion close-others="false">

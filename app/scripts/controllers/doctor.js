@@ -18,6 +18,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.error = false;
 	this.trackingData = [];
 	this.env = ENV;
+	this.licenses = [];
 	//this.eggActivated = false;
 
 	//Date of Birth Picker
@@ -47,6 +48,9 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 			return doctorFactory.getJobMatches(_this.doctorId);
 		}).then(function(result){
 			_this.matches = result;
+			return doctorFactory.getMedicalLicenses(_this.doctorId);
+		}).then(function(result){
+			_this.licenses = result;
 		},function(error,status){
 			_this.loading = false;
 			_this.error = true;
