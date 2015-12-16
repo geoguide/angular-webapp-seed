@@ -243,59 +243,46 @@
 		toastyConfigProvider.setConfig({
         //sound: false,
         //shake: true,
-        clickToClose: true,
+        clickToClose: false,
         timeout: 4000,
         theme:'material'
       });
     }
   ]);
 
+	webapp.config(function Config($httpProvider, jwtInterceptorProvider) {
+	  jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, localStorageService, API_URL,$location) {
+
+	    var token = localStorageService.get('adminAuthToken');
+	    var refreshToken = localStorageService.get('refreshToken');
+
+			if (token && jwtHelper.isTokenExpired(token) && refreshToken) {
+				return $http({
+					url: API_URL+'/admin/delegate',
+					data: { refresh_token: refreshToken,token: token },
+					method: 'POST',
+					skipAuthorization: true
+				}).then(function(response, status, headers, config){
+					localStorageService.set('adminAuthToken', response.data.token);
+					localStorageService.set('refreshToken', response.data.refresh_token);
+					return response.data.token;
+				},function(error){
+					localStorageService.remove('adminAuthToken');
+					localStorageService.remove('refreshToken');
+					$location.path('/login');
+					return false;
+				});
+	    } else {
+	      return token;
+	    }
+	  };
+	  $httpProvider.interceptors.push('jwtInterceptor');
+	});
+
 
 	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
 
-		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-			//Route should have access level set
-			if(!nextRoute.access){
-				nextRoute.access = {};
-				nextRoute.access.requiredLogin = true;
-			}
-			//Lets store the tokens in Auth so we don't have to use localStorage here
-			//If route requires login and we don't have an email or adminAuthToken do interrogation
-			if (nextRoute.access.requiredLogin && (!localStorageService.get('adminAuthToken') || !Auth.user().email)) {
 
-				if(localStorageService.get('refreshToken')){
-
-					Auth.delegate().then(function(result){
-						//Success
-						if(!localStorageService.get('adminAuthToken')){
-							event.preventDefault();
-							$log.warn('Delegate Failed to Populate adminAuthToken');
-							webapp.value('loggedIn', false);
-							$location.path('/login');
-						} else {
-							$log.info('Delegation Successful');
-						}
-					}, function(reason){
-						//Error
-						webapp.value('loggedIn', false);
-						$log.error('delegation fail: '+reason);
-						event.preventDefault();
-						$location.path('/login');
-					}, function(update){
-						//Notifications of in progress promises
-						$log.info('sweet notification: '+update);
-					});
-				} else {
-					webapp.value('loggedIn', false);
-					$log.warn('no refresh token');
-					$location.path('/login');
-				}
-
-			} else if(nextRoute.templateUrl === 'views/login.html' && localStorageService.get('adminAuthToken')){
-				//You've got an adminAuthToken but are trying to go to the login page, send to real page
-				$location.path(Auth.defaultAuthPage());
-			}
-		});
 		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
 			if (oldVal !== newVal) {
 				document.title = $route.current.title || 'Modio Admin Portal';

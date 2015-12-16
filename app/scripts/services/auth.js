@@ -8,7 +8,7 @@
  * Factory in the modioAdminPortal.
  */
 angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $location, jwtHelper, $q, $timeout, localStorageService,$log) {
-	
+
 	var delegate = function(){
 		var deferred = $q.defer();
 		var refreshToken = localStorageService.get('refreshToken');
@@ -17,7 +17,7 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		},0);
 		if(refreshToken){
 			$http.post(API_URL+'/admin/delegate', { refresh_token: refreshToken }).then(function(response, status, headers, config){
-				
+
 				localStorageService.set('adminAuthToken', response.data.token);
 				localStorageService.set('refreshToken', response.data.refresh_token);
 				deferred.resolve(response.data);
@@ -29,22 +29,19 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		}
 		return deferred.promise;
 	};
-	
+
 	var isAuthenticated = function() {
 		var storedJwt = localStorageService.get('adminAuthToken');
 		if(storedJwt){
 			var storedPayload = jwtHelper.decodeToken(storedJwt);
-			userInfo = storedPayload;
+			userInfo = storedPayload.admin_user;
 			if(jwtHelper.isTokenExpired(storedJwt)){
-				//$log.warn('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is expired expired: '+jwtHelper.getTokenExpirationDate(storedJwt)+' deleting');
-				localStorageService.remove('adminAuthToken');
-			} else {
-				//$log.info('stored JWT: '+storedJwt+' payload: '+JSON.stringify(storedPayload)+' is not expired expires: '+jwtHelper.getTokenExpirationDate(storedJwt));
+				//localStorageService.remove('adminAuthToken');
 			}
 		}
 		return localStorageService.get('adminAuthToken');
 	};
-	
+
 	var logout = function(){
 		$log.log('logout delete');
 		localStorageService.remove('adminAuthToken');
@@ -52,7 +49,7 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		userInfo = {};
 		$location.path('/login');
 	};
-	
+
 	var register = function(formData) {
 		localStorageService.remove('adminAuthToken');
 		var register = $http.post('/auth/register', formData);
@@ -61,11 +58,11 @@ angular.module('modioAdminPortal').factory('Auth', function($http, API_URL, $loc
 		});
 		return register;
 	};
-	
+
 	var userInfo = {};
-	
+
 	var defaultAuthPage = '/dashboard';
-	
+
 	return {
 		isAuthenticated: isAuthenticated,
 		user: function() { return userInfo; },

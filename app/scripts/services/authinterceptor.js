@@ -10,7 +10,7 @@
 angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $location, localStorageService) {
 	return {
 		//Look for the token and if we have it attach it to every request
-		request: function(config) {
+		/*request: function(config) {
 			//var LocalService = $injector.get('LocalService');
 			var token;
 			if (localStorageService.get('adminAuthToken')) {
@@ -20,7 +20,7 @@ angular.module('modioAdminPortal').factory('AuthInterceptor', function($q, $loca
 				config.headers.Authorization = 'Bearer ' + token;
 			}
 			return config;
-		},
+		},*/
 		//If you get a 401 or 403 from the server delete the token and go to login
 		responseError: function(rejection) {
 			if (rejection.status === 401 || rejection.status === 403) {

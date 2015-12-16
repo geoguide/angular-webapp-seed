@@ -327,12 +327,16 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 		goTo: function (path,search) {
 			$location.path(path).search('type',search);
 		}, userInfo: {
-			
+
 		}, getDashboardStats: function(){
 			return $http.get(API_URL+'/admin/dashboard-stats').then(function(response){
 				return response.data;
 			});
+		}, getConventions: function(){
+			return $http.get(API_URL+'/public/conventions').then(function(response){
+				return response.data;
+			});
 		}, usStates: usStates, countries: countries
 	};
-	
+
   });

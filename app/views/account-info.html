@@ -89,28 +89,28 @@
 			<h4>States Subscribed</h4>
 			<accordion close-others="true">
 				<accordion-group is-open="true">
-					<accordion-heading>Northeast<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
+					<accordion-heading>Northeast<span class="badge pull-right"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'Northeast' }">
 						<input type="checkbox" ng-model="dr.states[value.abbreviation]" ng-click="dr.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
 					</div>
 				</accordion-group>
 				<accordion-group is-open="false">
-					<accordion-heading>Midwest<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
+					<accordion-heading>Midwest<span class="badge pull-right"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'Midwest' }">
 						<input type="checkbox" ng-model="dr.states[value.abbreviation]" ng-click="dr.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
 					</div>
 				</accordion-group>
 				<accordion-group is-open="false">
-					<accordion-heading>South<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
+					<accordion-heading>South<span class="badge pull-right"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'South' }">
 						<input type="checkbox" ng-model="dr.states[value.abbreviation]" ng-click="dr.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
 					</div>
 				</accordion-group>
 				<accordion-group is-open="false">
-					<accordion-heading>West<span class="badge pull-right" ng-bind="1"></span></accordion-heading>
+					<accordion-heading>West<span class="badge pull-right"></span></accordion-heading>
 					<div ng-repeat="(key, value) in appCtrl.usStates | filter: { region: 'West' }">
 						<input type="checkbox" ng-model="dr.states[value.abbreviation]" ng-click="dr.updateState(value.abbreviation)" />
 						<label ng-bind="value.name"></label>
@@ -221,6 +221,5 @@
 
 		</div>
 	</div>
-	<hr />
 
 </div>
