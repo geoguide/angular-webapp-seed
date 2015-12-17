@@ -111,7 +111,7 @@
 								<td ng-bind="doc.first_name"></td>
 								<td ng-bind="doc.last_name"></td>
 								<td ng-bind="doc.email"></td>
-								<td ng-bind="doc.user_role == 'R' ? 'Recruiter' : 'Coordinator'"></td>
+								<td>{{ (doc.user_role == 'R') ? 'Recruiter' : 'Coordinator' }}</td>
 							</tr>
 						</tbody>
 					</table>
