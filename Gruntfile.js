@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
 	// Load grunt tasks automatically
 	require('load-grunt-tasks')(grunt);
-	
+
 	// Time how long tasks take. Can help when optimizing build times
 	require('time-grunt')(grunt);
 
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 	};
 
 	var gruntEnvironment = grunt.option('environment') || 'development';
-	
+
 	console.log('Environment: '+gruntEnvironment);
 
 	// Define the configuration for all the tasks
@@ -276,7 +276,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat', 'uglifyjs'],
+              js: ['concat' /*'uglifyjs'*/],
               css: ['cssmin']
             },
             post: {}
@@ -399,7 +399,8 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*',
-            'configs/*.js'
+            'configs/*.js',
+            'scripts/*.js'
           ]
         }, {
           expand: true,
@@ -486,7 +487,7 @@ module.exports = function (grunt) {
     'processhtml',
     'cdnify',
     'cssmin',
-    'uglify',
+    //'uglify',
     'filerev',
     'usemin',
     'htmlmin'
