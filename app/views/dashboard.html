@@ -24,7 +24,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0} | orderBy: dash.sortBy : dash.sortDir track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0, source:'!11'} | orderBy: dash.sortBy : dash.sortDir track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
 							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
@@ -82,7 +82,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>	
+			</div>
 
 		</article>
 	</section>
