@@ -251,11 +251,10 @@
   ]);
 
 	webapp.config(function Config($httpProvider, jwtInterceptorProvider) {
-	  jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, localStorageService, API_URL,$location) {
-
-	    var token = localStorageService.get('adminAuthToken');
-	    var refreshToken = localStorageService.get('refreshToken');
-
+		jwtInterceptorProvider.tokenGetter = ['jwtHelper','$http','localStorageService','API_URL','$location',function(jwtHelper, $http, localStorageService, API_URL, $location) {
+			var token = localStorageService.get('adminAuthToken');
+			var refreshToken = localStorageService.get('refreshToken');
+			
 			if (token && jwtHelper.isTokenExpired(token) && refreshToken) {
 				return $http({
 					url: API_URL+'/admin/delegate',
@@ -272,11 +271,11 @@
 					$location.path('/login');
 					return false;
 				});
-	    } else {
-	      return token;
-	    }
-	  };
-	  $httpProvider.interceptors.push('jwtInterceptor');
+			} else {
+				return token;
+			}
+		}];
+		$httpProvider.interceptors.push('jwtInterceptor');
 	});
 
 
