@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
 	// Load grunt tasks automatically
 	require('load-grunt-tasks')(grunt);
-	
+
 	// Time how long tasks take. Can help when optimizing build times
 	require('time-grunt')(grunt);
 
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 	};
 
 	var gruntEnvironment = grunt.option('environment') || 'development';
-	
+
 	console.log('Environment: '+gruntEnvironment);
 
 	// Define the configuration for all the tasks

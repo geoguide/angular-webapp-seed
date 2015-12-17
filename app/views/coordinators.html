@@ -102,7 +102,7 @@
 								<th ng-click="coord.sortResult('first_name')">First</th>
 								<th ng-click="coord.sortResult('last_name')">Last</th>
 								<th ng-click="coord.sortResult('email')">Email</th>
-
+								<th ng-click="coord.sortResult('user_role')">User Role</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +111,7 @@
 								<td ng-bind="doc.first_name"></td>
 								<td ng-bind="doc.last_name"></td>
 								<td ng-bind="doc.email"></td>
+								<td>{{ (doc.user_role == 'R') ? 'Recruiter' : 'Coordinator' }}</td>
 							</tr>
 						</tbody>
 					</table>

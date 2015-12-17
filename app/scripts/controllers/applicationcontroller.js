@@ -46,6 +46,12 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	});
 
 	this.goTo = applicationFactory.goTo;
+
+	applicationFactory.getConventions().then(function(result){
+		_this.convention = result;
+	},function(error){
+		$log.error(error);
+	});
 	this.abmsCertifications = [];
 
 
@@ -308,7 +314,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	};
 
 	$scope.$on('login',function(){
-		_this.init();
+		//Do something maybe?
 	});
 
 	//Logout

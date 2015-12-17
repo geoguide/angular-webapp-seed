@@ -56,11 +56,10 @@
 						<div class="col-sm-6"><a class="navbar-brand" href="#/">
 							<img src="images/modio-logotype.svg" style="height: 80%;width:auto;margin: 4% 0">
 						</a></div>
-
 						<div class="col-sm-6 text-right ng-hide" ng-hide="!appCtrl.appLoading">
 							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
 								<li class="dropdown" dropdown>
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle><span ng-bind="appCtrl.userInfo.email"></span> <span class="caret"></span></a>
+									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle><span ng-bind="appCtrl.userInfo.username"></span> <span class="caret"></span></a>
 									<ul role="menu" class="dropdown-menu">
 										<!--<li class="dropdown-header">Actions</li>-->
 										<li><a ng-href="#/my-bookmarks">View Bookmarks</a></li>
