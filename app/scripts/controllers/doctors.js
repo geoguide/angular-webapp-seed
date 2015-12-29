@@ -28,14 +28,14 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 
 	this.loading = true;
 	this.matchList = [];
-	
+
 	this.queryData = doctorFactory.queryData;
 	this.queryData.job_type_desired = 1;
 	this.queryData.score_low = 0;
 	this.queryData.score_high = 100;
-	
+
 	this.csvEndpoint = API_URL+'/public/download-users-csv?token='+localStorageService.get('adminAuthToken');
-	
+
 	/* Public Functions */
 	this.getResults = function() {
 		_this.loading = true;
@@ -50,7 +50,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 			toasty.error({ title: 'Error!', msg: 'Bad Query' });
 		});
 	};
-	
+
 	this.changeDoctorType = function(jobTypeDesired){
 		_this.queryData.job_type_desired = jobTypeDesired;
 		_this.getResults();
@@ -93,22 +93,25 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.closeModal = function(){
 		$modalStack.dismissAll();
 	};
-	
+
 	if(typeIn == 'credentialing'){
 		_this.changeDoctorType(0);
 	} else if(typeIn == 'all'){
 		_this.changeDoctorType();
 	}
-	
+
 	facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
 		_this.facilitiesWithMembers = response;
 		return _this.getResults();
 	}).then(function(result){
-		return doctorFactory.getJobMatchTotals();
-	}).then(function(result){
-		_this.matchList = result;
+		doctorFactory.getJobMatchTotals().then(function(result){
+			_this.matchList = result;
+		},function(error){
+			$log.error(error);
+		});
+
 	},function(error){
 		$log.error(error);
 	});
-	
+
 });
