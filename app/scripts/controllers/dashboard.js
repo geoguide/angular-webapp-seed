@@ -11,18 +11,19 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 
 	var _this = this;
 	this.loading = true;
-	
+
 	this.sortBy = null;
 	this.sortDir = true;
-	
+	//MODIO_CORE.sayhi();
+
 	this.sortColumn = function(column){
 		if(_this.sortBy != column){
-			_this.sortBy = column;	
+			_this.sortBy = column;
 		} else {
 			_this.sortDir = !_this.sortDir;
 		}
 	};
-	
+
 	this.dynamicPopover = {
 		content: 'Hello, World!',
 		templateUrl: 'notes-template.html',
@@ -38,7 +39,7 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 			$log.error(error);
 		});
 	};
-	
+
 	this.setTooltip = function(item){
 		_this.tooltipSales = item.sales_notes;
 		_this.tooltipJob = item.modio_notes;
@@ -62,11 +63,11 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	};
 	this.twoWayMatches = dashboardFactory.twoWayMatches;
 
-	
+
 	if(_this.twoWayMatches.length < 1){
 		_this.get2Way();
 	} else {
 		_this.loading = false;
 	}
-	
+
 });

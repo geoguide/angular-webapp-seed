@@ -22,7 +22,8 @@
     "ng-tags-input": "~3.0.0",
     "angular-egg": "~0.0.5",
     "angular-filter": "~0.5.7",
-    "material-design-lite": "~1.0.6"
+    "material-design-lite": "~1.0.6",
+    "modio-core": "https://github.com/LocumList/modio-core.git#master"
   },
   "devDependencies": {
     "angular-mocks": "~1.4"
