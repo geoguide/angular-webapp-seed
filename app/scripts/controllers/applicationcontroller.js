@@ -207,7 +207,10 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
     }, {
 	    id:10,
 	    name: 'Coordinator'
-    }
+    }, {
+			id:11,
+			name: 'Recruiter'
+		}
   ];
 
 	this.dispositionMap = [];
