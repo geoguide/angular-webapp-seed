@@ -27,6 +27,12 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 		});
 	};
 
+	this.sortResult = function(sortOn){
+		_this.queryData.sort_by = sortOn;
+		_this.queryData.sort_direction = (_this.queryData.sort_direction == 'DESC') ? 'ASC' : 'DESC';
+		_this.getInvoices();
+	};
+
 	this.actAs = function(docIdIn){
 		doctorFactory.actAs(docIdIn).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');

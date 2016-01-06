@@ -28,13 +28,13 @@
 			<table class="table table-condensed table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Report Id</th>
+						<th ng-click="invoice.sortResult('report_id')">Report Id</th>
 						<th>Provider</th>
-						<th>Total Amount</th>
-						<th>Date Updated</th>
+						<th ng-click="invoice.sortResult('total_amount')">Total Amount</th>
+						<th ng-click="invoice.sortResult('date_updated')">Date Updated</th>
 						<th>Description</th>
 						<th>Facility Name</th>
-						<th>Status</th>
+						<th ng-click="invoice.sortResult('status')">Status</th>
 					</tr>
 				</thead>
 				<tbody>
