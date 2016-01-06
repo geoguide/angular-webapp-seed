@@ -70,7 +70,6 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			});
 		}, queryDoctors: function(queryData){
 			//Put these all in array (or get as an array) and just parse the array for easiness
-			console.log(queryData);
 			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			queryData.score_low = queryData.score_low || null;
 			queryData.score_high = (queryData.score_high != 100) ? queryData.score_high : null;
