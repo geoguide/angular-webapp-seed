@@ -131,6 +131,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ group: 'Doctors', title:'DPM'	},
 		{ group: 'Doctors', title:'DDS'	},
 		{ group: 'Doctors', title:'DMD'	},
+		{ group: 'Doctors', title:'PT' },
 		{ group: 'Nurses', title:'CRNA'	},
 		{ group: 'Nurses', title:'PA'		},
 		{ group: 'Nurses', title:'RN'		},
