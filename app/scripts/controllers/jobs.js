@@ -8,8 +8,6 @@
  */
 angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log, $q, facilityFactory) {
 
-	this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
-
 	var _this = this;
 
 	this.newJob = {};
@@ -29,32 +27,23 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 
 	/* Calendar */
 	this.open = function($event,which) {
-		$log.log('open '+which+' called');
 		$event.preventDefault();
 		$event.stopPropagation();
-
 		_this.opened[which] = true;
-	};
-
-	this.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1
 	};
 
 	this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
 	this.format = this.formats[4];
-	this.dateOptions = {
-	    formatYear: 'yy',
-	    startingDay: 1
-	};
+	this.dateOptions = { formatYear: 'yy', startingDay: 1 };
 	this.minDate = new Date();
 
 	/* Methods */
 	this.queryData = jobFactory.queryData;
 	this.queryData.job_status = 1;
+
 	this.getResults = function() {
 		_this.loading = true;
-		
+
 		jobFactory.queryJobs(_this.queryData).then(function(data) {
 			_this.jobs = data.jobs;
 			_this.totalJobs = data.total;
@@ -78,7 +67,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			toasty.error(error.data);
 		});
 	};
-	
+
 	this.archiveJob = function(jid){
 		var jobData = {
 			id: jid,
@@ -91,8 +80,6 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			toasty.error(error.data);
 		});
 	};
-
-
 
 	var init = function(){
 		_this.loading = true;

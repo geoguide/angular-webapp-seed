@@ -14,8 +14,8 @@ angular.module('modioAdminPortal').factory('invoiceFactory', function ($http,API
 
     // Public API here
     return {
-      getInvoices: function(){
-			return $http.get(API_URL+'/admin/invoices').then(function(response){
+      getInvoices: function(queryData){
+			return $http.get(API_URL+'/admin/invoices', {params: queryData}).then(function(response){
 				return response.data;
 			});
 		}, submitInvoice: function(invoiceInfo){

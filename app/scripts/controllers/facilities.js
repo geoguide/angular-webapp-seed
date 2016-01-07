@@ -6,17 +6,45 @@
  * # FacilitiesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log) {
+angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack,$modal) {
 	var _this = this;
 	this.facilities = [];
 	this.facilitiesWithMembers = [];
 	this.formData = {};
+	this.newFacility = {};
 	this.totalFacilities = 0;
 	this.perPage = 25;
 	this.totalPages = this.totalFacilities / this.perPage;
 	this.maxSize = 8; /* Private Functions */
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
+
+	this.open = function (modalId,dataIn) {
+		this.modalInstance = $modal.open({
+			templateUrl: 'create-facility-modal',
+			controller: 'ModalCtrl',
+			controllerAs: 'modal',
+			scope: $scope,
+			resolve: {
+				modalObject: function(){
+					return dataIn;
+				},
+				parentCtrl: function(){
+					return _this;
+				}
+			}
+		});
+
+		_this.modalInstance.result.then(function (data) {
+			//something on close
+		}, function () {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	this.closeModal = function(){
+		$modalStack.dismissAll();
+	};
 
 	this.getResults = function() {
 		_this.loading = true;
@@ -28,7 +56,14 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			_this.loading = false;
 		});
 	};
-	
+
+	this.submitFacility = function(){
+		facilityFactory.createFacility(_this.newFacility).then(function(response){
+			applicationFactory.goTo('/facility/'+response.data.id);
+			$modalStack.dismissAll();
+		});
+	};
+
 	/* Public Functions */
 	this.sortResult = function(sortOn) {
 		_this.queryData.sortDirection = !_this.queryData.sortDirection;

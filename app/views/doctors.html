@@ -1,8 +1,8 @@
-<script type="text/ng-template" id="create-doctor-modal2"> 
+<script type="text/ng-template" id="create-doctor-modal2">
 	<form name="new_doctor_form" ng-submit="drsCtrl.submitForm()" novalidate>
-		<div class="modal-header"> 
-			<h4 class="modal-title">Create Doctor</h4> 
-		</div> 
+		<div class="modal-header">
+			<h4 class="modal-title">Create Doctor</h4>
+		</div>
 		<div class="modal-body">
 			<div class="row">
 				<div class="form-group col-xs-12">
@@ -35,15 +35,15 @@
 					</select>
 				</div>
 			</div>
-		</div> 
-		<div class="modal-footer"> 
-			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button> 
-			<button class="btn btn-warning btn-sm" role="button" type="button" ng-click="drsCtrl.closeModal()">Cancel</button> 
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button>
+			<button class="btn btn-warning btn-sm" role="button" type="button" ng-click="drsCtrl.closeModal()">Cancel</button>
 		</div>
 	</form>
 </script>
 
-<section class="row">
+<section class="row" id="providers-header">
 	<div class="col-md-6 col-xs-6 form-group">
 		<h4>Providers</h4>
 	</div>
@@ -65,7 +65,7 @@
 			<div class="col-sm-3 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
 					<option value="">-- Select Manager --</option>
-				</select>   
+				</select>
 			</div>
 			<div class="col-md-3 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.facility_id" ng-change="drsCtrl.getResults()" ng-options="f.id as f.facility_name for f in drsCtrl.facilitiesWithMembers">
@@ -81,7 +81,7 @@
 					<option value="true">True</option>
 				</select>
 			</div>
-			
+
 			<div class="col-md-3 col-sm-6 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()" ng-options="st.abbreviation as st.abbreviation for st in appCtrl.usStates">
 					<option value="">-- Select State --</option>
@@ -101,7 +101,7 @@
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
 			<div class="col-md-4 col-xs-12 form-group">
 				<label>Score</label>
-				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low || 0" model-max="drsCtrl.queryData.score_high || 100" on-handle-up="drsCtrl.getResults()"></div>    
+				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low || 0" model-max="drsCtrl.queryData.score_high || 100" on-handle-up="drsCtrl.getResults()"></div>
 			</div>
 			<div class="col-md-2 col-xs-6 form-group">
 				<label>&nbsp;</label>
@@ -115,7 +115,7 @@
 	</form>
 </section>
 
-<div class="row">
+<div class="row" id="provider-tabs">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
 		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
@@ -139,7 +139,6 @@
 
 
 <section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
-	
 	<div class="row">
 		<div class="col-sm-9">
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
@@ -185,5 +184,5 @@
 			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
 		</div>
 	</div>
-  
+
 </section>

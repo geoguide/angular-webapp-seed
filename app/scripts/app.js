@@ -37,14 +37,17 @@
 		'ui-rangeSlider',
 		'ngEgg',
 		'angular.filter'
+		//'modioCore'
 	]);
 
 
 	webapp.value('loggedIn', false);
+	//Not sure why modioCore is not working
 	webapp.config(function(ENV,$provide,$animateProvider){
 		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 		$provide.constant('DOC_URL', ENV.doctorApp);
 		$provide.constant('S3_URL', ENV.s3Bucket);
+		//$provide.constant('MODIO_CORE',modioCore);
 		$animateProvider.classNameFilter(/animate/);
 	});
 	webapp.config(function ($routeProvider, ENV) {
@@ -254,7 +257,7 @@
 		jwtInterceptorProvider.tokenGetter = ['jwtHelper','$http','localStorageService','API_URL','$location',function(jwtHelper, $http, localStorageService, API_URL, $location) {
 			var token = localStorageService.get('adminAuthToken');
 			var refreshToken = localStorageService.get('refreshToken');
-			
+
 			if (token && jwtHelper.isTokenExpired(token) && refreshToken) {
 				return $http({
 					url: API_URL+'/admin/delegate',

@@ -1,5 +1,26 @@
 <h3>Invoices</h3>
 
+<section id="invoice-search-filters">
+	<form ng-submit="invoice.getInvoices()">
+		<div class="row">
+			<div class="col-md-4 col-sm-4  form-group">
+				<input type="search" class="form-control input-sm" ng-model="invoice.queryData.doctor_name" value="" placeholder="Search Providers... " />
+			</div>
+			<div class="col-md-4 col-sm-4  form-group">
+				<input type="search" class="form-control input-sm" ng-model="invoice.queryData.facility_name" value="" placeholder="Search Facilities... " />
+			</div>
+			<div class="col-sm-4 form-group">
+				<select class="form-control input-sm" ng-model="invoice.queryData.status" ng-change="invoice.getInvoices()" ng-options="item.id as item.name for item in invoice.statusList">
+					<option value="">--Status--</option></select>
+			</div>
+		</div>
+		<div class="row ng-hide" ng-hide="invoice.loading">
+			<div class="col-md-2 col-xs-6 text-right form-group">
+				<button role="submit" class="btn btn-success btn-sm btn-block" type="submit">Search</button>
+			</div>
+	</form>
+</section>
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="table-responsive">
@@ -7,13 +28,13 @@
 			<table class="table table-condensed table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Report Id</th>
+						<th ng-click="invoice.sortResult('report_id')">Report Id</th>
 						<th>Provider</th>
-						<th>Total Amount</th>
-						<th>Date Updated</th>
+						<th ng-click="invoice.sortResult('total_amount')">Total Amount</th>
+						<th ng-click="invoice.sortResult('date_updated')">Date Updated</th>
 						<th>Description</th>
 						<th>Facility Name</th>
-						<th>Status</th>
+						<th ng-click="invoice.sortResult('status')">Status</th>
 					</tr>
 				</thead>
 				<tbody>

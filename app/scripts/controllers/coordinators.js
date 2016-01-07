@@ -13,6 +13,7 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	this.coordinators = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
+	this.loading = true;
 
 	/* Variables */
 	this.formData = {};
@@ -26,10 +27,12 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 
 	/* Private Functions */
 	_this.getResults = function() {
+		_this.loading = true;
 		doctorFactory.queryCoordinators(_this.queryData).then(function(response) {
 			_this.coordinators = response.coordinators;
 			_this.totalCoordinators = response.total;
 			_this.totalPages = _this.totalCoordinators/_this.coordinatorsPerPage;
+			_this.loading = false;
 		});
 	};
 
@@ -75,7 +78,11 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-	
+
+	this.closeModal = function(){
+		$modalStack.dismissAll();
+	};
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
@@ -87,9 +94,6 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 		return deferred.promise;
 	};
 
-	this.closeModal = function(){
-		$modalStack.dismissAll();
-	};
 	var facilityQuery = { member_type: 'C' };
 	facilityFactory.facilitiesWithMembers(facilityQuery).then(function(response){
 		_this.facilitiesWithMembers = response;
@@ -99,5 +103,5 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	}, function(error){
 		$log.error(error);
 	});
-	
+
 });

@@ -17,15 +17,22 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 		{ id: 4, name: 'Paid'},
 		{ id: 5, name: 'Rejected'}
 	];
-	
+	_this.queryData = {};
+
 	this.getInvoices = function(){
-		invoiceFactory.getInvoices().then(function(result){
+		invoiceFactory.getInvoices(_this.queryData).then(function(result){
 			_this.invoices = result;
 		}, function(error){
 			$log.error(error);
 		});
 	};
-	
+
+	this.sortResult = function(sortOn){
+		_this.queryData.sort_by = sortOn;
+		_this.queryData.sort_direction = (_this.queryData.sort_direction == 'DESC') ? 'ASC' : 'DESC';
+		_this.getInvoices();
+	};
+
 	this.actAs = function(docIdIn){
 		doctorFactory.actAs(docIdIn).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
@@ -35,7 +42,7 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 			toasty.error(error.data);
 		});
 	};
-	
+
 	this.updateInvoice = function(iin){
 		invoiceFactory.submitInvoice(iin).then(function(result){
 			toasty.success('Invoice Saved.');
@@ -44,7 +51,6 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 			toasty.error(error.data);
 		});
 	};
-	
+
 	this.getInvoices();
 });
-  
