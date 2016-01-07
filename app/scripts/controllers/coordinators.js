@@ -79,6 +79,10 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 		});
 	};
 
+	this.closeModal = function(){
+		$modalStack.dismissAll();
+	};
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
@@ -90,9 +94,6 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 		return deferred.promise;
 	};
 
-	this.closeModal = function(){
-		$modalStack.dismissAll();
-	};
 	var facilityQuery = { member_type: 'C' };
 	facilityFactory.facilitiesWithMembers(facilityQuery).then(function(response){
 		_this.facilitiesWithMembers = response;

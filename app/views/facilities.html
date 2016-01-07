@@ -1,76 +1,129 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
-<div>
-	<h4>Facilities</h4>
-	
-	<section id="doctor-search-filters">
-		<div class="row">
-			<div class="col-md-4 col-sm-5 form-group">
-				<form ng-submit="fac.getResults()">
-					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
-					<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
-				</form>
-			</div>
-			<div class="col-sm-3 form-group">
-				<input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..." />
-			</div>
-			<div class="col-md-2 col-sm-4 form-group">
-				<select class="form-control input-sm" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
-					<option value="">All</option>
-					<option value="1">Medical School</option>
-					<option value="0">Non-Medical School</option>
-				</select>
-			</div>
-			<div class="col-md-3 col-sm-12 form-group">
-				<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="fac.getResults()">Search</button>
+
+<div class="row">
+	<div class="col-md-8">
+		<h4>Facilities</h4>
+	</div>
+	<div class="col-md-4 text-right">
+		<button class="btn btn-primary" ng-click="fac.open()">Create Facility</button>
+	</div>
+</div>
+
+<section id="doctor-search-filters">
+	<div class="row">
+		<div class="col-md-4 col-sm-5 form-group">
+			<form ng-submit="fac.getResults()">
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
+				<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</form>
+		</div>
+		<div class="col-sm-3 form-group">
+			<input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..." />
+		</div>
+		<div class="col-md-2 col-sm-4 form-group">
+			<select class="form-control input-sm" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
+				<option value="">All</option>
+				<option value="1">Medical School</option>
+				<option value="0">Non-Medical School</option>
+			</select>
+		</div>
+		<div class="col-md-2 col-sm-12 form-group">
+			<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="fac.getResults()">Search</button>
+		</div>
+	</div>
+</section>
+<div class="text-center row" ng-show="fac.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-spinner fa-pulse fa-4x"></i>
+	</div>
+</div>
+<div ng-show="!fac.loading">
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
+		</div>
+	</section>
+	<section class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong ng-bind="fac.totalFacilities"></strong> Facilities Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="fac.sortResult('id')">id</th>
+							<th ng-click="fac.sortResult('facility_name')">Facility</th>
+							<th ng-click="fac.sortResult('address')">address</th>
+							<th ng-click="fac.sortResult('city')">City</th>
+							<th ng-click="fac.sortResult('state')">State</th>
+							<th ng-click="fac.sortResult('zip')">Zip</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
+							<td ng-bind="f.id"></td>
+							<td><span ng-bind="f.facility_display"></span></td>
+							<td ng-bind="f.address"></td>
+							<td ng-bind="f.city"></td>
+							<td ng-bind="f.state"></td>
+							<td ng-bind="f.zip"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</section>
-	<div class="text-center row" ng-show="fac.loading">
-		<div class="col-md-12 form-group">
-		  <i class="fa fa-spinner fa-pulse fa-4x"></i>
+
+	<section class="row">
+		<div class="col-sm-12">
+			<pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
 		</div>
-	</div>
-	<div ng-show="!fac.loading">
-		<section class="row">
-			<div class="col-sm-12">
-				<pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
-			</div>
-		</section>
-		<section class="row">
-			<div class="col-sm-12">
-				<div class="table-responsive">
-					<caption class="ng-cloak"><strong ng-bind="fac.totalFacilities"></strong> Facilities Found</caption>
-					<table class="table table-condensed table-striped table-hover">
-						<thead>
-							<tr>
-								<th ng-click="fac.sortResult('id')">id</th>
-								<th ng-click="fac.sortResult('facility_name')">Facility</th>
-								<th ng-click="fac.sortResult('address')">address</th>
-								<th ng-click="fac.sortResult('city')">City</th>
-								<th ng-click="fac.sortResult('state')">State</th>
-								<th ng-click="fac.sortResult('zip')">Zip</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
-								<td ng-bind="f.id"></td>
-								<td><span ng-bind="f.facility_display"></span></td>
-								<td ng-bind="f.address"></td>
-								<td ng-bind="f.city"></td>
-								<td ng-bind="f.state"></td>
-								<td ng-bind="f.zip"></td>
-							</tr>
-						</tbody>
-					</table>
+	</section>
+</div>
+
+<!-- Create Modal -->
+<!-- used to have ng-controller, but now realize the route handles it -->
+<script type="text/ng-template" id="create-facility-modal">
+	<form name="new_facility_form" ng-submit="fac.submitFacility()" novalidate>
+		<div class="modal-header">
+			<h3 class="modal-title">Create Facility</h3>
+		</div>
+		<div class="modal-body">
+			<div class="form-group row">
+				<div class="col-xs-6">
+					<label>Facility Name</label>
+					<input class="form-control" type="text" ng-model="fac.newFacility.facility_name" ng-required="true" />
+				</div>
+				<div class="col-xs-6">
+					<label>Is Medical School?</label>
+					<select class="form-control" ng-model="fac.newFacility.is_medical_school" ng-required="true">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+					</select>
 				</div>
 			</div>
-		</section>
-		
-		<section class="row">
-			<div class="col-sm-12">
-				<pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true" ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
+			<div class="form-group">
+				<label>Address</label>
+				<input class="form-control" type="text" ng-model="fac.newFacility.address"  ng-required="true" />
 			</div>
-		</section>
-	</div>		
-</div>
+			<div class="form-group row">
+				<div class="col-md-6">
+					<label>City</label>
+					<input class="form-control" type="text" ng-model="fac.newFacility.city"  ng-required="true" />
+				</div>
+				<div class="col-md-3">
+					<label>State</label>
+					<select class="form-control input-sm" ng-model="fac.newFacility.state"  ng-required="true" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
+				</div>
+				<div class="col-md-3">
+					<label>Zip</label>
+					<input class="form-control" type="text" ng-model="fac.newFacility.zip"  ng-required="true" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" role="submit" ng-disabled="new_facility_form.$invalid">OK</button>
+			<button class="btn btn-warning" role="button" type="button" ng-click="fac.closeModal()">Cancel</button>
+		</div>
+	</form>
+</script>
