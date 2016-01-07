@@ -57,7 +57,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	};
 
 	this.sortResult = function(sortOn){
-		_this.queryData.sort_direction = !_this.queryData.sort_direction;
+		_this.queryData.sortDir = !!!_this.queryData.sortDir;
 		_this.queryData.sort_by = sortOn;
 		_this.getResults();
 	};
