@@ -36,8 +36,8 @@
 		'ngTagsInput',
 		'ui-rangeSlider',
 		'ngEgg',
-		'angular.filter',
-		'modioCore'
+		'angular.filter'
+		//'modioCore'
 	]);
 
 

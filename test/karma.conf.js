@@ -41,7 +41,6 @@ module.exports = function(config) {
       'bower_components/angular-egg/release/angular-egg.min.js',
       'bower_components/angular-filter/dist/angular-filter.min.js',
       'bower_components/material-design-lite/material.min.js',
-      'bower_components/modio-core/dist/modio-core.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
