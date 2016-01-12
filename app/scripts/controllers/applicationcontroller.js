@@ -125,6 +125,15 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			source: 'Coordinator'
 		}
 	];
+
+	this.jobRateTypes = [
+		{ id:0, 'label': 'Daily Weekday (Up to 24hrs)' },
+		{ id:1, 'label': 'Daily Weekday Plus Call (24hrs)' },
+		{ id:2, 'label': 'Daily Weekend (24hrs)' },
+		{ id:3, 'label': 'Hourly' },
+		{ id:4, 'label': 'Overtime' }
+	];
+	
 	this.doctorTitles = [
 		{ group: 'Doctors', title:'MD'	},
 		{ group: 'Doctors', title:'DO'	},

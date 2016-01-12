@@ -35,7 +35,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	    formatYear: 'yy',
 	    startingDay: 1
 	};
-	
+
 	this.bookmarkedJobs = [];
 
 	this.save = function(){
@@ -60,27 +60,53 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			toasty.error(error.message);
 		});
 	};
-	
+
+	this.submitRate = function(dataIn){
+		jobFactory.submitRate(dataIn).then(function(data){
+			return _this.load();
+		}).then(function(result){
+			toasty.success('Rate Saved.');
+		}, function(error){
+			$log.error(error);
+			toasty.error(error.data);
+		});
+	};
+
+	this.addRate = function(){
+		_this.jobData.rates.push({ job_id: _this.jobId});
+	};
+
+	this.deleteRate = function(dataIn){
+		jobFactory.deleteRate(dataIn).then(function(data){
+			return _this.load();
+		}).then(function(result){
+			toasty.success('Rate Deleted');
+		}, function(error){
+			$log.error(error);
+			toasty.error(error.message);
+		});
+	};
+
 	this.bookmark = function(idIn){
 		_this.bookmarked = !!!_this.bookmarked;
 		if(_this.bookmarked){
 			jobFactory.bookmarkJob(idIn).then(function(){
-				
+
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		} else {
 			jobFactory.removeBookmark(idIn).then(function(){
-				
+
 			}, function(error){
 				$log.error(error);
-			});	
+			});
 		}
-		
+
 	};
 
-	var init = function(){
-		jobFactory.getJob(_this.jobId).then(function(data){
+	this.load = function(){
+		return jobFactory.getJob(_this.jobId).then(function(data){
 			data.tags = JSON.parse(data.tags);
 			_this.bookmarked = data.bookmarked;
 			_this.jobData = data;
@@ -90,13 +116,17 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			_this.error = true;
 			_this.jobData = null;
 		});
-		
+	};
+
+	var init = function(){
+
+		_this.load();
 		jobFactory.getJobTags().then(function(data){
 			_this.tags = data;
 		},function(error){
 			_this.error = true;
 		});
-		
+
 		jobFactory.findCandidates(_this.jobId).then(function(data){
 			_this.candidates = data;
 		},function(error){
