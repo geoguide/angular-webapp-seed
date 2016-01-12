@@ -23,6 +23,10 @@ angular.module('modioAdminPortal').factory('offerFactory', function ($http,API_U
 			});
 		}, acceptOffer: function(offerId){
 			return $http.post(API_URL+'/admin/offers/'+offerId+'/accept');
+    }, submitRate: function(formData){
+			return $http.post(API_URL+'/admin/offers/'+formData.id+'/rates',formData);
+    }, deleteRate: function(data){
+  			return $http.delete(API_URL+'/admin/rates/'+data.id);
 		}, saveOffer: function(formData){
 			return $http.put(API_URL+'/admin/offers/'+formData.id,formData).then(function(response) {
 				return response.data;
@@ -35,9 +39,9 @@ angular.module('modioAdminPortal').factory('offerFactory', function ($http,API_U
 			queryData.q = queryData.q || '';
 			queryData.sort_direction = (queryData.sort_direction === true) ? 'ASC' : 'DESC';
 			queryData.p = queryData.p || 1;
-			
+
 			var request = API_URL+'/admin/offers';
-			
+
 			return $http.get(request,{params: queryData}).then(function(response) {
 				return response.data;
 			}, function(error){
