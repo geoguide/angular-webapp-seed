@@ -28,12 +28,13 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 				return response.data;
 			});
 		}, saveJob: function(formData){
-			console.log(formData);
-			console.log(formData.start_date);
-			console.log(formData.end_date);
 			formData.start_date = dateFactory.process(formData.start_date);
 			formData.end_date = dateFactory.process(formData.end_date);
 			return $http.put(API_URL+'/admin/jobs/'+formData.id,formData);
+		}, submitRate: function(formData){
+			return $http.post(API_URL+'/admin/jobs/'+formData.job_id+'/rates',formData);
+    }, deleteRate: function(data){
+  			return $http.delete(API_URL+'/admin/jobs/'+data.job_id+'/rates/'+data.id);
 		}, deleteJob: function(jobId){
 			return $http.delete(API_URL+'/admin/jobs/'+jobId);
 		}, queryJobs: function(queryData){
@@ -63,7 +64,7 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 				return response.data;
 			});
 		}, queryData: {
-			
+
 		}, bookmarkJob: function(jobId){
 			return $http.post(API_URL+'/admin/jobs/'+jobId+'/bookmark');
 		}, removeBookmark: function(jobId){

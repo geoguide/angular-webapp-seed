@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('OfferCtrl', function ($modal, $modalStack, offerFactory, toasty, $log, $routeParams) {
+  .controller('OfferCtrl', function ($modal, $modalStack, offerFactory, toasty, $log, $routeParams, jobFactory) {
 	var _this = this;
 	this.offerData = {};
 	this.offerId = $routeParams.id;
@@ -45,6 +45,32 @@ angular.module('modioAdminPortal')
 		});
 	};
 
+  this.submitRate = function(dataIn){
+    offerFactory.submitRate(dataIn).then(function(data){
+      return _this.load();
+    }).then(function(result){
+      toasty.success('Rate Saved.');
+    }, function(error){
+      $log.error(error);
+      toasty.error(error.data);
+    });
+  };
+
+  this.addRate = function(){
+    _this.offerData.rates.push({ job_id: _this.offerData.job_id,type:'O',doctor_id:_this.offerData.doctor_id});
+  };
+
+  this.deleteRate = function(dataIn){
+    offerFactory.deleteRate(dataIn).then(function(data){
+      return _this.load();
+    }).then(function(result){
+      toasty.success('Rate Deleted');
+    }, function(error){
+      $log.error(error);
+      toasty.error(error.message);
+    });
+  };
+
 	this.acceptOffer = function(){
 		offerFactory.acceptOffer(_this.offerId).success(function(){
 			_this.offerData.status = 'accepted';
@@ -76,15 +102,18 @@ angular.module('modioAdminPortal')
 		});
 	};
 
-	var init = function(){
-
-		offerFactory.getOffer(_this.offerId).then(function(data){
+  this.load = function(){
+    return offerFactory.getOffer(_this.offerId).then(function(data){
 			_this.offerData = data;
 			_this.error = false;
 		},function(error){
 			_this.error = true;
 			_this.offerData = null;
 		});
+  };
+
+	var init = function(){
+    _this.load();
 	};
 
 	init();

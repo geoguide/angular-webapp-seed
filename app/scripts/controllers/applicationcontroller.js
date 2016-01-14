@@ -125,6 +125,17 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 			source: 'Coordinator'
 		}
 	];
+
+	this.jobRateTypes = [
+		{ id:0, 'label': 'Daily Weekday (Up to 24hrs)' },
+		{ id:1, 'label': 'Daily Weekday Plus Call (24hrs)' },
+		{ id:2, 'label': 'Daily Weekend (24hrs)' },
+		{ id:3, 'label': 'Hourly' },
+		{ id:4, 'label': 'Overtime' },
+		{ id:5, 'label': 'Holiday Premium' },
+		{ id:6, 'label': 'Other' }
+	];
+
 	this.doctorTitles = [
 		{ group: 'Doctors', title:'MD'	},
 		{ group: 'Doctors', title:'DO'	},
@@ -272,39 +283,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		return deferred.promise;
 	};
 
-	this.rateTypes = [
-		{
-			field: 'standard_daily',
-			name: 'Standard Daily'
-		},{
-			field: 'standard_hourly',
-			name: 'Standard Hourly'
-		},{
-			field: 'weekend_daily',
-			name: 'Weekend Daily'
-		},{
-			field: 'weekday_daily',
-			name: 'Weekday Daily'
-		},{
-			field: 'weekday_call',
-			name: 'Weekday Call'
-		},{
-			field: 'weekend_call',
-			name: 'Weekend Call'
-		},{
-			field: 'outside_defined_shifts',
-			name: 'Outside Defined Shifts'
-		},{
-			field: 'holiday_premium',
-			name: 'Holiday Premium'
-		},{
-			field: 'callback',
-			name: 'CallBack'
-		},{
-			field: 'salary',
-			name: 'Salary'
-		}
-	];
+	this.rateTypes = _this.jobRateTypes;
 
 	this.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/dd/yyyy'];
 	this.dateFormat = this.dateFormats[4];
