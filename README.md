@@ -4,6 +4,8 @@ This is the administrative interface for modiohealth.
 
 ## quickstart
 
+You will need a public key setup for github: https://help.github.com/articles/generating-ssh-keys/
+
 You can get started by doing the following:
 
     gem install --no-ri --no-rdoc compass
