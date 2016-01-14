@@ -85,7 +85,7 @@
 				<label>Text OK?</label><br />
 				<input type="checkbox" ng-model="dr.doctorData.text_ok" ng-true-value="1" ng-false-value="0" />
 			</div>
-			<div class="form-group col-md-4" ng-if="appCtrl.userInfo.email == 'Tom@modiohealth.com'">
+			<div class="form-group col-md-4" ng-if="appCtrl.userInfo.username == 'Tom@modiohealth.com'">
 				<label>SSN</label><br />
 				<a class="btn btn-primary" ng-click="dr.ssn.show = true" ng-hide="dr.ssn.show">Show</a>
 				<input class="ng-hide form-control input-sm" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
