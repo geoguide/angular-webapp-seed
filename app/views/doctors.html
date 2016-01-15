@@ -115,6 +115,14 @@
 	</form>
 </section>
 
+
+
+
+
+
+
+
+
 <div class="row" id="provider-tabs">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
@@ -138,6 +146,10 @@
 </div>
 
 
+
+
+
+
 <section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
 	<div class="row">
 		<div class="col-sm-9">
@@ -145,6 +157,10 @@
 		</div>
 	</div>
 	<div class="row">
+
+
+
+
 		<div class="col-sm-12">
 			<div class="table-responsive">
 				<caption><strong ng-bind="drsCtrl.totalDoctors"></strong> Providers Found</caption>
@@ -163,7 +179,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}">
+						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row">
+
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.id"</td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"><span ng-bind="doc.first_name"></span> <span ng-bind="doc.last_name"></span> <span ng-bind="doc.doctor_title"></span></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.specialty"></td>
@@ -173,11 +190,16 @@
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.medical_licenses"></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.score"></td>
 							<td><button ng-click="appCtrl.goTo('/providers/{{::doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 "><span ng-bind="(drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches"></span> Matches</button></td>
+
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+
+
+
+
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
