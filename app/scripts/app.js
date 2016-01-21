@@ -44,7 +44,6 @@
 	webapp.value('loggedIn', false);
 	//Not sure why modioCore is not working
 	webapp.config(function(ENV,$provide,$animateProvider,MODIOCORE){
-		console.log(MODIOCORE.jobTypes.get({key:1}));
 		$provide.constant('API_URL', ENV.apiEndpoint, ENV.s3Bucket);
 		$provide.constant('DOC_URL', ENV.doctorApp);
 		$provide.constant('S3_URL', ENV.s3Bucket);

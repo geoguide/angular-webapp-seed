@@ -7,7 +7,7 @@
  * # ApplicationcontrollerCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, jobFactory, $log,jwtHelper) {
+angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scope, $q, $location, $route, Auth, applicationFactory, facilityFactory, specialtyFactory, jobFactory, $log,jwtHelper,MODIOCORE) {
 	var _this = this;
 	$scope.$watch( Auth.isAuthenticated, function ( isLoggedIn ) {
 		$scope.isLoggedIn = isLoggedIn;
@@ -136,19 +136,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ id:6, 'label': 'Other' }
 	];
 
-	this.doctorTitles = [
-		{ group: 'Doctors', title:'MD'	},
-		{ group: 'Doctors', title:'DO'	},
-		{ group: 'Doctors', title:'DPM'	},
-		{ group: 'Doctors', title:'DDS'	},
-		{ group: 'Doctors', title:'DMD'	},
-		{ group: 'Doctors', title:'PT' },
-		{ group: 'Nurses', title:'CRNA'	},
-		{ group: 'Nurses', title:'PA'		},
-		{ group: 'Nurses', title:'RN'		},
-		{ group: 'Nurses', title:'NP'		},
-		{ group: 'Nurses', title: 'LPN'	}
-	];
+	this.doctorTitles = MODIOCORE.providerTitles.getValues();
 
 	this.usStates = applicationFactory.usStates;
 	this.countries = applicationFactory.countries;

@@ -10,7 +10,7 @@
 
 
 <section ng-hide="dr.loading || dr.error" class="ng-hide">
-	<form id="doctor-form" ng-submit="dr.save()" class="ng-cloak">
+	<form id="doctor-form" ng-submit="dr.save()" name="general_info_form" class="ng-cloak">
 		<div class="row">
 			<div class="col-sm-12">
 				<h4>Personal Data</h4>
@@ -31,7 +31,7 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Title</label>
-				<select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.title as title.title group by title.group for title in appCtrl.doctorTitles"></select>
+				<select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles" ng-required="true"></select>
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Created</label>
@@ -239,7 +239,7 @@
 				<div class="form-group">
 					<button type="button" class="btn btn-warning btn-sm" ng-click="dr.actAs()">Act As This Doctor</button>
 					<button type="button" class="btn btn-danger btn-sm" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
-					<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+					<button type="submit" class="btn btn-primary btn-sm" ng-disabled="general_info_form.$invalid">Submit</button>
 				</div>
 			</div>
 		</div>
