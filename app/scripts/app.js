@@ -233,6 +233,12 @@
 		  controller: 'ProviderOffersCtrl',
 		  controllerAs: 'dr',
 		  access: { requiredLogin:true }
+		}).when('/reports/licenses', {
+			tab: 'reports',
+		  templateUrl: 'views/license-report.html',
+		  controller: 'ReportCtrl',
+		  controllerAs: 'rc',
+		  access: { requiredLogin:true }
 		}).otherwise({
 			templateUrl:'/404.html',access: { requiredLogin: false }
 		}); // Render 404 view
