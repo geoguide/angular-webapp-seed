@@ -8,9 +8,9 @@
  * Controller of the modioAdminPortal
  */
  /* global
-  moment
+  moment, jQuery
 */
-angular.module('modioAdminPortal').controller('ReportCtrl', function (reportFactory,MODIOCORE,API_URL,localStorageService) {
+angular.module('modioAdminPortal').controller('ReportCtrl', function ($window,reportFactory,MODIOCORE,API_URL,localStorageService) {
 
   var  _this = this;
 
@@ -25,6 +25,20 @@ angular.module('modioAdminPortal').controller('ReportCtrl', function (reportFact
 	this.queryData = reportFactory.queryData;
 
   this.licenseTypes = MODIOCORE.licenseTypes;
+
+  this.serialize = function(obj) {
+    var str = [];
+    for(var p in obj){
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+      }
+    }
+    return str.join('&');
+  };
+
+  this.go = function () {
+  $window.open( this.csvEndpoint+'&'+_this.serialize(_this.queryData));
+};
 
   this.csvEndpoint = API_URL+'/public/download-license-csv?token='+localStorageService.get('adminAuthToken');
 

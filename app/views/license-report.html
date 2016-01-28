@@ -31,7 +31,7 @@
 			<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="rc.getResults()">Search</button>
 		</div>
 		<div class="col-md-2 col-xs-6 form-group">
-			<a class="btn btn-info btn-block btn-sm" href="{{::rc.csvEndpoint}}">Download CSV (Beta)</a>
+			<a class="btn btn-info btn-block btn-sm" ng-click="rc.go()">Download CSV (Beta)</a>
 		</div>
 	</div>
 </section>
