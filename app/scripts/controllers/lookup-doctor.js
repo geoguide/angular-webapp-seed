@@ -111,6 +111,7 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 		_this.modalInstance.result.then(function (data) {
 			var licenseAction;
 			if(data.id){
+				data.npi = _this.doctorData.npi;
 				licenseAction = lookupFactory.updateLicense(_this.doctorId,data);
 			} else {
 				data.claim_id = _this.doctorId;
