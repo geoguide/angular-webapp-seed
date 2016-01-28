@@ -61,19 +61,19 @@
 	<section class="row">
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong ng-bind="rc.totalRecords"></strong> Records Found</caption>
+				<caption class="ng-cloak control-group"><strong ng-bind="rc.totalRecords"></strong> Records Found</caption>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
 							<th ng-click="rc.sortResult('id')">id</th>
 							<th ng-click="rc.sortResult('provider_name')">Name</th>
-							<th ng-click="rc.sortResult('type_id')">Type</th>
+							<th ng-click="rc.sortResult('type_id')">License Type</th>
 							<th ng-click="rc.sortResult('state')">State</th>
 							<th ng-click="rc.sortResult('expiration_date')">Expiration</th>
-							<th>Expires</th>
+							<th ng-click="rc.sortResult('expiration_date')">Expires In</th>
 							<th ng-click="rc.sortResult('alerts')">Alerts</th>
 							<th ng-click="rc.sortResult('locked')">Locked</th>
-							<th ng-click="rc.sortResult('date_updated')">Updated</th>
+							<th ng-click="rc.sortResult('date_updated')">Date Updated</th>
 						</tr>
 					</thead>
 					<tbody>
