@@ -130,5 +130,5 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 
 	/* Init */
 	_this.get(_this.doctorId);
-	
+
 });
