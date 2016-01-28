@@ -47,11 +47,6 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 
 	this.goTo = applicationFactory.goTo;
 
-	applicationFactory.getConventions().then(function(result){
-		_this.convention = result;
-	},function(error){
-		$log.error(error);
-	});
 	this.abmsCertifications = [];
 
 

@@ -108,7 +108,7 @@
 				<input type="text" class="form-control input-sm" ng-model="lookdoc.doctorData.dea_number_expiration_date">
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="form-group col-xs-6 col-md-4">
 				<label>Primary Hospital Affiliation</label>
@@ -170,7 +170,7 @@
 
 <script type="text/ng-template" id="license-modal">
 	<div class="modal-header">
-		<h4 class="modal-title" ng-bind="modal.title"></h4>
+		<h4 class="modal-title">Add/Edit License</h4>
 	</div>
 	<div class="modal-body">
 		<form novalidate>
@@ -179,13 +179,7 @@
 					<label>NPI</label>
 					<input type="text" class="form-control input-sm" ng-model="modal.modalObject.npi" />
 				</div>-->
-				<div class="form-group col-xs-6">
-					<label>Primary</label>
-					<select class="form-control input-sm" ng-disabled="true" ng-model="modal.modalObject.primary_license">
-						<option value="0">No</option>
-						<option value="1">Yes</option>
-					</select>
-				</div>
+				<input type="hidden"  ng-disabled="true" ng-model="modal.modalObject.primary_license" value="0">
 			</div>
 			<div class="row">
 				<div class="form-group col-xs-6">

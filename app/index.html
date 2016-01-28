@@ -144,6 +144,11 @@
 						<i class="fa fa-money fa-2x visible-xs-block visible-sm-block" tooltip="Offers" tooltip-placement="bottom"></i>
 						<span class="hidden-xs hidden-sm">Offers</span>
 					</a></li>
+					<li ng-class="{'active': appCtrl.tab == 'reports'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/reports/licenses">
+						<i class="fa fa-paper-plane-o hidden-xs hidden-sm"></i>
+						<i class="fa fa-paper-plane-o fa-2x visible-xs-block visible-sm-block" tooltip="Reports" tooltip-placement="bottom"></i>
+						<span class="hidden-xs hidden-sm">Reports</span>
+					</a></li>
 				</ul>
 				<br />
 				<section class="hidden-sm hidden-xs">
@@ -176,7 +181,7 @@
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div ng-class="isLoggedIn ? 'authenticated col-md-10 col-sm-10' : 'col-md-12'" id="authenticated-content">
-				<div id="center" ng-view="" ng-show="!appCtrl.isViewLoading" class="ng-hide"></div>
+				<div id="center" ng-view=""></div>
 			</div>
 		</div>
     </div>
@@ -214,6 +219,7 @@
 	<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
 	<script src="bower_components/material-design-lite/material.min.js"></script>
 	<script src="bower_components/modio-core/dist/modio-core.min.js"></script>
+	<script src="bower_components/moment/moment.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
@@ -266,6 +272,8 @@
 <script src="scripts/services/orderfactory.js"></script>
 <script src="scripts/controllers/provider-offers.js"></script>
 <script src="scripts/services/datefactory.js"></script>
+<script src="scripts/controllers/report.js"></script>
+<script src="scripts/services/reportfactory.js"></script>
 	<!-- endbuild -->
 	<!--<div ng-controller="toasty-controller">-->
 		<!--<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        -->
