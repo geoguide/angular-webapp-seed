@@ -29,7 +29,9 @@ angular.module('modioAdminPortal').controller('LookupCtrl', function ($scope,$mo
 	/* Private Functions */
 	function getResultsPage(pageNumber) {
 		_this.loading = true;
+		applicationFactory.loading = true;
 		lookupFactory.queryLookup(_this.queryData).then(function(response) {
+			applicationFactory.loading = false;
 			_this.doctors = response.doctors;
 			_this.totalDoctors = response.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;

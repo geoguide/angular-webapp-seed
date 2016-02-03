@@ -39,8 +39,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	/* Public Functions */
 	this.getResults = function() {
 		_this.loading = true;
-
+		applicationFactory.loading = true;
 		doctorFactory.queryDoctors(_this.queryData).then(function(response) {
+			applicationFactory.loading = false;
 			_this.doctors = response.data.doctors;
 			_this.totalDoctors = response.data.total;
 			_this.totalPages = _this.totalDoctors/_this.doctorsPerPage;

@@ -11,6 +11,7 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 	// Service logic
 	// ...
 	var _this = this;
+	_this.loading = false;
 	// Public API here
 	var countries = [
 		{ iso_code: 'AFG', country: 'Afghanistan' },
@@ -336,7 +337,7 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 			return $http.get(API_URL+'/public/conventions').then(function(response){
 				return response.data;
 			});
-		}, usStates: usStates, countries: countries
+		}, usStates: usStates, countries: countries, loading: _this.loading
 	};
 
   });

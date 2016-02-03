@@ -8,6 +8,58 @@
 @import "partials/layout";
 @import "partials/search-tables";
 
+
+@-webkit-keyframes rotate {
+	from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotate {
+	from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+	from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+	from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.spin-it {
+	-webkit-animation-name:             rotate;
+	        animation-name:             rotate;
+	-webkit-animation-duration:         0.5s;
+	        animation-duration:         0.5s;
+	-webkit-animation-iteration-count:  infinite;
+	        animation-iteration-count:  infinite;
+	-webkit-animation-timing-function: linear;
+	        animation-timing-function: linear;
+}
+
 a,
 a:hover,
 a:active,
