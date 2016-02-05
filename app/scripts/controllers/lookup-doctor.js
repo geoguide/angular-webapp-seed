@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($routeParams, lookupFactory, toasty, $log,$modal) {
+angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($routeParams, lookupFactory, toasty, $log,$modal, applicationFactory) {
 
 	var _this = this;
 	this.doctorId = $routeParams.claim_id;
@@ -39,8 +39,9 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 	this.today = mm+'/'+dd+'/'+yyyy;
 
 	this.get = function(doctorId){
-
+		applicationFactory.loading = true;
 		lookupFactory.getLookupDoctor(doctorId).then(function(data){
+			applicationFactory.loading = false;
 			_this.doctorData = data;
 			return lookupFactory.getLicenses(_this.doctorId);
 		}).then(function(result){
@@ -53,7 +54,9 @@ angular.module('modioAdminPortal').controller('LookupDoctorCtrl', function ($rou
 	};
 
 	this.save = function(){
+		applicationFactory.loading = true;
 		lookupFactory.saveLookup(_this.doctorData).then(function(data){
+			applicationFactory.loading = false;
 			toasty.success('Record Saved.');
 			_this.get(_this.doctorId);
 		}, function(error){

@@ -19,7 +19,7 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	this.formData = {};
 	this.totalCoordinators = 0;
 	this.currentPage = 1;
-	this.coordinatorsPerPage = 25;
+	this.coordinatorsPerPage = 50;
 	this.totalPages = this.totalCoordinators/this.coordinatorsPerPage;
 	this.maxSize = 8;
 

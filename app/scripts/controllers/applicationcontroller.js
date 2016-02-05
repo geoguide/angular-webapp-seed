@@ -15,7 +15,9 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		applicationFactory.userInfo = Auth.user();
 		//$scope.currentUser = AuthService.currentUser();
 		if(isLoggedIn){
+			applicationFactory.loading = true;
 			applicationFactory.getDashboardStats().then(function(response){
+				applicationFactory.loading = false;
 				_this.stats = response;
 			},function(error){
 				$log.error('error in the watch: '+JSON.stringify(error));
@@ -24,7 +26,8 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 
 	});
 
-	this.appLoading = true;
+	this.applicationFactory = applicationFactory;
+	this.loading = _this.applicationFactory.loading;
 	this.today = new Date();
 
 	var dd = this.today.getDate();
@@ -125,6 +128,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ id:0, 'label': 'Daily Weekday (Up to 24hrs)' },
 		{ id:1, 'label': 'Daily Weekday Plus Call (24hrs)' },
 		{ id:2, 'label': 'Daily Weekend (24hrs)' },
+		{ id:7, 'label': 'Daily Rate - Insurance Only' },
 		{ id:3, 'label': 'Hourly' },
 		{ id:4, 'label': 'Overtime' },
 		{ id:5, 'label': 'Holiday Premium' },

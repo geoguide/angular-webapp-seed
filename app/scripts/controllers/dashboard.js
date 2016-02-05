@@ -31,7 +31,9 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 	};
 	this.get2Way = function(){
 		_this.loading = true;
+		applicationFactory.loading = true;
 		dashboardFactory.get2Way().then(function(result){
+			applicationFactory.loading = false;
 			_this.twoWayMatches = result;
 			_this.loading = false;
 		},function(error){
