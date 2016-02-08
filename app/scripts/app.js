@@ -289,8 +289,6 @@
 
 
 	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
-
-
 		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
 			if (oldVal !== newVal) {
 				document.title = $route.current.title || 'Modio Admin Portal';
