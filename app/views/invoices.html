@@ -40,7 +40,7 @@
 				<tbody>
 					<tr ng-repeat="i in invoice.invoices">
 						<td ng-bind="i.report_id"></td>
-						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i.doctor_id)" ng-bind="i.doctor_name"></td>
+						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i)" ng-bind="i.doctor_name"></td>
 						<td>$<span ng-bind="i.total_amount"></span></td>
 						<td ng-bind="i.date_updated"></td>
 						<td class="col-md-3 col-sm-2" ng-bind="i.description"></td>
