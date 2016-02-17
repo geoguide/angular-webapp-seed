@@ -1,0 +1,28 @@
+<div ng-include="'./views/partials/_job-menu.html'"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<h4>Job Offers</h4>
+	</div>
+	<div class="col-xs-12">
+		<div class="table-responsive">
+			<caption class="ng-cloak"><strong ng-bind="jobCtrl.offers.length"></strong> Offers Found</caption>
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Offer ID</th>
+						<th>Provider ID</th>
+						<th>Provider</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="offer in jobCtrl.offers" class="search-row" data-job-id="{{offer.id}}" ng-click="appCtrl.goTo('/offers/{{offer.id}}')">
+						<td ng-bind="offer.id"></td>
+						<td ng-bind="offer.doctor_id"></td>
+						<td ng-bind="offer.first_name+' '+offer.last_name+' '+offer.doctor_title"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

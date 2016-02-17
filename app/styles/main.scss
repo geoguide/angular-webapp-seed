@@ -173,6 +173,10 @@ h3.page-header {
 	@extend .nav-pills;
 }
 
+.nav-tabs .badge {
+	vertical-align: inherit;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;

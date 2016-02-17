@@ -205,13 +205,19 @@
 			access: { requiredLogin: true },
 			templateUrl: 'views/jobfiles.html',
 			controller: 'JobFilesCtrl',
-			controllerAs: 'files'
+			controllerAs: 'jobCtrl'
 		}).when('/jobs/:id/candidates', {
 			tab: 'jobs',
 			access: { requiredLogin: true },
 			templateUrl: 'views/candidates.html',
 			controller: 'JobCandidatesCtrl',
-			controllerAs: 'jcc'
+			controllerAs: 'jobCtrl'
+		}).when('/jobs/:id/offers', {
+			tab: 'jobs',
+			access: { requiredLogin: true },
+			templateUrl: 'views/job-offers.html',
+			controller: 'JobOffersCtrl',
+			controllerAs: 'jobCtrl'
 		}).when('/providers/:id/job-matches', {
 			tab: 'users',
 			access: { requiredLogin: true },

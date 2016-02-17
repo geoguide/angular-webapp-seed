@@ -7,10 +7,13 @@
  * # UploadsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s3factory,$routeParams,$log,$timeout,$window) {
+angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s3factory,$routeParams,$log,$timeout,$window, jobFactory) {
 
   var _this = this;
-
+  this.jobData = {};
+  this.tab = 'files';
+  this.jobId = $routeParams.id;
+  console.log(this.jobData);
   this.entityId = $routeParams.id;
   this.componentId = 2;
 
@@ -62,6 +65,19 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s
 		}
 	};
 
+  this.load = function(){
+		return jobFactory.getJob(_this.jobId).then(function(data){
+			data.tags = JSON.parse(data.tags);
+			_this.bookmarked = data.bookmarked;
+			_this.jobData = data;
+			_this.error = false;
+			_this.loading = false;
+		},function(error){
+			_this.error = true;
+			_this.jobData = null;
+		});
+	};
+
     this.getFileLink = function(file){
 	    s3factory.getSignedUrl(_this.componentId, file.id).then(function(response){
 		    $log.info(response);
@@ -101,7 +117,7 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s
 			//$scope.$apply();
 		});
 	};
-		
+
   this.deleteUpload = function(file){
     $log.log('deleteUpload:' + file.id);
 
@@ -122,7 +138,12 @@ angular.module('modioAdminPortal').controller('JobFilesCtrl', function ($scope,s
   };
 
   var init = function(){
-    _this.loadUploads();
+    _this.load().then(function(result){
+      return _this.loadUploads();
+    }).then(function(result){
+      //some result;
+    });
+
   };
 
   init();

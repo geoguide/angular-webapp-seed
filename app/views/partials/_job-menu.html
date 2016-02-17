@@ -1,0 +1,27 @@
+<div class="row ng-hide" ng-show="jobCtrl.jobData">
+	<div class="col-xs-12">
+		<h4>{{jobCtrl.jobData.job_title}} @ {{jobCtrl.jobData.facility_name}} ({{jobCtrl.jobData.id}})</h4>
+	</div>
+	<div class="col-md-11">
+		<ul class="nav nav-tabs">
+			<li role="presentation" ng-class="{'active': jobCtrl.tab == 'general-info'}">
+				<a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id)">General Info</a>
+			</li>
+			<li role="presentation" ng-class="{'active': jobCtrl.tab == 'files'}">
+				<a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/files')">Files</a>
+			</li>
+			<li role="presentation"  ng-class="{'active': jobCtrl.tab == 'candidates'}">
+				<a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/candidates')">Candidates</a>
+			</li>
+			<li role="presentation" ng-class="{'active': jobCtrl.tab == 'offers'}">
+				<a ng-click="appCtrl.goTo('/jobs/' + jobCtrl.jobData.id + '/offers')">Offers</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-1 text-right">
+		<a ng-click="jobCtrl.bookmark(jobCtrl.jobData.id)" style="cursor:pointer">
+			<i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i>
+		</a>
+	</div>
+</div>
+<br />

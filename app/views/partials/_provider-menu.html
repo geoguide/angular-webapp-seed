@@ -1,6 +1,9 @@
 <div class="row ng-hide" ng-hide="dr.error">
+	<div class="col-xs-12">
+		<h4 ng-bind="dr.doctorData.first_name+' '+dr.doctorData.last_name+' '+dr.doctorData.doctor_title"></h4>
+	</div>
 	<div class="col-md-11">
-		<ul class="nav nav-pills">
+		<ul class="nav nav-tabs">
 			<li role="presentation" ng-class="{'active': dr.tab == 'general-info'}">
 				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}')">General Info</a>
 			</li>
@@ -25,4 +28,4 @@
 		<a ng-click="dr.bookmark(dr.doctorId)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i></a>
 	</div>
 </div>
-<hr />
+<br />
