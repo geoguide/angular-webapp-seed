@@ -1,41 +1,22 @@
-<div class="row" ng-show="jcc.error">
-	<div id="no-data" class="col-xs-12">Job Not Found</div>	
-</div>
+<div ng-include="'./views/partials/_job-menu.html'"></div>
 
-<div class="text-center row" ng-show="jcc.loading" style="margin:30px 0">
-	<div class="col-md-2 col-md-offset-5 form-group" >
-	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
-	</div>
-</div>
-<div class="ng-hide" ng-hide="jcc.loading">
-	<div class="row">
-		<div class="col-xs-12">
-			<ul class="nav nav-pills">
-			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id)">General Info</a></li>
-			   <li role="presentation"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/files')">Files</a></li>
-			   <li role="presentation" class="active"><a ng-click="appCtrl.goTo('/jobs/' + jcc.jobData.id + '/candidates')">Candidates</a></li>
-			</ul>
-		</div>
-	</div>
-	<hr />
-	<div class="row"><div class="col-xs-12"><h4>Candidates for <span ng-bind="jcc.jobData.job_title"></span> @ <span ng-bind="jcc.jobData.facility_name"></span> (<span ng-bind="jcc.jobData.id"></span>)</h4></div></div>
 	<div class="table-responsive">
-		
-		<caption class="ng-cloak"><strong ng-bind="jcc.candidates.length"></strong> Candidates Found</caption>
+
+		<caption class="ng-cloak"><strong ng-bind="jobCtrl.candidates.length"></strong> Candidates Found</caption>
 		<table class="table table-condensed table-striped table-hover">
 			<thead>
 				<tr>
-					<th ng-click="jcc.sortResult('id')">id</th>
-					<th ng-click="jcc.sortResult('first_name')">First</th>
-					<th ng-click="jcc.sortResult('last_name')">Last</th>
-					<th ng-click="jcc.sortResult('state')">State</th>
-					<th ng-click="jcc.sortResult('specialty')">Specialty</th>
-					<th ng-click="jcc.sortResult('disposition')">Job Type</th>
+					<th ng-click="jobCtrl.sortResult('id')">id</th>
+					<th ng-click="jobCtrl.sortResult('first_name')">First</th>
+					<th ng-click="jobCtrl.sortResult('last_name')">Last</th>
+					<th ng-click="jobCtrl.sortResult('state')">State</th>
+					<th ng-click="jobCtrl.sortResult('specialty')">Specialty</th>
+					<th ng-click="jobCtrl.sortResult('disposition')">Job Type</th>
 					<th>Licensed?</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="can in jcc.candidates" class="doctor-row search-row" data-doctor-id="{{::can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{::can.doctor_id}}')">
+				<tr ng-repeat="can in jobCtrl.candidates" class="doctor-row search-row" data-doctor-id="{{::can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{::can.doctor_id}}')">
 					<td ng-bind="can.doctor_id"></td>
 					<td ng-bind="can.first_name"></td>
 					<td ng-bind="can.last_name"></td>
@@ -47,4 +28,3 @@
 			</tbody>
 		</table>
 	</div>
-</div>

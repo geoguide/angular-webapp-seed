@@ -2,12 +2,11 @@
 
 <h3 id="no-data" ng-show="dr.error && !dr.loading" class="ng-cloak ng-hide text-center">Provider <span ng-bind="dr.doctorId"></span> Does Not Exist</h3>
 <div ng-include="'./views/partials/_provider-menu.html'"></div>
-<div class="text-center row" ng-show="dr.loading">
-	<div class="col-md-12 form-group">
-	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+<div class="text-center row" ng-show="dr.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 	</div>
 </div>
-
 
 <section ng-hide="dr.loading || dr.error" class="ng-hide">
 	<form id="doctor-form" ng-submit="dr.save()" name="general_info_form" class="ng-cloak">

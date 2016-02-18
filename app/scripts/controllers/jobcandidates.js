@@ -11,6 +11,7 @@ angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (job
 	var _this = this;
 	this.candidates = [];
 	this.jobData = {};
+	this.tab = 'candidates';
 	this.jobId = $routeParams.id;
 	_this.loading = true;
 
@@ -27,7 +28,7 @@ angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (job
 	};
 	var init = function(){
 		_this.findCandidates(_this.jobId);
-		
+
 		jobFactory.getJob(_this.jobId).then(function(data){
 			_this.jobData = data;
 			_this.error = false;

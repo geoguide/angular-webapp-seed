@@ -63,6 +63,10 @@ angular.module('modioAdminPortal').factory('jobFactory', function ($http,API_URL
 			return $http.get(API_URL+'/admin/jobs/'+jobIdIn+'/candidates').then(function(response) {
 				return response.data;
 			});
+		}, findOffers: function(jobIdIn){
+			return $http.get(API_URL+'/admin/jobs/'+jobIdIn+'/offers').then(function(response) {
+				return response.data;
+			});
 		}, queryData: {
 
 		}, bookmarkJob: function(jobId){

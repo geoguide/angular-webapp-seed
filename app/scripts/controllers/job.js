@@ -13,6 +13,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.jobId = $routeParams.id;
 	this.jobData.tags = [];
 	this.tags = [];
+	this.tab = 'general-info';
 	_this.loading = true;
 
 	//Date picker

@@ -33,9 +33,10 @@ angular.module('modioAdminPortal').controller('InvoicesCtrl', function ($scope,i
 		_this.getInvoices();
 	};
 
-	this.actAs = function(docIdIn){
-		doctorFactory.actAs(docIdIn).then(function(response){
-			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
+	this.actAs = function(invoiceData){
+		doctorFactory.actAs(invoiceData.doctor_id).then(function(response){
+			console.log(invoiceData);
+			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token+'?target=accounting&facility_id='+invoiceData.facility_id, '_blank');
 			toasty.success('Doctor Acted As.');
 		}, function(error){
 			$log.error(error);
