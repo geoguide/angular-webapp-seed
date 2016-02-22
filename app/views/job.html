@@ -169,13 +169,13 @@
 					<input ng-model="jr.rate" class="form-control input-sm" />
 				</div>
 				<div class="col-xs-4 form-group">
-					<button class="btn btn-primary btn-sm" type="button" role="button" ng-click="jobCtrl.submitRate(jr)">Submit</button>
 					<button class="btn btn-danger btn-sm" type="button" role="button" ng-show="jr.id" ng-click="jobCtrl.deleteRate(jr)">Delete</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 form-group">
 					<button class="btn btn-success btn-sm" role="button" type="button" ng-click="jobCtrl.addRate()">Add Rate</button>
+					<button class="btn btn-primary btn-sm" type="button" role="button" ng-click="jobCtrl.submitRates()">Submit Rates</button>
 				</div>
 			</div>
 		</section>
