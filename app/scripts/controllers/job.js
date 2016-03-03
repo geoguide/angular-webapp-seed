@@ -62,8 +62,8 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 		});
 	};
 
-	this.submitRate = function(dataIn){
-		jobFactory.submitRate(dataIn).then(function(data){
+	this.submitRates = function(){
+		jobFactory.submitRate(_this.jobData.rates).then(function(data){
 			return _this.load();
 		}).then(function(result){
 			toasty.success('Rate Saved.');
