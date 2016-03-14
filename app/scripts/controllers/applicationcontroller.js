@@ -129,6 +129,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		{ id:1, 'label': 'Daily Weekday Plus Call (24hrs)' },
 		{ id:2, 'label': 'Daily Weekend (24hrs)' },
 		{ id:7, 'label': 'Daily Rate - Insurance Only' },
+		{ id:8, 'label': 'Flat Rate' },
 		{ id:3, 'label': 'Hourly' },
 		{ id:4, 'label': 'Overtime' },
 		{ id:5, 'label': 'Holiday Premium' },
