@@ -11,7 +11,7 @@
 				</div>
 				<div class="form-group col-xs-12 col-sm-6">
 					<label>Provider Title</label>
-					<select class="form-control input-sm" ng-model="drsCtrl.formData.doctor_title" ng-required="true" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles"></select>
+					<select class="form-control input-sm" ng-model="drsCtrl.formData.doctor_title" ng-required="true" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles"></select>
 				</div>
 				<div class="form-group col-xs-6">
 					<label>First Name</label>
