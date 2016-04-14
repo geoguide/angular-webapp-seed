@@ -182,7 +182,7 @@
 				</select>
 			</div>
 			<div class="col-md-2 col-sm-4 col-xs-6 form-group">
-				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.doctor_title" ng-change="jobsCtrl.getResults()" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles">
+				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.doctor_title" ng-change="jobsCtrl.getResults()" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles">
 					<option value="">- Choose Title -</option>
 				</select>
 			</div>

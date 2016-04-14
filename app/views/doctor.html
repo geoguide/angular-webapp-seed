@@ -30,11 +30,7 @@
 			</div>
 			<div class="col-md-2 form-group">
 				<label>Title</label>
-				<select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles" ng-required="true"></select>
-			</div>
-			<div class="col-md-2 form-group">
-				<label>Created</label>
-				<div ng-bind="dr.doctorData.date_created"></div>
+				<select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles" ng-required="true"></select>
 			</div>
 		</div>
 		<div class="row">
@@ -49,6 +45,10 @@
 			<div class="form-group col-md-2">
 				<label>NPI#</label>
 				<input type="text" class="form-control input-sm" ng-model="dr.doctorData.npi_number"  />
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Created</label>
+				<div ng-bind="dr.doctorData.date_created"></div>
 			</div>
 		</div>
 		<div class="row">
