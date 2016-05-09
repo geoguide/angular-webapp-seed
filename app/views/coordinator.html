@@ -122,7 +122,7 @@
 <!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
 <script type="text/ng-template" id="membership-modal">
 	<div class="modal-header">
-		<h3 class="modal-title" ng-bind="modal.title"></h3>
+		<h3 class="modal-title">Add Facility Membership</h3>
 	</div>
 	<div class="modal-body">
 		<form novalidate>
@@ -137,30 +137,7 @@
 					<select class="form-control" ng-model="modal.modalObject.status">
 						<option value="0">Inactive</option>
 						<option value="1">Active</option>
-						<option value="2">What does 2 mean?</option>
 					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>Email</label>
-					<input type="email" class="form-control" ng-model="modal.modalObject.email" />
-				</div>
-				<div class="form-group col-xs-6">
-					<label>Department</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.department" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>Job Title</label>
-					<input type="text" class="form-control" ng-model="modal.modalObject.job_title" />
-				</div>
-				<div class="form-group col-xs-4">
-					<label>Job Status</label>
-					<select class="form-control" ng-model="modal.modalObject.job_status"  ng-required="true" ng-options="js.id as js.job_status for js in modal.parentCtrl.jobStatuses"></select>
-					<input type="hidden" ng-model="modal.modalObject.id" />
-					<input type="hidden" ng-model="modal.modalObject.doctor_id" />
 				</div>
 			</div>
 		</form>

@@ -15,7 +15,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.memberships = [];
 	this.loading = true;
 	this.error = false;
-	
+
 	this.jobStatuses = [
 		{
 			id: 0,
@@ -25,8 +25,9 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 			job_status: 'Active'
 		}
 	];
-	
+
 	this.openMembershipModal = function(modalId,dataIn){
+		dataIn.status = 1;
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
@@ -69,9 +70,9 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 				if(result[fm].file_url){
 					var url = 'https://s3.amazonaws.com/' + S3_URL + '/3/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
 					result[fm].profileUrl = url;
-				}	
+				}
 			}
-			
+
 			_this.memberships = result;
 			_this.loading = false;
 			_this.error = false;
@@ -82,7 +83,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 			_this.coordinatorData = null;
 		});
 	};
-	
+
 	this.deleteFacilityMembership = function(expId){
 		doctorFactory.removeMembership(_this.coordId,expId).then(function(data){
 			toasty.success('Membership Removed');
@@ -92,7 +93,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 			toasty.error(error.data);
 		});
 	};
-	
+
 	this.queryFacilities = function(query){
 		var deferred = $q.defer();
 	   facilityFactory.queryFacilities({q:query}).then(function(data){
@@ -123,7 +124,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 			toasty.error(error.data);
 		});
 	};
-	
+
 	this.actAs = function(){
 		doctorFactory.actAs(_this.coordId).then(function(response){
 			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
