@@ -38,13 +38,15 @@
 		<div class="col-md-3 col-sm-6 form-group">
 			<select class="form-control input-sm" ng-model="rc.queryData.alerts" ng-change="rc.getResults()">
 				<option value="1">Has Alerts</option>
-				<option value="0">All</option>
+				<option value="0">No Alerts</option>
+				<option value="">All</option>
 			</select>
 		</div>
 		<div class="col-md-3 col-sm-6 form-group">
 			<select class="form-control input-sm" ng-model="rc.queryData.locked" ng-change="rc.getResults()">
 				<option value="1">Locked Only</option>
-				<option value="0">Locked &amp; Unlocked</option>
+				<option value="0">Unlocked Only</option>
+				<option value="">Locked &amp; Unlocked</option>
 			</select>
 		</div>
 		<div class="col-md-2 col-sm-12 form-group">
