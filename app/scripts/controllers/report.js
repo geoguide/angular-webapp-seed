@@ -10,13 +10,13 @@
  /* global
   moment, jQuery
 */
-angular.module('modioAdminPortal').controller('ReportCtrl', function ($window,reportFactory,MODIOCORE,API_URL,localStorageService) {
-
+angular.module('modioAdminPortal').controller('ReportCtrl', function ($window, $log, reportFactory, MODIOCORE, API_URL, localStorageService, facilityFactory, doctorFactory, ENV, toasty) {
   var  _this = this;
 
   this.licenses = [
     { id: 1, provider_name: 'Mernie Bann', type_id: 1, state: 'MA', expiration_date: '12/30/2017', expires: '94', alerts: 'wtf', date_updated: '01/26/2016'}
   ];
+  _this.facilitiesWithMembers = [];
 	this.totalRecords = 0;
 	this.perPage = 25;
 	this.totalPages = this.totalRecords / this.perPage;
@@ -80,6 +80,23 @@ angular.module('modioAdminPortal').controller('ReportCtrl', function ($window,re
       }
       return '';
   };
+
+  facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
+		_this.facilitiesWithMembers = response;
+		return _this.getResults();
+	},function(error){
+		$log.error(error);
+	});
+  this.actAs = function($event,doctorId){
+    $event.stopPropagation();
+		doctorFactory.actAs(doctorId).then(function(response){
+			$window.open(ENV.doctorApp+'/admin/act-as/'+response.data.token, '_blank');
+			toasty.success('u r provider');
+		}, function(error){
+			$log.error(error);
+			toasty.error({ title: 'Error!', msg: error.data });
+		});
+	};
 	_this.getResults();
 
 });

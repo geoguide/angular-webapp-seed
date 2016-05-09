@@ -21,6 +21,6 @@ angular.module('modioAdminPortal').factory('reportFactory', function ($http,API_
   			}, function(error){
   				$log.error(error);
   			});
-  		}, queryData: { sortDir: false,interval:30 }
+  		}, queryData: { sortDir: false,interval:30,alerts:1,locked:0 }
   	};
 });
