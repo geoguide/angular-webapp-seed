@@ -37,6 +37,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	/* Modals */
 
 	this.openMembershipModal = function(modalId,dataIn){
+		dataIn.status = 1;
 		this.modalInstance = $modal.open({
 			templateUrl: modalId,
 			controller: 'ModalCtrl',
