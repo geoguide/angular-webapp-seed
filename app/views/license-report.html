@@ -8,7 +8,7 @@
 
 <section id="license-search-filters">
 	<div class="row">
-		<div class="col-md-4 col-sm-5 form-group">
+		<div class="col-md-3 col-sm-5 form-group">
 			<form ng-submit="rc.getResults()">
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="rc.queryData.q" placeholder="Search Provider..." />
 			</form>
@@ -25,22 +25,41 @@
 				<option value="30">30 Days</option>
 				<option value="60">60 Days</option>
 				<option value="90">90 Days</option>
+				<option value="0">All</option>
+			</select>
+		</div>
+		<div class="col-xs-3 form-group">
+			<select class="form-control input-sm" ng-model="rc.queryData.facility_id" ng-change="rc.getResults()" ng-options="f.id as f.facility_name for f in rc.facilitiesWithMembers">
+				<option value="">-- Facility Members --</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3 col-sm-6 form-group">
+			<select class="form-control input-sm" ng-model="rc.queryData.alerts" ng-change="rc.getResults()">
+				<option value="1">Has Alerts</option>
+				<option value="0">No Alerts</option>
+				<option value="">All</option>
+			</select>
+		</div>
+		<div class="col-md-3 col-sm-6 form-group">
+			<select class="form-control input-sm" ng-model="rc.queryData.locked" ng-change="rc.getResults()">
+				<option value="1">Locked</option>
+				<option value="0">Unlocked</option>
+				<option value="">Locked &amp; Unlocked</option>
 			</select>
 		</div>
 		<div class="col-md-2 col-sm-12 form-group">
 			<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="rc.getResults()">Search</button>
 		</div>
+
+	</div>
+	<div class="row">
 		<div class="col-md-2 col-xs-6 form-group">
 			<a class="btn btn-info btn-block btn-sm" ng-click="rc.go()">Download CSV (Beta)</a>
 		</div>
 	</div>
 </section>
-
-<div class="text-center row" ng-show="rc.loading">
-	<div class="col-md-12 form-group">
-	  <i class="fa fa-spinner fa-pulse fa-4x"></i>
-	</div>
-</div>
 
 <div class="row" id="license-tabs">
 	<div class="col-md-12">
@@ -50,6 +69,11 @@
 			<li role="presentation" ng-class="{ 'active': rc.queryData.type_id == 1 }"><a ng-click="rc.changeLicenseType(1)">DEA</a></li>
 		  <li role="presentation" ng-class="{ 'active': rc.queryData.type_id == 2 }"><a  ng-click="rc.changeLicenseType(2)">State Controlled</a></li>
 		</ul>
+	</div>
+</div>
+<div class="text-center row" ng-show="rc.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
 	</div>
 </div>
 <div ng-show="!rc.loading">
@@ -75,6 +99,7 @@
 							<th ng-click="rc.sortResult('alerts')">Alerts</th>
 							<th ng-click="rc.sortResult('locked')">Locked</th>
 							<th ng-click="rc.sortResult('date_updated')">Date Updated</th>
+							<th>Act As</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,16 +114,11 @@
 							<td ng-bind="(l.alerts == 1) ? 'Yes' : 'No' "></td>
 							<td ng-bind="(l.locked == 1) ? 'Yes' : 'No' "></td>
 							<td ng-bind="l.date_updated"></td>
+							<td><button class="btn btn-primary" ng-click="rc.actAs($event,l.doctor_id)">Act As</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
-
-	<!--<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="rc.totalRecords" ng-model="rc.queryData.page" max-size="rc.maxSize" class="pagination-sm" boundary-links="true" ng-change="rc.getResults()" items-per-page="25" data-ng-if="rc.totalRecords"></pagination>
-		</div>
-	</section>-->
 </div>
