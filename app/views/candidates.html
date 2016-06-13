@@ -13,6 +13,7 @@
 					<th ng-click="jobCtrl.sortResult('specialty')">Specialty</th>
 					<th ng-click="jobCtrl.sortResult('disposition')">Job Type</th>
 					<th>Licensed?</th>
+					<th>Score</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +25,7 @@
 					<td ng-bind="can.v_specialty_name"></td>
 					<td ng-bind="can.job_type"></td>
 					<td ng-bind="(can.Licensed == 0) ? 'No' : 'Yes'"></td>
+					<td ng-bind="can.score"></td>
 				</tr>
 			</tbody>
 		</table>
