@@ -196,7 +196,9 @@
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.source[doc.source].name"></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.dispositionMap[doc.disposition]"></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')">{{ ::doc.user_id ? 'Yes' : 'No' }}</td>
-							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.medical_licenses"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"style="position: relative; width: 25%" ng-mouseover="drsCtrl.setTooltip(doc.medical_licenses)" popover-template="drsCtrl.dynamicPopover.templateUrl" popover-title="States" popover-append-to-body="true" popover-trigger="{{{true: 'mouseenter', false: 'never'}[!!doc.medical_licenses.length]}}" >
+								<div ng-bind="doc.medical_licenses" style="position: absolute; top: 5px; left: 0; text-overflow: ellipsis; overflow: hidden; max-width: 90%; white-space: nowrap; display: block;" ></div>
+							</td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.score"></td>
 							<td><button ng-click="appCtrl.goTo('/providers/{{::doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 "><span ng-bind="(drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches"></span> Matches</button></td>
 
@@ -217,3 +219,8 @@
 	</div>
 
 </section>
+<script type="text/ng-template" id="notes-template.html">
+	<div class="form-group" ng-if="drsCtrl.tooltipStates">
+	<div ng-bind="drsCtrl.tooltipStates"></div>
+	</div>
+</script>
