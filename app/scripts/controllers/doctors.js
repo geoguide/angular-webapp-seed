@@ -36,6 +36,10 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 
 	this.csvEndpoint = API_URL+'/public/download-users-csv?token='+localStorageService.get('adminAuthToken');
 
+  this.dynamicPopover = {
+    templateUrl: 'notes-template.html'
+  };
+
 	/* Public Functions */
 	this.getResults = function() {
 		_this.loading = true;
@@ -71,6 +75,10 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 			toasty.error({ title: 'Error!', msg: error.data });
 		});
 	};
+
+  this.setTooltip = function(item) {
+    _this.tooltipStates = item;
+  };
 
 	this.open = function () {
 
