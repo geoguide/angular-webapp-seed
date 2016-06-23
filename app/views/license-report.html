@@ -106,7 +106,7 @@
 						<tr ng-repeat="l in rc.licenses" ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')">
 							<td ng-bind="l.id"></td>
 							<td ng-bind="l.provider_name"></span></td>
-							<td ng-bind="rc.licenseTypes.get({ key: l.type_id}).label"></td>
+							<td ng-bind="rc.licenseTypes.get({ id: l.type_id}).name"></td>
 							<td ng-bind="l.number"></td>
 							<td ng-bind="l.state"></td>
 							<td ng-bind="l.expiration_date"></td>
