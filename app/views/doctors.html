@@ -1,7 +1,7 @@
 <script type="text/ng-template" id="create-doctor-modal2">
 	<form name="new_doctor_form" ng-submit="drsCtrl.submitForm()" novalidate>
 		<div class="modal-header">
-			<h4 class="modal-title">Create Doctor</h4>
+			<h4 class="modal-title">Create Provider</h4>
 		</div>
 		<div class="modal-body">
 			<div class="row">
@@ -32,7 +32,7 @@
 				</div>
 				<div class="form-group col-xs-6 col-sm-4">
 					<label>Locum Experience</label>
-					<select name="locum_experience" class="form-control input-sm" ng-model="drsCtrl.formData.locum_experience"  ng-required="true">
+					<select name="locum_experience" class="form-control input-sm" ng-model="drsCtrl.formData.locum_experience">
 						<option value="0">None</option>
 						<option value="1">Low</option>
 						<option value="2">High</option>
@@ -40,7 +40,7 @@
 				</div>
 				<div class="form-group col-xs-12 col-sm-4">
 					<label>Specialty</label>
-					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.formData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.formData.specialty_id = $item.id" typeahead-editable="false" />
+					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.formData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.formData.specialty_id = $item.id" typeahead-editable="false" required="true" />
 					<i ng-show="loadingspec" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
 				</div>
 			</div>
