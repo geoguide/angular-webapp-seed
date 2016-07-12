@@ -22,6 +22,9 @@
 			<li role="presentation" ng-class="{'active': dr.tab == 'offers'}">
 				<a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/provider-offers')">Offers <span class="badge" ng-bind="dr.offers.length"></span></a>
 			</li>
+			<li class="pull-right">
+				<button class="btn btn-warning btn-sm" act-as="{{ dr.doctorId }}">Act As</button>
+			</li>
 		</ul>
 	</div>
 	<div class="col-md-1 text-right">

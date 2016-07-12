@@ -21,17 +21,17 @@ angular.module('modioAdminPortal').directive('directives', function () {
 		require: 'ngModel',
 		link: function (scope, elem , attrs,control) {
 			var checker = function () {
- 
+
 				//get the value of the first password
-				var e1 = scope.$eval(attrs.ngModel); 
-				
-				//get the value of the other password  
+				var e1 = scope.$eval(attrs.ngModel);
+
+				//get the value of the other password
 				var e2 = scope.$eval(attrs.passwordMatch);
 				return e1 === e2;
 			};
 			scope.$watch(checker, function (n) {
-				
-				//set the form control to valid if both 
+
+				//set the form control to valid if both
 				//passwords are the same, else invalid
 				control.$setValidity('unique', n);
 			});
@@ -67,15 +67,32 @@ angular.module('modioAdminPortal').directive('directives', function () {
 	this.open = function($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
-	
+
 		_this.opened = true;
 	};
 	this.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1
 	};
-	
+
 	this.format = 'MM/dd/yyyy';
 	this.maxDate = new Date();
 	this.minDate = new Date('1/1/1900');
-});
+}).directive('actAs', ['ENV', '$window', '$log', 'doctorFactory', 'toasty', function (ENV, $window, $log, doctorFactory, toasty) {
+	return {
+		restrict: 'A',
+		link: function ($scope, element, attrs) {
+			element.click(function () {
+				if (attrs.actAs) {
+					doctorFactory.actAs(attrs.actAs).then(function (response) {
+						$window.open(ENV.doctorApp + '/admin/act-as/' + response.data.token, '_blank');
+						toasty.success('u r provider');
+					}, function (error) {
+						$log.error(error);
+						toasty.error({title: 'Error!', msg: error.data});
+					});
+				}
+			});
+		}
+	}
+}]);

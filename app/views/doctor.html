@@ -236,7 +236,7 @@
 		<div class="row">
 			<div class="col-md-12 text-right">
 				<div class="form-group">
-					<button type="button" class="btn btn-warning btn-sm" ng-click="dr.actAs()">Act As This Doctor</button>
+					<button type="button" class="btn btn-warning btn-sm" act-as="{{ dr.doctorId }}">Act As</button>
 					<button type="button" class="btn btn-danger btn-sm" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
 					<button type="submit" class="btn btn-primary btn-sm" ng-disabled="general_info_form.$invalid">Submit</button>
 				</div>
