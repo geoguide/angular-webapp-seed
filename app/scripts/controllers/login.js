@@ -17,7 +17,7 @@ angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$htt
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
 			localStorageService.set('adminAuthToken',data.token);
 			localStorageService.set('refreshToken',data.refresh_token);
-			$location.path('/dashboard');
+			$location.path('/providers').search({type: 'all'});
 			$scope.$emit('login');
 		}).error(function(data, status, headers, config){
 			_this.loading = false;
