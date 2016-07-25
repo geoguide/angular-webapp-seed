@@ -31,8 +31,6 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 
 	this.queryData = doctorFactory.queryData;
 	this.queryData.job_type_desired = 1;
-	this.queryData.score_low = 0;
-	this.queryData.score_high = 100;
 
 	this.csvEndpoint = API_URL+'/public/download-users-csv?token='+localStorageService.get('adminAuthToken');
 
@@ -44,6 +42,8 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.getResults = function() {
 		_this.loading = true;
 		applicationFactory.loading = true;
+		_this.queryData.score_low = _this.score_low;
+		_this.queryData.score_high = _this.score_high;
 		doctorFactory.queryDoctors(_this.queryData).then(function(response) {
 			applicationFactory.loading = false;
 			_this.doctors = response.data.doctors;
