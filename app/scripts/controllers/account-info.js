@@ -7,7 +7,7 @@
  * # AccountInfoCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, specialtyFactory, toasty, $log, $modal) {
+angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($routeParams, doctorFactory, specialtyFactory, toasty, $log, $modal, MODIOCORE) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -24,13 +24,8 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 	this.boards = [];
 	this.boardSpecialties = [];
 	this.trackingData = [];
-	this.additional_certification_types = [
-		{ id: 0, name: 'ATLS/ACLS'},
-		{ id: 1, name: 'PALS'},
-		{ id: 2, name: 'BLS'},
-		{ id: 3, name: 'ARLS'},
-		{ id: 4, name: 'NALS'}
-	];
+	this.additional_certification_types = MODIOCORE.additionalCertificationsTypes.toArray();
+
 
 
 	this.loadCertifications = function(boardName){
