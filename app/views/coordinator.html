@@ -54,13 +54,20 @@
 					<label>Zip</label>
 					<input type="text" class="form-control" ui-mask="99999" ng-model="coord.coordinatorData.home_zip">
 				</div>
-        <div class="form-group col-md-2">
-          <label>Role</label>
-          <select class="form-control" ng-model="coord.coordinatorData.user_role">
-            <option value="C">Coordinator</option>
-            <option value="R">Recruiter</option>
-          </select>
-        </div>
+				<div class="form-group col-md-2">
+					<label>Role</label>
+					<select class="form-control" ng-model="coord.coordinatorData.user_role">
+						<option value="C">Coordinator</option>
+						<option value="R">Recruiter</option>
+					</select>
+				</div>
+				<div ng-if="coord.coordinatorData.user_role == 'C'" class="form-group col-md-2">
+					<label>CAQH Enabled</label>
+					<select class="form-control" ng-model="coord.coordinatorData.caqh_enabled">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+					</select>
+				</div>
 			</div>
 
 			<div class="row">
