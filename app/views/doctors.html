@@ -102,7 +102,7 @@
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
 			<div class="col-md-4 col-xs-12 form-group">
 				<label>Score</label>
-				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.queryData.score_low || 0" model-max="drsCtrl.queryData.score_high || 100" on-handle-up="drsCtrl.getResults()"></div>
+				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.score_low" model-max="drsCtrl.score_high" on-handle-up="drsCtrl.getResults()"></div>
 			</div>
 			<div class="col-md-2 col-xs-6 form-group">
 				<label>&nbsp;</label>
