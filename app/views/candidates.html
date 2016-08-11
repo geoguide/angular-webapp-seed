@@ -14,6 +14,7 @@
 					<th ng-click="jobCtrl.sortResult('disposition')">Job Type</th>
 					<th>Licensed?</th>
 					<th>Score</th>
+					<th>Telemed Exp</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,6 +27,7 @@
 					<td ng-bind="can.job_type"></td>
 					<td ng-bind="(can.Licensed == 0) ? 'No' : 'Yes'"></td>
 					<td ng-bind="can.score"></td>
+					<td ng-bind="can.telemed_exp_name"></td>
 				</tr>
 			</tbody>
 		</table>
