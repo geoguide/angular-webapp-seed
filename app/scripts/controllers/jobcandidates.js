@@ -7,7 +7,7 @@
  * # JobcandidatesctrlCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (jobFactory, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (jobFactory, $log, $routeParams, MODIOCORE) {
 	var _this = this;
 	this.candidates = [];
 	this.jobData = {};
@@ -19,6 +19,11 @@ angular.module('modioAdminPortal').controller('JobCandidatesCtrl', function (job
 		_this.loading = true;
 		jobFactory.findCandidates(_this.jobId).then(function(data){
 			_this.candidates = data;
+			for (var i = 0; i < _this.candidates.length; i++) {
+				var candidate = _this.candidates[i];
+				candidate.telemed_exp_name = MODIOCORE.telemedineExperience.get({id: candidate.doctor_telemed_exp}).name
+			}
+			
 			_this.error = false;
 			_this.loading = false;
 		},function(error){

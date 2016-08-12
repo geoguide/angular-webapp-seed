@@ -61,7 +61,7 @@
 						<option value="R">Recruiter</option>
 					</select>
 				</div>
-				<div ng-if="coord.coordinatorData.user_role == 'C'" class="form-group col-md-2">
+				<div class="form-group col-md-2">
 					<label>CAQH Enabled</label>
 					<select class="form-control" ng-model="coord.coordinatorData.caqh_enabled" ng-options="o.v as o.n for o in [{ n: 'No', v: 0 }, { n: 'Yes', v: 1 }]">
 						<option value=""></option>
