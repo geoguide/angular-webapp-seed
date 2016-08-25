@@ -293,7 +293,6 @@
 		$httpProvider.interceptors.push('jwtInterceptor');
 	});
 
-
 	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
 		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
 			if (oldVal !== newVal) {
