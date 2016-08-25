@@ -53,11 +53,11 @@
 	webapp.config(function ($routeProvider, ENV) {
 
 		$routeProvider.when('/', {
-			tab: 'dashboard',
-			templateUrl: 'views/dashboard.html',
+			tab: 'users',
+			templateUrl: 'views/doctors.html',
 			access: { requiredLogin: true },
-			controller: 'DashboardCtrl',
-			controllerAs: 'dash'
+			controller: 'DoctorsCtrl',
+			controllerAs: 'drsCtrl'
       }).when('/about', {
 			templateUrl: 'views/about.html',
 			access: { requiredLogin: true },
@@ -292,7 +292,6 @@
 		}];
 		$httpProvider.interceptors.push('jwtInterceptor');
 	});
-
 
 	webapp.run(function($rootScope,$route, $location, Auth, localStorageService,$log) {
 		$rootScope.$on('$routeChangeSuccess', function(newVal, oldVal) {
