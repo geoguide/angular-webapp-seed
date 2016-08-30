@@ -96,13 +96,13 @@
 		<h4>Job Qualifications</h4>
 		<div class="row">
 			<div class="form-group col-md-3">
-				<label>Job Type Desired</label>
-				<select ng-model="dr.doctorData.job_type_desired" class="form-control input-sm">
-					<option value="0">None</option>
-					<option value="1">Locum</option>
-					<option value="2">Permanent</option>
-					<option value="3">Both</option>
-				</select>
+				<label>Job Type(s) Desired</label>
+				<ui-select multiple ng-model="dr.doctorData.selected_job_type_desired">
+					<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+						<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 			<div class="form-group col-md-3">
 				<label>Locum Experience</label>

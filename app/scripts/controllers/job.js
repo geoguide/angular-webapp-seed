@@ -7,7 +7,7 @@
  * # JobCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams) {
+angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $modalStack, jobFactory, facilityFactory, toasty, $log, $routeParams, MODIOCORE) {
 	var _this = this;
 	this.jobData = {};
 	this.jobId = $routeParams.id;
@@ -42,10 +42,16 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 	this.save = function(){
 		var tags = [];
 		//_this.jobData.tags = JSON.stringify(_this.jobData.tags);
+
+		_this.jobData.job_type = 0;
+		for (var i = 0; i < _this.jobData.selected_job_type.length; i++) {
+			_this.jobData.job_type += _this.jobData.selected_job_type[i];
+		}
 		jobFactory.saveJob(_this.jobData).success(function(data){
 			data.tags = JSON.parse(data.tags);
 			toasty.success('Job Saved.');
 			_this.jobData = data;
+			_this.setJobType(_this.jobData);
 		}).error(function(error){
 			$log.error(error);
 			toasty.error(error.message);
@@ -111,6 +117,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			data.tags = JSON.parse(data.tags);
 			_this.bookmarked = data.bookmarked;
 			_this.jobData = data;
+			_this.setJobType(_this.jobData);
 			_this.error = false;
 			_this.loading = false;
 		},function(error){
@@ -118,6 +125,18 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 			_this.jobData = null;
 		});
 	};
+
+	this.setJobType = function (jobData) {
+		jobData.selected_job_type = [];
+		var jobTypes = MODIOCORE.jobTypes.getValues();
+
+		for (var key in jobTypes) {
+			var jobType = jobTypes[key].id;
+			if ((jobData.job_type & jobType) == jobType) {
+				jobData.selected_job_type.push(jobType);
+			}
+		}
+	}
 
 	var init = function(){
 

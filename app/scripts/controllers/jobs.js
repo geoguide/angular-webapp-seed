@@ -6,11 +6,14 @@
  * # JobsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log, $q, facilityFactory) {
+angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal, $modalStack, jobFactory, toasty, applicationFactory, $log, $q, facilityFactory, MODIOCORE) {
 
 	var _this = this;
 
-	this.newJob = {};
+	this.newJob = {
+		job_type: 0,
+		selected_job_type: []
+	};
 	this.searchQuery = '';
 	this.totalJobs = 0;
 	this.currentPage = 1;
@@ -43,9 +46,12 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 
 	this.getResults = function() {
 		_this.loading = true;
-
 		jobFactory.queryJobs(_this.queryData).then(function(data) {
 			_this.jobs = data.jobs;
+			for (var i = 0; i < _this.jobs.length; i++) {
+				var job = _this.jobs[i];
+				job.job_type_title = _this.getJobTypeTitle(job);
+			}
 			_this.totalJobs = data.total;
 			_this.totalPages = _this.totalJobs / _this.jobsPerPage;
 			_this.loading = false;
@@ -59,6 +65,9 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 	};
 
 	this.submitJob = function(){
+		for (var i = 0; i < _this.newJob.selected_job_type.length; i++) {
+			_this.newJob.job_type += _this.newJob.selected_job_type[i];
+		}
 		jobFactory.createJob(_this.newJob).then(function(data){
 			applicationFactory.goTo('/jobs/'+data.id);
 			$modalStack.dismissAll();
@@ -80,6 +89,19 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			toasty.error(error.data);
 		});
 	};
+
+	this.getJobTypeTitle = function (job) {
+		var jobTypes = MODIOCORE.jobTypes.getValues();
+		var result = [];
+		for (var key in jobTypes) {
+			var jobType = jobTypes[key];
+
+			if ((job.job_type & jobType.id) == jobType.id) {
+				result.push(jobType.name);
+			}
+		}
+		return result.join(', ');
+	}
 
 	var init = function(){
 		_this.loading = true;
