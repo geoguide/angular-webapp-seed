@@ -7,7 +7,7 @@
  * # JobMatchesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$routeParams, $window, doctorFactory, $log, $modal, offerFactory) {
+angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$routeParams, $window, doctorFactory, $log, $modal, offerFactory, MODIOCORE) {
 
 	var _this = this;
 	this.tab = 'matches';
@@ -21,6 +21,23 @@ angular.module('modioAdminPortal').controller('JobMatchesCtrl', function (ENV,$r
 		_this.loading = true;
 		doctorFactory.getJobMatches(doctorId).then(function(result){
 			_this.matches = result;
+
+			var jobTypes = MODIOCORE.jobTypes.getValues();
+			for (var i = 0; i < _this.matches.length; i++) {
+				var match = _this.matches[i];
+				if (match.jobtype) {
+					var result = [];
+					for (var key in jobTypes) {
+						var job_type = jobTypes[key];
+
+						if ((match.jobtype & job_type.id) == job_type.id) {
+							result.push(job_type.short_label);
+						}
+					}
+					match.jobtype_title = result.join(', ');
+				}
+			}
+
 			_this.loading = false;
 			return doctorFactory.getDoctor(doctorId);
 		}).then(function(result){

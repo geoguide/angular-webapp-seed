@@ -7,12 +7,12 @@
  * # DashboardCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboardFactory,$log,applicationFactory) {
+angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboardFactory,$log,applicationFactory, MODIOCORE) {
 
 	var _this = this;
 	this.loading = true;
 
-	this.sortBy = null;
+	this.sortBy = ['Licensed', 'score'];
 	this.sortDir = true;
 	//MODIO_CORE.sayhi();
 
@@ -35,6 +35,25 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 		dashboardFactory.get2Way().then(function(result){
 			applicationFactory.loading = false;
 			_this.twoWayMatches = result;
+
+			var jobTypes = MODIOCORE.jobTypes.getValues();
+			for (var i = 0; i < _this.twoWayMatches.length; i++) {
+				var match = _this.twoWayMatches[i];
+				var job_jobtype_result = [];
+				var dr_jobtype_result = [];
+				for (var key in jobTypes) {
+					var job_type = jobTypes[key];
+					if ((match.job_jobtype & job_type.id) == job_type.id) {
+						job_jobtype_result.push(job_type.short_label);
+					}
+					if ((match.dr_job_type & job_type.id) == job_type.id) {
+						dr_jobtype_result.push(job_type.short_label);
+					}
+				}
+				match.job_jobtype_title = job_jobtype_result.join(', ');
+				match.dr_jobtype_title = dr_jobtype_result.join(', ');
+			}
+
 			_this.loading = false;
 		},function(error){
 			_this.loading = false;
