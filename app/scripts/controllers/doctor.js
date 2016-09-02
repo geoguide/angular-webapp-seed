@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 
-angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, toasty, $log) {
+angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $routeParams, $window, doctorFactory, toasty, $log, MODIOCORE) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
@@ -37,6 +37,8 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 		doctorFactory.getDoctor(doctorId).then(function(response){
 			_this.doctorData = response.data;
 			_this.doctorData.date_of_birth = _this.doctorData.date_of_birth || null;
+			_this.setJobTypeDesired(_this.doctorData);
+
 			_this.drSpecialties = response.data.specialties;
 			_this.rates = response.data.rates;
 			_this.bookmarked = response.data.bookmarked;
@@ -59,12 +61,16 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	};
 
 	this.save = function(){
-
 		delete _this.doctorData.rates;
+		_this.doctorData.job_type_desired = 0;
+		for (var i = 0; i < _this.doctorData.selected_job_type_desired.length; i++) {
+			_this.doctorData.job_type_desired += _this.doctorData.selected_job_type_desired[i];
+		}
 
 		doctorFactory.saveDoctor(_this.doctorData).then(function(data){
 			toasty.success({ title: 'Success!', msg: 'Doctor Saved.' });
 			_this.doctorData = data;
+			_this.setJobTypeDesired(_this.doctorData);
 		}, function(error){
 			$log.error(error);
 			toasty.error({ title: 'Error!', msg: error.data });
@@ -123,6 +129,17 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 		$log.error(error);
 	});
 
+	this.setJobTypeDesired = function (doctorData) {
+		doctorData.selected_job_type_desired = [];
+		var jobTypes = MODIOCORE.jobTypes.getValues();
+
+		for (var key in jobTypes) {
+			var jobType = jobTypes[key].id;
+			if ((doctorData.job_type_desired & jobType) == jobType) {
+				doctorData.selected_job_type_desired.push(jobType);
+			}
+		}
+	}
 
 	/* Init */
 	_this.get(_this.doctorId);

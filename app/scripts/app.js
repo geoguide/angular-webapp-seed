@@ -37,7 +37,8 @@
 		'ui-rangeSlider',
 		'ngEgg',
 		'angular.filter',
-		'modioCore'
+		'modioCore',
+		'ui.select'
 	]);
 
 

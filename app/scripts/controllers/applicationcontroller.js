@@ -139,6 +139,7 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 	this.doctorTitles = MODIOCORE.providerTitles.getValues();
 	this.doctorTelemedExperience = MODIOCORE.telemedineExperience.toArray();
 	this.taxIdTypes = MODIOCORE.practice.taxIdTypes.toArray();
+	this.jobTypes = MODIOCORE.jobTypes.toArray();
 
 	this.usStates = applicationFactory.usStates;
 	this.countries = applicationFactory.countries;

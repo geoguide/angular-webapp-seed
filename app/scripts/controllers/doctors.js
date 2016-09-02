@@ -17,7 +17,10 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	var typeIn = $location.search().type;
 
 	/* Variables */
-	this.formData = {};
+	this.formData = {
+		job_type_desired: 0,
+		selected_job_type_desired: []
+	};
 	this.totalDoctors = 0;
 	this.currentPage = 1;
 	this.doctorsPerPage = 25;
@@ -68,6 +71,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	};
 
 	this.submitForm = function(){
+		for (var i = 0; i < _this.formData.selected_job_type_desired.length; i++) {
+			_this.formData.job_type_desired += _this.formData.selected_job_type_desired[i];
+		}
 		doctorFactory.createDoctor(_this.formData).then(function(data){
 			applicationFactory.goTo('/providers/'+data.id);
 			$modalStack.dismissAll();

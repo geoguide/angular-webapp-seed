@@ -14,7 +14,8 @@
 						<tr>
 							<th>id</th>
 							<th ng-click="dash.sortColumn('facility_name')">Facility</th>
-							<th>Job Types<br />(Job | Provider)</th>
+							<th ng-click="dash.sortColumn('job_jobtype')">Job Type(s)</th>
+							<th ng-click="dash.sortColumn('dr_job_type')">Provider Job Type(s)</th>
 							<th ng-click="dash.sortColumn('last_name')">Provider Name</th>
 							<th ng-click="dash.sortColumn('Licensed')">Licensed?</th>
 							<th ng-click="dash.sortColumn('job_specialty')">Specialty</th>
@@ -27,7 +28,8 @@
 						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0, source:'!11'} | orderBy: dash.sortBy : dash.sortDir track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
-							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
+							<td><span ng-bind="match.job_jobtype_title"></span></td>
+							<td><span ng-bind="match.dr_jobtype_title"></span></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::match.doctor_id}}')"><span ng-bind="match.first_name"></span> <span ng-bind="match.last_name"></span></td>
 							<td>{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
 							<td><span ng-bind="match.job_specialty"></span>  in <span ng-bind="match.doctor_desired_state"></span></td>
@@ -52,7 +54,8 @@
 						<tr>
 							<th>id</th>
 							<th>Facility</th>
-							<th>Job Types<br />(Job | Provider)</th>
+							<th>Job Type(s)</th>
+							<th>Provider Job Type(s)</th>
 							<th>Provider Name</th>
 							<th>Licensed?</th>
 							<th>Specialty</th>
@@ -65,7 +68,8 @@
 						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 1}  track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
 							<td ng-bind="match.job_id"></td>
 							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
-							<td><span ng-bind="match.JOB_TYPE"></span> | <span ng-bind="match.dr_job_type"></span></td>
+							<td><span ng-bind="match.job_jobtype_title"></span></td>
+							<td><span ng-bind="match.dr_jobtype_title"></span></td>
 							<td ng-click="appCtrl.goTo('/providers/{{::match.doctor_id}}')"><span ng-bind="match.first_name"></span> <span ng-bind="match.last_name"></span></td>
 							<td>{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
 							<td><span ng-bind="match.job_specialty"></span>  in <span ng-bind="match.doctor_desired_state"></span></td>

@@ -8,11 +8,13 @@
 		<div class="modal-body">
 			<div class="row">
 				<div class="col-md-6 form-group">
-					<label>Job Type</label>
-					<select name="job_type" class="form-control input-sm" ng-model="jobsCtrl.newJob.job_type"  ng-required="true">
-						<option value="1">Locum</option>
-						<option value="2">Permanent</option>
-					</select>
+					<label>Job Type(s)</label>
+					<ui-select multiple ng-model="jobsCtrl.newJob.selected_job_type" required="true">
+						<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+						<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+							<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
 				</div>
 				<div class="col-md-6 form-group">
 					<label>Specialty</label>
@@ -76,10 +78,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-3 form-group">
-					<label>Telemedicine?</label>
-					<input type="checkbox" ng-model="jobsCtrl.newJob.telemed" ng-true-value="1" ng-false-value="0" />
-				</div>
 				<div class="col-xs-3 form-group">
 					<label>FMG OK?</label>
 					<input type="checkbox" ng-model="jobsCtrl.newJob.fmg_accepted" ng-true-value="1" ng-false-value="0" />
@@ -196,10 +194,9 @@
 				</select>
 			</div>
 			<div class="col-sm-4 col-xs-6 col-md-2 form-group">
-				<select name="job_type" class="form-control input-sm" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()">
+				<select name="job_type" class="form-control input-sm" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()"
+						ng-options="job_type.id as job_type.name for job_type in appCtrl.jobTypes">
 					<option value="">- Choose Type -</option>
-					<option value="1">Locum</option>
-					<option value="2">Permanent</option>
 				</select>
 			</div>
 			<div class="col-sm-2 col-xs-6 form-group">
@@ -268,7 +265,7 @@
 						<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}">
 							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.id }}</td>
 							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_title }}</td>
-							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type_title }}</td>
 							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
 							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
 							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>

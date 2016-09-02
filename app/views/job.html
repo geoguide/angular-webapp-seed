@@ -9,14 +9,16 @@
 
 	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-hide="jobCtrl.loading" class="ng-hide" novalidate>
 		<div class="row">
-			<div class="col-md-2 form-group">
-				<label>Job Type</label>
-				<select name="job_type" class="form-control input-sm" ng-model="jobCtrl.jobData.job_type"  ng-required="true">
-					<option value="1">Locum</option>
-					<option value="2">Permanent</option>
-				</select>
-			</div>
 			<div class="col-md-3 form-group">
+				<label>Job Type(s)</label>
+				<ui-select multiple ng-model="jobCtrl.jobData.selected_job_type">
+					<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+						<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-md-4 form-group">
 				<label>Specialty</label>
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobCtrl.jobData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="jobCtrl.jobData.specialty_id = $item.id" typeahead-editable="false" />
 				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
@@ -25,11 +27,11 @@
 				<label>Job Status</label>
 				<select class="form-control input-sm" ng-model="jobCtrl.jobData.status"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
 			</div>
-			<div class="col-md-2 form-group">
+			<div class="col-md-1 form-group">
 				<label>Title</label>
 				<select class="form-control input-sm" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles"></select>
 			</div>
-			<div class="col-md-2 form-group">
+			<div class="col-md-1 form-group">
 	        <label>Archived</label>
 	        <select ng-model="jobCtrl.jobData.archived" class="form-control input-sm">
 	          <option value="0">No</option>
@@ -141,10 +143,6 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3 form-group">
-				<label>Telemedicine?</label>
-				<input type="checkbox" ng-model="jobCtrl.jobData.telemed" ng-true-value="1" ng-false-value="0" />
-			</div>
 			<div class="col-xs-3 form-group">
 				<label>FMG OK?</label>
 				<input type="checkbox" ng-model="jobCtrl.jobData.fmg_accepted" ng-true-value="1" ng-false-value="0" />
