@@ -18,6 +18,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.maxSize = 8; /* Private Functions */
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
+	this.settings = facilityFactory.getSettingsList();
 
 	this.open = function (modalId,dataIn) {
 		this.modalInstance = $modal.open({
@@ -50,7 +51,13 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
-			_this.facilities = response.facilities;
+			_this.facilities = response.facilities.map(function(facility){
+				var settings = facilityFactory.settingsToProperties(_this.settings, facility).map(function(sett){
+					return sett.label;
+				});
+			facility.settings = settings.join(', ');
+			return facility;
+		});
 			_this.totalFacilities = response.total;
 			_this.totalPages = _this.totalFacilities / _this.perPage;
 			_this.loading = false;
@@ -58,7 +65,8 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	};
 
 	this.submitFacility = function(){
-		facilityFactory.createFacility(_this.newFacility).then(function(response){
+		var facility = facilityFactory.mapSettings(_this.settings, _this.newFacility);
+		facilityFactory.createFacility(facility).then(function(response){
 			applicationFactory.goTo('/facility/'+response.data.id);
 			$modalStack.dismissAll();
 		});
