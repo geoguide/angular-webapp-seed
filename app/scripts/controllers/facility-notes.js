@@ -13,17 +13,8 @@ angular.module('modioAdminPortal')
 		this.facilityId = $routeParams.id;
 		this.facilityData = null;
 		this.tab = 'facility-notes';
-		//Date of ASDASD
-		this.opened = false;
 		this.error = false;
 		this.loading = true;
-		this.open = function ($event) {
-			$log.log('open called');
-			$event.preventDefault();
-			$event.stopPropagation();
-
-		_this.opened = true;
-		};
 
 		this.get = function (facilityId) {
 
@@ -49,12 +40,10 @@ angular.module('modioAdminPortal')
 			});
 		};
 
-
 		/* Init */
 
 		var init = function () {
 			_this.get(_this.facilityId);
-
 		};
 
 		init();
