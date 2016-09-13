@@ -21,6 +21,11 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.settings = facilityFactory.getSettingsList();
 
 	this.open = function (modalId,dataIn) {
+
+		_this.newFacility.settings = facilityFactory.getSettingsList().filter(function(item){
+			return item.defaultValue;
+		});
+
 		this.modalInstance = $modal.open({
 			templateUrl: 'create-facility-modal',
 			controller: 'ModalCtrl',

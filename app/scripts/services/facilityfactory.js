@@ -21,30 +21,39 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 		}, getSettingsList: function(){
 		return [{
 			property: 'is_medical_school',
+			defaultValue: 0,
 			label: 'Medical School'
 		}, {
 			property: 'is_primary',
+			defaultValue: 0,
 			label: 'Parent Facility'
 		}, {
 			property: 'is_active_client',
+			defaultValue: 0,
 			label: 'Active Client'
 		}, {
 			property: 'is_fellowship',
+			defaultValue: 1,
 			label: 'Fellowship'
 		}, {
 			property: 'is_residency',
+			defaultValue: 1,
 			label: 'Residency'
 		}, {
 			property: 'is_internship',
+			defaultValue: 1,
 			label: 'Internship'
 		}, {
 			property: 'is_education',
+			defaultValue: 1,
 			label: 'Education'
 		}, {
 			property: 'is_affiliation',
+			defaultValue: 1,
 			label: 'Affiliation'
 		}, {
 			property: 'is_work_history',
+			defaultValue: 1,
 			label: 'Work History'
 		}];
 		}, mapSettings: function(settings, obj) {
