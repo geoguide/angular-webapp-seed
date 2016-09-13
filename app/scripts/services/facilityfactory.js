@@ -55,6 +55,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			property: 'is_work_history',
 			defaultValue: 1,
 			label: 'Work History'
+		}, {
+			property: 'is_practice',
+			defaultValue: 1,
+			label: 'Practice'
 		}];
 		}, mapSettings: function(settings, obj) {
 			var facility = angular.copy(obj);
