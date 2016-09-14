@@ -21,10 +21,8 @@
 			<input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..." />
 		</div>
 		<div class="col-md-2 col-sm-4 form-group">
-			<select class="form-control input-sm" ng-model="fac.is_medical_school" ng-change="fac.getResults()">
-				<option value="">All</option>
-				<option value="1">Medical School</option>
-				<option value="0">Non-Medical School</option>
+			<select class="form-control input-sm" ng-model="fac.filter" ng-options="setting.label for setting in fac.settings" ng-change="fac.getResults()">
+				<option value=""></option>
 			</select>
 		</div>
 		<div class="col-md-2 col-sm-12 form-group">

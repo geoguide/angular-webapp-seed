@@ -55,6 +55,9 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.getResults = function() {
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
+		if (_this.filter) {
+			_this.queryData[_this.filter.property] = 1;
+		}
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
 			_this.facilities = response.facilities.map(function(facility){
 				var settings = facilityFactory.settingsToProperties(_this.settings, facility).map(function(sett){
@@ -63,6 +66,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			facility.settings = settings.join(', ');
 			return facility;
 		});
+			_this.queryData = {};
 			_this.totalFacilities = response.total;
 			_this.totalPages = _this.totalFacilities / _this.perPage;
 			_this.loading = false;
