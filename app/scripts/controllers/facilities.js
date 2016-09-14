@@ -55,8 +55,8 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.getResults = function() {
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
-		if (_this.filter) {
-			_this.queryData[_this.filter.property] = 1;
+		if (_this.facilitiesFilter) {
+			_this.queryData[_this.facilitiesFilter.property] = 1;
 		}
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
 			_this.facilities = response.facilities.map(function(facility){
