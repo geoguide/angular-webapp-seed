@@ -19,6 +19,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
 	this.settings = facilityFactory.getSettingsList();
+	this.facilitiesFilter = null;
 
 	this.open = function (modalId,dataIn) {
 
@@ -55,6 +56,14 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.getResults = function() {
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
+
+		for (var i = 0; i < _this.settings.length; i++) {
+			var setting = _this.settings[i];
+			if (_this.queryData.hasOwnProperty(setting.property)) {
+				delete _this.queryData[setting.property];
+			}
+		}
+
 		if (_this.facilitiesFilter) {
 			_this.queryData[_this.facilitiesFilter.property] = 1;
 		}
@@ -66,7 +75,6 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			facility.settings = settings.join(', ');
 			return facility;
 		});
-			_this.queryData = {};
 			_this.totalFacilities = response.total;
 			_this.totalPages = _this.totalFacilities / _this.perPage;
 			_this.loading = false;
@@ -89,5 +97,18 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	};
 	this.goTo = applicationFactory.goTo;
 
-	_this.getResults();
+	this.init = function() {
+		if (!angular.equals({}, _this.queryData)) {
+			for (var i = 0; i < _this.settings.length; i++) {
+				var setting = _this.settings[i];
+				if (_this.queryData.hasOwnProperty(setting.property)) {
+					_this.facilitiesFilter = setting;
+				}
+			}
+		}
+		_this.getResults();
+	};
+
+	//Init
+	this.init();
 });
