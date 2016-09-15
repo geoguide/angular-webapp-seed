@@ -55,7 +55,7 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 		}, saveFacility: function(formData){
 			return $http.put(API_URL+'/admin/facilities/'+formData.id,formData);
 		}, createFacility: function(formData){
-			return $http.post(API_URL+'/admin/facilities/',formData);
+			return $http.post(API_URL+'/admin/facilities/', formData);
 		}, queryFacilities: function(queryIn){
 			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
 			return $http.get(API_URL+'/admin/facilities',{params: queryIn}).then(function(response) {
