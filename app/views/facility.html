@@ -1,8 +1,11 @@
-<section>
-
-	<div id="no-data" ng-show="fac.error" class="ng-cloak">Facility Not Found</div>
-	<h4 ng-bind="fac.facilityData.facility_name"></h4>
-	<hr></hr>
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+		<object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+	</div>
+</div>
+<section ng-hide="fac.loading || fac.error">
 	<form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-5 form-group">
@@ -13,13 +16,17 @@
 				<label>Abbreviation</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation" />
 			</div>
-			<div class="col-xs-6 col-sm-6 col-md-2 form-group">
-				<label>Is Medical School?</label><br />
-				<input class="input-sm" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="fac.facilityData.is_medical_school" />
-			</div>
-			<div class="col-xs-6 col-sm-6 col-md-2 form-group">
-				<label>Is Primary?</label><br />
-				<input class="input-sm" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="fac.facilityData.is_primary" />
+	  <div class="col-xs-12 col-sm-12 col-md-4 form-group">
+		<label>Settings</label><br />
+		<ui-select multiple ng-model="fac.facilityData.settings" search-enabled="false">
+			<ui-select-match placeholder="Select settings">
+			{{$item.label}}
+			</ui-select-match>
+			<ui-select-choices repeat="item in fac.settings track by item.property"
+							 ng-hide="!$select.open">
+			<div ng-bind-html="item.label | highlight: $select.search"></div>
+			</ui-select-choices>
+		</ui-select>
 			</div>
 		</div>
 		<div class="row">
@@ -52,7 +59,7 @@
 				</select>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>Zip</label>

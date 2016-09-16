@@ -59,20 +59,20 @@
 			access: { requiredLogin: true },
 			controller: 'DoctorsCtrl',
 			controllerAs: 'drsCtrl'
-      }).when('/about', {
+	  }).when('/about', {
 			templateUrl: 'views/about.html',
 			access: { requiredLogin: true },
 			controller: 'AboutCtrl'
-      }).when('/login', {
+	  }).when('/login', {
 			templateUrl: 'views/login.html',
 			access: { requiredLogin: false },
 			controller: 'LoginCtrl',
 			controllerAs: 'loginCtrl'
-      }).when('/signup', {
+	  }).when('/signup', {
 			templateUrl: 'views/signup.html',
 			access: { requiredLogin: false },
 			controller: 'SignupCtrl'
-      }).when('/providers', {
+	  }).when('/providers', {
 			tab: 'users',
 			templateUrl: 'views/doctors.html',
 			access: { requiredLogin: true },
@@ -167,7 +167,13 @@
 			controllerAs: 'fac',
 			access: {requiredLogin: true },
 			tab: 'facilities'
-		}).when('/lookup', {
+		}).when('/facility/:id/notes', {
+			templateUrl: 'views/facility-notes.html',
+			controller: 'FacilityNotesCtrl',
+			controllerAs: 'fac',
+			access: {requiredLogin: true },
+			tab: 'facilities'
+	}).when('/lookup', {
 			templateUrl: 'views/lookup.html',
 			controller: 'LookupCtrl',
 			controllerAs:'look',
@@ -257,13 +263,13 @@
 
 	webapp.config(['toastyConfigProvider', function(toastyConfigProvider) {
 		toastyConfigProvider.setConfig({
-        //sound: false,
-        //shake: true,
-        clickToClose: false,
-        timeout: 4000,
-        theme:'material'
-      });
-    }
+		//sound: false,
+		//shake: true,
+		clickToClose: false,
+		timeout: 4000,
+		theme:'material'
+	  });
+	}
   ]);
 
 	webapp.config(function Config($httpProvider, jwtInterceptorProvider) {

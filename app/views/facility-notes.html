@@ -1,0 +1,20 @@
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+		<object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+	</div>
+</div>
+<section ng-hide="fac.loading || fac.error">
+	<form id="notes-form" name="notes_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
+		<div class="form-group">
+			<label>Notes</label>
+			<textarea class="form-control input-sm" name="notes" ng-model="fac.facilityData.notes" rows="25"></textarea>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+				<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="notes_form.$invalid" ng-click="fac.save()">Submit</button>
+			</div>
+		</div>
+	</form>
+</section>

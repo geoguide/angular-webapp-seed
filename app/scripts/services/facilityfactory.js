@@ -7,17 +7,47 @@
  * # facilityFactory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal').factory('facilityFactory', function ($http,API_URL,$log) {
-    // Service logic
-    // ...
+angular.module('modioAdminPortal').factory('facilityFactory', function ($http,API_URL,$log, MODIOCORE) {
+	// Service logic
+	// ...
 
 
-    // Public API here
-    return {
+	// Public API here
+	return {
 		getFacilities: function(){
 			return $http.get(API_URL+'/admin/facilities/').then(function(response) {
 				return response.data;
 			});
+		}, getSettingsList: function(){
+			return MODIOCORE.facilitySettings.toArray();
+		}, mapSettings: function(settings, obj) {
+			var facility = angular.copy(obj);
+			for (var i = 0; i < settings.length; i++) {
+				var option = settings[i].property;
+				var value = 0;
+
+				for (var j = 0; j < facility.settings.length; j++) {
+					var selectedOption = facility.settings[j].property;
+					if (selectedOption == option) {
+						value = 1;
+						break;
+					} else {
+						value = 0;
+					}
+				}
+				facility[option] = value;
+			}
+			delete facility.settings;
+			return facility;
+		}, settingsToProperties: function(settings, obj) {
+				var mappedSettings = [];
+				for (var i = 0; i < settings.length; i++) {
+					var item = settings[i];
+					if (obj.hasOwnProperty(item.property) && obj[item.property] == 1) {
+						mappedSettings.push(item);
+					}
+				}
+			return mappedSettings;
 		}, getFacility: function(facilityId){
 			return $http.get(API_URL+'/admin/facilities/'+facilityId).then(function(response) {
 				return response.data;
@@ -25,7 +55,7 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 		}, saveFacility: function(formData){
 			return $http.put(API_URL+'/admin/facilities/'+formData.id,formData);
 		}, createFacility: function(formData){
-			return $http.post(API_URL+'/admin/facilities/',formData);
+			return $http.post(API_URL+'/admin/facilities/', formData);
 		}, queryFacilities: function(queryIn){
 			queryIn.sort_direction = (queryIn.sortDirection === true) ? 'DESC' : 'ASC';
 			return $http.get(API_URL+'/admin/facilities',{params: queryIn}).then(function(response) {
