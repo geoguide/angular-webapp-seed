@@ -99,6 +99,13 @@
 				</select>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.source" ng-change="drsCtrl.getResults()" ng-options="item.id as item.name for item in appCtrl.source">
+					<option value="">-- Select Source --</option>
+				</select>
+			</div>
+		</div>
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
 			<div class="col-md-4 col-xs-12 form-group">
 				<label>Score</label>
