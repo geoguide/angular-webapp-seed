@@ -82,7 +82,6 @@
 					<option value="true">True</option>
 				</select>
 			</div>
-
 			<div class="col-md-3 col-sm-6 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()" ng-options="st.abbreviation as st.abbreviation for st in appCtrl.usStates">
 					<option value="">-- Select License State --</option>
@@ -96,6 +95,13 @@
 			<div class="col-md-3 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles">
 					<option value="">-- Select Title --</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.source" ng-change="drsCtrl.getResults()" ng-options="item.id as item.name for item in appCtrl.source">
+					<option value="">-- Select Source --</option>
 				</select>
 			</div>
 		</div>

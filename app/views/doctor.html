@@ -89,7 +89,6 @@
 				<a class="btn btn-primary" ng-click="dr.ssn.show = true" ng-hide="dr.ssn.show">Show</a>
 				<input class="ng-hide form-control input-sm" ng-click="dr.ssn.show = false" ng-hide="!dr.ssn.show" ui-mask="999-99-9999" ng-model="dr.doctorData.ssn" />
 			</div>
-
 		</div>
 
 		<hr />
@@ -141,6 +140,7 @@
 				<p>
 					<label>Telemedicine Experience</label>
 					<select ng-model="dr.doctorData.telemed_exp" class="form-control input-sm" ng-options="exp.id as exp.name for exp in appCtrl.doctorTelemedExperience">
+						<option value=""></option>
 					</select>
 				</p>
 			</div>
