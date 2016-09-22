@@ -176,45 +176,48 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 		}
 	];
 
-  this.source = [
-    {
-      id: 0,
-      name: 'Provisioned'
-    },{
-      id: 1,
-      name: 'Webapp'
-    },{
-      id: 2,
-      name: 'Marketing'
-    },{
-      id: 3,
-      name: 'Referral'
-    },{
-      id: 4,
-      name: 'AdWords'
-    },{
-      id: 5,
-      name: 'GDN'
-    },{
-      id: 6,
-      name: 'Bing'
-    },{
-      id: 7,
-      name: 'LinkedIn'
-    },{
-      id: 8,
-      name: 'Facebook'
-    },{
-      id: 9,
-      name: 'Email'
-    }, {
-	    id:10,
-	    name: 'Coordinator'
-    }, {
-			id:11,
+	this.source = [
+		{
+			id: 0,
+			name: 'Provisioned'
+		}, {
+			id: 1,
+			name: 'Webapp'
+		}, {
+			id: 2,
+			name: 'Marketing'
+		}, {
+			id: 3,
+			name: 'Referral'
+		}, {
+			id: 4,
+			name: 'AdWords'
+		}, {
+			id: 5,
+			name: 'GDN'
+		}, {
+			id: 6,
+			name: 'Bing'
+		}, {
+			id: 7,
+			name: 'LinkedIn'
+		}, {
+			id: 8,
+			name: 'Facebook'
+		}, {
+			id: 9,
+			name: 'Email'
+		}, {
+			id: 10,
+			name: 'Coordinator'
+		}, {
+			id: 11,
 			name: 'Recruiter'
+		}, {
+			id: 12,
+			name: 'Demo'
 		}
-  ];
+	];
 
 	this.dispositionMap = [];
 	for(var d=0;d<_this.disposition.length;d++){
