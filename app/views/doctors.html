@@ -57,7 +57,7 @@
 	<form ng-submit="drsCtrl.getResults()">
 		<div class="row">
 			<div class="col-md-3 col-sm-6  form-group">
-				<input type="search" class="form-control input-sm" ng-model="drsCtrl.queryData.q" value="" placeholder="Search Providers... " />
+				<input type="search" class="form-control input-sm" ng-model="drsCtrl.queryData.q" value="" placeholder="Search Providers..." />
 			</div>
 			<div class="col-md-3 col-sm-3 form-group">
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.queryData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.queryData.specialty_id = $item.id" typeahead-editable="false" />
