@@ -123,11 +123,21 @@
 				<label>Contact Name</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.contact_name" />
 			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+				<label>Contact Phone</label>
+				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.contact_phone" />
+			</div>
 			<div class="col-xs-12 col-sm-12 col-md-4 form-group">
+				<label>Contact Email</label>
+				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.contact_email">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
 				<label>Group Medicaid Number</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.medicaid_number" />
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-4 form-group">
+			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
 				<label>Group Medicare Number</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.medicare_number" />
 			</div>
