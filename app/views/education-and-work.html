@@ -15,10 +15,10 @@
 				<accordion-group is-open="true">
 					<accordion-heading>Facility Memberships<span class="badge pull-right" ng-bind="(dr.memberships).length"></span></accordion-heading>
 					<article ng-repeat="(key,obj) in dr.memberships" class="row form-group">
-						<div class="col-xs-2 col-md-1" ng-click="dr.openMembershipModal('membership-modal',obj)">
+						<div class="col-xs-2 col-md-1" ng-click="dr.openMembershipModal(obj)">
 							<img ng-src="{{obj.profileUrl || './images/default-avatar.png' }}" onerror="if (this.src != './images/default-avatar.png') this.src = './images/default-avatar.png';" class="img-responsive img-circle" style="width:100%" />
 						</div>
-						<div class="col-md-9 col-xs-8" ng-click="dr.openMembershipModal('facility-membership-modal',obj)">
+						<div class="col-md-9 col-xs-8" ng-click="dr.openMembershipModal(obj)">
 							<h4><span ng-bind="obj.facility_name"></span> <span ng-bind="'('+appCtrl.memberStatuses[obj.status].status+')'"></span></h4>
 							<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
 						</div>
@@ -29,48 +29,10 @@
 						</div>
 						<hr />
 					</article>
-					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openMembershipModal('facility-membership-modal',{})">Add Facility Membership</button>
+					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openMembershipModal({})">Add Facility Membership</button>
 				</accordion-group>
 			</accordion>
 		</div>
 	</div>
 
 </div>
-
-
-
-
-<!--
-		Modals
-					-->
-
-
-<script type="text/ng-template" id="facility-membership-modal">
-	<div class="modal-header">
-		<h4 class="modal-title">Add/Edit Facility Membership</h4>
-	</div>
-	<div class="modal-body">
-		<form novalidate>
-			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>Facility</label>
-					<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id" typeahead-editable="false" />
-					<input type="hidden" ng-model="modal.modalObject.facility_id" />
-					<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
-				</div>
-				<div class="form-group col-xs-6">
-					<label>Status</label>
-					<select class="form-control input-sm" ng-model="modal.modalObject.status">
-						<option value="0">Inactive</option>
-						<option value="1">Active</option>
-					</select>
-				</div>
-			</div>
-		</form>
-
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary btn-sm" ng-click="modal.ok()">OK</button>
-		<button class="btn btn-warning btn-sm" ng-click="modal.cancel()">Cancel</button>
-	</div>
-</script>

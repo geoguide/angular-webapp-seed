@@ -55,4 +55,16 @@ angular.module('modioAdminPortal').filter('tel', function () {
     return function(input) {
       return parseInt(input, 10);
     };
+}).filter('availableFacilities', function() {
+  return function(allFacilities, facilityMemberships) {
+    return allFacilities.filter(function(facility) {
+      for (var i = 0; i < facilityMemberships.length; i++) {
+        var facilityMembership = facilityMemberships[i];
+        if (facilityMembership.facility_id == facility.id) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
 });

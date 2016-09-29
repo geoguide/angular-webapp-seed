@@ -17,6 +17,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	this.trackingData = [];
 	this.memberships = [];
+	this.facilities = [];
 	this.matches = [];
 
 	this.today = new Date();
@@ -36,12 +37,15 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	/* Modals */
 
-	this.openMembershipModal = function(modalId,dataIn){
-		dataIn.status = 1;
+	this.openMembershipModal = function(dataIn){
+		if (dataIn.status === null || dataIn.status === undefined) {
+			dataIn.status = 1;
+		}
 		this.modalInstance = $modal.open({
-			templateUrl: modalId,
+			templateUrl: '/views/modals/membershipsModal.html',
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			size: 'lg',
 			resolve: {
 				modalObject: function(){
 					return dataIn;
@@ -56,8 +60,17 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 		});
 
 		_this.modalInstance.result.then(function (data) {
+			if (data.facilities) {
+				data = data.facilities.map(function(facility){
+					return {
+						facility_id: facility.id,
+						doctor_id: _this.doctorId,
+						status: data.status
+					}
+				});
+			}
 			_this.submitFacilityMembership(data).then(function(){
-				toasty.success('Membership Saved');
+				_this.loading = true;
 				_this.init();
 			},function(error){
 				$log.error(error);
@@ -71,18 +84,26 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 	/* Facility Memberships */
 
 	this.queryFacilities = function(query){
+		_this.loadingLocations = true;
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities({q:query}).then(function(data){
+		facilityFactory.queryFacilities({q:query}).then(function(data){
+			_this.facilities = data.facilities;
+			_this.loadingLocations = false;
 			deferred.resolve(data.facilities);
 		},function(error){
+			_this.loadingLocations = false;
 			deferred.reject(error);
 			$log.error(error);
 		});
 		return deferred.promise;
 	};
 
+	this.clearFacilitiesList = function() {
+		_this.facilities = [];
+	};
+
 	this.submitFacilityMembership = function(membershipData){
-		doctorFactory.submitMembership(_this.doctorId,membershipData).then(function(data){
+		return doctorFactory.submitMembership(_this.doctorId,membershipData).then(function(data){
 			toasty.success('Membership Submitted.');
 			_this.init();
 		}, function(error){

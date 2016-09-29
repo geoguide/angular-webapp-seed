@@ -13,6 +13,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
 	this.memberships = [];
+	this.facilities = [];
 	this.loading = true;
 	this.error = false;
 
@@ -26,12 +27,15 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		}
 	];
 
-	this.openMembershipModal = function(modalId,dataIn){
-		dataIn.status = 1;
+	this.openMembershipModal = function(dataIn){
+		if (dataIn.status === null || dataIn.status === undefined) {
+			dataIn.status = 1;
+		}
 		this.modalInstance = $modal.open({
-			templateUrl: modalId,
+			templateUrl: '/views/modals/membershipsModal.html',
 			controller: 'ModalCtrl',
 			controllerAs: 'modal',
+			size: 'lg',
 			resolve: {
 				modalObject: function(){
 					return dataIn;
@@ -46,6 +50,15 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		});
 
 		_this.modalInstance.result.then(function (data) {
+			if (data.facilities) {
+				data = data.facilities.map(function(facility){
+					return {
+						facility_id: facility.id,
+						doctor_id: _this.coordId,
+						status: data.status
+					}
+				});
+			}
 			doctorFactory.submitMembership(_this.coordId,data).then(function(){
 				toasty.success('Membership Submitted.');
 				_this.get(_this.coordId);
@@ -95,14 +108,22 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	};
 
 	this.queryFacilities = function(query){
+		_this.loadingLocations = true;
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities({q:query}).then(function(data){
+		facilityFactory.queryFacilities({q:query}).then(function(data){
+			_this.facilities = data.facilities;
+			_this.loadingLocations = false;
 			deferred.resolve(data.facilities);
 		},function(error){
+			_this.loadingLocations = false;
 			deferred.reject(error);
 			$log.error(error);
 		});
 		return deferred.promise;
+	};
+
+	this.clearFacilitiesList = function() {
+		_this.facilities = [];
 	};
 
 	this.save = function(){
