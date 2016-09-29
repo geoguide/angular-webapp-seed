@@ -106,7 +106,7 @@
 						<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
 					</div>
 					<div class="col-md-2">
-						<a class="btn btn-info btn-sm btn-block" ng-click="coord.openMembershipModal('membership-modal',obj)">Edit</a>
+						<a class="btn btn-info btn-sm btn-block" ng-click="coord.openMembershipModal(obj)">Edit</a>
 						<button class="btn btn-danger btn-sm btn-block" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
 					</div>
 					<hr />
@@ -115,41 +115,9 @@
 		</accordion>
 		<div class="row">
 		<div class="col-xs-12 text-right">
-				<button class="btn btn-success" ng-click="coord.openMembershipModal('membership-modal',{})">Add Membership</button
+				<button class="btn btn-success" ng-click="coord.openMembershipModal({})">Add Membership</button
 			</div>
 		</div>
 	</div>
 
 </section>
-
-
-
-
-<!-- (facility_id, doctor_id, status, email, department, job_title, job_status) -->
-<script type="text/ng-template" id="membership-modal">
-	<div class="modal-header">
-		<h3 class="modal-title">Add Facility Membership</h3>
-	</div>
-	<div class="modal-body">
-		<form novalidate>
-			<div class="row">
-				<div class="form-group col-xs-6">
-					<label>Facility</label>
-					<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id" typeahead-editable="false" />
-					<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
-				</div>
-				<div class="form-group col-xs-6">
-					<label>Status</label>
-					<select class="form-control" ng-model="modal.modalObject.status">
-						<option value="0">Inactive</option>
-						<option value="1">Active</option>
-					</select>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="modal.ok()">OK</button>
-		<button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
-	</div>
-</script>
