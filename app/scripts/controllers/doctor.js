@@ -19,7 +19,6 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 	this.trackingData = [];
 	this.env = ENV;
 	this.licenses = [];
-	//this.eggActivated = false;
 
 	//Date of Birth Picker
 	this.opened = false;

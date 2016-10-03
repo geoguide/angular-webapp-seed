@@ -35,7 +35,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.queryData = doctorFactory.queryData;
 	this.queryData.job_type_desired = 1;
 
-	this.csvEndpoint = API_URL+'/public/download-users-csv?token='+localStorageService.get('adminAuthToken');
+	this.csvEndpoint = API_URL+'/public/download-users-csv?token=' + localStorageService.get('adminAuthToken');
 
   this.dynamicPopover = {
     templateUrl: 'notes-template.html'
