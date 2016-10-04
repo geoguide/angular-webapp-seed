@@ -14,7 +14,6 @@ angular.module('modioAdminPortal').controller('DashboardCtrl', function (dashboa
 
 	this.sortBy = ['Licensed', 'score'];
 	this.sortDir = true;
-	//MODIO_CORE.sayhi();
 
 	this.sortColumn = function(column){
 		if(_this.sortBy != column){
