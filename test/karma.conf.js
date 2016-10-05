@@ -38,6 +38,8 @@ module.exports = function(config) {
       'bower_components/angularjs-slider/dist/rzslider.js',
       'bower_components/api-check/dist/api-check.js',
       'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
+      'bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
       'bower_components/ng-tags-input/ng-tags-input.min.js',
       'bower_components/angular-egg/release/angular-egg.min.js',
       'bower_components/angular-filter/dist/angular-filter.js',

@@ -30,6 +30,7 @@
 		'angular-jwt',
 		'LocalStorageModule',
 		'ui.mask',
+		'ngFileUpload',
 		'ngAnimate',
 		'angular-toasty',
 		'ui.bootstrap',
