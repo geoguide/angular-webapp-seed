@@ -11,7 +11,7 @@
 
 		<div class="col-xs-6" ng-repeat="obj in jobCtrl.uploadTypes">
 			<h4 ng-bind="obj.title"></h4>
-			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files)"
+			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files, obj.type)"
 		ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
 		ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Drop Images, Documents or PDFs files here</div>
 			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
