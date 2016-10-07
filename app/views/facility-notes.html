@@ -33,7 +33,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="file in fac.files">
-								<td ng-bind="file.filename"></td>
+								<td><a ng-bind="file.filename" ng-click="fac.getFileLink(file)"></a></td>
 								<td ng-bind="file.filesize"></td>
 								<td ng-bind="file.date_created"></td>
 								<td>
