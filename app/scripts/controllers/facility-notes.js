@@ -19,7 +19,6 @@ angular.module('modioAdminPortal')
 		this.loading = true;
 
 		this.get = function (facilityId) {
-
 			var facilityData = facilityFactory.getFacility(facilityId);
 
 			facilityData.then(function (data) {
