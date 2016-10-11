@@ -13,8 +13,16 @@
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true" />
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6 form-group">
-				<label>Abbreviation</label>
-				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation" />
+				<label>Settings</label><br/>
+				<ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false">
+					<ui-select-match placeholder="Select settings">
+						{{$item.name}}
+					</ui-select-match>
+					<ui-select-choices group-by="'group'" repeat="item in fac.settings track by item.id"
+							ng-hide="!$select.open">
+						<div ng-bind-html="item.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 		</div>
 		<div class="row">
@@ -23,16 +31,8 @@
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.previous_name" />
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
-				<label>Settings</label><br/>
-				<ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false">
-					<ui-select-match placeholder="Select settings">
-						{{$item.name}}
-					</ui-select-match>
-					<ui-select-choices group-by="'group'" repeat="item in fac.settings track by item.id"
-					ng-hide="!$select.open">
-						<div ng-bind-html="item.name | highlight: $select.search"></div>
-					</ui-select-choices>
-				</ui-select>
+				<label>Abbreviation</label>
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation" />
 			</div>
 		</div>
 		<div class="row">
