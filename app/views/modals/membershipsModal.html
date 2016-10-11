@@ -15,7 +15,7 @@
 					<ui-select-match placeholder="Select facilities">
 						{{$item.facility_name}}
 					</ui-select-match>
-					<ui-select-choices minimum-input-length="3" refresh-delay="0" repeat="fac in modal.parentCtrl.facilities | availableFacilities : modal.parentCtrl.memberships" refresh="modal.parentCtrl.queryFacilities($select.search)">
+					<ui-select-choices minimum-input-length="3" refresh-delay="0" repeat="fac in modal.parentCtrl.facilities | availableFacilities : modal.parentCtrl.memberships" refresh="modal.parentCtrl.queryFacilities($select.search, modal.parentCtrl.MODIOCORE.facilitySettings.values.membership.id)">
 						<div ng-bind-html="fac.facility_name | highlight: $select.search"></div>
 					</ui-select-choices>
 				</ui-select>
