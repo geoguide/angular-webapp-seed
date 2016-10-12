@@ -8,7 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-	.controller('FacilityNotesCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, $window, s3factory) {
+	.controller('FacilityNotesCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, $window, s3factory, MODIOCORE) {
 		var _this = this;
 		this.facilityId = $routeParams.id;
 		this.componentId = 3;
@@ -17,11 +17,14 @@ angular.module('modioAdminPortal')
 		this.tab = 'facility-notes';
 		this.error = false;
 		this.loading = true;
+		this.membership = false;
+		this.MODIOCORE = MODIOCORE;
 
 		this.get = function (facilityId) {
 			var facilityData = facilityFactory.getFacility(facilityId);
 			facilityData.then(function (data) {
 				_this.facilityData = data;
+				_this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
 				_this.error = false;
 				_this.loading = false;
 			}, function (error) {

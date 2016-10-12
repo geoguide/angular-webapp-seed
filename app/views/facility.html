@@ -57,14 +57,6 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>Country</label>
-				<select class="form-control input-sm" ng-model="fac.facilityData.country" ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>County</label>
-				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.county" />
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>City</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.city" />
 			</div>
@@ -73,6 +65,14 @@
 				<select class="form-control input-sm" ng-model="fac.facilityData.state"  ng-required="true" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 					<option value=""></option>
 				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
+				<label>County</label>
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.county" />
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
+				<label>Country</label>
+				<select class="form-control input-sm" ng-model="fac.facilityData.country" ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
 			</div>
 		</div>
 		<div class="row">
@@ -89,8 +89,8 @@
 				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.fax" />
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>NPI Number</label>
-				<input class="form-control input-sm" type="text" ui-mask="9999999999" ng-model="fac.facilityData.npi_number" />
+				<label>Email</label>
+				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.email">
 			</div>
 		</div>
 		<div class="row">
@@ -99,8 +99,8 @@
 				<input class="form-control input-sm" type="url" ng-model="fac.facilityData.website" />
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
-				<label>Email</label>
-				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.email">
+				<label>NPI Number</label>
+				<input class="form-control input-sm" type="text" ui-mask="9999999999" ng-model="fac.facilityData.npi_number" />
 			</div>
 		</div>
 		<div class="row">
