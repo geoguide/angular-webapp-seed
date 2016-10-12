@@ -53,8 +53,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 				$log.error(error);
 			});
 		}, facilitiesWithMembers: function(query){
-			return $http.get(API_URL+'/admin/facilities/memberships',{params: query}).then(function(response) {
-				return response.data;
+			query = query || {};
+			query.settings = MODIOCORE.facilitySettings.values.membership.id;
+			return $http.get(API_URL+'/admin/facilities/',{params: query}).then(function(response) {
+				return response.data.facilities;
 			}, function(error){
 				$log.error(error);
 			});

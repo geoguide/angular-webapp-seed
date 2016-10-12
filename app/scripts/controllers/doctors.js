@@ -15,6 +15,7 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.searchQuery = '';
 	this.modalInstance = '';
 	var typeIn = $location.search().type;
+	var facilityId = +$location.search().facilityId;
 
 	/* Variables */
 	this.formData = {
@@ -117,6 +118,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 
 	facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
 		_this.facilitiesWithMembers = response;
+		if (facilityId) {
+			_this.queryData.facility_id = facilityId;
+		}
 		return _this.getResults();
 	}).then(function(result){
 		doctorFactory.getJobMatchTotals().then(function(result){

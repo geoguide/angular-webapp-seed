@@ -325,6 +325,9 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 	];
 
 	return {
+		changePath: function(path, params) {
+			$location.path(path).search(params);
+		},
 		goTo: function (path,search) {
 			$location.path(path).search('type',search);
 		}, userInfo: {

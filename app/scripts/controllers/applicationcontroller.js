@@ -50,8 +50,10 @@ angular.module('modioAdminPortal').controller('ApplicationCtrl', function ($scop
 
 	this.goTo = applicationFactory.goTo;
 
+	this.changePath = applicationFactory.changePath;
+
 	this.abmsCertifications = [];
-  
+
 	this.insuranceTypes = [
 		{
 			id: 0,

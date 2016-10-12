@@ -8,9 +8,10 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal) {
+  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, MODIOCORE) {
 
 	var _this = this;
+	this.MODIOCORE = MODIOCORE;
 	this.facilityId = $routeParams.id;
 	this.facilityData = null;
 	this.tab = 'facility-info';
@@ -18,6 +19,7 @@ angular.module('modioAdminPortal')
 	this.opened = false;
 	this.error = false;
 	this.loading = true;
+	this.membership = false;
 	this.settings = facilityFactory.getSettingsList();
 	this.open = function($event) {
 		$log.log('open called');
@@ -33,6 +35,8 @@ angular.module('modioAdminPortal')
 		facilityData.then(function(data){
 			_this.facilityData = data;
 			_this.facilityData.selected_settings = [];
+
+			_this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
 
 			for (var i = 0; i < _this.settings.length; i++) {
 		var item = _this.settings[i];
