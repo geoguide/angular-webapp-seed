@@ -114,7 +114,7 @@
 							<td ng-bind="(l.alerts == 1) ? 'Yes' : 'No' "></td>
 							<td ng-bind="(l.locked == 1) ? 'Yes' : 'No' "></td>
 							<td ng-bind="l.date_updated"></td>
-							<td><button class="btn btn-primary" ng-click="rc.actAs($event,l.doctor_id)">Act As</td>
+							<td><button class="btn btn-xs btn-primary" act-as="{{ l.doctor_id }}">Act As</button></td>
 						</tr>
 					</tbody>
 				</table>
