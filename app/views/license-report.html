@@ -103,17 +103,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="l in rc.licenses" ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')">
-							<td ng-bind="l.id"></td>
-							<td ng-bind="l.provider_name"></span></td>
-							<td ng-bind="rc.licenseTypes.get({ id: l.type_id}).name"></td>
-							<td ng-bind="l.number"></td>
-							<td ng-bind="l.state"></td>
-							<td ng-bind="l.expiration_date"></td>
-							<td ng-bind="rc.getDuration(l.expiration_date)"></td>
-							<td ng-bind="(l.alerts == 1) ? 'Yes' : 'No' "></td>
-							<td ng-bind="(l.locked == 1) ? 'Yes' : 'No' "></td>
-							<td ng-bind="l.date_updated"></td>
+						<tr ng-repeat="l in rc.licenses">
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.id"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.provider_name"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="rc.licenseTypes.get({ id: l.type_id}).name"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.number"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.state"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.expiration_date"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="rc.getDuration(l.expiration_date)"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="(l.alerts == 1) ? 'Yes' : 'No' "></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="(l.locked == 1) ? 'Yes' : 'No' "></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::l.doctor_id}}')" ng-bind="l.date_updated"></td>
 							<td><button class="btn btn-xs btn-primary" act-as="{{ l.doctor_id }}">Act As</button></td>
 						</tr>
 					</tbody>
