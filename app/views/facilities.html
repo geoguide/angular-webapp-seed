@@ -65,7 +65,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')"
-						popover-template="fac.notesPopover.templateUrl" popover-title="Notes" popover-trigger="mouseenter">
+						popover-template="fac.notesPopover.templateUrl" popover-title="Notes" popover-trigger="mouseenter" popover-class="popover-notes">
 							<td ng-bind="f.id"></td>
 							<td><span ng-bind="f.facility_display"></span></td>
 							<td ng-bind="f.address"></td>
