@@ -6,7 +6,7 @@
  * # FacilitiesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack,$modal) {
+angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack, $modal) {
 	var _this = this;
 	this.facilities = [];
 	this.facilitiesWithMembers = [];
@@ -19,14 +19,14 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
 	this.settings = facilityFactory.getSettingsList();
-	this.facilitiesFilter = null;
+	this.notesPopover = {
+		templateUrl: 'notes-template.html'
+	};
 
 	this.open = function (modalId,dataIn) {
-
-		_this.newFacility.settings = facilityFactory.getSettingsList().filter(function(item){
-			return item.defaultValue;
+		_this.newFacility.selected_settings = _this.settings.filter(function(item){
+			return item.isDefault;
 		});
-
 		this.modalInstance = $modal.open({
 			templateUrl: 'create-facility-modal',
 			controller: 'ModalCtrl',
@@ -57,33 +57,42 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
 
-		for (var i = 0; i < _this.settings.length; i++) {
-			var setting = _this.settings[i];
-			if (_this.queryData.hasOwnProperty(setting.property)) {
-				delete _this.queryData[setting.property];
-			}
-		}
-
-		if (_this.facilitiesFilter) {
-			_this.queryData[_this.facilitiesFilter.property] = 1;
-		}
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
-			_this.facilities = response.facilities.map(function(facility){
-				var settings = facilityFactory.settingsToProperties(_this.settings, facility).map(function(sett){
-					return sett.label;
-				});
-			facility.settings = settings.join(', ');
-			return facility;
-		});
+			_this.facilities = response.facilities;
 			_this.totalFacilities = response.total;
 			_this.totalPages = _this.totalFacilities / _this.perPage;
 			_this.loading = false;
 		});
 	};
 
+	this.isMainTabActive = function() {
+		if (_this.queryData.settings) {
+			var tabs = _this.getTabs();
+			for (var i = 0; i < tabs.length; i++) {
+				if (_this.queryData.settings == tabs[i].id) {
+					return false;
+				}
+			}
+		}
+		return true;
+	};
+
+	this.getTabs = function() {
+		return _this.settings.filter(function(item){
+			return item.group == 'Client Status';
+		});
+	};
+
+
+	this.changeTab = function(clientStatus) {
+		_this.queryData.settings = clientStatus;
+		_this.getResults();
+	};
+
 	this.submitFacility = function(){
-		var facility = facilityFactory.mapSettings(_this.settings, _this.newFacility);
-		facilityFactory.createFacility(facility).then(function(response){
+		_this.newFacility.settings = facilityFactory.mapSettings(_this.newFacility.selected_settings);
+		delete _this.newFacility.selected_settings;
+		facilityFactory.createFacility(_this.newFacility).then(function(response){
 			applicationFactory.goTo('/facility/'+response.data.id);
 			$modalStack.dismissAll();
 		});

@@ -8,25 +8,31 @@
 <section ng-hide="fac.loading || fac.error">
 	<form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
 		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-md-5 form-group">
+			<div class="col-xs-12 col-sm-6 col-md-6 form-group">
 				<label>Facility Name</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true" />
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
+			<div class="col-xs-12 col-sm-6 col-md-6 form-group">
+				<label>Settings</label> <br/>
+				<ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false">
+					<ui-select-match placeholder="Select settings">
+						{{$item.name}}
+					</ui-select-match>
+					<ui-select-choices group-by="'group'" repeat="item in fac.settings | orderBy: ['group','name'] track by item.id"
+							ng-hide="!$select.open">
+						<div ng-bind-html="item.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 form-group">
+				<label>Previous Name</label>
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.previous_name" />
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
 				<label>Abbreviation</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation" />
-			</div>
-	  <div class="col-xs-12 col-sm-12 col-md-4 form-group">
-		<label>Settings</label><br />
-		<ui-select multiple ng-model="fac.facilityData.settings" search-enabled="false">
-			<ui-select-match placeholder="Select settings">
-			{{$item.label}}
-			</ui-select-match>
-			<ui-select-choices repeat="item in fac.settings track by item.property"
-							 ng-hide="!$select.open">
-			<div ng-bind-html="item.label | highlight: $select.search"></div>
-			</ui-select-choices>
-		</ui-select>
 			</div>
 		</div>
 		<div class="row">
@@ -51,14 +57,6 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>Country</label>
-				<select class="form-control input-sm" ng-model="fac.facilityData.country" ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>County</label>
-				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.county" />
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>City</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.city" />
 			</div>
@@ -67,6 +65,14 @@
 				<select class="form-control input-sm" ng-model="fac.facilityData.state"  ng-required="true" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
 					<option value=""></option>
 				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
+				<label>County</label>
+				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.county" />
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
+				<label>Country</label>
+				<select class="form-control input-sm" ng-model="fac.facilityData.country" ng-required="true" ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
 			</div>
 		</div>
 		<div class="row">
@@ -83,8 +89,8 @@
 				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.fax" />
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
-				<label>NPI Number</label>
-				<input class="form-control input-sm" type="text" ui-mask="9999999999" ng-model="fac.facilityData.npi_number" />
+				<label>Email</label>
+				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.email">
 			</div>
 		</div>
 		<div class="row">
@@ -93,14 +99,14 @@
 				<input class="form-control input-sm" type="url" ng-model="fac.facilityData.website" />
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
-				<label>Email</label>
-				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.email">
+				<label>NPI Number</label>
+				<input class="form-control input-sm" type="text" ui-mask="9999999999" ng-model="fac.facilityData.npi_number" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>Tax ID</label>
-				<input class="form-control input-sm" type="text" ui-mask="999-99-9999" ng-model="fac.facilityData.tax_id" />
+				<input class="form-control input-sm" type="text" ui-mask="99-9999999" ng-model="fac.facilityData.tax_id" />
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>Tax ID Type</label>
@@ -118,15 +124,15 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-4 form-group">
+			<div class="col-xs-12 col-sm-12 col-md-6 form-group">
 				<label>Contact Name</label>
 				<input class="form-control input-sm" type="text" ng-model="fac.facilityData.contact_name" />
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+			<div class="col-xs-12 col-sm-6 col-md-3 form-group">
 				<label>Contact Phone</label>
 				<input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.contact_phone" />
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-4 form-group">
+			<div class="col-xs-12 col-sm-12 col-md-3 form-group">
 				<label>Contact Email</label>
 				<input class="form-control input-sm" type="email" ng-model="fac.facilityData.contact_email">
 			</div>
@@ -190,7 +196,7 @@
 		<hr />
 		<div class="row">
 			<div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
-				<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="edit_facility_form.$invalid" ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Submit</button>
+				<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="edit_facility_form.$invalid" ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Save</button>
 			</div>
 		</div>
 	</form>

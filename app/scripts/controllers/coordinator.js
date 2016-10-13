@@ -7,7 +7,7 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL, MODIOCORE) {
 
 	var _this = this;
 	this.coordId = $routeParams.id;
@@ -16,6 +16,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.facilities = [];
 	this.loading = true;
 	this.error = false;
+	this.MODIOCORE = MODIOCORE;
 
 	this.jobStatuses = [
 		{
@@ -107,10 +108,14 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		});
 	};
 
-	this.queryFacilities = function(query){
+	this.queryFacilities = function(query, settings){
 		_this.loadingLocations = true;
+		var queryData = {
+			q: query,
+			settings: settings
+		};
 		var deferred = $q.defer();
-		facilityFactory.queryFacilities({q:query}).then(function(data){
+		facilityFactory.queryFacilities(queryData).then(function(data){
 			_this.facilities = data.facilities;
 			_this.loadingLocations = false;
 			deferred.resolve(data.facilities);

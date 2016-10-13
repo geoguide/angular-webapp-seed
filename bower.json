@@ -20,6 +20,8 @@
     "angularjs-slider": "~0.1.27",
     "api-check": "7.5.0",
     "bootstrap-sass-official": "3.3.5",
+    "ng-file-upload": "7.0.9",
+    "ng-file-upload-shim": "7.0.9",
     "ng-tags-input": "~3.0.0",
     "angular-egg": "~0.0.5",
     "angular-filter": "~0.5.7",

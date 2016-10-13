@@ -20,34 +20,23 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			});
 		}, getSettingsList: function(){
 			return MODIOCORE.facilitySettings.toArray();
-		}, mapSettings: function(settings, obj) {
-			var facility = angular.copy(obj);
-			for (var i = 0; i < settings.length; i++) {
-				var option = settings[i].property;
-				var value = 0;
-
-				for (var j = 0; j < facility.settings.length; j++) {
-					var selectedOption = facility.settings[j].property;
-					if (selectedOption == option) {
-						value = 1;
-						break;
-					} else {
-						value = 0;
-					}
-				}
-				facility[option] = value;
+		}, mapSettings: function(selected_settings) {
+			var result = 0;
+			for (var i = 0; i < selected_settings.length; i++){
+				result += selected_settings[i].id;
 			}
-			delete facility.settings;
-			return facility;
-		}, settingsToProperties: function(settings, obj) {
-				var mappedSettings = [];
-				for (var i = 0; i < settings.length; i++) {
-					var item = settings[i];
-					if (obj.hasOwnProperty(item.property) && obj[item.property] == 1) {
-						mappedSettings.push(item);
-					}
+			return result;
+		}, getSettingsTitle: function(settings) {
+			var facilitySettings = MODIOCORE.facilitySettings.toArray();
+			var result = [];
+			for (var i = 0; i < facilitySettings.length; i++) {
+				var setting = facilitySettings[i];
+
+				if ((settings & setting.id) == setting.id) {
+			result.push(setting.name);
 				}
-			return mappedSettings;
+			}
+			return result.join(', ');
 		}, getFacility: function(facilityId){
 			return $http.get(API_URL+'/admin/facilities/'+facilityId).then(function(response) {
 				return response.data;
@@ -64,8 +53,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 				$log.error(error);
 			});
 		}, facilitiesWithMembers: function(query){
-			return $http.get(API_URL+'/admin/facilities/memberships',{params: query}).then(function(response) {
-				return response.data;
+			query = query || {};
+			query.settings = MODIOCORE.facilitySettings.values.membership.id;
+			return $http.get(API_URL+'/admin/facilities/',{params: query}).then(function(response) {
+				return response.data.facilities;
 			}, function(error){
 				$log.error(error);
 			});

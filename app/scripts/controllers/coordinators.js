@@ -7,7 +7,7 @@
  * # CoordinatorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,facilityFactory,$q,toasty,applicationFactory,$log) {
+angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,facilityFactory,$q,toasty,applicationFactory,$log,$location) {
 	var _this = this;
 
 	this.coordinators = [];
@@ -22,6 +22,7 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	this.coordinatorsPerPage = 50;
 	this.totalPages = this.totalCoordinators/this.coordinatorsPerPage;
 	this.maxSize = 8;
+	var facilityId = +$location.search().facilityId;
 
 	_this.queryData = doctorFactory.queryData;
 
@@ -97,6 +98,9 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	var facilityQuery = { member_type: 'C' };
 	facilityFactory.facilitiesWithMembers(facilityQuery).then(function(response){
 		_this.facilitiesWithMembers = response;
+		if (facilityId) {
+			_this.queryData.facility_id = facilityId;
+		}
 		return _this.getResults();
 	}).then(function(result){
 		//done

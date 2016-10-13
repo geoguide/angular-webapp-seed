@@ -8,12 +8,52 @@
 <section ng-hide="fac.loading || fac.error">
 	<form id="notes-form" name="notes_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
 		<div class="form-group">
-			<label>Notes</label>
-			<textarea class="form-control input-sm" name="notes" ng-model="fac.facilityData.notes" rows="25"></textarea>
-		</div>
-		<div class="row">
-			<div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
-				<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="notes_form.$invalid" ng-click="fac.save()">Submit</button>
+			<div class="row">
+				<label>Notes</label>
+				<textarea class="form-control input-sm" name="notes" ng-model="fac.facilityData.notes" rows="15"></textarea>
+			</div>
+			<div class="row">
+				<div class="col-xs-offset-9 col-xs-3 tab-content">
+					<button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="notes_form.$invalid"
+						ng-click="fac.save()">Save
+					</button>
+				</div>
+			</div>
+			<div class="row tab-content">
+				<label class="col-xs-12">Attachments</label>
+				<div class="col-xs-9">
+					<table class="table table-condensed table-striped">
+						<thead>
+							<tr>
+								<th>File Name</th>
+								<th>File Size</th>
+								<th>Date</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="file in fac.files">
+								<td><a ng-bind="file.filename" ng-click="fac.getFileLink(file)"></a></td>
+								<td ng-bind="file.filesize"></td>
+								<td ng-bind="file.date_created"></td>
+								<td>
+									<button class="btn btn-primary" ng-click="fac.getFileLink(file)">Download</button>
+									<button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?"
+									ng-really-click="fac.deleteUpload(file)">Delete
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-xs-3">
+					<div ngf-drop ng-model="files" class="drop-box"  style="margin: 0 auto;" ngf-change="fac.upload($files)"
+					ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+					ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">
+						Drop Images, Documents or PDFs files here
+					</div>
+					<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+				</div>
 			</div>
 		</div>
 	</form>

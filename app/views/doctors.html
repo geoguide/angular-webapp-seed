@@ -183,6 +183,7 @@
 							<th>License States</th>
 							<th ng-click="drsCtrl.sortResult('score')">Score</th>
 							<th>Matches</th>
+							<th>Act As</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -199,7 +200,7 @@
 							</td>
 							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.score"></td>
 							<td><button ng-click="appCtrl.goTo('/providers/{{::doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 "><span ng-bind="(drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches"></span> Matches</button></td>
-
+							<td><button class="btn btn-xs btn-primary" act-as="{{ doc.id }}">Act As</button></td>
 						</tr>
 					</tbody>
 				</table>

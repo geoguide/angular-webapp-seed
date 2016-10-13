@@ -7,6 +7,12 @@
 			<li role="presentation" ng-class="{'active': fac.tab == 'facility-info'}">
 				<a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}')">Facility Info</a>
 			</li>
+			<li role="presentation" ng-if="fac.membership">
+				<a ng-click="appCtrl.changePath('/coordinators', {facilityId: fac.facilityId})">Coordinators</a>
+			</li>
+			<li role="presentation" ng-if="fac.membership">
+				<a ng-click="appCtrl.changePath('/providers', {facilityId: fac.facilityId, type: 'all'})">Providers</a>
+			</li>
 			<li role="presentation" ng-class="{'active': fac.tab == 'facility-notes'}">
 				<a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}/notes')">Notes</a>
 			</li>

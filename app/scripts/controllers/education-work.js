@@ -7,12 +7,13 @@
  * # EducationWorkCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory, applicationFactory, $q, $modal, S3_URL) {
+angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($scope, $routeParams, toasty, $log, doctorFactory, facilityFactory, applicationFactory, $q, $modal, S3_URL, MODIOCORE) {
 
 	var _this = this;
 	this.doctorId = $routeParams.id;
 	this.loading = true;
 	this.tab = 'facility-memberships';
+	this.MODIOCORE = MODIOCORE;
 
 
 	this.trackingData = [];
@@ -83,10 +84,14 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
 
 	/* Facility Memberships */
 
-	this.queryFacilities = function(query){
+	this.queryFacilities = function(query, settings){
 		_this.loadingLocations = true;
+		var queryData = {
+			q: query,
+			settings: settings
+		};
 		var deferred = $q.defer();
-		facilityFactory.queryFacilities({q:query}).then(function(data){
+		facilityFactory.queryFacilities(queryData).then(function(data){
 			_this.facilities = data.facilities;
 			_this.loadingLocations = false;
 			deferred.resolve(data.facilities);

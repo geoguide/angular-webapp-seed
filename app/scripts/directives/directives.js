@@ -86,7 +86,7 @@ angular.module('modioAdminPortal').directive('directives', function () {
 				if (attrs.actAs) {
 					doctorFactory.actAs(attrs.actAs).then(function (response) {
 						$window.open(ENV.doctorApp + '/admin/act-as/' + response.data.token, '_blank');
-						toasty.success('u r provider');
+						toasty.success('Act As ' + attrs.actAs);
 					}, function (error) {
 						$log.error(error);
 						toasty.error({title: 'Error!', msg: error.data});
