@@ -101,15 +101,17 @@
 							<th ng-click="coord.sortResult('last_name')">Last</th>
 							<th ng-click="coord.sortResult('email')">Email</th>
 							<th ng-click="coord.sortResult('user_role')">User Role</th>
+							<th>Act As</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{::doc.id}}" ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')">
-							<td ng-bind="doc.id"></td>
-							<td ng-bind="doc.first_name"></td>
-							<td ng-bind="doc.last_name"></td>
-							<td ng-bind="doc.email"></td>
-							<td>{{ (doc.user_role == 'R') ? 'Recruiter' : 'Coordinator' }}</td>
+						<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{::doc.id}}">
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.id"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.first_name"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.last_name"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.email"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')">{{ (doc.user_role == 'R') ? 'Recruiter' : 'Coordinator' }}</td>
+							<td><button class="btn btn-xs btn-primary" act-as="{{ doc.id }}">Act As</button></td>
 						</tr>
 					</tbody>
 				</table>
