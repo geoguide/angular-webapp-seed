@@ -7,15 +7,15 @@
  * # DoctorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,API_URL,$modal,$location,$modalStack,doctorFactory,facilityFactory,toasty,applicationFactory,$log,localStorageService) {
+angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,API_URL,$modal,$q,$location,$modalStack,doctorFactory,facilityFactory,toasty,applicationFactory,$log,localStorageService,MODIOCORE) {
 	var _this = this;
 
 	this.doctors = [];
 	this.facilitiesWithMembers = [];
 	this.searchQuery = '';
 	this.modalInstance = '';
+	this.MODIOCORE = MODIOCORE;
 	var typeIn = $location.search().type;
-	var facilityId = +$location.search().facilityId;
 
 	/* Variables */
 	this.formData = {
@@ -33,14 +33,20 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	this.loading = true;
 	this.matchList = [];
 
+	var facilityId = +$location.search().facilityId;
 	this.queryData = doctorFactory.queryData;
+
+	if (facilityId) {
+		this.queryData.facility_id = facilityId;
+	}
+
 	this.queryData.job_type_desired = 1;
 
 	this.csvEndpoint = API_URL+'/public/download-users-csv?token=' + localStorageService.get('adminAuthToken');
 
-  this.dynamicPopover = {
-    templateUrl: 'notes-template.html'
-  };
+	this.dynamicPopover = {
+		templateUrl: 'notes-template.html'
+	};
 
 	/* Public Functions */
 	this.getResults = function() {
@@ -48,7 +54,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 		applicationFactory.loading = true;
 		_this.queryData.score_low = _this.score_low;
 		_this.queryData.score_high = _this.score_high;
-		doctorFactory.queryDoctors(_this.queryData).then(function(response) {
+		_this.queryData.facility_id = _this.selectedFacility ? _this.selectedFacility.id : null;
+
+		return doctorFactory.queryDoctors(_this.queryData).then(function(response) {
 			applicationFactory.loading = false;
 			_this.doctors = response.data.doctors;
 			_this.totalDoctors = response.data.total;
@@ -83,9 +91,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 		});
 	};
 
-  this.setTooltip = function(item) {
-    _this.tooltipStates = item;
-  };
+	this.setTooltip = function(item) {
+		_this.tooltipStates = item;
+	};
 
 	this.open = function () {
 
@@ -110,27 +118,50 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 		$modalStack.dismissAll();
 	};
 
-	if(typeIn == 'credentialing'){
-		_this.changeDoctorType(0);
-	} else if(typeIn == 'all'){
-		_this.changeDoctorType();
-	}
-
-	facilityFactory.facilitiesWithMembers({member_type: 'P'}).then(function(response){
-		_this.facilitiesWithMembers = response;
-		if (facilityId) {
-			_this.queryData.facility_id = facilityId;
-		}
-		return _this.getResults();
-	}).then(function(result){
-		doctorFactory.getJobMatchTotals().then(function(result){
-			_this.matchList = result;
+	this.queryFacilities = function(query, settings){
+		_this.loadingLocations = true;
+		var queryData = {
+			q: query,
+			settings: settings
+		};
+		var deferred = $q.defer();
+		facilityFactory.queryFacilities(queryData).then(function(data){
+			_this.facilities = data.facilities;
+			_this.loadingLocations = false;
+			deferred.resolve(data.facilities);
 		},function(error){
+			_this.loadingLocations = false;
+			deferred.reject(error);
 			$log.error(error);
 		});
+		return deferred.promise;
+	};
 
-	},function(error){
-		$log.error(error);
-	});
+	if(typeIn == 'credentialing'){
+		_this.queryData.job_type_desired = 0;
+	} else if (typeIn == 'all') {
+		_this.queryData.job_type_desired = null;
+	}
+
+	if (_this.queryData.facility_id) {
+		facilityFactory.getFacility(_this.queryData.facility_id).then(function(selected_facility){
+			_this.selectedFacility = selected_facility;
+			return _this.getResults();
+		}).then(function(){
+			return doctorFactory.getJobMatchTotals();
+		}).then(function(result){
+			_this.matchList = result;
+		}).catch(function(error){
+			$log.error(error);
+		});
+	} else {
+		_this.getResults().then(function(){
+			return doctorFactory.getJobMatchTotals();
+		}).then(function(result){
+			_this.matchList = result;
+		}).catch(function(error){
+			$log.error(error);
+		});
+	}
 
 });

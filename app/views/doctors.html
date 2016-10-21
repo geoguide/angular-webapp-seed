@@ -63,14 +63,13 @@
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.queryData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.queryData.specialty_id = $item.id" typeahead-editable="false" />
 				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
 			</div>
+			<div class="col-md-3 col-sm-3 form-group">
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingfac" ng-model="drsCtrl.selectedFacility"  typeahead="f as f.facility_name for f in drsCtrl.queryFacilities($viewValue, drsCtrl.MODIOCORE.facilitySettings.values.membership.id)" placeholder="Search Facility Members..." typeahead-on-select="drsCtrl.queryData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingfac" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
+			</div>
 			<div class="col-sm-3 form-group">
 				<select class="form-control input-sm" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
 					<option value="">-- Select Manager --</option>
-				</select>
-			</div>
-			<div class="col-md-3 form-group">
-				<select class="form-control input-sm" ng-model="drsCtrl.queryData.facility_id" ng-change="drsCtrl.getResults()" ng-options="f.id as f.facility_name for f in drsCtrl.facilitiesWithMembers">
-					<option value="">-- Facility Members --</option>
 				</select>
 			</div>
 		</div>

@@ -54,10 +54,9 @@
 			<div class="col-md-4 col-sm-12 form-group">
 				<input type="search" class="form-control" ng-model="coord.queryData.q" value="" />
 			</div>
-			<div class="col-md-3 form-group">
-				<select class="form-control" ng-model="coord.queryData.facility_id" ng-change="coord.getResults()" ng-options="f.id as f.facility_name for f in coord.facilitiesWithMembers">
-					<option value="">-- Facility Members --</option>
-				</select>
+			<div class="col-md-3 col-sm-3 form-group">
+				<input type="search" class="form-control" typeahead-min-length="4" typeahead-loading="loadingfac" ng-model="coord.selectedFacility"  typeahead="f as f.facility_name for f in coord.queryFacilities($viewValue, coord.MODIOCORE.facilitySettings.values.membership.id)" placeholder="Search Facility Members..." typeahead-on-select="coord.queryData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingfac" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
 			</div>
 			<div class="col-md-2 form-group">
 				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
