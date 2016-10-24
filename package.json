@@ -44,6 +44,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "cd node_modules/grunt-contrib-imagemin/node_modules/imagemin && rm -rf node_modules/vinyl-fs && npm i vinyl-fs@2.2.x"
+    "postinstall": "cd node_modules/grunt-contrib-imagemin/node_modules/imagemin && rm -rf node_modules/vinyl-fs && npm i gulp-sourcemaps@1.5.2 && npm i vinyl-fs@2.2.x"
   }
 }
