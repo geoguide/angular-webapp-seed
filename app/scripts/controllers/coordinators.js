@@ -7,7 +7,7 @@
  * # CoordinatorsCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,facilityFactory,$q,toasty,applicationFactory,$log,$location) {
+angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($scope,$modal,$modalStack,doctorFactory,facilityFactory,$q,toasty,applicationFactory,$log,$location,MODIOCORE) {
 	var _this = this;
 
 	this.coordinators = [];
@@ -17,19 +17,24 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 
 	/* Variables */
 	this.formData = {};
+	this.MODIOCORE = MODIOCORE;
 	this.totalCoordinators = 0;
 	this.currentPage = 1;
 	this.coordinatorsPerPage = 50;
 	this.totalPages = this.totalCoordinators/this.coordinatorsPerPage;
 	this.maxSize = 8;
 	var facilityId = +$location.search().facilityId;
-
 	_this.queryData = doctorFactory.queryData;
+
+	if (facilityId) {
+		this.queryData.facility_id = facilityId;
+	}
 
 	/* Private Functions */
 	_this.getResults = function() {
 		_this.loading = true;
-		doctorFactory.queryCoordinators(_this.queryData).then(function(response) {
+		_this.queryData.facility_id = _this.selectedFacility ? _this.selectedFacility.id : null;
+		return doctorFactory.queryCoordinators(_this.queryData).then(function(response) {
 			_this.coordinators = response.coordinators;
 			_this.totalCoordinators = response.total;
 			_this.totalPages = _this.totalCoordinators/_this.coordinatorsPerPage;
@@ -95,17 +100,17 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 		return deferred.promise;
 	};
 
-	var facilityQuery = { member_type: 'C' };
-	facilityFactory.facilitiesWithMembers(facilityQuery).then(function(response){
-		_this.facilitiesWithMembers = response;
-		if (facilityId) {
-			_this.queryData.facility_id = facilityId;
-		}
-		return _this.getResults();
-	}).then(function(result){
-		//done
-	}, function(error){
-		$log.error(error);
-	});
+	if (_this.queryData.facility_id) {
+		facilityFactory.getFacility(_this.queryData.facility_id).then(function(selected_facility) {
+			_this.selectedFacility = selected_facility;
+			return _this.getResults();
+		}).catch(function(error){
+			$log.error(error);
+		});
+	} else {
+		_this.getResults().catch(function(error){
+			$log.error(error);
+		});
+	}
 
 });
