@@ -41,8 +41,7 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 			_this.loading = false;
 		});
 	};
-
-
+  
 	/* Public Functions */
 	this.sortResult = function(sortOn){
 		_this.queryData.sort_direction = !_this.sortDirection;
