@@ -60,7 +60,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="coordinator in userCtrl.bookmarkedCoordinators" data-doc-id="{{coordinator.bookmark_id}}" ng-click="appCtrl.goTo('/coordinators/{{doc.bookmark_id}}')">
+							<tr ng-repeat="coordinator in userCtrl.bookmarkedCoordinators" data-doc-id="{{coordinator.bookmark_id}}" ng-click="appCtrl.goTo('/coordinator/{{coordinator.bookmark_id}}')">
 								<td ng-bind="coordinator.bookmark_id"></td>
 								<td><span ng-bind="coordinator.first_name"></span> <span ng-bind="coordinator.last_name"></span></td>
 							</tr>
