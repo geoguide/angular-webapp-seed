@@ -9,7 +9,18 @@
 	</div>
 
 	<div ng-hide="coord.loading || coord.error" class="ng-hide">
-		<h3>Coordinator: <strong><span ng-bind="coord.coordinatorData.first_name"></span> <span ng-bind="coord.coordinatorData.last_name"></span></strong></h3>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Coordinator: <strong><span ng-bind="coord.coordinatorData.first_name"></span> <span ng-bind="coord.coordinatorData.last_name"></span></strong></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-offset-11 col-xs-1 text-right">
+				<a ng-click="coord.bookmark(coord.coordinatorData.id)" style="cursor:pointer">
+					<i class="fa" ng-class="{ 'fa-bookmark': coord.coordinatorData.bookmarked, 'fa-bookmark-o': !coord.coordinatorData.bookmarked }"></i>
+				</a>
+			</div>
+		</div>
 		<hr />
 		<form id="coordinator-form" ng-submit="coord.save()" ng-show="coord.coordinatorData" class="ng-cloak">
 			<div class="row">

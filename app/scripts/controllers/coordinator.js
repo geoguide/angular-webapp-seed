@@ -161,6 +161,18 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		});
 	};
 
+	this.bookmark = function (idIn) {
+		_this.coordinatorData.bookmarked = !_this.coordinatorData.bookmarked;
+		if (!_this.coordinatorData.bookmarked) {
+			doctorFactory.removeCoordinatorBookmark(idIn).catch(function (error) {
+				$log.error(error);
+			});
+		} else {
+			doctorFactory.bookmarkCoordinator(idIn).catch(function (error) {
+				$log.error(error);
+			});
+		}
+	};
 
 	/* Init */
 

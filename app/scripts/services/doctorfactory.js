@@ -171,9 +171,13 @@ angular.module('modioAdminPortal').factory('doctorFactory', function ($http,API_
 			score_low: 0,
 			score_high: 100
 		}, bookmark: function(idIn){
-			return $http.post(API_URL+'/admin/doctors/'+idIn+'/bookmark');
+			return $http.post(API_URL+'/admin/providers/'+idIn+'/bookmark');
 		}, removeBookmark: function(idIn){
-			return $http.delete(API_URL+'/admin/doctors/'+idIn+'/bookmark');
+			return $http.delete(API_URL+'/admin/providers/'+idIn+'/bookmark');
+		}, bookmarkCoordinator: function(idIn){
+			return $http.post(API_URL+'/admin/coordinators/'+idIn+'/bookmark');
+		}, removeCoordinatorBookmark: function(idIn){
+			return $http.delete(API_URL+'/admin/coordinators/'+idIn+'/bookmark');
 		}, getTracking: function(idIn){
 			return $http.get(API_URL+'/admin/doctors/'+idIn+'/tracking').then(function(response){
 				return response.data;
