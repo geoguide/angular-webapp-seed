@@ -8,7 +8,6 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL, MODIOCORE) {
-
 	var _this = this;
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
