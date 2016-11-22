@@ -18,6 +18,7 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 	/* Variables */
 	this.formData = {};
 	this.MODIOCORE = MODIOCORE;
+	this.facilitySettings = MODIOCORE.facilitySettings.values;
 	this.totalCoordinators = 0;
 	this.currentPage = 1;
 	this.coordinatorsPerPage = 50;
@@ -88,9 +89,12 @@ angular.module('modioAdminPortal').controller('CoordinatorsCtrl', function ($sco
 		$modalStack.dismissAll();
 	};
 
-	this.queryFacilities = function(query){
+	this.queryFacilities = function(query, settings){
 		var deferred = $q.defer();
-	   facilityFactory.queryFacilities({q:query}).then(function(data){
+		facilityFactory.queryFacilities({
+			q: query,
+			settings: settings
+		}).then(function(data){
 			deferred.resolve(data.facilities);
 		},function(error){
 			deferred.reject(error);

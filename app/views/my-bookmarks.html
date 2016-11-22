@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div ng-show="!userCtrl.loading" ng-init="userCtrl.getBookmarks()">
-		
+
 		<section class="row">
 			<div class="col-sm-12">
 				<div class="table-responsive">
@@ -32,7 +32,7 @@
 						</tbody>
 					</table>
 				</div>
-				
+
 				<div class="table-responsive">
 					<caption class="ng-cloak"><strong ng-bind="userCtrl.bookmarkedProviders.length"></strong> Providers Bookmarked</caption>
 					<table class="table table-condensed table-striped table-hover">
@@ -50,8 +50,25 @@
 						</tbody>
 					</table>
 				</div>
+				<div class="table-responsive">
+					<caption class="ng-cloak"><strong ng-bind="userCtrl.bookmarkedCoordinators.length"></strong> Coordinators Bookmarked</caption>
+					<table class="table table-condensed table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Coordinator Id</th>
+								<th>Coordinator Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="coordinator in userCtrl.bookmarkedCoordinators" data-doc-id="{{coordinator.bookmark_id}}" ng-click="appCtrl.goTo('/coordinator/{{coordinator.bookmark_id}}')">
+								<td ng-bind="coordinator.bookmark_id"></td>
+								<td><span ng-bind="coordinator.first_name"></span> <span ng-bind="coordinator.last_name"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</section>
 	</div>
-	
+
 </div>

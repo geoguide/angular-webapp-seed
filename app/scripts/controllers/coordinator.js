@@ -8,7 +8,6 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL, MODIOCORE) {
-
 	var _this = this;
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
@@ -161,6 +160,18 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 		});
 	};
 
+	this.bookmark = function (idIn) {
+		_this.coordinatorData.bookmarked = !_this.coordinatorData.bookmarked;
+		if (!_this.coordinatorData.bookmarked) {
+			doctorFactory.removeCoordinatorBookmark(idIn).catch(function (error) {
+				$log.error(error);
+			});
+		} else {
+			doctorFactory.bookmarkCoordinator(idIn).catch(function (error) {
+				$log.error(error);
+			});
+		}
+	};
 
 	/* Init */
 
