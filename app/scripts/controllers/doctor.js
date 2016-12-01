@@ -138,7 +138,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 				doctorData.selected_job_type_desired.push(jobType);
 			}
 		}
-	}
+	};
 
 	/* Init */
 	_this.get(_this.doctorId);
