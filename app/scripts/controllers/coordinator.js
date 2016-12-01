@@ -16,7 +16,6 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 	this.loading = true;
 	this.error = false;
 	this.MODIOCORE = MODIOCORE;
-
 	this.jobStatuses = [
 		{
 			id: 0,
