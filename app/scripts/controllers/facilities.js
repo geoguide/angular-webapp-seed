@@ -6,7 +6,7 @@
  * # FacilitiesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack, $modal) {
+angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack, $modal, MODIOCORE) {
 	var _this = this;
 	this.facilities = [];
 	this.facilitiesWithMembers = [];
@@ -18,9 +18,14 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.maxSize = 8; /* Private Functions */
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
+	this.servicesList = [];
 	this.settings = facilityFactory.getSettingsList();
+	this.MODIOCORE = MODIOCORE;
 	this.notesPopover = {
 		templateUrl: 'notes-template.html'
+	};
+	this.servicesRatesPopover = {
+		templateUrl: 'services-rates-template.html'
 	};
 
 	this.open = function (modalId,dataIn) {
@@ -83,6 +88,11 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		});
 	};
 
+	this.getServicesFilterList = function() {
+		return facilityFactory.getServicesFilterList().then(function(result){
+			_this.servicesList = result;
+		});
+	};
 
 	this.changeTab = function(clientStatus) {
 		_this.queryData.settings = clientStatus;
@@ -116,6 +126,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			}
 		}
 		_this.getResults();
+		_this.getServicesFilterList();
 	};
 
 	//Init

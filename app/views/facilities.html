@@ -11,7 +11,7 @@
 
 <section id="doctor-search-filters">
 	<div class="row">
-		<div class="col-md-4 col-sm-5 form-group">
+		<div class="col-md-3 col-sm-3 form-group">
 			<form ng-submit="fac.getResults()">
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
 				<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
@@ -22,7 +22,12 @@
 		</div>
 		<div class="col-md-2 col-sm-4 form-group">
 			<select class="form-control input-sm" ng-model="fac.queryData.settings" ng-options="setting.id as setting.name group by setting.group for setting in fac.settings | orderBy: ['group','name']" ng-change="fac.getResults()">
-				<option value=""></option>
+				<option value="">-- Filter By Setting --</option>
+			</select>
+		</div>
+		<div class="col-md-2 col-sm-4 form-group">
+			<select class="form-control input-sm" ng-model="fac.queryData.service_id" ng-options="service.id as service.name for service in fac.servicesList" ng-change="fac.getResults()">
+				<option value="">-- Filter by Service --</option>
 			</select>
 		</div>
 		<div class="col-md-2 col-sm-12 form-group">
@@ -59,15 +64,16 @@
 						<tr>
 							<th ng-click="fac.sortResult('id')">id</th>
 							<th ng-click="fac.sortResult('facility_name')">Facility</th>
+							<th>Services</th>
 							<th ng-click="fac.sortResult('address')">address</th>
 							<th ng-click="fac.sortResult('zip')">Zip</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')"
-						popover-template="fac.notesPopover.templateUrl" popover-title="Notes" popover-trigger="mouseenter" popover-class="popover-notes">
+						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
 							<td ng-bind="f.id"></td>
-							<td><span ng-bind="f.facility_display"></span></td>
+							<td popover-template="fac.notesPopover.templateUrl" popover-append-to-body="true" popover-title="Notes" popover-trigger="mouseenter" popover-class="popover-notes"><span ng-bind="f.facility_display"></span></td>
+							<td popover-template="fac.servicesRatesPopover.templateUrl" popover-enable="f.service_rates.length" popover-append-to-body="true" popover-title="Services Rates" popover-trigger="mouseenter" popover-class="popover-services-rates" ng-bind="f.services"></td>
 							<td ng-bind="f.address"></td>
 							<td ng-bind="f.zip"></td>
 						</tr>
@@ -142,9 +148,22 @@
 	</form>
 </script>
 
-
+<!--POPOVERS-->
 <script type="text/ng-template" id="notes-template.html">
 	<div class="form-group" ng-show="f.notes">
 		<div ng-bind="f.notes"></div>
 	</div>
+</script>
+
+<script type="text/ng-template" id="services-rates-template.html">
+	<table class="table">
+		<thead>
+		<tr><th>Service Name</th><th>Quantity</th><th>Rate Type</th><th>Rate</th></tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="r in f.service_rates track by $index">
+			<td ng-bind="r.service_name"></td><td ng-bind="r.quantity"></td><td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: r.type_id}).name"></td><td ng-bind="r.rate | currency:'$'"></td>
+		</tr>
+		</tbody>
+	</table>
 </script>
