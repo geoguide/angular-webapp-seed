@@ -99,6 +99,17 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		_this.getResults();
 	};
 
+	this.getTotalAmount = function(rates) {
+		var sum = 0;
+		for (var i = 0; i < rates.length; i++) {
+			if (rates[i].is_admin_filter) {
+				sum += parseFloat(rates[i].rate) * parseInt(rates[i].quantity);
+			}
+		}
+
+		return sum;
+	};
+
 	this.submitFacility = function(){
 		_this.newFacility.settings = facilityFactory.mapSettings(_this.newFacility.selected_settings);
 		delete _this.newFacility.selected_settings;

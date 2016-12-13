@@ -73,7 +73,7 @@
 						<tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}" ng-click="appCtrl.goTo('/facility/{{f.id}}')">
 							<td ng-bind="f.id"></td>
 							<td popover-template="fac.notesPopover.templateUrl" popover-append-to-body="true" popover-title="Notes" popover-trigger="mouseenter" popover-class="popover-notes"><span ng-bind="f.facility_display"></span></td>
-							<td popover-template="fac.servicesRatesPopover.templateUrl" popover-enable="f.service_rates.length" popover-append-to-body="true" popover-title="Services Rates" popover-trigger="mouseenter" popover-class="popover-services-rates" ng-bind="f.services"></td>
+							<td popover-template="fac.servicesRatesPopover.templateUrl" popover-placement="left" popover-enable="f.service_rates.length" popover-append-to-body="true" popover-title="Services Rates" popover-trigger="mouseenter" popover-class="popover-services-rates" ng-bind="f.services"></td>
 							<td ng-bind="f.address"></td>
 							<td ng-bind="f.zip"></td>
 						</tr>
@@ -158,11 +158,27 @@
 <script type="text/ng-template" id="services-rates-template.html">
 	<table class="table">
 		<thead>
-		<tr><th>Service Name</th><th>Quantity</th><th>Rate Type</th><th>Rate</th></tr>
+		<tr>
+			<th>Quantity</th>
+			<th>Rate Type</th>
+			<th>Rate</th>
+		</tr>
 		</thead>
+		<tbody ng-repeat="(key, value) in f.service_rates | filter: {is_admin_filter: 1} | groupBy: 'service_name'">
+		<tr>
+			<td><b ng-bind="key"></b></td>
+		</tr>
+		<tr ng-repeat="rate in value">
+			<td ng-bind="rate.quantity"></td>
+			<td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: rate.type_id}).name"></td>
+		<td ng-bind="rate.rate | currency:'$'"></td>
+		</tr>
+		</tbody>
 		<tbody>
-		<tr ng-repeat="r in f.service_rates track by $index">
-			<td ng-bind="r.service_name"></td><td ng-bind="r.quantity"></td><td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: r.type_id}).name"></td><td ng-bind="r.rate | currency:'$'"></td>
+		<tr>
+			<td></td>
+			<td>Total amount:</td>
+			<td><b ng-bind="fac.getTotalAmount(f.service_rates) | currency:'$'"></b></td>
 		</tr>
 		</tbody>
 	</table>
