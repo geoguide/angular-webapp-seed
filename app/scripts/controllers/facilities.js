@@ -62,6 +62,10 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
 
+		if (!_this.selectedServiceOwner) {
+			_this.queryData.service_owner_id = null;
+		}
+
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
 			_this.facilities = response.facilities;
 			_this.totalFacilities = response.total;
@@ -108,6 +112,19 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		}
 
 		return sum;
+	};
+
+	this.getServicesOwners = function(queryString) {
+		var queryData = {
+			q: queryString
+		};
+
+		return facilityFactory.getServicesOwners(queryData).then(function(owners){
+			return owners.map(function(owner){
+				owner.full_name = owner.first_name + ' ' + owner.last_name;
+				return owner;
+			});
+		});
 	};
 
 	this.submitFacility = function(){

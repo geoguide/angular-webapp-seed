@@ -11,26 +11,32 @@
 
 <section id="doctor-search-filters">
 	<div class="row">
-		<div class="col-md-3 col-sm-3 form-group">
+		<div class="col-md-6 col-sm-6 form-group">
 			<form ng-submit="fac.getResults()">
 				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)"  placeholder="Search Facilities..." />
 				<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
 			</form>
 		</div>
-		<div class="col-sm-3 form-group">
+		<div class="col-sm-6 form-group">
 			<input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..." />
 		</div>
-		<div class="col-md-2 col-sm-4 form-group">
+	</div>
+	<div class="row">
+		<div class="col-md-3 col-sm-4 form-group">
 			<select class="form-control input-sm" ng-model="fac.queryData.settings" ng-options="setting.id as setting.name group by setting.group for setting in fac.settings | orderBy: ['group','name']" ng-change="fac.getResults()">
 				<option value="">-- Filter By Setting --</option>
 			</select>
 		</div>
-		<div class="col-md-2 col-sm-4 form-group">
+		<div class="col-md-3 col-sm-4 form-group">
 			<select class="form-control input-sm" ng-model="fac.queryData.service_id" ng-options="service.id as service.name for service in fac.servicesList" ng-change="fac.getResults()">
 				<option value="">-- Filter by Service --</option>
 			</select>
 		</div>
-		<div class="col-md-2 col-sm-12 form-group">
+		<div class="col-md-3 col-sm-4 form-group">
+			<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingOwner" ng-model="fac.selectedServiceOwner" typeahead-on-select="fac.queryData.service_owner_id = $item.id" typeahead="owner.full_name as owner.full_name for owner in fac.getServicesOwners($viewValue)"  placeholder="Search by Service Owner..." />
+			<i ng-show="loadingOwner" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+		</div>
+		<div class="col-md-3 col-sm-12 form-group">
 			<button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="fac.getResults()">Search</button>
 		</div>
 	</div>
