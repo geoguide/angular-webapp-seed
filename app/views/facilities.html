@@ -172,7 +172,13 @@
 		</thead>
 		<tbody ng-repeat="(key, value) in f.service_rates | filter: {is_admin_filter: 1} | groupBy: 'service_name'">
 		<tr>
-			<td><b ng-bind="key"></b></td>
+			<td>
+				<b>
+					<span ng-bind="key"></span><span> - </span>
+					<span ng-if="value[0].owner_id" ng-bind="value[0].first_name + ' ' + value[0].last_name"></span>
+					<span ng-if="!value[0].owner_id">No owner</span>
+				</b>
+			</td>
 		</tr>
 		<tr ng-repeat="rate in value">
 			<td ng-bind="rate.quantity"></td>
