@@ -29,8 +29,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
 		if (b.name.toLowerCase() === 'other') return -1;
 	});
 
-
-
 	this.loadCertifications = function(boardName){
 		_this.boardSpecialties = specialtyFactory.getCertificationsByBoard({q:boardName});
 		console.log(_this.boardSpecialties);
