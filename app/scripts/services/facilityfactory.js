@@ -20,6 +20,14 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http,AP
 			});
 		}, getSettingsList: function(){
 			return MODIOCORE.facilitySettings.toArray();
+		}, getServicesFilterList: function() {
+			return $http.get(API_URL + '/admin/services-filter-data').then(function(response){
+				return response.data;
+			});
+		}, getServicesOwners: function(queryData) {
+			return $http.get(API_URL + '/admin/services/owners', queryData).then(function(response){
+				return response.data;
+			});
 		}, mapSettings: function(selected_settings) {
 			var result = 0;
 			for (var i = 0; i < selected_settings.length; i++){

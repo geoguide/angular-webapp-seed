@@ -6,7 +6,7 @@
  * # FacilitiesCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack, $modal) {
+angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope, facilityFactory, applicationFactory, $log, $modalStack, $modal, MODIOCORE) {
 	var _this = this;
 	this.facilities = [];
 	this.facilitiesWithMembers = [];
@@ -18,9 +18,14 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 	this.maxSize = 8; /* Private Functions */
 	this.loading = true;
 	this.queryData = facilityFactory.queryData;
+	this.servicesList = [];
 	this.settings = facilityFactory.getSettingsList();
+	this.MODIOCORE = MODIOCORE;
 	this.notesPopover = {
 		templateUrl: 'notes-template.html'
+	};
+	this.servicesRatesPopover = {
+		templateUrl: 'services-rates-template.html'
 	};
 
 	this.open = function (modalId,dataIn) {
@@ -57,6 +62,10 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		_this.loading = true;
 		_this.queryData.exclude_location = true;
 
+		if (!_this.selectedServiceOwner) {
+			_this.queryData.service_owner_id = null;
+		}
+
 		facilityFactory.queryFacilities(_this.queryData).then(function(response) {
 			_this.facilities = response.facilities;
 			_this.totalFacilities = response.total;
@@ -83,10 +92,39 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 		});
 	};
 
+	this.getServicesFilterList = function() {
+		return facilityFactory.getServicesFilterList().then(function(result){
+			_this.servicesList = result;
+		});
+	};
 
 	this.changeTab = function(clientStatus) {
 		_this.queryData.settings = clientStatus;
 		_this.getResults();
+	};
+
+	this.getTotalAmount = function(rates) {
+		var sum = 0;
+		for (var i = 0; i < rates.length; i++) {
+			if (rates[i].is_admin_filter) {
+				sum += parseFloat(rates[i].rate) * parseInt(rates[i].quantity);
+			}
+		}
+
+		return sum;
+	};
+
+	this.getServicesOwners = function(queryString) {
+		var queryData = {
+			q: queryString
+		};
+
+		return facilityFactory.getServicesOwners(queryData).then(function(owners){
+			return owners.map(function(owner){
+				owner.full_name = owner.first_name + ' ' + owner.last_name;
+				return owner;
+			});
+		});
 	};
 
 	this.submitFacility = function(){
@@ -116,6 +154,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function($scope,
 			}
 		}
 		_this.getResults();
+		_this.getServicesFilterList();
 	};
 
 	//Init
