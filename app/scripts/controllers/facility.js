@@ -8,74 +8,169 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('FacilityCtrl', function ($routeParams, facilityFactory, toasty, $log, $modal, MODIOCORE) {
+  .controller('FacilityCtrl', function ($scope, $routeParams, facilityFactory, toasty, $log, $modal, MODIOCORE, $modalStack) {
 
-	var _this = this;
-	this.MODIOCORE = MODIOCORE;
-	this.facilityId = $routeParams.id;
-	this.facilityData = null;
-	this.tab = 'facility-info';
-	//Date of ASDASD
-	this.opened = false;
-	this.error = false;
-	this.loading = true;
-	this.membership = false;
-	this.settings = facilityFactory.getSettingsList();
-	this.open = function($event) {
-		$log.log('open called');
-		$event.preventDefault();
-		$event.stopPropagation();
+    var _this = this;
+    this.MODIOCORE = MODIOCORE;
+    this.facilityId = $routeParams.id;
+    this.facilityData = null;
+    this.tab = 'facility-info';
+    this.opened = false;
+    this.error = false;
+    this.loading = true;
+    this.membership = false;
+    this.settings = facilityFactory.getSettingsList();
+    this.services = [];
+    this.open = function ($event) {
+      $log.log('open called');
+      $event.preventDefault();
+      $event.stopPropagation();
 
-		_this.opened = true;
-	};
+      _this.opened = true;
+    };
 
-	this.get = function(facilityId){
+    this.openAssignServiceOwnerModal = function (item) {
+      facilityFactory.getFacilityMembers({
+        facility_id: _this.facilityId,
+        user_roles: ['C', 'R']
+      }).then(function(facilityMembers){
 
-		var facilityData = facilityFactory.getFacility(facilityId);
-		facilityData.then(function(data){
-			_this.facilityData = data;
-			_this.facilityData.selected_settings = [];
+        _this.facilityMembers = facilityMembers.map(function(member) {
+          member.full_name = member.first_name + ' ' + member.last_name;
 
-			_this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
+          if (member.user_role === 'C') {
+            member.role = 'Coordinator';
+          } else if (member.user_role === 'R') {
+            member.role = 'Recruiter';
+          }
 
-			for (var i = 0; i < _this.settings.length; i++) {
-		var item = _this.settings[i];
-				if ((_this.facilityData.settings & item.id) == item.id) {
-				_this.facilityData.selected_settings.push(item);
-				}
-			}
+          return member;
+        });
+        this.modalInstance = $modal.open({
+          templateUrl: 'assign-service-owner-modal',
+          controller: 'ModalCtrl',
+          controllerAs: 'modal',
+          size: 'sm',
+          scope: $scope,
+          resolve: {
+            modalObject: function(){
+              return item;
+            },
+            parentCtrl: function(){
+              return _this;
+            }
+          }
+        });
 
-			_this.error = false;
-			_this.loading = false;
-		},function(error){
-			_this.error = true;
-			_this.loading = false;
-			_this.facilityData = null;
-		});
-	};
+        _this.modalInstance.result.then(function (data) {
+          console.log(data);
+          //something on close
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+      }).catch(function(error){
+        toasty.error(error.data);
+      });
+    };
 
-		this.save = function () {
-			var facility = {};
+    this.closeModal = function(){
+      $modalStack.dismissAll();
+    };
 
-			_this.facilityData.settings = facilityFactory.mapSettings(_this.facilityData.selected_settings);
-			angular.copy(_this.facilityData,facility);
-			delete facility.selected_settings;
+    this.getFacility = function (facilityId) {
+      return facilityFactory.getFacility(facilityId).catch(function (error) {
+        _this.error = true;
+        _this.loading = false;
+        _this.facilityData = null;
+        throw error;
+      });
+    };
 
-			facilityFactory.saveFacility(facility).then(function (data) {
-				toasty.success('Facility Saved.');
-				_this.doctorData = data;
-			}, function (error) {
-				toasty.error(error.data);
-			});
-		};
+    this.getServicesList = function () {
+      return facilityFactory.getServicesList();
+    };
 
 
-	/* Init */
+    this.save = function () {
+      var facility = {};
 
-	var init = function(){
-		_this.get(_this.facilityId);
+      _this.facilityData.settings = facilityFactory.mapSettings(_this.facilityData.selected_settings);
 
-	};
+      angular.copy(_this.facilityData, facility);
 
-	init();
-});
+      var mapped_services = _this.facilityData.selected_services.map(function(item){
+        return {
+          service_id: item.id,
+          owner_id: item.owner_id,
+          enabled: 1
+        }
+      });
+
+      for (var i = 0; i < _this.facilityData.services.length; i++) {
+        var service = _this.facilityData.services[i];
+
+        var foundServices = mapped_services.filter(function(item) {
+          return item.service_id === service.service_id;
+        });
+
+        if (!foundServices.length) {
+          mapped_services.push({
+            service_id: service.service_id,
+            enabled: 0
+          });
+        }
+      }
+
+
+      facility.services = mapped_services;
+      delete facility.selected_settings;
+      delete facility.selected_services;
+
+      facilityFactory.saveFacility(facility).then(function (data) {
+        toasty.success('Facility Saved.');
+        _this.doctorData = data;
+      }, function (error) {
+        toasty.error(error.data);
+      });
+    };
+
+
+    /* Init */
+
+    var init = function () {
+      _this.getServicesList().then(function (services) {
+        _this.services = services;
+        return _this.getFacility(_this.facilityId);
+      }).then(function (data) {
+        _this.facilityData = data;
+        _this.facilityData.selected_settings = [];
+        _this.facilityData.selected_services = [];
+
+        _this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
+
+        for (var i = 0; i < _this.settings.length; i++) {
+          var item = _this.settings[i];
+          if ((_this.facilityData.settings & item.id) == item.id) {
+            _this.facilityData.selected_settings.push(item);
+          }
+        }
+
+        for (i = 0; i < _this.facilityData.services.length; i++) {
+          var facility_service = _this.facilityData.services[i];
+          for (var j = 0; j < _this.services.length; j++) {
+            var service = _this.services[j];
+            if (facility_service.service_id == service.id) {
+              service.owner_id = facility_service.owner_id;
+              _this.facilityData.selected_services.push(service);
+            }
+          }
+        }
+
+        _this.loading = false;
+      }).catch(function(error){
+        toasty.error(error.data);
+      })
+    };
+
+    init();
+  });
