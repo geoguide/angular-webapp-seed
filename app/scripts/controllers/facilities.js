@@ -19,6 +19,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
   /* Private Functions */
   this.loading = true;
   this.queryData = facilityFactory.queryData;
+  this.servicesFilterList = [];
   this.servicesList = [];
   this.settings = facilityFactory.getSettingsList();
   this.MODIOCORE = MODIOCORE;
@@ -96,6 +97,12 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
 
   this.getServicesFilterList = function () {
     return facilityFactory.getServicesFilterList().then(function (result) {
+      _this.servicesFilterList = result;
+    });
+  };
+
+  this.getServicesList = function () {
+    return facilityFactory.getServicesList().then(function(result) {
       _this.servicesList = result;
     });
   };
@@ -171,6 +178,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
     }
     _this.getResults();
     _this.getServicesFilterList();
+    _this.getServicesList();
   };
 
   //Init

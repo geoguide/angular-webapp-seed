@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-3 col-sm-4 form-group">
       <select class="form-control input-sm" ng-model="fac.queryData.service_id"
-              ng-options="service.id as service.name for service in fac.servicesList" ng-change="fac.getResults()">
+              ng-options="service.id as service.name group by service.type_name for service in fac.servicesList" ng-change="fac.getResults()">
         <option value="">-- Filter by Service --</option>
       </select>
     </div>
@@ -57,7 +57,7 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ul class="nav nav-tabs">
-      <li role="presentation" ng-repeat="item in fac.servicesList" class="dropdown mr5">
+      <li role="presentation" ng-repeat="item in fac.servicesFilterList" class="dropdown mr5">
         <div class="btn-group nav-btn-group">
           <button class="btn btn-default" ng-bind="item.name" no-focus ng-click="fac.filterByService(item)"
                   ng-class="{ 'active': fac.queryData.service_id == item.id}"></button>
