@@ -8,9 +8,14 @@
 <section ng-hide="fac.loading || fac.error">
   <form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+      <div class="col-xs-12 col-sm-4 col-md-4 form-group">
         <label>Facility Name</label>
         <input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-2 form-group">
+        <label>Facility Type</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.facility_type"
+                ng-options="type.id as type.name for type in fac.facilityTypes"></select>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 form-group">
         <label>Settings</label> <br/>

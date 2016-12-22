@@ -20,6 +20,7 @@ angular.module('modioAdminPortal')
     this.loading = true;
     this.membership = false;
     this.settings = facilityFactory.getSettingsList();
+    this.facilityTypes = MODIOCORE.facilityTypes.toArray();
     this.services = [];
     this.open = function ($event) {
       $log.log('open called');
