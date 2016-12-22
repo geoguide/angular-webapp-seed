@@ -116,6 +116,20 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
     return sum;
   };
 
+  this.filterByService = function (service, owner) {
+    if (service.id == _this.queryData.service_id) {
+      _this.queryData.service_id = null;
+    } else {
+      _this.queryData.service_id = service.id;
+    }
+
+    if (owner) {
+      _this.selectedServiceOwner = owner.first_name + ' ' + owner.last_name;
+      _this.queryData.service_owner_id = owner.id;
+    }
+    _this.getResults();
+  };
+
   this.getServicesOwners = function (queryString) {
     var queryData = {
       q: queryString

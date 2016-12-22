@@ -37,7 +37,9 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
         return response.data;
       });
     }, getServicesOwners: function (queryData) {
-      return $http.get(API_URL + '/admin/facility-services/owners', queryData).then(function (response) {
+      return $http.get(API_URL + '/admin/facility-services/owners', {
+        params: queryData
+      }).then(function (response) {
         return response.data;
       });
     }, mapSettings: function (selected_settings) {

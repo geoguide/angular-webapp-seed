@@ -128,9 +128,17 @@ body {
   padding: 0;
 }
 
+.mr5 {
+  margin-right: 5px;
+}
+
 .dropdown-toggle,
 .dropdown-menu li {
 	cursor:pointer;
+}
+
+.nav-btn-group {
+  margin-bottom: 8px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
