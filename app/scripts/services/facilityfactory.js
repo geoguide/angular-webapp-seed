@@ -24,6 +24,8 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       }).then(function (response) {
         return response.data;
       });
+    }, getSettings: function () {
+      return MODIOCORE.facilitySettings;
     }, getSettingsList: function () {
       return MODIOCORE.facilitySettings.toArray();
     }, getServicesList: function () {
