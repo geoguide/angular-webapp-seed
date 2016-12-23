@@ -173,11 +173,12 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
   /* Init */
 
   _this.init = function () {
+    _this.getTracking(_this.doctorId);
+    _this.getJobMatches(_this.doctorId);
+    _this.getJobOffers(_this.doctorId);
+
     doctorFactory.getDoctor(_this.doctorId).then(function (result) {
       _this.bookmarked = result.data.bookmarked;
-      _this.getTracking(_this.doctorId);
-      _this.getJobMatches(_this.doctorId);
-      _this.getJobOffers(_this.doctorId);
       return doctorFactory.getMemberships(_this.doctorId);
     }).then(function (result) {
       for (var fm = 0; fm < result.length; fm++) {
