@@ -35,6 +35,7 @@ angular.module('modioAdminPortal').controller('ProviderOffersCtrl', function ($r
   this.getTracking = function (doctor_id) {
     return doctorFactory.getTracking(doctor_id).then(function (result) {
       _this.trackingData = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
@@ -43,6 +44,7 @@ angular.module('modioAdminPortal').controller('ProviderOffersCtrl', function ($r
   this.getJobMatches = function (doctor_id) {
     return doctorFactory.getJobMatches(doctor_id).then(function (result) {
       _this.matches = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
@@ -51,6 +53,7 @@ angular.module('modioAdminPortal').controller('ProviderOffersCtrl', function ($r
   this.getJobOffers = function (doctor_id) {
     return doctorFactory.getJobOffers(doctor_id).then(function (result) {
       _this.offers = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
@@ -59,8 +62,7 @@ angular.module('modioAdminPortal').controller('ProviderOffersCtrl', function ($r
   this.load = function () {
     _this.getTracking(_this.doctorId);
     _this.getJobMatches(_this.doctorId);
-    _this.getJobOffers(_this.doctorId).then(function (result) {
-      _this.offers = result;
+    _this.getJobOffers(_this.doctorId).then(function () {
       return doctorFactory.getDoctor(_this.doctorId);
     }).then(function (result) {
       _this.bookmarked = result.data.bookmarked;

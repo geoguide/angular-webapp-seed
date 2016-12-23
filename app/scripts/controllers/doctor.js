@@ -122,6 +122,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
   this.getTracking = function (doctor_id) {
     return doctorFactory.getTracking(doctor_id).then(function (result) {
       _this.trackingData = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
@@ -130,6 +131,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
   this.getJobMatches = function (doctor_id) {
     return doctorFactory.getJobMatches(doctor_id).then(function (result) {
       _this.matches = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
@@ -138,6 +140,7 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
   this.getJobOffers = function (doctor_id) {
     return doctorFactory.getJobOffers(doctor_id).then(function (result) {
       _this.offers = result;
+      return result;
     }).catch(function (error) {
       $log.error(error);
     });
