@@ -47,12 +47,23 @@
 					</table>
 				</div>
 				<div class="col-xs-3">
-					<div ngf-drop ng-model="files" class="drop-box"  style="margin: 0 auto;" ngf-change="fac.upload($files)"
+					<div ngf-drop ng-model="files" class="drop-box"  style="margin: 0 auto; height: 150px" ngf-change="fac.upload($files)"
 					ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
 					ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">
 						Drop Images, Documents or PDFs files here
+						<p>or</p>
+						<p><a href="" class="button" ngf-select ngf-change="fac.upload($files)"
+								ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+								ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Click here to browse for a file</a>
+						</p>
 					</div>
-					<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+					<div ngf-no-file-drop>
+						File Drag/Drop is not supported for this browser.
+						<p><a href="" class="button" ngf-select ngf-change="fac.upload($files)"
+								ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+								ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Click here to browse for a file</a>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
