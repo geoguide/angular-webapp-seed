@@ -77,11 +77,18 @@
         <input class="form-control input-sm" type="text" ng-model="fac.facilityData.city"/>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 form-group">
-        <label>State</label>
-        <select class="form-control input-sm" ng-model="fac.facilityData.state" ng-required="true"
-                ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
-          <option value=""></option>
-        </select>
+        <div ng-if="fac.facilityData.country == 'USA'">
+          <label class="control-label">State</label>
+          <select name="state" class="form-control"  ng-model="fac.facilityData.state"
+                  ng-options="state.id as state.display_name group by state.group for state in fac.states">
+            <option value=""></option>
+          </select>
+        </div>
+        <div ng-if="fac.facilityData.country != 'USA'">
+          <label class="control-label">State/Province</label>
+          <input type="text" name="state" class="form-control" ng-model="fac.facilityData.state"
+                 placeholder="Home state"/>
+        </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 form-group">
         <label>County</label>

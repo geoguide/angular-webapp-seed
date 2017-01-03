@@ -21,6 +21,7 @@ angular.module('modioAdminPortal')
     this.membership = false;
     this.settings = facilityFactory.getSettingsList();
     this.facilityTypes = MODIOCORE.facilityTypes.toArray();
+    this.states = MODIOCORE.states.toArray();
     this.services = [];
     this.open = function ($event) {
       $log.log('open called');
