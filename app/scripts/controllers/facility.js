@@ -92,7 +92,6 @@ angular.module('modioAdminPortal')
       return facilityFactory.getServicesList();
     };
 
-
     this.save = function () {
       var facility = {};
 
@@ -135,8 +134,7 @@ angular.module('modioAdminPortal')
         toasty.error(error.data);
       });
     };
-
-
+    
     /* Init */
 
     var init = function () {
