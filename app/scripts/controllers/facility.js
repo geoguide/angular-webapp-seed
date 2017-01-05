@@ -9,7 +9,6 @@
  */
 angular.module('modioAdminPortal')
   .controller('FacilityCtrl', function ($scope, $routeParams, facilityFactory, toasty, $log, $modal, MODIOCORE, $modalStack) {
-
     var _this = this;
     this.MODIOCORE = MODIOCORE;
     this.facilityId = $routeParams.id;
@@ -134,7 +133,7 @@ angular.module('modioAdminPortal')
         toasty.error(error.data);
       });
     };
-    
+
     /* Init */
 
     var init = function () {
