@@ -1,247 +1,258 @@
 <!doctype html>
 <html class="no-js" ng-app="modioAdminPortal">
-	<head>
-		<!-- build:[href]:build / -->
-		<base href="/" />
-		<!-- /build -->
-		<meta charset="utf-8">
-		<title>Modio Admin</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
-		<meta name="robots" content="noindex, follow">
-		<link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="/images/icons/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
-		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
-		<meta name="theme-color" content="#ffffff">
-		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-		<!-- build:css(.) styles/vendor.css -->
-		<!-- bower:css -->
-		<link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
-		<link rel="stylesheet" href="bower_components/angular-toasty/dist/angular-toasty.css" />
-		<link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-		<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css" />
-		<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
-		<!-- endbower -->
-		<!-- endbuild -->
-		<!-- build:css(.tmp) styles/main.css -->
-		<link rel="stylesheet" href="styles/main.css">
-		<!-- endbuild -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<head>
+  <!-- build:[href]:build / -->
+  <base href="/"/>
+  <!-- /build -->
+  <meta charset="utf-8">
+  <title>Modio Admin</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <meta name="robots" content="noindex, follow">
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css"/>
+  <link rel="stylesheet" href="bower_components/angular-toasty/dist/angular-toasty.css"/>
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css"/>
+  <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css"/>
+  <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-	</head>
-	<body ng-controller="ApplicationCtrl as appCtrl" ng-cloak class="ng-cloak">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+</head>
+<body ng-controller="ApplicationCtrl as appCtrl" ng-cloak class="ng-cloak">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+  improve your experience.</p>
+<![endif]-->
 
-	<!-- Add your site or application content here -->
-	<header class="header">
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="row">
-					<nav class="navbar-header col-sm-12">
-						<div class="col-sm-6"><a class="navbar-brand" href="#/">
-							<img src="images/modio-type-transparent.png" class="pull-left" style="height: 80%;width:auto;margin: 4% 0">
-							<img src="images/modio-logo-transparent.png" class="pull-left" ng-class="appCtrl.applicationFactory.loading ? 'spin-it': ''" style="height: 80%;width:auto;margin: 4% 8px">
-						</a></div>
-						<div class="col-sm-6 text-right ng-hide" ng-hide="appCtrl.appLoading">
-							<ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
-								<li class="dropdown" dropdown>
-									<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle><span ng-bind="appCtrl.userInfo.username"></span> <span class="caret"></span></a>
-									<ul role="menu" class="dropdown-menu">
-										<!--<li class="dropdown-header">Actions</li>-->
-										<li><a ng-href="#/my-bookmarks">View Bookmarks</a></li>
-										<li><a ng-href="#/invoices">View Invoices</a></li>
-										<li><a ng-href="#/orders">View Renewal Orders</a></li>
-										<li><a ng-href="#/change-password">Change Password</a></li>
-										<li class="divider"></li>
-										<li><a ng-click="appCtrl.logout()">Sign Out</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<div class="container-fluid" id="menu-container">
-		<div class="row">
-			<div class="col-md-2 col-sm-2 col-xs-12 ng-cloak ng-hide" ng-show="isLoggedIn">
-				<ul class="nav nav-list row" id="main-nav">
-					<li ng-class="{'active': appCtrl.tab == 'dashboard'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/dashboard">
-						<i class="fa fa-tachometer hidden-xs hidden-sm"></i>
-						<i class="fa fa-tachometer fa-2x visible-xs-block visible-sm-block" tooltip="Dashboard" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Dashboard</span>
-					</a></li>
-					<li ng-class="{'active': appCtrl.tab == 'lookup'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/lookup">
-						<i class="fa fa-search hidden-xs hidden-sm" tooltip="Provider Lookup" tooltip-placement="bottom"></i>
-						<i class="fa fa-search fa-2x visible-xs-block visible-sm-block" tooltip="Provider Lookup" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Provider Lookup</span>
-					</a></li>
-					<li ng-class="{'active': appCtrl.tab == 'users'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm">
-
-						<a data-target="#users-sub" data-toggle="collapse" class="hidden-xs hidden-sm">
-							<i class="fa fa-user hidden-xs"></i>
-							<span class="hidden-xs hidden-sm">Users</span>
-						</a>
-						<a ng-href="#/users" class="visible-xs visible-sm">
-							<i class="fa fa-user fa-2x visible-xs-block visible-sm-block" tooltip="Users" tooltip-placement="bottom"></i>
-						</a>
-						<ul id="users-sub" class="nav nav-pills nav-stacked collapse in hidden-sm hidden-xs">
-							<li>
-								<a ng-href="#/providers">&nbsp;&nbsp;
-									<i class="fa fa-briefcase hidden-xs hidden-sm"></i>
-									<i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Job Seekers" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Job Seekers</span>
-								</a>
-							</li>
-							<li ng-class="{'active': appCtrl.tab == 'coordinators'}">
-								<a ng-href="#/coordinators">&nbsp;&nbsp;
-									<i class="fa fa-users hidden-xs hidden-sm"></i>
-									<i class="fa fa-users fa-2x visible-xs-block visible-sm-block" tooltip="Coordinators" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Coordinators</span>
-								</a>
-							</li>
-							<li>
-								<a ng-href="#/providers?type=credentialing">&nbsp;&nbsp;
-									<i class="fa fa-book hidden-xs hidden-sm"></i>
-									<i class="fa fa-book fa-2x visible-xs-block visible-sm-block" tooltip="Credentialing Only" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">Credentialing Only</span>
-								</a>
-							</li>
-							<li>
-								<a ng-href="#/providers?type=all">&nbsp;&nbsp;
-									<i class="fa fa-user-md hidden-xs hidden-sm"></i>
-									<i class="fa fa-user-md fa-2x visible-xs-block visible-sm-block" tooltip="All Providers" tooltip-placement="bottom"></i><span class="hidden-xs hidden-sm">All Providers</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li ng-class="{'active': appCtrl.tab == 'jobs'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/jobs">
-						<i class="fa fa-briefcase hidden-xs hidden-sm"></i>
-						<i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Jobs" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Jobs</span>
-					</a></li>
-					<li ng-class="{'active': appCtrl.tab == 'facilities'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/facilities">
-						<i class="fa fa-hospital-o hidden-xs hidden-sm"></i>
-						<i class="fa fa-hospital-o fa-2x  visible-xs-block visible-sm-block" tooltip="Facilities" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Facilities</span>
-					</a></li>
-					<!--<li ng-class="{'active': appCtrl.tab == 'partners'}"><a ng-href="#/partners">Partners</a></li>-->
-					<li ng-class="{'active': appCtrl.tab == 'offers'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/offers">
-						<i class="fa fa-money hidden-xs hidden-sm"></i>
-						<i class="fa fa-money fa-2x visible-xs-block visible-sm-block" tooltip="Offers" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Offers</span>
-					</a></li>
-					<li ng-class="{'active': appCtrl.tab == 'reports'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/reports/licenses">
-						<i class="fa fa-paper-plane-o hidden-xs hidden-sm"></i>
-						<i class="fa fa-paper-plane-o fa-2x visible-xs-block visible-sm-block" tooltip="Reports" tooltip-placement="bottom"></i>
-						<span class="hidden-xs hidden-sm">Reports</span>
-					</a></li>
-				</ul>
-				<br />
-				<section class="hidden-sm hidden-xs">
-					<hr />
-					<h4 class="text-center" ng-click="appCtrl.showStats = !!!appCtrl.showStats"><span class="ng-hide" ng-hide="!appCtrl.showStats">Hide </span><span class="ng-hide" ng-hide="appCtrl.showStats">Show </span>Stats</h4>
-					<article  ng-hide="appCtrl.loading || !appCtrl.showStats" class="ng-hide" ng-init="appCtrl.getStats()">
-						<div class="form-group" ng-hide="appCtrl.stats.specialtyData.length ==0">
-							<label>Specialties (last day)</label>
-							<div ng-repeat="s in appCtrl.stats.specialtyData"><span ng-bind="s.specialty"></span> (<span ng-bind="s.count"></span>)</div>
-						</div>
-						<div class="form-group">
-							<label>New Providers</label>
-							<div ng-bind="appCtrl.stats.providerDailyTotal"></div>
-						</div>
-						<div class="form-group">
-							<label>Total Registered</label>
-							<div>{{appCtrl.stats.providerRegisteredTotal}}</div>
-						</div>
-						<div class="form-group">
-							<label>Total Providers</label>
-							<div ng-bind="appCtrl.stats.providerTotal"></div>
-						</div>
-						<div class="form-group">
-							<label>Offers to Date</label>
-							<div ng-bind="appCtrl.stats.offersToDate"></div>
-						</div>
-					</article>
-				</section>
-
-			</div>
-			<div class="clearfix visible-xs"></div>
-			<div ng-class="isLoggedIn ? 'authenticated col-md-10 col-sm-10' : 'col-md-12'" id="authenticated-content">
-				<div id="center" ng-view=""></div>
-			</div>
-		</div>
+<!-- Add your site or application content here -->
+<header class="header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="navbar-header col-sm-12">
+          <div class="col-sm-6"><a class="navbar-brand" href="#/">
+            <img src="images/modio-type-transparent.png" class="pull-left" style="height: 80%;width:auto;margin: 4% 0">
+            <img src="images/modio-logo-transparent.png" class="pull-left" ng-class="appCtrl.applicationFactory.loading ? 'spin-it': ''"
+                 style="height: 80%;width:auto;margin: 4% 8px">
+          </a></div>
+          <div class="col-sm-6 text-right ng-hide" ng-hide="appCtrl.appLoading">
+            <ul class="nav navbar-nav navbar-right" id="user-dropdown" ng-show="isLoggedIn">
+              <li class="dropdown" dropdown>
+                <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" dropdown-toggle><span
+                  ng-bind="appCtrl.userInfo.username"></span> <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <!--<li class="dropdown-header">Actions</li>-->
+                  <li><a ng-href="#/my-bookmarks">View Bookmarks</a></li>
+                  <li><a ng-href="#/invoices">View Invoices</a></li>
+                  <li><a ng-href="#/orders">View Renewal Orders</a></li>
+                  <li><a ng-href="#/change-password">Change Password</a></li>
+                  <li class="divider"></li>
+                  <li><a ng-click="appCtrl.logout()">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
+  </div>
+</header>
 
-	<div class="footer">
-		<div class="container-fluid">
-			<div class="row"><div class="col-xs-12 text-right"><p><i class="fa fa-copyright"></i> 2015 ModioHealth</p></div></div>
-		</div>
-	</div>
+<div class="container-fluid" id="menu-container">
+  <div class="row">
+    <div class="col-md-2 col-sm-2 col-xs-12 ng-cloak ng-hide" ng-show="isLoggedIn">
+      <ul class="nav nav-list row" id="main-nav">
+        <li ng-class="{'active': appCtrl.tab == 'dashboard'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/dashboard">
+          <i class="fa fa-tachometer hidden-xs hidden-sm"></i>
+          <i class="fa fa-tachometer fa-2x visible-xs-block visible-sm-block" tooltip="Dashboard" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Dashboard</span>
+        </a></li>
+        <li ng-class="{'active': appCtrl.tab == 'lookup'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/lookup">
+          <i class="fa fa-search hidden-xs hidden-sm" tooltip="Provider Lookup" tooltip-placement="bottom"></i>
+          <i class="fa fa-search fa-2x visible-xs-block visible-sm-block" tooltip="Provider Lookup" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Provider Lookup</span>
+        </a></li>
+        <li ng-class="{'active': appCtrl.tab == 'users'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm">
+
+          <a data-target="#users-sub" data-toggle="collapse" class="hidden-xs hidden-sm">
+            <i class="fa fa-user hidden-xs"></i>
+            <span class="hidden-xs hidden-sm">Users</span>
+          </a>
+          <a ng-href="#/users" class="visible-xs visible-sm">
+            <i class="fa fa-user fa-2x visible-xs-block visible-sm-block" tooltip="Users" tooltip-placement="bottom"></i>
+          </a>
+          <ul id="users-sub" class="nav nav-pills nav-stacked collapse in hidden-sm hidden-xs">
+            <li>
+              <a ng-href="#/providers">&nbsp;&nbsp;
+                <i class="fa fa-briefcase hidden-xs hidden-sm"></i>
+                <i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Job Seekers" tooltip-placement="bottom"></i><span
+                  class="hidden-xs hidden-sm">Job Seekers</span>
+              </a>
+            </li>
+            <li ng-class="{'active': appCtrl.tab == 'coordinators'}">
+              <a ng-href="#/coordinators">&nbsp;&nbsp;
+                <i class="fa fa-users hidden-xs hidden-sm"></i>
+                <i class="fa fa-users fa-2x visible-xs-block visible-sm-block" tooltip="Coordinators" tooltip-placement="bottom"></i><span
+                  class="hidden-xs hidden-sm">Coordinators</span>
+              </a>
+            </li>
+            <li>
+              <a ng-href="#/providers?type=credentialing">&nbsp;&nbsp;
+                <i class="fa fa-book hidden-xs hidden-sm"></i>
+                <i class="fa fa-book fa-2x visible-xs-block visible-sm-block" tooltip="Credentialing Only" tooltip-placement="bottom"></i><span
+                  class="hidden-xs hidden-sm">Credentialing Only</span>
+              </a>
+            </li>
+            <li>
+              <a ng-href="#/providers?type=all">&nbsp;&nbsp;
+                <i class="fa fa-user-md hidden-xs hidden-sm"></i>
+                <i class="fa fa-user-md fa-2x visible-xs-block visible-sm-block" tooltip="All Providers" tooltip-placement="bottom"></i><span
+                  class="hidden-xs hidden-sm">All Providers</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li ng-class="{'active': appCtrl.tab == 'jobs'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/jobs">
+          <i class="fa fa-briefcase hidden-xs hidden-sm"></i>
+          <i class="fa fa-briefcase fa-2x visible-xs-block visible-sm-block" tooltip="Jobs" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Jobs</span>
+        </a></li>
+        <li ng-class="{'active': appCtrl.tab == 'facilities'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/facilities">
+          <i class="fa fa-hospital-o hidden-xs hidden-sm"></i>
+          <i class="fa fa-hospital-o fa-2x  visible-xs-block visible-sm-block" tooltip="Facilities" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Facilities</span>
+        </a></li>
+        <!--<li ng-class="{'active': appCtrl.tab == 'partners'}"><a ng-href="#/partners">Partners</a></li>-->
+        <li ng-class="{'active': appCtrl.tab == 'offers'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/offers">
+          <i class="fa fa-money hidden-xs hidden-sm"></i>
+          <i class="fa fa-money fa-2x visible-xs-block visible-sm-block" tooltip="Offers" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Offers</span>
+        </a></li>
+        <li ng-class="{'active': appCtrl.tab == 'reports'}" class="col-xs-2 col-sm-12 text-center-xs text-center-sm"><a ng-href="#/reports/licenses">
+          <i class="fa fa-paper-plane-o hidden-xs hidden-sm"></i>
+          <i class="fa fa-paper-plane-o fa-2x visible-xs-block visible-sm-block" tooltip="Reports" tooltip-placement="bottom"></i>
+          <span class="hidden-xs hidden-sm">Reports</span>
+        </a></li>
+      </ul>
+      <br/>
+      <section class="hidden-sm hidden-xs">
+        <hr/>
+        <h4 class="text-center" ng-click="appCtrl.showStats = !!!appCtrl.showStats"><span class="ng-hide"
+                                                                                          ng-hide="!appCtrl.showStats">Hide </span><span
+          class="ng-hide" ng-hide="appCtrl.showStats">Show </span>Stats</h4>
+        <article ng-hide="appCtrl.loading || !appCtrl.showStats" class="ng-hide" ng-init="appCtrl.getStats()">
+          <div class="form-group" ng-hide="appCtrl.stats.specialtyData.length ==0">
+            <label>Specialties (last day)</label>
+            <div ng-repeat="s in appCtrl.stats.specialtyData"><span ng-bind="s.specialty"></span> (<span ng-bind="s.count"></span>)</div>
+          </div>
+          <div class="form-group">
+            <label>New Providers</label>
+            <div ng-bind="appCtrl.stats.providerDailyTotal"></div>
+          </div>
+          <div class="form-group">
+            <label>Total Registered</label>
+            <div>{{appCtrl.stats.providerRegisteredTotal}}</div>
+          </div>
+          <div class="form-group">
+            <label>Total Providers</label>
+            <div ng-bind="appCtrl.stats.providerTotal"></div>
+          </div>
+          <div class="form-group">
+            <label>Offers to Date</label>
+            <div ng-bind="appCtrl.stats.offersToDate"></div>
+          </div>
+        </article>
+      </section>
+
+    </div>
+    <div class="clearfix visible-xs"></div>
+    <div ng-class="isLoggedIn ? 'authenticated col-md-10 col-sm-10' : 'col-md-12'" id="authenticated-content">
+      <div id="center" ng-view=""></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 text-right"><p><i class="fa fa-copyright"></i> 2017 ModioHealth</p></div>
+    </div>
+  </div>
+</div>
 
 
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
-	<!-- build:js(.) scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
-	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-	<script src="bower_components/angular-messages/angular-messages.js"></script>
-	<script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-toasty/dist/angular-toasty.js"></script>
-	<script src="bower_components/angular-touch/angular-touch.js"></script>
-	<script src="bower_components/angular-ui-mask/dist/mask.js"></script>
-	<script src="bower_components/angular-ui-select/dist/select.js"></script>
-	<script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
-	<script src="bower_components/api-check/dist/api-check.js"></script>
-	<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-	<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-	<script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
-	<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-	<script src="bower_components/angular-egg/release/angular-egg.min.js"></script>
-	<script src="bower_components/angular-filter/dist/angular-filter.js"></script>
-	<script src="bower_components/modio-core/dist/modio-core.min.js"></script>
-	<script src="bower_components/moment/moment.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.17.min.js"></script>
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-toasty/dist/angular-toasty.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
+<script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
+<script src="bower_components/api-check/dist/api-check.js"></script>
+<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+<script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+<script src="bower_components/angular-egg/release/angular-egg.min.js"></script>
+<script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+<script src="bower_components/modio-core/dist/modio-core.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/controllers/about.js"></script>
-	<script src="scripts/controllers/login.js"></script>
-	<script src="scripts/controllers/signup.js"></script>
-	<script src="scripts/controllers/applicationcontroller.js"></script>
-	<script src="scripts/controllers/doctors.js"></script>
-	<script src="scripts/controllers/jobs.js"></script>
-	<script src="scripts/controllers/offers.js"></script>
-	<script src="scripts/controllers/dashboard.js"></script>
-	<script src="scripts/controllers/doctor.js"></script>
-	<script src="scripts/directives/directives.js"></script>
-	<script src="scripts/services/doctorfactory.js"></script>
-	<script src="scripts/services/authinterceptor.js"></script>
-	<script src="scripts/services/auth.js"></script>
-	<script src="scripts/services/applicationfactory.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/signup.js"></script>
+<script src="scripts/controllers/applicationcontroller.js"></script>
+<script src="scripts/controllers/doctors.js"></script>
+<script src="scripts/controllers/jobs.js"></script>
+<script src="scripts/controllers/offers.js"></script>
+<script src="scripts/controllers/dashboard.js"></script>
+<script src="scripts/controllers/doctor.js"></script>
+<script src="scripts/directives/directives.js"></script>
+<script src="scripts/services/doctorfactory.js"></script>
+<script src="scripts/services/authinterceptor.js"></script>
+<script src="scripts/services/auth.js"></script>
+<script src="scripts/services/applicationfactory.js"></script>
 
 <script src="scripts/services/jobfactory.js"></script>
 <script src="scripts/services/facilityfactory.js"></script>
@@ -278,11 +289,11 @@
 <script src="scripts/controllers/report.js"></script>
 <script src="scripts/services/reportfactory.js"></script>
 <script src="scripts/controllers/joboffers.js"></script>
-	<!-- endbuild -->
-	<!--<div ng-controller="toasty-controller">-->
-		<!--<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        -->
-	<!--</div>-->
-  <toasty></toasty>
+<!-- endbuild -->
+<!--<div ng-controller="toasty-controller">-->
+<!--<toasty-container toasty-defaults='{"timeout": 3000, "close-button":true}'></toasty-container>        -->
+<!--</div>-->
+<toasty></toasty>
 <script src="config.js"></script>
 </body>
 </html>
