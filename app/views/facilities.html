@@ -12,8 +12,9 @@
   <div class="row">
     <div class="col-md-6 col-sm-6 form-group">
       <form ng-submit="fac.getResults()">
-        <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q"
-               typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."/>
+        <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.selectedFacilityName"
+               typeahead="facility.facility_display as facility.facility_display for facility in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."
+               typeahead-on-select="fac.queryData.q = $item.facility_name"/>
         <i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
       </form>
     </div>
