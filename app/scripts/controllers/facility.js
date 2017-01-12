@@ -9,7 +9,6 @@
  */
 angular.module('modioAdminPortal')
   .controller('FacilityCtrl', function ($scope, $routeParams, facilityFactory, toasty, $log, $modal, MODIOCORE, $modalStack) {
-
     var _this = this;
     this.MODIOCORE = MODIOCORE;
     this.facilityId = $routeParams.id;
@@ -21,6 +20,7 @@ angular.module('modioAdminPortal')
     this.membership = false;
     this.settings = facilityFactory.getSettingsList();
     this.facilityTypes = MODIOCORE.facilityTypes.toArray();
+    this.states = MODIOCORE.states.toArray();
     this.services = [];
     this.open = function ($event) {
       $log.log('open called');
@@ -91,7 +91,6 @@ angular.module('modioAdminPortal')
       return facilityFactory.getServicesList();
     };
 
-
     this.save = function () {
       var facility = {};
 
@@ -134,7 +133,6 @@ angular.module('modioAdminPortal')
         toasty.error(error.data);
       });
     };
-
 
     /* Init */
 

@@ -1,5 +1,4 @@
 <!-- used to have ng-controller, but now realize the route handles it -->
-
 <div class="row">
   <div class="col-md-8">
     <h4>Facilities</h4>
@@ -13,8 +12,9 @@
   <div class="row">
     <div class="col-md-6 col-sm-6 form-group">
       <form ng-submit="fac.getResults()">
-        <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.queryData.q"
-               typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."/>
+        <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.selectedFacilityName"
+               typeahead="facility.facility_display as facility.facility_display for facility in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."
+               typeahead-on-select="fac.queryData.q = $item.facility_name"/>
         <i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
       </form>
     </div>
@@ -164,7 +164,7 @@
       <div class="form-group row">
         <div class="col-md-12">
           <label>Address 2</label>
-          <input class="form-control" type="text" ng-model="fac.newFacility.address_2" ng-required="true"/>
+          <input class="form-control" type="text" ng-model="fac.newFacility.address_2" />
         </div>
       </div>
       <div class="form-group row">

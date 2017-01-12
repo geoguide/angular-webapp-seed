@@ -68,6 +68,10 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
       _this.queryData.service_owner_id = null;
     }
 
+    if (!_this.selectedFacilityName) {
+      _this.queryData.q = null;
+    }
+
     facilityFactory.queryFacilities(_this.queryData).then(function (response) {
       _this.facilities = response.facilities;
       _this.totalFacilities = response.total;
