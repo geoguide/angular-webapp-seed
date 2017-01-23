@@ -47,6 +47,5 @@ angular.module('modioAdminPortal').factory('dashboardFactory', function ($http,A
 				return response.data;
 			});
 		}, twoWayMatches: _this.twoWayMatches
-		
     };
   });
