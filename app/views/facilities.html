@@ -103,8 +103,7 @@
           <tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}"
               ng-click="appCtrl.goTo('/facility/{{f.id}}')">
             <td ng-bind="f.id"></td>
-            <td popover-template="fac.notesPopover.templateUrl" popover-append-to-body="true" popover-placement="right" popover-title="Notes"
-                popover-trigger="mouseenter" popover-class="popover-notes"><span ng-bind="f.facility_display"></span></td>
+            <td><span ng-bind="f.facility_display"></span></td>
             <td popover-template="fac.servicesRatesPopover.templateUrl" popover-placement="left" popover-enable="f.service_rates.length"
                 popover-append-to-body="true" popover-title="Services" popover-trigger="mouseenter" popover-class="popover-services-rates"
                 ng-bind="f.services"></td>
@@ -191,11 +190,6 @@
 </script>
 
 <!--POPOVERS-->
-<script type="text/ng-template" id="notes-template.html">
-  <div class="popover-content" ng-show="f.notes">
-    <div ng-bind="f.notes"></div>
-  </div>
-</script>
 
 <script type="text/ng-template" id="services-rates-template.html">
   <table class="table">

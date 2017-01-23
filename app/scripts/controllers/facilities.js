@@ -23,9 +23,6 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
   this.servicesList = [];
   this.settings = facilityFactory.getSettingsList();
   this.MODIOCORE = MODIOCORE;
-  this.notesPopover = {
-    templateUrl: 'notes-template.html'
-  };
   this.servicesRatesPopover = {
     templateUrl: 'services-rates-template.html'
   };
