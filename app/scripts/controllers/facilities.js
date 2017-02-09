@@ -119,7 +119,7 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
     var sum = 0;
     for (var i = 0; i < rates.length; i++) {
       if (rates[i].is_admin_filter) {
-        sum += parseFloat(rates[i].rate) * parseInt(rates[i].quantity);
+        sum += parseFloat(rates[i].rate) * parseInt(rates[i].quantity) * parseInt(rates[i].term);
       }
     }
 

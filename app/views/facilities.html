@@ -198,6 +198,7 @@
     <tr>
       <th>Quantity</th>
       <th>Rate Type</th>
+      <th>Term</th>
       <th>Rate</th>
     </tr>
     </thead>
@@ -214,11 +215,13 @@
     <tr ng-repeat="rate in value">
       <td ng-bind="rate.quantity"></td>
       <td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: rate.type_id}).name"></td>
+      <td ng-bind="rate.term"></td>
       <td ng-bind="rate.rate | currency:'$'"></td>
     </tr>
     </tbody>
     <tbody>
     <tr>
+      <td></td>
       <td></td>
       <td>Total amount:</td>
       <td><b ng-bind="fac.getTotalAmount(f.service_rates) | currency:'$'"></b></td>
