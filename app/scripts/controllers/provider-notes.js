@@ -7,6 +7,7 @@
  * # FacilityCtrl
  * Controller of the modioAdminPortal
  */
+
 angular.module('modioAdminPortal')
   .controller('ProviderNotesCtrl', function($routeParams, $log, doctorFactory, toasty) {
     var _this = this;
