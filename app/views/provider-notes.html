@@ -1,0 +1,31 @@
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
+<div class="text-center row" ng-show="dr.loading">
+  <div class="col-md-12 form-group">
+    <i class="fa fa-refresh fa-spin fa-4x"></i>
+  </div>
+</div>
+
+<div ng-hide="dr.loading || dr.error" class="ng-hide">
+  <form id="notes-form" name="notes_form" ng-show="dr.provider" class="ng-cloak" novalidate>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Admin Notes </label>&nbsp;<span ng-class="(dr.provider.admin_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.provider.admin_notes.length || 0}} of 2000)</span>
+          <textarea ng-model="dr.provider.admin_notes" class="form-control input-sm" rows="15"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label>Sales Notes</label>&nbsp;<span ng-class="(dr.provider.sales_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.provider.sales_notes.length || 0}} of 2000)</span>
+          <textarea ng-model="dr.provider.sales_notes" class="form-control input-sm" rows="15"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-9 col-xs-3 tab-content">
+          <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="notes_form.$invalid"
+            ng-click="dr.save()">Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
