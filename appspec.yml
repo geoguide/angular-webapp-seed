@@ -11,7 +11,7 @@ hooks:
   ApplicationStart:
     - location: scripts/start_app
       timeout: 300
-      runas: app
+      runas: root
   ValidateService:
     - location: scripts/validate_app
       timeout: 15
