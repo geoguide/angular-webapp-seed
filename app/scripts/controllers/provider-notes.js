@@ -9,8 +9,7 @@
  */
 
 angular.module('modioAdminPortal')
-  .controller('ProviderNotesCtrl', function($routeParams, $log, doctorFactory,
-    toasty, s3factory) {
+  .controller('ProviderNotesCtrl', function($routeParams, $log, doctorFactory, $window, toasty, s3factory) {
     var _this = this;
     this.doctorId = $routeParams.id;
     this.tab = 'provider-notes';
