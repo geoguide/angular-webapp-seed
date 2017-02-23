@@ -2,52 +2,53 @@
 
 /**
  * @ngdoc function
- * @name modioAdminPortal.controller:FacilityCtrl
+ * @name modioAdminPortal.controller:ProviderNotesCtrl
  * @description
  * # FacilityCtrl
  * Controller of the modioAdminPortal
  */
+
 angular.module('modioAdminPortal')
-  .controller('FacilityNotesCtrl', function($routeParams, facilityFactory,
-    toasty, $log, $modal, $window, s3factory, MODIOCORE) {
+  .controller('ProviderNotesCtrl', function($routeParams, $log, doctorFactory, $window, toasty, s3factory) {
     var _this = this;
-    this.facilityId = $routeParams.id;
-    this.componentId = 3;
-    this.facilityData = null;
-    this.files = [];
-    this.tab = 'facility-notes';
+    this.doctorId = $routeParams.id;
+    this.tab = 'provider-notes';
+    this.componentId = 1; //1 - Doctor
+    this.doctorData = null;
     this.error = false;
     this.loading = true;
     this.uploading = false;
-    this.membership = false;
-    this.MODIOCORE = MODIOCORE;
+  
 
-    this.get = function(facilityId) {
-      var facilityData = facilityFactory.getFacility(facilityId);
-      facilityData.then(function(data) {
-        _this.facilityData = data;
-        _this.membership = _this.facilityData.settings & _this.MODIOCORE
-          .facilitySettings.values.membership.id;
-        _this.error = false;
+    this.load = function(providerId) {
+      return doctorFactory.getDoctor(providerId).then(function(response) {
+        _this.doctorData = response.data;
         _this.loading = false;
-      }, function(error) {
+      }).catch(function(error) {
         _this.error = true;
-        _this.facilityData = null;
         _this.loading = false;
+        $log.error(error);
       });
     };
 
     this.save = function() {
-      facilityFactory.saveFacility(_this.facilityData).then(function(data) {
-        toasty.success('Facility Saved.');
+      doctorFactory.saveDoctor(_this.doctorData).then(function(data) {
+        toasty.success({
+          title: 'Success!',
+          msg: 'Doctor Saved.'
+        });
         _this.doctorData = data;
       }, function(error) {
-        toasty.error(error.data);
+        $log.error(error);
+        toasty.error({
+          title: 'Error!',
+          msg: error.data
+        });
       });
     };
 
     this.processS3 = function(tag, file, componentId, entityId, security) {
-      _this.uploading = true;
+      this.uploading = true;
       s3factory.putObject(file, componentId, entityId, tag, security, function(data,
         status, headers, config) {
         _this.loadUploads();
@@ -65,7 +66,7 @@ angular.module('modioAdminPortal')
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           var filename = files[i].name;
-          _this.processS3(tag, file, _this.componentId, _this.facilityId, 'a');
+          _this.processS3(tag, file, _this.componentId, _this.doctorId, 'a');
         }
       }
     };
@@ -74,7 +75,7 @@ angular.module('modioAdminPortal')
       var key;
       s3factory.getUploads({
         componentId: _this.componentId,
-        entityId: _this.facilityId,
+        entityId: _this.doctorId,
         tag: 'notes'
       }, function(result) {
         $log.log(result);
@@ -112,7 +113,7 @@ angular.module('modioAdminPortal')
     this.deleteUpload = function(file) {
       $log.log('deleteUpload:' + file.id);
 
-      s3factory.deleteObject(_this.componentId, _this.facilityId, file.id,
+      s3factory.deleteObject(_this.componentId, _this.doctorId, file.id,
         function(data, status, headers, config) {
           //Success
           $log.log('Deleted file: ' + file.filename);
@@ -128,12 +129,6 @@ angular.module('modioAdminPortal')
       );
     };
 
-    /* Init */
-
-    var init = function() {
-      _this.get(_this.facilityId);
-      _this.loadUploads();
-    };
-
-    init();
+    this.load(this.doctorId);
+    this.loadUploads();
   });
