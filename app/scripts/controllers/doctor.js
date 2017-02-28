@@ -26,7 +26,6 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
     $log.log('open called');
     $event.preventDefault();
     $event.stopPropagation();
-
     _this.opened = true;
   };
 

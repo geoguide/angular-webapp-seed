@@ -8,7 +8,6 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal').controller('ChangePasswordCtrl', function (userFactory, toasty, $log) {
-
 	var _this = this;
 
 	this.oldPassword = '';
