@@ -34,7 +34,7 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
         {
           id: 1,
           name: 'Neutral',
-          class: 'fa-user-circle-o'
+          class: 'fa-meh-o'
         },
         {
           id: 2,
