@@ -8,8 +8,7 @@
  * Controller of the modioAdminPortal
  */
 angular.module('modioAdminPortal')
-  .controller('FacilityNotesCtrl', function($routeParams, facilityFactory,
-    toasty, $log, $modal, $window, s3factory, MODIOCORE) {
+  .controller('FacilityNotesCtrl', function($routeParams, facilityFactory, toasty, $log, $modal, $window, s3factory, dateFactory, MODIOCORE) {
     var _this = this;
     this.facilityId = $routeParams.id;
     this.componentId = 3;
@@ -21,13 +20,27 @@ angular.module('modioAdminPortal')
     this.uploading = false;
     this.membership = false;
     this.MODIOCORE = MODIOCORE;
+    this.moodTypes = facilityFactory.getMoodTypes();
+    
+    this.opened = {};
+    this.open = function ($event, which) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      _this.opened[which] = true;
+    };
+    this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    this.format = this.formats[4];
+    this.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
 
     this.get = function(facilityId) {
       var facilityData = facilityFactory.getFacility(facilityId);
       facilityData.then(function(data) {
         _this.facilityData = data;
-        _this.membership = _this.facilityData.settings & _this.MODIOCORE
-          .facilitySettings.values.membership.id;
+        _this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
         _this.error = false;
         _this.loading = false;
       }, function(error) {
@@ -38,6 +51,10 @@ angular.module('modioAdminPortal')
     };
 
     this.save = function() {
+      if (_this.facilityData.due_date) {
+        _this.facilityData.due_date = dateFactory.process(_this.facilityData.due_date);        
+      }
+      
       facilityFactory.saveFacility(_this.facilityData).then(function(data) {
         toasty.success('Facility Saved.');
         _this.doctorData = data;

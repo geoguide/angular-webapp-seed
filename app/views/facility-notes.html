@@ -9,8 +9,39 @@
   <form id="notes-form" name="notes_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
     <div class="form-group">
       <div class="row">
-        <label>Notes</label>
-        <textarea class="form-control input-sm" name="notes" ng-model="fac.facilityData.notes" rows="15"></textarea>
+        <div class="col-xs-3">
+          <label># of Facilities</label>
+          <input type="number" ng-model="fac.facilityData.facility_count" class="form-control input-sm" min="0" />
+        </div>
+        <div class="col-xs-3">
+          <label># of Payors</label>
+          <input type="number" ng-model="fac.facilityData.payor_count" class="form-control input-sm" min="0" />
+        </div>
+        <div class="col-xs-3">
+          <label>Mood</label>
+          <select class="form-control input-sm" ng-model="fac.facilityData.mood_type" ng-options="mood.id as mood.name for mood in fac.moodTypes">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="col-xs-3">
+          <label>Due Date</label>
+          <div class="input-group">
+            <input  placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{fac.format}}" ng-model="fac.facilityData.due_date" is-open="fac.opened['d_date']" max-date="'01/01/2025'"  datepicker-options="fac.dateOptions" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-sm" ng-click="fac.open($event,'d_date')"><i class="fa fa-calendar fa-fw"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <label>Notes</label>
+          <textarea class="form-control input-sm" name="notes" ng-model="fac.facilityData.notes" rows="15"></textarea>
+        </div>
+        <div class="col-xs-6">
+          <label>Next Steps</label>
+          <textarea class="form-control input-sm" name="next_steps" ng-model="fac.facilityData.next_steps" rows="15"></textarea>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-offset-9 col-xs-3 tab-content">

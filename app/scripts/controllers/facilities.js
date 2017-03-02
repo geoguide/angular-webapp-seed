@@ -23,8 +23,13 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
   this.servicesList = [];
   this.settings = facilityFactory.getSettingsList();
   this.MODIOCORE = MODIOCORE;
+  this.moodTypes = facilityFactory.getMoodTypes();
   this.servicesRatesPopover = {
     templateUrl: 'services-rates-template.html'
+  };
+  
+  this.nextStepsPopover = {
+    templateUrl: 'next-steps-template.html'
   };
 
   this.open = function (modalId, dataIn) {
@@ -72,7 +77,18 @@ angular.module('modioAdminPortal').controller('FacilitiesCtrl', function ($scope
     }
 
     facilityFactory.queryFacilities(_this.queryData).then(function (response) {
-      _this.facilities = response.facilities;
+      _this.facilities = response.facilities.map(function(facility) {
+        for (var i = 0; i < _this.moodTypes.length; i++) {
+            var mood = _this.moodTypes[i];
+            
+            if (mood.id === facility.mood_type) {
+              facility.mood = mood;
+              break;
+            }
+        }
+        
+        return facility;
+      });
       _this.totalFacilities = response.total;
       _this.totalPages = _this.totalFacilities / _this.perPage;
       _this.loading = false;

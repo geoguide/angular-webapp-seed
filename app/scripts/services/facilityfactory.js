@@ -24,6 +24,24 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       }).then(function (response) {
         return response.data;
       });
+    }, getMoodTypes: function() {
+      return [
+        {
+          id: 0,
+          name: 'Happy',
+          class: 'fa-smile-o'
+        },
+        {
+          id: 1,
+          name: 'Neutral',
+          class: 'fa-user-circle-o'
+        },
+        {
+          id: 2,
+          name: 'Unhappy',
+          class: 'fa-frown-o'
+        }
+      ];
     }, getSettings: function () {
       return MODIOCORE.facilitySettings;
     }, getSettingsList: function () {
