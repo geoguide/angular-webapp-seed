@@ -95,9 +95,9 @@
           <tr>
             <th ng-click="fac.sortResult('id')">id</th>
             <th ng-click="fac.sortResult('facility_name')">Facility</th>
+            <th ng-click="fac.sortResult('due_date')">Due Date</th>
             <th>Services</th>
-            <th ng-click="fac.sortResult('address')">address</th>
-            <th ng-click="fac.sortResult('zip')">Zip</th>
+            <th ng-click="fac.sortResult('mood_type')">Mood</th>
           </tr>
           </thead>
           <tbody>
@@ -105,11 +105,13 @@
               ng-click="appCtrl.goTo('/facility/{{f.id}}')">
             <td ng-bind="f.id"></td>
             <td><span ng-bind="f.facility_display"></span></td>
+            <td popover-template="fac.nextStepsPopover.templateUrl" popover-placement="left" popover-enable="f.next_steps.length" 
+                popover-append-to-body="true" popover-title="Next Steps" popover-trigger="mouseenter" popover-class="popover-next-steps" ng-bind="f.due_date">
+            </td>
             <td popover-template="fac.servicesRatesPopover.templateUrl" popover-placement="left" popover-enable="f.service_rates.length"
                 popover-append-to-body="true" popover-title="Services" popover-trigger="mouseenter" popover-class="popover-services-rates"
                 ng-bind="f.services"></td>
-            <td ng-bind="f.address"></td>
-            <td ng-bind="f.zip"></td>
+            <td><span class="fa fa-lg" ng-class="f.mood.class"></span></td>
           </tr>
           </tbody>
         </table>
@@ -191,6 +193,10 @@
 </script>
 
 <!--POPOVERS-->
+
+<script type="text/ng-template" id="next-steps-template.html">
+  <p ng-bind="f.next_steps"></p>
+</script>
 
 <script type="text/ng-template" id="services-rates-template.html">
   <table class="table">
