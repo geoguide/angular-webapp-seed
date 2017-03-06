@@ -176,7 +176,6 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 
 	var init = function(){
 		_this.get(_this.coordId);
-
 	};
 
 	init();
