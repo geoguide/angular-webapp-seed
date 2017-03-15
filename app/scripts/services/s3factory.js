@@ -7,8 +7,7 @@
  * # s3factory
  * Factory in the modioAdminPortal.
  */
-angular.module('modioAdminPortal').factory('s3factory', function($http, ENV,
-  API_URL, $log, filesAPI) {
+angular.module('modioAdminPortal').factory('s3factory', function($http, ENV, API_URL, $log, filesAPI) {
   // Service logic
   // ...
 
@@ -18,28 +17,30 @@ angular.module('modioAdminPortal').factory('s3factory', function($http, ENV,
 
   // Public API here
   return {
-    putObject: function(file, componentId, entityId, tag, security, success, error) {
+    putObject: function(file, tag, security, components, success, error) {
       var filename = file.name;
       var filesize = file.size;
-      //var ext = filename.split('.').pop();
-      return $http.get(API_URL + '/admin' + '/s3-credentials/' +
-        componentId).then(function(response) {
+      
+      return $http.get(API_URL + '/admin/s3-credentials/').then(function(response) {
         var creds = response.data;
-        $log.log(creds.AccessKeyId + ' ' + creds.SecretAccessKey +
-          ' ' + creds.SessionToken);
+        
+        $log.log(creds.AccessKeyId + ' ' + creds.SecretAccessKey + ' ' + creds.SessionToken);
+        
         AWS.config.update({
           accessKeyId: creds.AccessKeyId,
           secretAccessKey: creds.SecretAccessKey,
           sessionToken: creds.SessionToken
         });
+        
         $log.info('S3_SETTINGS=' + ENV.s3Bucket);
+        
         var s3obj = new AWS.S3({
           params: {
-            Bucket: ENV.s3Bucket + '/' + componentId + '/' +
-              creds.uuid,
+            Bucket: ENV.s3Bucket + '/' + creds.uuid,
             region: 'us-east-1'
           }
         });
+        
         s3obj.putObject({
           Key: filename,
           Body: file,
@@ -53,13 +54,12 @@ angular.module('modioAdminPortal').factory('s3factory', function($http, ENV,
             $log.info(data);
 
             filesAPI.save({
-                componentId: componentId,
-                entityId: entityId,
                 uuid: creds.uuid,
                 filename: filename,
                 filesize: filesize,
                 tag: tag,
-                security: security
+                security: security,
+                components: components
               },
               function(data, status, headers, config) {
                 //Success
@@ -80,17 +80,14 @@ angular.module('modioAdminPortal').factory('s3factory', function($http, ENV,
         //return creds.data;
       });
     },
-    deleteObject: function(componentId, entityId, fileId, success, err) {
-      $log.log('deleteObject:' + entityId);
+    deleteObject: function(fileId, success, err) {
+      $log.log('deleteObject:' + fileId);
       return filesAPI.delete({
-        componentId: componentId,
-        entityId: entityId,
-        fileId: fileId
+        id: fileId
       }, success, err);
     },
-    getSignedUrl: function(componentId, fileId) {
-      return $http.get(API_URL + '/admin/doctors/' + componentId +
-        '/doctor-file/' + fileId).then(function(response) {
+    getSignedUrl: function(fileId) {
+      return $http.get(API_URL + '/admin/files/' + fileId + '/url').then(function(response) {
         return response.data;
       });
     },

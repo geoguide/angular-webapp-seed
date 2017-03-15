@@ -63,10 +63,9 @@ angular.module('modioAdminPortal')
       });
     };
 
-    this.processS3 = function(tag, file, componentId, entityId, security) {
+    this.processS3 = function(tag, file, security, components) {
       _this.uploading = true;
-      s3factory.putObject(file, componentId, entityId, tag, security, function(data,
-        status, headers, config) {
+      s3factory.putObject(file, tag, security, components, function(data, status, headers, config) {
         _this.loadUploads();
         _this.uploading = false;
         $log.info('s3 upload done');
@@ -78,11 +77,16 @@ angular.module('modioAdminPortal')
 
     this.upload = function(files) {
       var tag = 'notes';
+      var components = [{
+        component_id: _this.componentId,
+        entity_id: _this.facilityId
+      }];
+      
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           var filename = files[i].name;
-          _this.processS3(tag, file, _this.componentId, _this.facilityId, 'a');
+          _this.processS3(tag, file, MODIOCORE.securityFlags.values.admin.id,  components);
         }
       }
     };
@@ -113,13 +117,11 @@ angular.module('modioAdminPortal')
           }
           _this.files.push(file);
         }
-        console.log(_this.files);
-        //$scope.$apply();
       });
     };
 
     this.getFileLink = function(file) {
-      s3factory.getSignedUrl(_this.componentId, file.id).then(function(
+      s3factory.getSignedUrl(file.id).then(function(
         response) {
         $log.info(response);
         $window.location.href = response;
@@ -129,8 +131,7 @@ angular.module('modioAdminPortal')
     this.deleteUpload = function(file) {
       $log.log('deleteUpload:' + file.id);
 
-      s3factory.deleteObject(_this.componentId, _this.facilityId, file.id,
-        function(data, status, headers, config) {
+      s3factory.deleteObject(file.id, function(data, status, headers, config) {
           //Success
           $log.log('Deleted file: ' + file.filename);
           $log.log(data);
