@@ -11,7 +11,6 @@ angular.module('modioAdminPortal').factory('invoiceFactory', function ($http,API
     // Service logic
     // ...
 
-
     // Public API here
     return {
       getInvoices: function(queryData){
