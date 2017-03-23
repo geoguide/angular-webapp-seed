@@ -186,7 +186,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
     }).then(function (result) {
       for (var fm = 0; fm < result.length; fm++) {
         if (result[fm].file_url) {
-          var url = 'https://s3.amazonaws.com/' + S3_URL + '/3/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
+          var url = 'https://s3.amazonaws.com/' + S3_URL + '/' + result[fm].file_url.substr(0, 8) + '-' + result[fm].file_url.substr(8, 4) + '-' + result[fm].file_url.substr(12, 4) + '-' + result[fm].file_url.substr(16, 4) + '-' + result[fm].file_url.substr(20, 12) + '/' + result[fm].file_url.substr(32);
           result[fm].profileUrl = url;
         } else {
           result[fm].profileUrl = './images/default-avatar.png';
