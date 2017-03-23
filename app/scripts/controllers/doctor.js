@@ -159,4 +159,5 @@ angular.module('modioAdminPortal').controller('DoctorCtrl', function (ENV, $rout
 
   /* Init */
   _this.get(_this.doctorId);
+
 });
