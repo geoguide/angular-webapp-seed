@@ -279,7 +279,6 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
     _this.getJobOffers(_this.doctorId);
     _this.loading = true;
     doctorFactory.getStates(_this.doctorId).then(function (data) {
-
       _this.states = data;
       for (var s = 0; s < _this.states.length; s++) {
         var abbr = _this.states[s];
