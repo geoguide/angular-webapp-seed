@@ -206,6 +206,9 @@
       <th>Rate Type</th>
       <th>Term</th>
       <th>Rate</th>
+      <th>Amount</th>
+      <th>Start Date</th>
+      <th>End Date</th>
     </tr>
     </thead>
     <tbody ng-repeat="(key, value) in f.service_rates | filter: {is_admin_filter: 1} | groupBy: 'service_name'">
@@ -223,10 +226,16 @@
       <td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: rate.type_id}).name"></td>
       <td ng-bind="rate.term"></td>
       <td ng-bind="rate.rate | currency:'$'"></td>
+      <td ng-bind="rate.amount | currency:'$'"></td>
+      <td ng-bind="rate.start_date"></td>
+      <td ng-bind="rate.end_date"></td>
     </tr>
     </tbody>
     <tbody>
     <tr>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td>Total amount:</td>
