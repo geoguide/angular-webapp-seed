@@ -24,7 +24,7 @@
             {{$item.name}}
           </ui-select-match>
           <ui-select-choices group-by="'group'" repeat="item in fac.settings | orderBy: ['group','name'] track by item.id"
-                             ng-hide="!$select.open">
+                             ng-hide="!$select.open" ui-disable-choice="(fac.facilityData.selected_settings.indexOf(fac.facilitySettings.activeClient) > -1 && item.id === fac.facilitySettings.inactiveClient.id) || (fac.facilityData.selected_settings.indexOf(fac.facilitySettings.inactiveClient) > -1 && item.id === fac.facilitySettings.activeClient.id)" >
             <div ng-bind-html="item.name | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>

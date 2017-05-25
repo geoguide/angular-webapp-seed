@@ -18,6 +18,7 @@ angular.module('modioAdminPortal')
     this.error = false;
     this.loading = true;
     this.membership = false;
+    this.facilitySettings = facilityFactory.getSettings().values;
     this.settings = facilityFactory.getSettingsList();
     this.facilityTypes = MODIOCORE.facilityTypes.toArray();
     this.states = MODIOCORE.states.toArray();
