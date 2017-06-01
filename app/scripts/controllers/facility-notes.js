@@ -52,9 +52,13 @@ angular.module('modioAdminPortal')
 
     this.save = function() {
       if (_this.facilityData.due_date) {
-        _this.facilityData.due_date = dateFactory.process(_this.facilityData.due_date);        
+        _this.facilityData.due_date = dateFactory.process(_this.facilityData.due_date);
       }
-      
+
+      if (_this.facilityData.date_invoiced) {
+        _this.facilityData.date_invoiced = dateFactory.process(_this.facilityData.date_invoiced);
+      }
+
       facilityFactory.saveFacility(_this.facilityData).then(function(data) {
         toasty.success('Facility Saved.');
         _this.doctorData = data;
