@@ -96,6 +96,7 @@
             <th ng-click="fac.sortResult('id')">id</th>
             <th ng-click="fac.sortResult('facility_name')">Facility</th>
             <th ng-click="fac.sortResult('due_date')">Date Signed</th>
+            <th ng-click="fac.sortResult('date_invoiced')">Date Invoiced</th>
             <th>Services</th>
             <th ng-click="fac.sortResult('mood_type')">Mood</th>
           </tr>
@@ -105,9 +106,10 @@
               ng-click="appCtrl.goTo('/facility/{{f.id}}')">
             <td ng-bind="f.id"></td>
             <td><span ng-bind="f.facility_display"></span></td>
-            <td popover-template="fac.nextStepsPopover.templateUrl" popover-placement="left" popover-enable="f.next_steps.length" 
+            <td popover-template="fac.nextStepsPopover.templateUrl" popover-placement="left" popover-enable="f.next_steps.length"
                 popover-append-to-body="true" popover-title="Next Steps" popover-trigger="mouseenter" popover-class="popover-next-steps" ng-bind="f.due_date">
             </td>
+            <td><span ng-bind="f.date_invoiced"></span></td>
             <td popover-template="fac.servicesRatesPopover.templateUrl" popover-placement="left" popover-enable="f.service_rates.length"
                 popover-append-to-body="true" popover-title="Services" popover-trigger="mouseenter" popover-class="popover-services-rates"
                 ng-bind="f.services"></td>
