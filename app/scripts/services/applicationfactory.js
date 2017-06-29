@@ -342,4 +342,5 @@ angular.module('modioAdminPortal').factory('applicationFactory', function ($loca
 			});
 		}, usStates: usStates, countries: countries, loading: _this.loading
 	};
+
   });
