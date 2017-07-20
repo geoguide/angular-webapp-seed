@@ -224,6 +224,14 @@
         requiredLogin: true
       },
       tab: 'facilities'
+    }).when('/facility/:id/contacts', {
+      templateUrl: 'views/facility-contacts.html',
+      controller: 'FacilityContactsCtrl',
+      controllerAs: 'fac',
+      access: {
+        requiredLogin: true
+      },
+      tab: 'facilities'
     }).when('/lookup', {
       templateUrl: 'views/lookup.html',
       controller: 'LookupCtrl',

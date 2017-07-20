@@ -66,5 +66,13 @@ angular.module('modioAdminPortal').filter('tel', function () {
       }
       return true;
     });
-  }
+  };
+}).filter('outArray', function($filter){
+  return function(list, arrayFilter, element, exceptionElements){
+    if(arrayFilter){
+      return $filter("filter")(list, function(listItem){
+        return (arrayFilter.indexOf(listItem[element]) === -1) || (exceptionElements.indexOf(listItem[element]) !== -1);
+      });
+    }
+  };
 });
