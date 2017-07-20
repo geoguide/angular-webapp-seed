@@ -1,0 +1,121 @@
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+  <div class="col-md-2 col-md-offset-5 form-group">
+    <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+  </div>
+</div>
+<section ng-hide="fac.loading || fac.error">
+
+  <ng-form name="facilityContactsForm">
+    <fieldset ng-repeat="contact in fac.facilityData.contacts">
+      <legend><span ng-bind="contact.typeName"></span> Contact
+        <span class="pull-right">
+        <a title="Delete contact" class="text-danger" ng-really-click="fac.deleteContact(contact)"
+           ng-really-message="Are you sure you want to delete this contact?" ng-click=""><i class="fa fa-times"
+                                                                                            style="vertical-align: bottom"></i></a>
+      </span>
+      </legend>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Contact Type</label>
+          <select class="form-control input-sm" ng-model="contact.type" ng-change="fac.onContactTypeChange(contact)"
+                  ng-options="type.id as type.name for type in fac.contactTypes | outArray:fac.getUsedContactTypes():'id':[contact.type]" ng-required="true"></select>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Contact Name</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.name" ng-required="true"/>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Contact Title</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.title"/>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Settings</label> <br/>
+          <ui-select multiple ng-model="contact.selected_settings" search-enabled="false" on-select="alert($item)">
+            <ui-select-match placeholder="Select settings">
+              {{$item.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="item in fac.contactSettings" ng-hide="!$select.open">
+              <div ng-bind-html="item.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Address</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.address"/>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Address 2</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.address_2"/>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>City</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.city"/>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <div ng-if="contact.country == 'USA'">
+            <label class="control-label">State</label>
+            <select name="state" class="form-control" ng-model="contact.state"
+                    ng-options="state.id as state.display_name group by state.group for state in fac.states">
+              <option value=""></option>
+            </select>
+          </div>
+          <div ng-if="contact.country != 'USA'">
+            <label class="control-label">State/Province</label>
+            <input type="text" name="state" class="form-control input-sm" ng-model="contact.state"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+          <label>Zip/Postal Code</label>
+          <input type="text" name="zip" class="form-control masked" ng-model="contact.zip" ui-mask="*****-?*?*?*?*"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+          <label>County</label>
+          <input class="form-control input-sm" type="text" ng-model="contact.county"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+          <label>Country</label>
+          <select class="form-control input-sm" ng-model="contact.country" ng-required="true"
+                  ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+          <label>Phone</label>
+          <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="contact.phone"/>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-1 form-group">
+          <label>Ext</label>
+          <input class="form-control input-sm" type="text" ui-mask="9?9?9?9?9?9?" ng-model="contact.phone_ext"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+          <label>Fax</label>
+          <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="contact.fax"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+          <label>Email</label>
+          <input class="form-control input-sm" type="email" ng-model="contact.email" ng-required="true">
+        </div>
+      </div>
+    </fieldset>
+
+  </ng-form>
+    <div class="pull-right">
+      <a title="Add contact" ng-click="fac.addContact()" class="text-success"><i class="fa fa-plus fa-lg" style="vertical-align: bottom"></i></a>
+    </div>
+  <div class="row mt10">
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+      <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="facilityContactsForm.$invalid"
+              ng-click="fac.saveContacts()">Save
+      </button>
+    </div>
+  </div>
+</section>
