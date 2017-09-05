@@ -47,7 +47,6 @@ angular.module('modioAdminPortal').controller('ReportCtrl', function ($window, $
     _this.getResults();
   };
 
-
 	this.getResults = function() {
 		_this.loading = true;
 		reportFactory.queryLicenses(_this.queryData).then(function(response) {
