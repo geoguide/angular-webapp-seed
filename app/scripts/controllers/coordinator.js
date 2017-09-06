@@ -55,7 +55,7 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 						facility_id: facility.id,
 						doctor_id: _this.coordId,
 						status: data.status
-					}
+					};
 				});
 			}
 			doctorFactory.submitMembership(_this.coordId,data).then(function(){

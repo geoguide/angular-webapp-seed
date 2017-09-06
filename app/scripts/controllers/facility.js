@@ -95,7 +95,8 @@ angular.module('modioAdminPortal')
     this.save = function () {
       var facility = {};
 
-      _this.facilityData.settings = facilityFactory.mapSettings(_this.facilityData.selected_settings);
+      var settings = _this.facilityData.selected_settings.concat(_this.facilityData.selected_statuses);
+      _this.facilityData.settings = facilityFactory.mapSettings(settings);
 
       angular.copy(_this.facilityData, facility);
 
@@ -104,7 +105,7 @@ angular.module('modioAdminPortal')
           service_id: item.id,
           owner_id: item.owner_id,
           enabled: 1
-        }
+        };
       });
 
       for (var i = 0; i < _this.facilityData.services.length; i++) {
@@ -125,6 +126,7 @@ angular.module('modioAdminPortal')
 
       facility.services = mapped_services;
       delete facility.selected_settings;
+      delete facility.selected_statuses;
       delete facility.selected_services;
 
       facilityFactory.saveFacility(facility).then(function (data) {
@@ -144,14 +146,19 @@ angular.module('modioAdminPortal')
       }).then(function (data) {
         _this.facilityData = data;
         _this.facilityData.selected_settings = [];
+        _this.facilityData.selected_statuses = [];
         _this.facilityData.selected_services = [];
 
         _this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
 
         for (var i = 0; i < _this.settings.length; i++) {
           var item = _this.settings[i];
-          if ((_this.facilityData.settings & item.id) == item.id) {
-            _this.facilityData.selected_settings.push(item);
+          if ((_this.facilityData.settings & item.id) === item.id) {
+            if (item.group === 'Facility Settings') {
+              _this.facilityData.selected_settings.push(item);
+            } else if (item.group === 'Client Status') {
+              _this.facilityData.selected_statuses.push(item);
+            }
           }
         }
 
@@ -159,7 +166,7 @@ angular.module('modioAdminPortal')
           var facility_service = _this.facilityData.services[i];
           for (var j = 0; j < _this.services.length; j++) {
             var service = _this.services[j];
-            if (facility_service.service_id == service.id) {
+            if (facility_service.service_id === service.id) {
               service.owner_id = facility_service.owner_id;
               _this.facilityData.selected_services.push(service);
             }
@@ -169,7 +176,7 @@ angular.module('modioAdminPortal')
         _this.loading = false;
       }).catch(function(error){
         toasty.error(error.data);
-      })
+      });
     };
 
     init();

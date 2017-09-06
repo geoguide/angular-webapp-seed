@@ -18,13 +18,13 @@
                 ng-options="type.id as type.name for type in fac.facilityTypes"></select>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 form-group">
-        <label>Settings</label> <br/>
-        <ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false" on-select="alert($item)">
-          <ui-select-match placeholder="Select settings">
+        <label>Client Status</label> <br/>
+        <ui-select multiple ng-model="fac.facilityData.selected_statuses" search-enabled="false" on-select="alert($item)">
+          <ui-select-match placeholder="Select statuses">
             {{$item.name}}
           </ui-select-match>
-          <ui-select-choices group-by="'group'" repeat="item in fac.settings | orderBy: ['group','name'] track by item.id"
-                             ng-hide="!$select.open" ui-disable-choice="(fac.facilityData.selected_settings.indexOf(fac.facilitySettings.activeClient) > -1 && item.id === fac.facilitySettings.inactiveClient.id) || (fac.facilityData.selected_settings.indexOf(fac.facilitySettings.inactiveClient) > -1 && item.id === fac.facilitySettings.activeClient.id)" >
+          <ui-select-choices repeat="item in fac.settings | filter: {group: 'Client Status'} | orderBy: ['name'] track by item.id"
+                             ng-hide="!$select.open" ui-disable-choice="(fac.facilityData.selected_statuses.indexOf(fac.facilitySettings.activeClient) > -1 && item.id === fac.facilitySettings.inactiveClient.id) || (fac.facilityData.selected_settings.indexOf(fac.facilitySettings.inactiveClient) > -1 && item.id === fac.facilitySettings.activeClient.id)" >
             <div ng-bind-html="item.name | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
@@ -40,6 +40,28 @@
         <input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation"/>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+        <label>Facility Settings</label> <br/>
+        <ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false" on-select="alert($item)">
+          <ui-select-match placeholder="Select settings">
+            {{$item.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in fac.settings | filter: {group: 'Facility Settings'} | orderBy: ['name'] track by item.id"
+                             ng-hide="!$select.open">
+            <div ng-bind-html="item.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+        <label>Practice Legal Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.legal_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+        <label>Practice DBA Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.dba_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 form-group">
         <label>Services</label> <br/>
         <ui-select multiple ng-model="fac.facilityData.selected_services" search-enabled="false" on-select="alert($item)">
           <ui-select-match placeholder="Select settings">
@@ -49,16 +71,6 @@
             <div ng-bind-html="item.name | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
-        <label>Practice Legal Name</label>
-        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.legal_name"/>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
-        <label>Practice DBA Name</label>
-        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.dba_name"/>
       </div>
     </div>
     <div class="row">
