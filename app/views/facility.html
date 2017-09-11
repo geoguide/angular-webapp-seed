@@ -250,7 +250,12 @@
     </div>
     <hr/>
     <div class="row">
-      <div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+      <div class="col-md-3 col-sm-6">
+        <button class="btn btn-danger btn-block btn-sm"
+                ng-really-message="Are you sure you want to delete this facility?" ng-really-click="fac.deleteFacility()">Delete
+        </button>
+      </div>
+      <div class="col-md-3 col-md-offset-6 col-sm-6">
         <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="edit_facility_form.$invalid"
                 ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Save
         </button>

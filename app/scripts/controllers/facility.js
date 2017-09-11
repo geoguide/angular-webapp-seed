@@ -92,6 +92,15 @@ angular.module('modioAdminPortal')
       return facilityFactory.getServicesList();
     };
 
+    this.deleteFacility = function() {
+      return facilityFactory.deleteFacility(this.facilityId).then(function (data) {
+        toasty.success('Facility Deleted.');
+      }).catch(function(error) {
+        console.log(error);
+        toasty.error(error.data);
+      });
+    };
+
     this.save = function () {
       var facility = {};
 
