@@ -136,7 +136,7 @@ angular.module('modioAdminPortal').controller('JobCtrl', function ($modal, $moda
 				jobData.selected_job_type.push(jobType);
 			}
 		}
-	}
+	};
 
 	var init = function(){
 

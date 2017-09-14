@@ -101,7 +101,7 @@ angular.module('modioAdminPortal').controller('JobsCtrl', function($scope,$modal
 			}
 		}
 		return result.join(', ');
-	}
+	};
 
 	var init = function(){
 		_this.loading = true;

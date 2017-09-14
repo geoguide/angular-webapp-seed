@@ -24,6 +24,8 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       }).then(function (response) {
         return response.data;
       });
+    }, deleteFacility: function(facility_id) {
+      return $http.delete(API_URL + '/admin/facilities/' + facility_id);
     }, getMoodTypes: function() {
       return [
         {

@@ -67,7 +67,7 @@ angular.module('modioAdminPortal').controller('EducationWorkCtrl', function ($sc
             facility_id: facility.id,
             doctor_id: _this.doctorId,
             status: data.status
-          }
+          };
         });
       }
       _this.submitFacilityMembership(data).then(function () {

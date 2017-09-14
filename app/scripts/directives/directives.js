@@ -94,7 +94,7 @@ angular.module('modioAdminPortal').directive('directives', function () {
         }
       });
     }
-  }
+  };
 }]).directive('noFocus', [function () {
   return {
     restrict: 'A',
@@ -103,5 +103,5 @@ angular.module('modioAdminPortal').directive('directives', function () {
         element.blur();
       });
     }
-  }
+  };
 }]);

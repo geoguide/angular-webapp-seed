@@ -25,8 +25,12 @@ angular.module('modioAdminPortal').controller('AccountInfoCtrl', function ($rout
   this.boardSpecialties = [];
   this.trackingData = [];
   this.additional_certification_types = MODIOCORE.additionalCertificationsTypes.toSortedArray('asc', 'name', function (a, b) {
-    if (a.name.toLowerCase() === 'other') return 1;
-    if (b.name.toLowerCase() === 'other') return -1;
+    if (a.name.toLowerCase() === 'other') {
+      return 1;
+    }
+    if (b.name.toLowerCase() === 'other') {
+      return -1;
+    }
   });
 
   this.loadCertifications = function (boardName) {
