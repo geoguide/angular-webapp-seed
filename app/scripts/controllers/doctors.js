@@ -35,12 +35,11 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 
 	var facilityId = +$location.search().facilityId;
 	this.queryData = doctorFactory.queryData;
+	this.queryData.job_seekers = 1;
 
 	if (facilityId) {
 		this.queryData.facility_id = facilityId;
 	}
-
-	this.queryData.job_type_desired = 1;
 
 	this.csvEndpoint = API_URL+'/public/download-users-csv?token=' + localStorageService.get('adminAuthToken');
 
@@ -68,8 +67,20 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 		});
 	};
 
-	this.changeDoctorType = function(jobTypeDesired){
-		_this.queryData.job_type_desired = jobTypeDesired;
+	this.changeJobType = function() {
+	  if (_this.selected_job_type_desired.length > 0) {
+      _this.queryData.job_type_desired = _this.selected_job_type_desired.reduce(function(prevValue, curValue){
+        return prevValue + curValue;
+      });
+    } else {
+	    _this.queryData.job_type_desired = 0;
+    }
+
+    _this.getResults();
+  };
+
+	this.changeDoctorType = function(job_seekers){
+		_this.queryData.job_seekers = job_seekers;
 		_this.getResults();
 	};
 
@@ -138,9 +149,9 @@ angular.module('modioAdminPortal').controller('DoctorsCtrl', function ($scope,AP
 	};
 
 	if(typeIn == 'credentialing'){
-		_this.queryData.job_type_desired = 0;
+		_this.queryData.job_seekers = 0;
 	} else if (typeIn == 'all') {
-		_this.queryData.job_type_desired = null;
+		_this.queryData.job_seekers = null;
 	}
 
 	if (_this.queryData.facility_id) {
