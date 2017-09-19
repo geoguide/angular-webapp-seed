@@ -103,6 +103,14 @@
 					<option value="">-- Select Source --</option>
 				</select>
 			</div>
+      <div ng-if="drsCtrl.queryData.job_seekers !== 0" class="col-md-3 col-sm-6 form-group">
+        <ui-select multiple ng-model="drsCtrl.selected_job_type_desired" ng-change="drsCtrl.changeJobType()">
+          <ui-select-match placeholder="-- Select Job Types --">{{$item.name}}</ui-select-match>
+          <ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+            <div ng-bind-html="job_type.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
 		</div>
 		<div class="row ng-hide" ng-hide="drsCtrl.loading">
 			<div class="col-md-4 col-xs-12 form-group">
@@ -132,9 +140,9 @@
 <div class="row" id="provider-tabs">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
-		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_type_desired == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
 		</ul>
 	</div>
 </div>
