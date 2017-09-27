@@ -131,8 +131,7 @@ angular.module('modioAdminPortal')
           });
         }
       }
-
-
+      
       facility.services = mapped_services;
       delete facility.selected_settings;
       delete facility.selected_statuses;
