@@ -83,7 +83,15 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       return $http.get(API_URL + '/admin/facilities/' + facilityId + '/contacts').then(function(response) {
         return response.data;
       });
-    }, deleteContact: function(facilityId, contactId) {
+    }, getPermissions: function(facilityId) {
+      return $http.get(API_URL + '/admin/facilities/' + facilityId + '/permissions').then(function(response) {
+        return response.data;
+      });
+    }, submitPermissions: function(facilityId, permissions) {
+      return $http.post(API_URL + '/admin/facilities/' + facilityId + '/permissions', permissions).then(function(response) {
+        return response.data;
+      });
+    } ,deleteContact: function(facilityId, contactId) {
       return $http.delete(API_URL + '/admin/facilities/' + facilityId + '/contacts/' + contactId).then(function(response) {
         return response.data;
       });

@@ -19,6 +19,9 @@
             <li role="presentation" ng-class="{'active': fac.tab == 'facility-notes'}">
                 <a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}/notes')">Notes</a>
             </li>
+            <li role="presentation" ng-if="fac.membership" ng-class="{'active': fac.tab == 'facility-permissions'}">
+                <a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}/permissions')">Permissions</a>
+            </li>
         </ul>
     </div>
 </div>

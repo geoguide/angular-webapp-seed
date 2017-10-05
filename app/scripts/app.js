@@ -232,6 +232,14 @@
         requiredLogin: true
       },
       tab: 'facilities'
+    }).when('/facility/:id/permissions', {
+      templateUrl: 'views/facility-permissions.html',
+      controller: 'FacilityPermissionsCtrl',
+      controllerAs: 'fac',
+      access: {
+        requiredLogin: true
+      },
+      tab: 'facilities'
     }).when('/lookup', {
       templateUrl: 'views/lookup.html',
       controller: 'LookupCtrl',

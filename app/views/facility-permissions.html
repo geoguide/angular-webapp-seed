@@ -1,0 +1,38 @@
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+  <div class="col-md-2 col-md-offset-5 form-group">
+    <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+  </div>
+</div>
+<section ng-hide="fac.loading || fac.error">
+
+  <ng-form name="facilityPermissionsForm">
+    <fieldset>
+      <legend>Healthcare Payors</legend>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 form-group">
+          <ui-select multiple ng-model="fac.permissions.selected_payors" search-enabled="true" on-select="alert($item)">
+            <ui-select-match placeholder="Select payors">
+              {{$item.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="item in fac.payorTypes" ng-hide="!$select.open">
+              <div ng-bind-html="item.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </fieldset>
+
+  </ng-form>
+  <div class="row mt10">
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+      <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="facilityPermissionsForm.$invalid"
+              ng-click="fac.savePermissions()">Save
+      </button>
+    </div>
+  </div>
+</section>
