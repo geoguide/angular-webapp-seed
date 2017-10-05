@@ -18,7 +18,7 @@ angular.module('modioAdminPortal')
     this.facilityData = null;
     this.permissions = {};
     this.MODIOCORE = MODIOCORE;
-    this.payorTypes = this.MODIOCORE.payorTypes.toArray();
+    this.payorTypes = this.MODIOCORE.payorTypes.toSortedArray('asc', 'name');
 
     this.get = function (facilityId) {
       var facilityData = facilityFactory.getFacility(facilityId);
