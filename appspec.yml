@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/modio-admin/
+permissions:
+  - object: /var/www/modio-admin
+    owner: app
+    group: app
+hooks:
+  ApplicationStart:
+    - location: scripts/start_app
+      timeout: 300
+      runas: root
+  ValidateService:
+    - location: scripts/validate_app
+      timeout: 15
+      runas: root
+

@@ -1,0 +1,47 @@
+<div ng-include="'./views/partials/_job-menu.html'"></div>
+
+<div class="text-center row" ng-show="jobCtrl.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+<div class="ng-hide clearfix" ng-hide="jobCtrl.loading">
+	<h4>Job Files</h4>
+	<div class="row">
+
+		<div class="col-xs-6" ng-repeat="obj in jobCtrl.uploadTypes">
+			<h4 ng-bind="obj.title"></h4>
+			<div ngf-drop ng-model="files" class="drop-box" ngf-change="upload($files, obj.type)"
+		ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+		ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Drop Images, Documents or PDFs files here</div>
+			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+		</div>
+	</div>
+
+	<hr />
+	<div>
+		<table class="table table-condensed table-striped">
+			<thead>
+				<tr>
+					<th>File Name</th>
+					<th>File Size</th>
+					<th>Date</th>
+					<th>Permission</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="file in jobCtrl.files">
+					<td ng-bind="file.filename"></td>
+					<td ng-bind="file.filesize"></td>
+					<td ng-bind="file.date_created"></td>
+					<td ng-bind="file.tag"></td>
+					<td>
+						<button class="btn btn-primary" ng-click="jobCtrl.getFileLink(file)">Download</button>
+						<button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?" ng-really-click="jobCtrl.deleteUpload(file)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

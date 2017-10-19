@@ -1,0 +1,304 @@
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+  <div class="col-md-2 col-md-offset-5 form-group">
+    <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+  </div>
+</div>
+<section ng-hide="fac.loading || fac.error">
+  <form id="edit-facility-form" name="edit_facility_form" ng-show="fac.facilityData" class="ng-cloak" novalidate>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 form-group">
+        <label>Facility Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.facility_name" ng-required="true"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-2 form-group">
+        <label>Facility Type</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.facility_type"
+                ng-options="type.id as type.name for type in fac.facilityTypes"></select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+        <label>Client Status</label> <br/>
+        <ui-select multiple ng-model="fac.facilityData.selected_statuses" search-enabled="false" on-select="alert($item)">
+          <ui-select-match placeholder="Select statuses">
+            {{$item.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in fac.settings | filter: {group: 'Client Status'} | orderBy: ['name'] track by item.id"
+                             ng-hide="!$select.open" ui-disable-choice="(fac.facilityData.selected_statuses.indexOf(fac.facilitySettings.activeClient) > -1 && item.id === fac.facilitySettings.inactiveClient.id) || (fac.facilityData.selected_settings.indexOf(fac.facilitySettings.inactiveClient) > -1 && item.id === fac.facilitySettings.activeClient.id)" >
+            <div ng-bind-html="item.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 form-group">
+        <label>Previous Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.previous_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-2 form-group">
+        <label>Abbreviation</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.abbreviation"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+        <label>Facility Settings</label> <br/>
+        <ui-select multiple ng-model="fac.facilityData.selected_settings" search-enabled="false" on-select="alert($item)">
+          <ui-select-match placeholder="Select settings">
+            {{$item.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in fac.settings | filter: {group: 'Facility Settings'} | orderBy: ['name'] track by item.id"
+                             ng-hide="!$select.open">
+            <div ng-bind-html="item.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+        <label>Practice Legal Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.legal_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-3 col-md-3 form-group">
+        <label>Practice DBA Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.dba_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+        <label>Services</label> <br/>
+        <ui-select multiple ng-model="fac.facilityData.selected_services" search-enabled="false" on-select="alert($item)">
+          <ui-select-match placeholder="Select settings">
+            <span ng-click="fac.openAssignServiceOwnerModal($item)">{{$item.name}}</span>
+          </ui-select-match>
+          <ui-select-choices group-by="'type_name'" repeat="item in fac.services | orderBy: ['type_name','name'] track by item.id" ng-hide="!$select.open">
+            <div ng-bind-html="item.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 form-group">
+        <label>Address</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.address"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 form-group">
+        <label>Address 2</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.address_2"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 form-group">
+        <label>Group</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.group"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 form-group">
+        <label>Schedule ID</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.schedule_id"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>City</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.city"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <div ng-if="fac.facilityData.country == 'USA'">
+          <label class="control-label">State</label>
+          <select name="state" class="form-control"  ng-model="fac.facilityData.state"
+                  ng-options="state.id as state.display_name group by state.group for state in fac.states">
+            <option value=""></option>
+          </select>
+        </div>
+        <div ng-if="fac.facilityData.country != 'USA'">
+          <label class="control-label">State/Province</label>
+          <input type="text" name="state" class="form-control" ng-model="fac.facilityData.state"
+                 placeholder="Home state"/>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>County</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.county"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Country</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.country" ng-required="true"
+                ng-options="country.iso_code as country.country for country in appCtrl.countries"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Zip</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.zip"/>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+        <label>Phone</label>
+        <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.tel"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-1 form-group">
+        <label>Ext</label>
+        <input class="form-control input-sm" type="text" ui-mask="9?9?9?9?9?9?" ng-model="fac.facilityData.tel_ext"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Fax</label>
+        <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.fax"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Email</label>
+        <input class="form-control input-sm" type="email" ng-model="fac.facilityData.email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Website</label>
+        <input class="form-control input-sm" type="url" ng-model="fac.facilityData.website"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>NPI Number</label>
+        <input class="form-control input-sm" type="text" ui-mask="9999999999" ng-model="fac.facilityData.npi_number"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Google Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.google_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Google Place ID</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.google_place_id"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Tax ID</label>
+        <input class="form-control input-sm" type="text" ui-mask="99-9999999" ng-model="fac.facilityData.tax_id"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Tax ID Type</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.tax_id_type"
+                ng-options="type.id as type.name for type in appCtrl.taxIdTypes">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 form-group">
+        <label>Primary Tax ID</label><br/>
+        <input class="input-sm" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="fac.facilityData.tax_id_is_primary"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+        <label>W-9 Practice Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.w9_name"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Credentialing Contact Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.contact_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Credentialing Contact Title</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.contact_title"/>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+        <label>Credentialing Contact Phone</label>
+        <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.contact_phone"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-1 form-group">
+        <label>Ext</label>
+        <input class="form-control input-sm" type="text" ui-mask="9?9?9?9?9?9?" ng-model="fac.facilityData.contact_phone_ext"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Credentialing Contact Email</label>
+        <input class="form-control input-sm" type="email" ng-model="fac.facilityData.contact_email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Group Medicaid Number</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.medicaid_number"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Group Medicare Number</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.medicare_number"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Billing Name</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.billing_name"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Billing Email</label>
+        <input class="form-control input-sm" type="email" ng-model="fac.facilityData.billing_email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Billing Address</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.billing_address"/>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+        <label>Billing Address 2</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.billing_address_2"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Billing City</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.billing_city"/>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Billing State</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.billing_state"
+                ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Billing Zip</label>
+        <input class="form-control input-sm" type="text" ng-model="fac.facilityData.billing_zip"/>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+        <label>Billing Phone</label>
+        <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.billing_phone"/>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-1 form-group">
+        <label>Ext</label>
+        <input class="form-control input-sm" type="text" ui-mask="9?9?9?9?9?9?" ng-model="fac.facilityData.billing_phone_ext"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3 form-group">
+        <label>Billing Fax</label>
+        <input class="form-control input-sm" type="text" ui-mask="(999) 999-9999" ng-model="fac.facilityData.billing_fax"/>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <button class="btn btn-danger btn-block btn-sm"
+                ng-really-message="Are you sure you want to delete this facility?" ng-really-click="fac.deleteFacility()">Delete
+        </button>
+      </div>
+      <div class="col-md-3 col-md-offset-6 col-sm-6">
+        <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="edit_facility_form.$invalid"
+                ng-really-message="Are you sure you want to change this facility information?" ng-really-click="fac.save()">Save
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<script type="text/ng-template" id="assign-service-owner-modal">
+  <form name="owner_form" ng-submit="modal.ok()" novalidate>
+    <div class="modal-header">
+      <p class="modal-title">Assign Owner for [<span ng-bind="modal.modalObject.name"></span>] Service</p>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <div class="col-xs-12">
+          <label>Owner</label>
+          <select name="owner_id" class="form-control" ng-model="modal.modalObject.owner_id"
+                  ng-options="member.doctor_id as member.full_name group by member.role for member in modal.parentCtrl.facilityMembers">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning" role="button" type="button" ng-click="modal.cancel()">Cancel</button>
+        <button class="btn btn-primary" role="submit" ng-disabled="owner_form.$invalid">OK</button>
+      </div>
+    </div>
+  </form>
+</script>

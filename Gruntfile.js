@@ -9,20 +9,24 @@
 
 module.exports = function (grunt) {
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+	// Load grunt tasks automatically
+	require('load-grunt-tasks')(grunt);
 
-  // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+	// Time how long tasks take. Can help when optimizing build times
+	require('time-grunt')(grunt);
 
-  // Configurable paths for the application
-  var appConfig = {
-    app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
-  };
+	// Configurable paths for the application
+	var appConfig = {
+		app: require('./bower.json').appPath || 'app',
+		dist: 'dist'
+	};
 
-  // Define the configuration for all the tasks
-  grunt.initConfig({
+	var gruntEnvironment = grunt.option('environment') || 'development';
+
+	console.log('Environment: '+gruntEnvironment);
+
+	// Define the configuration for all the tasks
+	grunt.initConfig({
 
     // Project settings
     yeoman: appConfig,
@@ -69,13 +73,21 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35728
       },
       livereload: {
         options: {
           open: true,
           middleware: function (connect) {
             return [
+              function(req,res,next){
+                if( req.url == '/config.js' ){
+                  res.end(grunt.file.read('./app/configs/' + gruntEnvironment + '.js'));
+                }
+                else {
+                  next();
+                }
+              },
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -174,6 +186,16 @@ module.exports = function (grunt) {
         }]
       }
     },
+    processhtml: {
+	    options: {
+	        //
+	    },
+	    build: {
+	        files: {
+	            'dist/index.html':['app/index.html']
+		        }
+		    }
+		},
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -238,7 +260,7 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
@@ -376,7 +398,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'configs/*.js'
           ]
         }, {
           expand: true,
@@ -448,8 +471,7 @@ module.exports = function (grunt) {
     'wiredep',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
-    'karma'
+    'connect:test'
   ]);
 
   grunt.registerTask('build', [
@@ -461,6 +483,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'processhtml',
     'cdnify',
     'cssmin',
     'uglify',

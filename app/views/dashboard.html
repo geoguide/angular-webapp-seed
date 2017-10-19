@@ -1,1 +1,105 @@
-<p>This is the dashboard view.</p>
+<div class="row">
+	<section class="col-md-12">
+		<h4>Dashboard</h4>
+		<div class="text-center row ng-hide" ng-hide="!dash.loading" style="margin:30px 0">
+			<div class="col-md-2 col-md-offset-5 form-group" >
+			  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+			</div>
+		</div>
+		<article ng-hide="dash.loading" class="ng-hide">
+			<h5><span ng-bind="(dash.twoWayMatches | filter: {excluded:0}).length"></span> Matches <i ng-click="dash.get2Way()" class="fa fa-refresh"></i></h5>
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th ng-click="dash.sortColumn('facility_name')">Facility</th>
+							<th ng-click="dash.sortColumn('job_jobtype')">Job Type(s)</th>
+							<th ng-click="dash.sortColumn('dr_job_type')">Provider Job Type(s)</th>
+							<th ng-click="dash.sortColumn('last_name')">Provider Name</th>
+							<th ng-click="dash.sortColumn('Licensed')">Licensed?</th>
+							<th ng-click="dash.sortColumn('job_specialty')">Specialty</th>
+							<th ng-click="dash.sortColumn('score')">Score</th>
+							<th ng-click="dash.sortColumn('account_manager')">Account Manager</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 0, source:'!11'} | orderBy: dash.sortBy : dash.sortDir track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+							<td ng-bind="match.job_id"></td>
+							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
+							<td><span ng-bind="match.job_jobtype_title"></span></td>
+							<td><span ng-bind="match.dr_jobtype_title"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::match.doctor_id}}')"><span ng-bind="match.first_name"></span> <span ng-bind="match.last_name"></span></td>
+							<td>{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
+							<td><span ng-bind="match.job_specialty"></span>  in <span ng-bind="match.doctor_desired_state"></span></td>
+							<td ng-bind="match.score"></td>
+							<td ng-bind="match.account_manager"></td>
+							<td>
+								<a ng-click="match.excluded = 0;dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
+									<i class="fa fa-user-times text-muted"></i>
+								</a>
+								<a ng-click="match.excluded = 1;dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
+									<i class="fa fa-user-times"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h5><span ng-bind="(dash.twoWayMatches | filter: { excluded: 1}).length"></span> Disabled Matches <i ng-click="dash.get2Way()" class="fa fa-refresh"></i></h5>
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Facility</th>
+							<th>Job Type(s)</th>
+							<th>Provider Job Type(s)</th>
+							<th>Provider Name</th>
+							<th>Licensed?</th>
+							<th>Specialty</th>
+							<th>Score</th>
+							<th>Account Manager</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-class="(match.excluded == 1) ? 'text-muted' : ''" ng-repeat="match in dash.twoWayMatches | filter: {excluded: 1}  track by $index" ng-mouseover="dash.setTooltip(match)" popover-template="dash.dynamicPopover.templateUrl" popover-title="Sales Notes" popover-trigger="mouseenter">
+							<td ng-bind="match.job_id"></td>
+							<td ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.facility_name"></td>
+							<td><span ng-bind="match.job_jobtype_title"></span></td>
+							<td><span ng-bind="match.dr_jobtype_title"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::match.doctor_id}}')"><span ng-bind="match.first_name"></span> <span ng-bind="match.last_name"></span></td>
+							<td>{{ match.Licensed == 0 ? 'No' : 'Yes' }}</td>
+							<td><span ng-bind="match.job_specialty"></span>  in <span ng-bind="match.doctor_desired_state"></span></td>
+							<td ng-bind="match.score"></td>
+							<td ng-bind="match.account_manager"></td>
+							<td>
+								<a ng-click="match.excluded = 0;dash.includeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded == 1">
+									<i class="fa fa-user-times text-muted"></i>
+								</a>
+								<a ng-click="match.excluded = 1;dash.excludeMatch({job_id:match.job_id,doctor_id:match.doctor_id})" ng-if="match.excluded != 1">
+									<i class="fa fa-user-times"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</article>
+	</section>
+	<script type="text/ng-template" id="notes-template.html">
+	<div class="form-group" ng-show="dash.tooltipSales">
+		<label>Provider Notes</label>
+		<div ng-bind="dash.tooltipSales"></div>
+	</div>
+	<div class="form-group" ng-show="dash.tooltipJob">
+		<label>Job Notes</label>
+		<div ng-bind="dash.tooltipJob"></div>
+	</div>
+	<div class="form-group" ng-show="!dash.tooltipSales && !dash.tooltipJob">
+		<div>No notes.</div>
+	</div>
+</script>

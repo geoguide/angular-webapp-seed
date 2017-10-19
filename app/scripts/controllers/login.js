@@ -2,23 +2,26 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:LoginCtrl
+ * @name modioAdminPortal.controller:LoginCtrl
  * @description
  * # LoginCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
-angular.module('angularWebappSeedApp').controller('LoginCtrl', function ($http,$location,API_URL,Auth,localStorageService,$log) {
+angular.module('modioAdminPortal').controller('LoginCtrl', function ($scope,$http,$location,API_URL,localStorageService,$log,toasty) {
 	var loginInfo;
+	var _this = this;
 	this.login = loginInfo = {};
-	
+	this.loading = false;
 	this.authenticate = function(){
-		$log.info('login info: '+JSON.stringify(loginInfo));
+		this.loading = true;
 		$http.post(API_URL+'/admin/authenticate', loginInfo).success(function(data, status, headers, config){
-			localStorageService.set('authToken',data.token);
+			localStorageService.set('adminAuthToken',data.token);
 			localStorageService.set('refreshToken',data.refresh_token);
-			$location.path('/dashboard');
+			$location.path('/providers').search({type: 'all'});
+			$scope.$emit('login');
 		}).error(function(data, status, headers, config){
-			$log.error('error');
+			_this.loading = false;
+			toasty.error('Authentication error');
 		});
 	};
 });

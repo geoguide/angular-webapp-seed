@@ -1,147 +1,247 @@
-<section id="general-info">
-	
-	<div id="no-data" ng-show="!dr.doctorData" class="ng-cloak">Doctor Not Found</div>
-	<form id="doctor-form" ng-submit="dr.save()" ng-show="dr.doctorData" class="ng-cloak">
-		<div class="row">
-			<div class="col-md-12 text-right">
-				<div class="form-group">
-					<button type="button" class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="dr.delete()">Delete</button>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<tabset>
-					<tab heading="General Info">
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="first-name">First Name</label>
-								<input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name">
-							</div>
-							<div class="form-group col-md-2">
-								<label for="middle-name">Middle</label>
-								<input type="text" class="form-control" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name">
-							</div>
-							<div class="col-md-4 form-group">
-								<label for="last-name">Last Name</label>
-								<input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
-							</div>
-							<div class="col-md-2 form-group">
-								<label for="doctor-title">Title</label>
-								<select class="form-control" id="doctor-title" ng-model="dr.doctorData.doctor_title">
-									<option value="MD">MD</option>
-									<option value="DO">DO</option>
-									<option value="DPM">DPM</option>
-									<option value="DDS">DDS</option>
-									<option value="DMD">DMD</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="home-address">Home Address 1</label>
-								<input type="text" class="form-control" id="home-address" placeholder="Address" ng-model="dr.doctorData.home_address">
-							</div>
-							<div class="form-group col-md-4">
-								<label for="home-address">Home Address 2</label>
-								<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
-							</div>
-						</div>
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="home-address">City</label>
-								<input type="text" class="form-control" id="home-address-id" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
-							</div>
-							<div class="col-md-2 form-group">
-								<label for="home-state">State</label>
-								<select class="form-control" id="home-state" ng-model="dr.doctorData.home_state">
-									<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="home-zip-code">Zip</label>
-								<input type="text" class="form-control" id="home-zip-code" ui-mask="99999" ng-model="dr.doctorData.home_zip_code">
-							</div>
-						</div>
-						
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="home_phone">Home Phone</label>
-								<input type="text" class="form-control" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
-							</div>
-							<div class="form-group col-md-4">
-								<label for="cell-phone">Cell Phone</label>
-								<input type="text" class="form-control" id="cell-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.cell_phone">
-							</div>
-							<div class="form-group col-md-4">
-								<label for="cell-phone">Text OK?</label><br />
-								<input type="checkbox" ng-model="text_ok" ng-true-value="1" ng-false-value="0" />
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="form-group col-md-3">
-								<label for="job-type">Job Type</label>
-								<select name="job_type" ng-model="dr.doctorData.job_type" class="form-control">
-									<option value="0">None</option>
-									<option value="1">Locum</option>
-									<option value="2">Permanent</option>
-									<option value="3">Both</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="locum-experience">Locum Experience</label>
-								<select name="locum_experience" ng-model="dr.doctorData.locum_experience" class="form-control">
-									<option value="none">None</option>
-									<option value="low">Low</option>
-									<option value="high">High</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="tier">Tier</label>
-								<select name="tier" ng-model="dr.doctorData.tier" class="form-control">
-									<option value="0">Inactive</option>
-									<option value="1">Soft Registration</option>
-									<option value="2">Verified</option>
-									<option value="3">Full Registration</option>
-									<option value="4">Credentialed</option>
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="tier">BC/BE</label>
-								<select name="tier" ng-model="dr.doctorData.bc_be" class="form-control">
-									<option value="NULL">Neither</option>
-									<option value="BC">BC</option>
-									<option value="BE">BE</option>
-								</select>
-							</div>
-						</div>
-						
-					</tab>
-						
-					<tab heading="Account Info">
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="email">Email Address</label>
-								<input type="email" class="form-control" id="email" ng-model="dr.doctorData.email">
-							</div>
-							<div class="form-group col-md-4">
-								<label for="password">Password</label>
-								<div><button class="btn btn-primary" id="change-password">Change Password</button></div>
-							</div>
-						</div>
-					</tab>
-					
-					<tab heading="Medical Info" bs-pane>
-						<div class="form-row row">
-							<div class="form-group col-md-4">
-								<label for="email">Medical Stuff to Come</label>
-							</div>
-						</div>
-					</tab>
-				</tabset>
-			</div>
-		</div>
-	</form>
+<h3 id="no-data" ng-show="dr.error && !dr.loading" class="ng-cloak ng-hide text-center">Provider <span ng-bind="dr.doctorId"></span> Does Not Exist</h3>
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+<div class="text-center row" ng-show="dr.loading" style="margin:30px 0">
+  <div class="col-md-2 col-md-offset-5 form-group" >
+    <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+  </div>
+</div>
+
+<section ng-hide="dr.loading || dr.error" class="ng-hide">
+  <form id="doctor-form" ng-submit="dr.save()" name="general_info_form" class="ng-cloak">
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Personal Data</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label>First Name</label>
+        <input type="text" class="form-control input-sm" id="first-name" placeholder="First Name" ng-model="dr.doctorData.first_name" />
+      </div>
+      <div class="form-group col-md-2">
+        <label>Middle</label>
+        <input type="text" class="form-control input-sm" id="middle-name" placeholder="Middle Name" ng-model="dr.doctorData.middle_name" />
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control input-sm" id="last-name" placeholder="Last Name" ng-model="dr.doctorData.last_name">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Title</label>
+        <select class="form-control input-sm" id="doctor-title" ng-model="dr.doctorData.doctor_title" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles" ng-required="true"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label>Home Address 1</label>
+        <input type="text" class="form-control input-sm" placeholder="Address" ng-model="dr.doctorData.home_address">
+      </div>
+      <div class="form-group col-md-4">
+        <label>Home Address 2</label>
+        <input type="text" class="form-control input-sm" placeholder="Address 2" ng-model="dr.doctorData.home_address_2">
+      </div>
+      <div class="form-group col-md-2">
+        <label>NPI#</label>
+        <input type="text" class="form-control input-sm" ng-model="dr.doctorData.npi_number"  />
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Created</label>
+        <div ng-bind="dr.doctorData.date_created"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label>City</label>
+        <input type="text" class="form-control input-sm" placeholder="City" ng-model="dr.doctorData.home_city">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>State</label>
+        <select class="form-control input-sm" ng-model="dr.doctorData.home_state" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Zip</label>
+        <input type="text" class="form-control input-sm" ui-mask="99999" ng-model="dr.doctorData.home_zip">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control input-sm" ng-model="dr.doctorData.email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label>Account Manager</label>
+        <select ng-model="dr.doctorData.account_manager" class="form-control input-sm" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Phone Number</label>
+        <input type="text" class="form-control input-sm" id="home-phone" ui-mask="(999) 999-9999" ng-model="dr.doctorData.home_phone">
+      </div>
+      <div class="form-group col-md-4">
+        <label>Text OK?</label><br />
+        <input type="checkbox" ng-model="dr.doctorData.text_ok" ng-true-value="1" ng-false-value="0" />
+      </div>
+    </div>
+
+    <hr />
+    <h4>Job Qualifications</h4>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label>Job Type(s) Desired</label>
+        <ui-select multiple ng-model="dr.doctorData.selected_job_type_desired">
+          <ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+          <ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+            <div ng-bind-html="job_type.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Locum Experience</label>
+        <select ng-model="dr.doctorData.locum_experience" class="form-control input-sm">
+          <option value="0">None</option>
+          <option value="1">Low</option>
+          <option value="2">High</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Tier</label>
+        <select ng-model="dr.doctorData.tier" class="form-control input-sm">
+          <option value="0">Inactive</option>
+          <option value="1">Soft Registration</option>
+          <option value="2">Verified</option>
+          <option value="3">Full Registration</option>
+          <option value="4">Credentialed</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>BC/BE</label>
+        <select ng-model="dr.doctorData.bc_be" class="form-control input-sm">
+          <option value="">Neither</option>
+          <option value="BC">BC</option>
+          <option value="BE">BE</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-3">
+        <p>
+          <label>Clinical Experience</label>
+          <input type="text" ng-model="dr.doctorData.clinical_experience_years" class="form-control input-sm" />
+        </p>
+        <p>
+          <label>Telemedicine Experience</label>
+          <select ng-model="dr.doctorData.telemed_exp" class="form-control input-sm" ng-options="exp.id as exp.name for exp in appCtrl.doctorTelemedExperience">
+            <option value=""></option>
+          </select>
+        </p>
+      </div>
+      <div class="form-group col-md-3">
+        <label>EHR Experience</label>
+        <select ng-model="dr.doctorData.ehr_experience" multiple="multiple" class="form-control input-sm">
+          <option value="Allscripts">Allscripts</option>
+          <option value="Athena">Athena</option>
+          <option value="Care360">Care360</option>
+          <option value="Centricity">Centricity</option>
+          <option value="Cerner">Cerner</option>
+          <option value="eClinical Works">eClinical Works</option>
+          <option value="Elation">Elation</option>
+          <option value="Epic">Epic</option>
+          <option value="Kareo">Kareo</option>
+          <option value="Practice Fusion">Practice Fusion</option>
+        </select>
+      </div>
+      <div class="col-md-3 form-group">
+        <p>
+          <input type="checkbox" ng-model="dr.doctorData.overnight_call" ng-true-value="1" ng-false-value="0" />
+          <label>Overnight Call</label>
+        </p>
+        <p>
+          <input type="checkbox" ng-model="dr.doctorData.trauma_call" ng-true-value="1" ng-false-value="0" />
+          <label>Trauma Call</label>
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <p>
+          <input type="checkbox" ng-model="dr.doctorData.fmg" ng-true-value="1" ng-false-value="0" />
+          <label>ECFMG</label>
+        </p>
+        <p>
+          <input type="checkbox" ng-model="dr.doctorData.visa" ng-true-value="1" ng-false-value="0" />
+          <label>Visa</label>
+        </p>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Internal</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <label>Disposition</label>
+        <select class="form-control input-sm" ng-options="dis.id as dis.name for dis in appCtrl.disposition" ng-model="dr.doctorData.disposition"></select>
+      </div>
+      <div class="form-group col-md-1">
+        <label>Score</label>
+        <input type="number" ng-model="dr.doctorData.score" class="form-control input-sm" max="100" min="0" />
+      </div>
+      <div class="form-group col-md-3">
+        <label>Source</label>
+        <select ng-model="dr.doctorData.source" class="form-control input-sm" ng-options="s.id as s.name for s in appCtrl.source"></select>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Presentation</label>
+        <div><strong>Job ID: </strong></div>
+        <div><strong>NPI:</strong> <span ng-bind="dr.doctorData.npi_number"></span></div>
+        <div ng-show="(dr.licenses | filter: {type_id: 0}).length > 0">
+          <strong>License Info</strong>
+          <div ng-repeat="lic in (dr.licenses | filter: {type_id: 0})">
+            <span ng-bind="lic.state"></span> #<span ng-bind="lic.number"></span> <span ng-show="lic.expiration_date">Expires:</span> <span ng-bind="lic.expiration_date"></span>
+          </div>
+        </div>
+        <div ng-show="(dr.licenses | filter: {type_id: 1}).length > 0">
+          <strong>DEA Licenses</strong>
+          <div ng-repeat="lic in (dr.licenses | filter: {type_id: 1})">
+            #<span ng-bind="lic.number"></span> <span ng-show="lic.expiration_date">Expires:</span> <span ng-bind="lic.expiration_date"></span>
+          </div>
+        </div>
+        <div>
+          <strong>Malpractice payouts:</strong>
+        </div>
+        <div>
+          <strong>Travel & Lodging requirement:</strong>
+        </div>
+        <div>
+          <strong>Rate:</strong>
+        </div>
+        <div>
+          <strong>Current situation:</strong>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <div class="form-group">
+          <button type="button" class="btn btn-warning btn-sm" act-as="{{ dr.doctorId }}">Act As</button>
+          <button type="button" class="btn btn-danger btn-sm" ng-really-message="Are you sure you want to archive this provider?" ng-really-click="dr.archive()">Remove</button>
+          <button type="submit" class="btn btn-primary btn-sm" ng-disabled="general_info_form.$invalid">Submit</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-9">
+        <div data-ng-egg data-ng-model="dr.eggActivated" data-keycode="up,up,down,down,left,right,left,right,b,a" class="clearfix">
+          <img style="float:left;" src="images/dazed.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
+          <img style="float:left;" src="images/finish.gif" ng-really-message="Are you sure you want to COMPLETELY DELETE THIS USER?" ng-really-click="dr.delete()" ng-click />
+        </div>
+      </div>
+    </div>
+  </form>
+  <button class="btn btn-danger ng-hide btn-sm" ng-hide="dr.env.name != 'production'" type="button" role="button" ng-really-message="Are you sure you want to delete this user?" ng-really-click="dr.delete()">Delete Doctor</button>
 </section>

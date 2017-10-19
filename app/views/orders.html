@@ -1,0 +1,45 @@
+<h3>DEA Renewal Orders</h3>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+			<li role="presentation" ng-class="{ 'active': orderCtrl.queryData.payment_type == null }">
+				<a ng-click="orderCtrl.queryData.payment_type = null;orderCtrl.getOrders()">All</a>
+			</li>
+			<li role="presentation" ng-class="{ 'active': orderCtrl.queryData.payment_type == 1 }">
+				<a ng-click="orderCtrl.queryData.payment_type = 1;orderCtrl.getOrders()">Credit Cards</a>
+			</li>
+			<li role="presentation" ng-class="{ 'active': orderCtrl.queryData.payment_type == 2 }">
+				<a ng-click="orderCtrl.queryData.payment_type = 2;orderCtrl.getOrders()">Invoices</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<caption class="ng-cloak"><strong ng-bind="orderCtrl.orders.length"></strong> Orders Found</caption>
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Order Id</th>
+						<th>Provider</th>
+						<th>DEA Number</th>
+						<th>Expiration Date</th>
+						<th>Schedules</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="o in orderCtrl.orders">
+						<td ng-bind="o.id"></td>
+						<td ng-bind="o.provider_name"></td>
+						<td ng-bind="o.number"></td>
+						<td ng-bind="o.expiration_date"></td>
+						<td ng-bind="o.schedules"></td>
+						<td><select ng-change="orderCtrl.updateOrder(o)" ng-model="o.status" class="form-control" ng-options="item.id as item.name for item in orderCtrl.statusList"></select></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

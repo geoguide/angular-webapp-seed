@@ -1,102 +1,232 @@
-<!-- used to have ng-controller, but now realize the route handles it -->
-<div>
-	<script type="text/ng-template" id="create-doctor-modal2"> 
-		<form ng-submit="drsCtrl.submitForm()">
-			<div class="modal-header"> 
-				<h3 class="modal-title">Create Doctor</h3> 
-			</div> 
-			<div class="modal-body">
-				<div class="form-group">
+<script type="text/ng-template" id="create-doctor-modal2">
+	<form name="new_doctor_form" ng-submit="drsCtrl.submitForm()" novalidate>
+		<div class="modal-header">
+			<h4 class="modal-title">Create Provider</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label>Email</label>
-					<input class="form-control" type="email" name="email" ng-model="drsCtrl.formData.email" />
+					<input class="form-control input-sm" type="text" name="email" ng-model="drsCtrl.formData.email" ng-required="true" />
 				</div>
-				<div class="form-group">
-					<label>Password</label>
-					<input class="form-control" type="password" name="password" ng-model="drsCtrl.formData.password" />
+				<div class="form-group col-xs-12 col-sm-6">
+					<label>Provider Title</label>
+					<select class="form-control input-sm" ng-model="drsCtrl.formData.doctor_title" ng-required="true" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles"></select>
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-6">
 					<label>First Name</label>
-					<input class="form-control" type="text" name="first_name" ng-model="drsCtrl.formData.first_name" />
+					<input class="form-control input-sm" type="text" name="first_name" ng-model="drsCtrl.formData.first_name"  ng-required="true" />
 				</div>
-				<div class="form-group">
+				<div class="form-group col-xs-6">
 					<label>Last Name</label>
-					<input class="form-control" type="text" name="last_name" ng-model="drsCtrl.formData.last_name" />
+					<input class="form-control input-sm" type="text" name="last_name" ng-model="drsCtrl.formData.last_name"  ng-required="true" />
 				</div>
-				<div class="form-group">
-					<label>Job Type</label>
-					<select name="job_type" class="form-control" ng-model="drsCtrl.formData.job_type">
-						<option value="locum">Locum</option>
-						<option value="permanent">Permanent</option>
-					</select>
+				<div class="form-group col-xs-6">
+					<label>Job Type(s) Desired</label>
+					<ui-select multiple ng-model="drsCtrl.formData.selected_job_type_desired">
+						<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+						<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+							<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
 				</div>
-				<div class="form-group">
-					<label>Locum Experience</label>
-					<select name="locum_experience" class="form-control" ng-model="drsCtrl.formData.locum_experience">
-						<option value="none">None</option>
-						<option value="low">Low</option>
-						<option value="high">High</option>
-					</select>
+				<div class="form-group col-xs-6">
+					<label>Specialty</label>
+					<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.formData.specialty" typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.formData.specialty_id = $item.id" typeahead-editable="false" required="true" />
+					<i ng-show="loadingspec" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
 				</div>
-			</div> 
-			<div class="modal-footer"> 
-				<button class="btn btn-primary" role="submit">OK</button> 
-				<button class="btn btn-warning" ng-click="miCtrl.cancel()">Cancel</button> 
 			</div>
-		</form>
-	</script>
-	
-	<section class="row">
-		<div class="col-sm-12 form-group">
-			<button class="btn btn-primary" ng-click="drsCtrl.open()">Create Doctor</button>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<form ng-submit="drsCtrl.getResults()">
-				<div class="input-group">
-					<input type="search" class="form-control" ng-model="drsCtrl.searchQuery" value="" />
-					<span class="input-group-btn">
-						<button role="submit" class="btn btn-default" type="submit">Search</button>
-			      </span>
-				</div>
-			</form>
+		<div class="modal-footer">
+			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="new_doctor_form.$invalid">OK</button>
+			<button class="btn btn-warning btn-sm" role="button" type="button" ng-click="drsCtrl.closeModal()">Cancel</button>
 		</div>
-	</section>
-	<section class="row">
-		<div class="col-sm-12">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+	</form>
+</script>
+
+<section class="row" id="providers-header">
+	<div class="col-md-6 col-xs-6 form-group">
+		<h4>Providers</h4>
+	</div>
+	<div class="col-md-3 col-xs-6 col-md-offset-3 pull-right form-group">
+		<button class="btn btn-primary btn-block btn-sm" role="button" type="button" ng-click="drsCtrl.open()">Create Provider</button>
+	</div>
+</section>
+
+<section id="doctor-search-filters">
+	<form ng-submit="drsCtrl.getResults()">
+		<div class="row">
+			<div class="col-md-3 col-sm-6  form-group">
+				<input type="search" class="form-control input-sm" ng-model="drsCtrl.queryData.q" value="" placeholder="Search Providers..." />
+			</div>
+			<div class="col-md-3 col-sm-3 form-group">
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="drsCtrl.queryData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="drsCtrl.queryData.specialty_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
+			</div>
+			<div class="col-md-3 col-sm-3 form-group">
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingfac" ng-model="drsCtrl.selectedFacility"  typeahead="f as f.facility_name for f in drsCtrl.queryFacilities($viewValue, drsCtrl.MODIOCORE.facilitySettings.values.membership.id)" placeholder="Search Facility Members..." typeahead-on-select="drsCtrl.queryData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingfac" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
+			</div>
+			<div class="col-sm-3 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.account_manager" ng-change="drsCtrl.getResults()" ng-options="man.value as man.name for man in appCtrl.accountManagers">
+					<option value="">-- Select Manager --</option>
+				</select>
+			</div>
 		</div>
-	</section>
-	<section class="row">
+		<div class="row">
+			<div class="col-md-3 col-sm-6 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.match_only" ng-change="drsCtrl.getResults()">
+					<option value="">--Match Only--</option>
+					<option value="false">False</option>
+					<option value="true">True</option>
+				</select>
+			</div>
+			<div class="col-md-3 col-sm-6 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.state" ng-change="drsCtrl.getResults()" ng-options="st.abbreviation as st.abbreviation for st in appCtrl.usStates">
+					<option value="">-- Select License State --</option>
+				</select>
+			</div>
+			<div class="col-md-3 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.disposition" ng-change="drsCtrl.getResults()" ng-options="disp.id as disp.name for disp in appCtrl.disposition">
+					<option value="">-- Select Disposition --</option>
+				</select>
+			</div>
+			<div class="col-md-3 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.doctor_title" ng-change="drsCtrl.getResults()" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles">
+					<option value="">-- Select Title --</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6 form-group">
+				<select class="form-control input-sm" ng-model="drsCtrl.queryData.source" ng-change="drsCtrl.getResults()" ng-options="item.id as item.name for item in appCtrl.source">
+					<option value="">-- Select Source --</option>
+				</select>
+			</div>
+      <div ng-if="drsCtrl.queryData.job_seekers !== 0" class="col-md-3 col-sm-6 form-group">
+        <ui-select multiple ng-model="drsCtrl.selected_job_type_desired" ng-change="drsCtrl.changeJobType()">
+          <ui-select-match placeholder="-- Select Job Types --">{{$item.name}}</ui-select-match>
+          <ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+            <div ng-bind-html="job_type.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+		</div>
+		<div class="row ng-hide" ng-hide="drsCtrl.loading">
+			<div class="col-md-4 col-xs-12 form-group">
+				<label>Score</label>
+				<div data-show-values="true" step="1" range-slider min="0" max="100" model-min="drsCtrl.score_low" model-max="drsCtrl.score_high" on-handle-up="drsCtrl.getResults()"></div>
+			</div>
+			<div class="col-md-2 col-xs-6 form-group">
+				<label>&nbsp;</label>
+				<button role="submit" class="btn btn-success btn-sm btn-block" type="submit">Search</button>
+			</div>
+			<div class="col-md-2 col-xs-6 form-group">
+				<label>&nbsp;</label>
+				<a class="btn btn-info btn-block btn-sm" href="{{::drsCtrl.csvEndpoint}}">Download CSV</a>
+			</div>
+		</div>
+	</form>
+</section>
+
+
+
+
+
+
+
+
+
+<div class="row" id="provider-tabs">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers > 0 }"><a ng-click="drsCtrl.changeDoctorType(1)">Seeking Job</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers == 0 }"><a ng-click="drsCtrl.changeDoctorType(0)">Credentialing Only</a></li>
+		  <li role="presentation" ng-class="{ 'active': drsCtrl.queryData.job_seekers == null }"><a  ng-click="drsCtrl.changeDoctorType()">All</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="text-center row" ng-show="drsCtrl.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+	</div>
+</div>
+
+<div class="text-center row ng-hide" ng-hide="drsCtrl.totalDoctors > 0 || drsCtrl.loading">
+	<div class="col-md-12 form-group">
+	  <h4>No Doctors meet your search.</h4>
+	</div>
+</div>
+
+
+
+
+
+
+<section id="results-section" ng-hide="drsCtrl.loading || drsCtrl.totalDoctors == 0" class="ng-hide">
+	<div class="row">
+		<div class="col-sm-9">
+			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
+		</div>
+	</div>
+	<div class="row">
+
+
+
+
 		<div class="col-sm-12">
 			<div class="table-responsive">
-				<caption class="ng-cloak"><strong>{{drsCtrl.totalDoctors}}</strong> Doctors Found</caption>
+				<caption><strong ng-bind="drsCtrl.totalDoctors"></strong> Providers Found</caption>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<tr>
-							<th>id</th>
-							<th>First</th>
-							<th>Last</th>
-							<th>Email</th>
+							<th ng-click="drsCtrl.sortResult('id')">id</th>
+							<th ng-click="drsCtrl.sortResult('last_name')">Name</th>
+							<th ng-click="drsCtrl.sortResult('specialty')">Specialty</th>
+							<th ng-click="drsCtrl.sortResult('source')">Source</th>
+							<th ng-click="drsCtrl.sortResult('disposition')">Disposition</th>
+							<th>Registered</th>
+							<th>License States</th>
+							<th ng-click="drsCtrl.sortResult('score')">Score</th>
+							<th>Matches</th>
+							<th>Act As</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row" data-doctor-id="{{doc.id}}" ng-click="drsCtrl.goTo('/doctor/{{doc.id}}')">
-							<td>{{ doc.id }}</td>
-							<td>{{ doc.first_name }}</td>
-							<td>{{ doc.last_name }}</td>
-							<td>{{ doc.email }}</td>
+						<tr ng-repeat="doc in drsCtrl.doctors" class="doctor-row search-row">
+
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.id"</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"><span ng-bind="doc.first_name"></span> <span ng-bind="doc.last_name"></span> <span ng-bind="doc.doctor_title"></span></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.specialty"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.source[doc.source].name"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="appCtrl.dispositionMap[doc.disposition]"></td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')">{{ ::doc.user_id ? 'Yes' : 'No' }}</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')"style="position: relative; width: 25%" ng-mouseover="drsCtrl.setTooltip(doc.medical_licenses)" popover-template="drsCtrl.dynamicPopover.templateUrl" popover-title="States" popover-append-to-body="true" popover-trigger="{{{true: 'mouseenter', false: 'never'}[!!doc.medical_licenses.length]}}" >
+								<div ng-bind="doc.medical_licenses" style="position: absolute; top: 5px; left: 0; text-overflow: ellipsis; overflow: hidden; max-width: 90%; white-space: nowrap; display: block;" ></div>
+							</td>
+							<td ng-click="appCtrl.goTo('/providers/{{::doc.id}}')" ng-bind="doc.score"></td>
+							<td><button ng-click="appCtrl.goTo('/providers/{{::doc.id}}/job-matches')" ng-show="(drsCtrl.matchList | filter: {doctor_id: doc.id}: true)[0].matches > 0 "><span ng-bind="(drsCtrl.matchList | filter: {doctor_id: doc.id} : true)[0].matches"></span> Matches</button></td>
+							<td><button class="btn btn-xs btn-primary" act-as="{{ doc.id }}">Act As</button></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</section>
-	
-	<section class="row">
+
+
+
+
+	</div>
+	<div class="row">
 		<div class="col-sm-12">
-			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.currentPage" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="25"></pagination>
+			<pagination total-items="drsCtrl.totalDoctors" ng-model="drsCtrl.queryData.p" max-size="drsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="drsCtrl.getResults()" items-per-page="drsCtrl.doctors.length" ng-if="drsCtrl.totalDoctors"></pagination>
 		</div>
-	</section>
-	
-</div>
+	</div>
+
+</section>
+<script type="text/ng-template" id="notes-template.html">
+	<div class="form-group" ng-if="drsCtrl.tooltipStates">
+	<div ng-bind="drsCtrl.tooltipStates"></div>
+	</div>
+</script>

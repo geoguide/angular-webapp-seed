@@ -1,0 +1,54 @@
+<h3>Invoices</h3>
+
+<section id="invoice-search-filters">
+	<form ng-submit="invoice.getInvoices()">
+		<div class="row">
+			<div class="col-md-4 col-sm-4  form-group">
+				<input type="search" class="form-control input-sm" ng-model="invoice.queryData.doctor_name" value="" placeholder="Search Providers... " />
+			</div>
+			<div class="col-md-4 col-sm-4  form-group">
+				<input type="search" class="form-control input-sm" ng-model="invoice.queryData.facility_name" value="" placeholder="Search Facilities... " />
+			</div>
+			<div class="col-sm-4 form-group">
+				<select class="form-control input-sm" ng-model="invoice.queryData.status" ng-change="invoice.getInvoices()" ng-options="item.id as item.name for item in invoice.statusList">
+					<option value="">--Status--</option></select>
+			</div>
+		</div>
+		<div class="row ng-hide" ng-hide="invoice.loading">
+			<div class="col-md-2 col-xs-6 text-right form-group">
+				<button role="submit" class="btn btn-success btn-sm btn-block" type="submit">Search</button>
+			</div>
+	</form>
+</section>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<caption class="ng-cloak"><strong ng-bind="invoice.invoices.length"></strong> Invoices Found</caption>
+			<table class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th ng-click="invoice.sortResult('report_id')">Report Id</th>
+						<th>Provider</th>
+						<th ng-click="invoice.sortResult('total_amount')">Total Amount</th>
+						<th ng-click="invoice.sortResult('date_updated')">Date Updated</th>
+						<th>Description</th>
+						<th>Facility Name</th>
+						<th ng-click="invoice.sortResult('status')">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="i in invoice.invoices">
+						<td ng-bind="i.report_id"></td>
+						<td ng-click ng-really-message="Are you sure you want to act as this doctor" ng-really-click="invoice.actAs(i)" ng-bind="i.doctor_name"></td>
+						<td>$<span ng-bind="i.total_amount"></span></td>
+						<td ng-bind="i.date_updated"></td>
+						<td class="col-md-3 col-sm-2" ng-bind="i.description"></td>
+						<td ng-bind="i.facility_name"></td>
+						<td><select ng-change="invoice.updateInvoice(i)" ng-model="i.status" class="form-control" ng-options="item.id as item.name for item in invoice.statusList"></select></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

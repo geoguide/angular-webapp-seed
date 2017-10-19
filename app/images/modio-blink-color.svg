@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="1287.4 416.5 440.8 463.3" enable-background="new 1287.4 416.5 440.8 463.3" xml:space="preserve">
+	<style>
+		#Layer_1 path {
+			-webkit-animation: color_change 1.2s infinite alternate;
+			-moz-animation: color_change 1.2s infinite alternate;
+			-ms-animation: color_change 1.2s infinite alternate;
+			-o-animation: color_change 1.2s infinite alternate;
+			animation: color_change 1.2s infinite alternate;
+		}
+		#Layer_1 #wing5 {
+			-webkit-animation-delay: 0.2s; /* Chrome, Safari, Opera */
+		    animation-delay: -0.2s;
+		}
+		#Layer_1 #wing4 {
+			-webkit-animation-delay: 0.4s; /* Chrome, Safari, Opera */
+		    animation-delay: -0.4s;
+		}
+		#Layer_1 #wing3 {
+			-webkit-animation-delay: 0.6s; /* Chrome, Safari, Opera */
+		    animation-delay: -0.6s;
+		}
+		#Layer_1 #wing2 {
+			-webkit-animation-delay: 0.8s; /* Chrome, Safari, Opera */
+		    animation-delay: -0.8s;
+		}
+		#Layer_1 #wing1 {
+			-webkit-animation-delay: 1s; /* Chrome, Safari, Opera */
+		    animation-delay: -1s;
+		}
+		@-webkit-keyframes color_change {
+			from { fill: #000000; }
+			to { fill: #3AA8D2; }
+		}
+		@-moz-keyframes color_change {
+			from { fill: #000000; }
+			to { fill: #3AA8D2; }
+		}
+		@-ms-keyframes color_change {
+			from { fill: #000000; }
+			to { fill: #3AA8D2; }
+		}
+		@-o-keyframes color_change {
+			from { fill: #000000; }
+			to { fill: #3AA8D2; }
+		}
+		@keyframes color_change {
+			from { fill: #000000; }
+			to { fill: #3AA8D2; }
+		}
+	</style>
+<path id="wing4" fill="#3AA8D2" d="M1459,764.6v102.9c0,6.6,5.5,12.4,12.1,12.4h73.3c6.6,0,12.1-5.5,12.1-12.4V722c0-9.5-10.1-15.2-18.4-10.6
+	l-73.3,42.5C1461.3,755.9,1459,760,1459,764.6"/>
+<path id="wing1" fill="#3AA8D2" d="M1556.7,531.7V428.8c0-6.6-5.5-12.4-12.1-12.4h-73.3c-6.6,0-12.1,5.5-12.1,12.4v145.4
+	c0,9.5,10.1,15.2,18.4,10.6l73.3-42.5C1554.4,540.1,1556.7,536,1556.7,531.7"/>
+<path id="wing3" fill="#3AA8D2" d="M1584,748.7l89.1,51.4c5.7,3.4,13.2,1.4,16.7-4.6l36.8-63.5c3.4-5.7,1.4-13.2-4.6-16.7l-125.6-72.7
+	c-8-4.6-18.4,1.1-18.4,10.6v84.8C1578,742.4,1580.3,746.4,1584,748.7"/>
+<path id="wing6" fill="#3AA8D2" d="M1431.7,547.5l-89.1-51.4c-5.7-3.4-13.2-1.4-16.7,4.6l-36.8,63.5c-3.4,5.7-1.4,13.2,4.6,16.7l125.6,72.7
+	c8,4.6,18.4-1.1,18.4-10.6v-84.8C1437.7,553.6,1435.4,549.6,1431.7,547.5"/>
+<path id="wing2" fill="#3AA8D2" d="M1632.9,632.3l89.1-51.4c5.7-3.4,7.8-10.9,4.6-16.7l-36.8-63.5c-3.4-5.7-10.9-7.8-16.7-4.6l-125.9,72.7
+	c-8,4.6-8,16.4,0,21.3l73.3,42.5C1624.5,634.3,1629.1,634.3,1632.9,632.3"/>
+<path id="wing5" fill="#3AA8D2" d="M1394.9,664l73.3,42.5c8,4.6,8,16.4,0,21.3l-125.6,72.7c-5.7,3.4-13.2,1.4-16.7-4.6l-36.8-63.5
+	c-3.4-5.7-1.4-13.2,4.6-16.7l89.1-51.4C1386.5,661.7,1391.1,661.7,1394.9,664"/>
+	
+</svg>
+

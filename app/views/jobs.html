@@ -1,1 +1,289 @@
-<p>This is the jobs view.</p>
+<!-- used to have ng-controller, but now realize the route handles it -->
+<script type="text/ng-template" id="create-job-modal">
+	<form name="new_job_form" ng-submit="jobsCtrl.submitJob()" novalidate>
+		<div class="modal-header">
+			<h4 class="modal-title">Create Job</h4>
+		</div>
+
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label>Job Type(s)</label>
+					<ui-select multiple ng-model="jobsCtrl.newJob.selected_job_type" required="true">
+						<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+						<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+							<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+				<div class="col-md-6 form-group">
+					<label>Specialty</label>
+					<input type="search" ng-required="true" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobsCtrl.newJob.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="jobsCtrl.newJob.specialty_id = $item.id" typeahead-editable="false" />
+					<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Facility</label>
+				<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobsCtrl.newJob.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in jobsCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.newJob.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
+			</div>
+			<div class="form-group">
+				<label>Job Title</label>
+				<input class="form-control input-sm" type="text" name="job_title" ng-model="jobsCtrl.newJob.job_title"  ng-required="true" />
+			</div>
+			<div class="form-group">
+				<label>Job Description</label>
+				<textarea class="form-control input-sm" name="job_title" ng-model="jobsCtrl.newJob.description"  ng-required="true" rows="10"></textarea>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 form-group">
+					<label>Standard Daily</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.standard_daily" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Standard Hourly</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.standard_hourly" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Weekend Daily</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.weekend_daily" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Weekday Daily</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.weekday_daily" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Weekday Call</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.weekday_call" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Weekend Call</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.weekend_call" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Outside Shifts</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.outside_defined_shifts" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Holiday Premium</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.holiday_premium" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Callback</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.callback" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Salary</label>
+					<input type="number" class="form-control input-sm" ng-model="jobsCtrl.newJob.salary" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 form-group">
+					<label>FMG OK?</label>
+					<input type="checkbox" ng-model="jobsCtrl.newJob.fmg_accepted" ng-true-value="1" ng-false-value="0" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>Visa Required?</label>
+					<input type="checkbox" ng-model="jobsCtrl.newJob.visa_required" ng-true-value="1" ng-false-value="0" />
+				</div>
+				<div class="col-xs-3 form-group">
+					<label>BC/BE Required?</label>
+					<input type="checkbox" ng-model="jobsCtrl.newJob.bc_be" ng-true-value="1" ng-false-value="0" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<label>Partner Job Id</label>
+					<input class="form-control input-sm" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_number" />
+				</div>
+				<div class="col-xs-6">
+					<label>Partner Job Contact</label>
+					<input class="form-control input-sm" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_contact" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<label>Modio Notes</label>
+					<input class="form-control input-sm" type="text" name="job_title" ng-model="jobsCtrl.newJob.partner_job_number" />
+				</div>
+				<div class="col-xs-6">
+					<label>Title</label>
+					<select class="form-control input-sm" ng-model="jobsCtrl.newJob.doctor_title" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles"></select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Start Date</label>
+					<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.start_date || jobsCtrl.opened['start']">
+						<input type="text" class="form-control input-sm" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.start_date" is-open="jobsCtrl.opened['start']" datepicker-options="jobsCtrl.dateOptions" ng-required="false" close-text="Close" clear-text="ASAP" min-date="jobsCtrl.minDate" max-date="jobsCtrl.newJob.end_date" readonly />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default btn-sm" ng-click="jobsCtrl.open($event,'start')"><i class="fa fa-calendar"></i></button>
+						</span>
+					</p>
+					<button class="btn btn-success btn-block btn-sm" ng-show="!jobsCtrl.newJob.start_date && !jobsCtrl.opened['start']" ng-click="jobsCtrl.open($event,'start')">ASAP</button>
+				</div>
+
+				<div class="col-md-6">
+					<label>End Date</label>
+					<p class="input-group date-picker-group" ng-show="jobsCtrl.newJob.end_date || jobsCtrl.opened['end']">
+						<input type="text" class="form-control input-sm" datepicker-popup="{{jobsCtrl.format}}" ng-model="jobsCtrl.newJob.end_date" is-open="jobsCtrl.opened['end']"  datepicker-options="jobsCtrl.dateOptions" close-text="Close" readonly clear-text="Ongoing" min-date="jobsCtrl.newJob.start_date" />
+						<span class="input-group-btn btn-sm">
+							<button type="button" class="btn btn-default btn-sm" ng-click="jobsCtrl.open($event,'end')"><i class="fa fa-calendar"></i></button>
+						</span>
+					</p>
+					<button class="btn btn-success btn-block btn-sm" ng-show="!jobsCtrl.newJob.end_date && !jobsCtrl.opened['end']" ng-click="jobsCtrl.open($event,'end')">Ongoing</button>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="new_job_form.$invalid">OK</button>
+			<button class="btn btn-warning btn-sm" role="button" type="button" ng-click="jobsCtrl.closeModal()">Cancel</button>
+		</div>
+	</form>
+</script>
+
+
+<div class="row" id="jobs-header">
+	<div class="col-sm-6">
+		<h4>Jobs</h4>
+	</div>
+	<div class="col-sm-6 text-right">
+		<h4><button class="btn btn-primary btn-sm" type="button" role="button" ng-click="jobsCtrl.openNewJobForm()"><i class="fa fa-plus-circle"></i> Create Job</button></h4>
+	</div>
+</div>
+
+<section id="jobs-search-filters">
+	<form ng-submit="jobsCtrl.getResults()">
+		<div class="row">
+			<div class="col-sm-6 col-md-3 col-xs-12 form-group">
+				<input type="search" class="form-control input-sm" ng-model="jobsCtrl.queryData.q" value="" placeholder="Search Job Title..." />
+			</div>
+			<div class="col-sm-6 col-md-3 col-xs-12 form-group">
+				<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobsCtrl.queryData.facility_id = $item.id;jobsCtrl.getResults();" typeahead-editable="false" placeholder="Search Facilities..." />
+				<i ng-show="loadingLocations" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</div>
+			<div class="col-sm-6 col-xs-6 col-md-3 form-group">
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobsCtrl.queryData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" typeahead-on-select="jobsCtrl.queryData.specialty_id = $item.id;jobsCtrl.getResults();" placeholder="Search Specialty..." />
+				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</div>
+			<div class="col-sm-6 col-xs-6 col-md-3 form-group">
+				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.partner_job_number" ng-change="jobsCtrl.getResults()" ng-options="jid as jid for jid in jobsCtrl.partnerIds">
+					<option value="">- Partner Job Id -</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-xs-6 col-md-3 form-group">
+				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.state" ng-change="jobsCtrl.getResults()" ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates">
+					<option value="">- State -</option>
+				</select>
+			</div>
+			<div class="col-sm-6 col-xs-6 col-md-3 form-group">
+				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.source" ng-change="jobsCtrl.getResults()" ng-options="source.id as source.source for source in appCtrl.jobSources">
+					<option value="">- Source -</option>
+				</select>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 form-group">
+				<select class="form-control input-sm" ng-model="jobsCtrl.queryData.doctor_title" ng-change="jobsCtrl.getResults()" ng-options="title.key as title.fullLabel group by title.group for title in appCtrl.doctorTitles">
+					<option value="">- Choose Title -</option>
+				</select>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 form-group">
+				<select class="form-control input-sm" ng-change="jobsCtrl.getResults()" ng-model="jobsCtrl.queryData.tag" ng-options="tag.text as tag.text for tag in jobsCtrl.tags">
+					<option value="">- Select Tag -</option>
+				</select>
+			</div>
+			<div class="col-sm-4 col-xs-6 col-md-2 form-group">
+				<select name="job_type" class="form-control input-sm" ng-model="jobsCtrl.queryData.job_type" ng-change="jobsCtrl.getResults()"
+						ng-options="job_type.id as job_type.name for job_type in appCtrl.jobTypes">
+					<option value="">- Choose Type -</option>
+				</select>
+			</div>
+			<div class="col-sm-2 col-xs-6 form-group">
+				<button role="submit" class="btn btn-success btn-block btn-sm" type="submit">Search</button>
+			</div>
+		</div>
+
+	</form>
+</section>
+
+<div class="text-center row" ng-show="jobsCtrl.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+
+<div class="text-center row ng-hide" ng-hide="jobsCtrl.totalJobs > 0 || jobsCtrl.loading">
+	<div class="col-md-12 form-group">
+		<h4>No Jobs meet your search.</h4>
+	</div>
+</div>
+
+<section id="jobs-results" ng-hide="jobsCtrl.loading || jobsCtrl.error" class="ng-hide">
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-tabs">
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 1 }"><a ng-click="jobsCtrl.queryData.job_status = 1;jobsCtrl.getResults()">Active</a></li>
+
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 0 }"><a ng-click="jobsCtrl.queryData.job_status = 0;jobsCtrl.getResults()">Inactive</a></li>
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 2 }"><a ng-click="jobsCtrl.queryData.job_status = 2;jobsCtrl.getResults()">Pending Review</a></li>
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 3 }"><a ng-click="jobsCtrl.queryData.job_status = 3;jobsCtrl.getResults()">Closed by Modio</a></li>
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 4 }"><a ng-click="jobsCtrl.queryData.job_status = 4;jobsCtrl.getResults()">Closed by Client</a></li>
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == 5 }"><a ng-click="jobsCtrl.queryData.job_status = 5;jobsCtrl.getResults()">In Progress</a></li>
+			  <li role="presentation" ng-class="{ 'active': jobsCtrl.queryData.job_status == null }"><a ng-click="jobsCtrl.queryData.job_status = null;jobsCtrl.getResults()">All</a></li>
+			</ul>
+		</div>
+	</div>
+</section>
+<section ng-hide="jobsCtrl.loading || jobsCtrl.error || jobsCtrl.totalJobs == 0">
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption><strong>{{jobsCtrl.totalJobs}}</strong> Jobs Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="jobsCtrl.sortResult('id')">id</th>
+							<th ng-click="jobsCtrl.sortResult('job_title')">Job Title</th>
+							<th ng-click="jobsCtrl.sortResult('job_type')">Type</th>
+							<th ng-click="jobsCtrl.sortResult('specialty')">Specialty</th>
+							<th ng-click="jobsCtrl.sortResult('facility')">Facility</th>
+							<th ng-click="jobsCtrl.sortResult('status')">Status</th>
+							<th ng-click="jobsCtrl.sortResult('job_rank')">Job Rank</th>
+							<th ng-click="jobsCtrl.sortResult('doctor_title')">Title</th>
+							<th ng-click="jobsCtrl.sortResult('partner_job_id')">Partner ID</th>
+							<th>Matches</th>
+							<th>Archive</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="job in jobsCtrl.jobs" class="search-row" data-job-id="{{job.id}}">
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.id }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_title }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_type_title }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.specialty }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.facility_name }} ({{job.state}})</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ appCtrl.jobStatuses[job.status].job_status }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.job_rank }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.doctor_title }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}')">{{ job.partner_job_number }}</td>
+							<td ng-click="appCtrl.goTo('/jobs/{{job.id}}/candidates')"><button ng-show="(jobsCtrl.matchList | filter:{job_id: job.id}:true)[0].matches > 0">{{(jobsCtrl.matchList | filter: {job_id: job.id}:true)[0].matches}} Candidates</button></td>
+							<td ng-really-click="jobsCtrl.archiveJob(job.id)" ng-really-message="Are you sure you want to archive this job?"><button>Archive</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination ng-if="jobsCtrl.totalJobs" total-items="jobsCtrl.totalJobs" ng-model="jobsCtrl.queryData.p" max-size="jobsCtrl.maxSize" class="pagination-sm" boundary-links="true" ng-change="jobsCtrl.getResults()" items-per-page="jobsCtrl.jobs.length"></pagination>
+		</div>
+	</div>
+</section>

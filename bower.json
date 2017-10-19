@@ -1,27 +1,39 @@
 {
-  "name": "angular-webapp-seed",
-  "version": "0.0.0",
+  "name": "modio-admin-portal",
+  "version": "1.0.1",
   "dependencies": {
-    "angular": "^1.3.0",
-    "bootstrap-sass-official": "^3.2.0",
-    "angular-animate": "^1.3.0",
-    "angular-aria": "^1.3.0",
-    "angular-cookies": "^1.3.0",
-    "angular-messages": "^1.3.0",
-    "angular-resource": "^1.3.0",
-    "angular-route": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
-    "angular-jwt": "~0.0.7",
-    "angular-local-storage": "~0.1.5",
-    "angular-ui-utils": "bower-mask",
-    "angular-toasty": "~0.1.8",
-    "angular-bootstrap": "~0.13.0",
-    "loaders.css": "~0.1.1"
+    "angular": "1.3.18",
+    "angular-animate": "1.3.18",
+    "angular-aria": "1.3.0",
+    "angular-bootstrap": "0.13.3",
+    "angular-jwt": "0.0.9",
+    "angular-local-storage": "0.2.2",
+    "angular-messages": "1.3.0",
+    "angular-rangeslider": "~0.0.14",
+    "angular-resource": "~1.3",
+    "angular-route": "~1.3",
+    "angular-sanitize": "~1.3",
+    "angular-toasty": "~1.0",
+    "angular-touch": "~1.3",
+    "angular-ui-mask": "~1.4",
+    "angular-ui-select": "~0.19.4",
+    "angularjs-slider": "~0.1.27",
+    "api-check": "7.5.0",
+    "bootstrap-sass-official": "3.3.5",
+    "ng-file-upload": "7.0.9",
+    "ng-file-upload-shim": "7.0.9",
+    "ng-tags-input": "~3.0.0",
+    "angular-egg": "~0.0.5",
+    "angular-filter": "~0.5.7",
+    "modio-core": "git@github.com:LocumList/modio-core.git#master",
+    "moment": "~2.11.1"
   },
   "devDependencies": {
-    "angular-mocks": "^1.3.0"
+    "angular-mocks": "~1.4"
   },
   "appPath": "app",
-  "moduleName": "angularWebappSeedApp"
+  "moduleName": "modioAdminPortal",
+  "resolutions": {
+    "angular": "1.3.18"
+  }
 }

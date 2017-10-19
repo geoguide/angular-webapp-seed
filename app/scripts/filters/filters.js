@@ -1,0 +1,107 @@
+'use strict';
+
+/**
+ * @ngdoc filter
+ * @name modioAdminPortal.filter:filters
+ * @function
+ * @description
+ * # filters
+ * Filter in the modioAdminPortal.
+ */
+angular.module('modioAdminPortal').filter('tel', function () {
+    return function (tel) {
+        if (!tel) { return ''; }
+
+        var value = tel.toString().trim().replace(/^\+/, '');
+
+        if (value.match(/[^0-9]/)) {
+            return tel;
+        }
+
+        var country, city, number;
+
+        switch (value.length) {
+            case 10: // +1PPP####### -> C (PPP) ###-####
+                country = 1;
+                city = value.slice(0, 3);
+                number = value.slice(3);
+                break;
+
+            case 11: // +CPPP####### -> CCC (PP) ###-####
+                country = value[0];
+                city = value.slice(1, 4);
+                number = value.slice(4);
+                break;
+
+            case 12: // +CCCPP####### -> CCC (PP) ###-####
+                country = value.slice(0, 3);
+                city = value.slice(3, 5);
+                number = value.slice(5);
+                break;
+
+            default:
+                return tel;
+        }
+
+        if (country === 1) {
+            country = '';
+        }
+
+        number = number.slice(0, 3) + '-' + number.slice(3);
+
+        return (country + ' (' + city + ') ' + number).trim();
+    };
+}).filter('num', function() {
+    return function(input) {
+      return parseInt(input, 10);
+    };
+}).filter('availableFacilities', function() {
+  return function(allFacilities, facilityMemberships) {
+    return allFacilities.filter(function(facility) {
+      for (var i = 0; i < facilityMemberships.length; i++) {
+        var facilityMembership = facilityMemberships[i];
+        if (facilityMembership.facility_id == facility.id) {
+          return false;
+        }
+      }
+      return true;
+    });
+  };
+}).filter('outArray', function($filter){
+  return function(list, arrayFilter, element, exceptionElements){
+    if(arrayFilter){
+      return $filter('filter')(list, function(listItem){
+        return (arrayFilter.indexOf(listItem[element]) === -1) || (exceptionElements.indexOf(listItem[element]) !== -1);
+      });
+    }
+  };
+}).filter('propsFilter', function () {
+  return function(items, props) {
+    var out = [];
+
+    if (angular.isArray(items)) {
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        var keys = Object.keys(props);
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop] && props[prop].toString().toLowerCase();
+          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+
+    return out;
+  };
+});

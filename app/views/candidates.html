@@ -1,0 +1,34 @@
+<div ng-include="'./views/partials/_job-menu.html'"></div>
+
+	<div class="table-responsive">
+
+		<caption class="ng-cloak"><strong ng-bind="jobCtrl.candidates.length"></strong> Candidates Found</caption>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th ng-click="jobCtrl.sortResult('id')">id</th>
+					<th ng-click="jobCtrl.sortResult('first_name')">First</th>
+					<th ng-click="jobCtrl.sortResult('last_name')">Last</th>
+					<th ng-click="jobCtrl.sortResult('state')">State</th>
+					<th ng-click="jobCtrl.sortResult('specialty')">Specialty</th>
+					<th ng-click="jobCtrl.sortResult('disposition')">Job Type</th>
+					<th>Licensed?</th>
+					<th>Score</th>
+					<th>Telemed Exp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="can in jobCtrl.candidates" class="doctor-row search-row" data-doctor-id="{{::can.doctor_id}}" ng-click="appCtrl.goTo('/providers/{{::can.doctor_id}}')">
+					<td ng-bind="can.doctor_id"></td>
+					<td ng-bind="can.first_name"></td>
+					<td ng-bind="can.last_name"></td>
+					<td ng-bind="can.state"></td>
+					<td ng-bind="can.v_specialty_name"></td>
+					<td ng-bind="can.job_type_title"></td>
+					<td ng-bind="(can.Licensed == 0) ? 'No' : 'Yes'"></td>
+					<td ng-bind="can.score"></td>
+					<td ng-bind="can.telemed_exp_name"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

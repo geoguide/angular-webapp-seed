@@ -1,0 +1,55 @@
+<section>
+
+	<div id="no-data" ng-show="offerCtrl.error" class="ng-cloak">Job Not Found</div>
+	<h4>
+		<a ng-href="#/providers/{{::offerCtrl.offerData.doctor_id}}" ng-bind="offerCtrl.offerData.doctor_name"></a>
+		<span ng-bind="'('+offerCtrl.offerData.doctor_id+')'"></span>
+		 applied to
+		<a ng-href="#/jobs/{{::offerCtrl.offerData.job_id}}" ng-bind="offerCtrl.offerData.job_title"></a> <span ng-bind="'('+offerCtrl.offerData.job_id+')'"></span> </h4>
+		<h5 ng-bind="offerCtrl.offerData.status || 'In Progress'"></h5>
+	<form id="offer-form" name="edit_offer_form" ng-submit="offerCtrl.save()" ng-show="offerCtrl.offerData" class="ng-cloak" novalidate>
+		<div class="row">
+			<div class="col-sm-7 col-xs-9 form-group">
+				<label>Notes</label>
+				<textarea class="form-control input-sm" ng-model="offerCtrl.offerData.notes" rows="5"></textarea>
+			</div>
+			<div class="col-xs-3 col-sm-2 form-group">
+				<label>Visible</label><br />
+				<input type="checkbox"  ng-model="offerCtrl.offerData.visible" ng-true-value="1" ng-false-value="0" />
+			</div>
+			<div class="col-xs-12 col-sm-3 form-group">
+				<label>Actions</label>
+				<button class="btn-success btn btn-block btn-sm" type="button" ng-click="offerCtrl.acceptOffer()">Accept</button>
+				<button class="btn-danger btn btn-block btn-sm" type="button" ng-click="offerCtrl.rejectOffer()">Reject</button>
+			</div>
+		</div>
+
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+
+		<section id="rates-section">
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Rates</h4>
+				</div>
+			</div>
+			<div class="row" ng-repeat="jr in offerCtrl.offerData.rates">
+				<div class="col-xs-4 form-group">
+					<select ng-model="jr.rate_type" ng-options="rateType.id as rateType.label for rateType in appCtrl.jobRateTypes" class="form-control input-sm"></select>
+				</div>
+				<div class="col-xs-4 form-group">
+					<input ng-model="jr.rate" class="form-control input-sm" />
+				</div>
+				<div class="col-xs-4 form-group">
+					<button class="btn btn-primary btn-sm" type="button" role="button" ng-click="offerCtrl.submitRate(jr)">Submit</button>
+					<button class="btn btn-danger btn-sm" type="button" role="button" ng-show="jr.id" ng-click="offerCtrl.deleteRate(jr)">Delete</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 form-group">
+					<button class="btn btn-success btn-sm" role="button" type="button" ng-click="offerCtrl.addRate()">Add Rate</button>
+				</div>
+			</div>
+		</section>
+
+	</form>
+</section>

@@ -1,0 +1,124 @@
+<!-- used to have ng-controller, but now realize the route handles it -->
+<script type="text/ng-template" id="create-coordinator-modal">
+	<form name="new_coord_form" ng-submit="coord.submitForm()" novalidate>
+		<div class="modal-header">
+			<h3 class="modal-title">Create Coordinator</h3>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label>Email</label>
+				<input class="form-control" type="text" name="email" ng-model="coord.formData.email" ng-required="true" />
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input class="form-control" type="password" ng-minlength="8" name="password" ng-model="coord.formData.password"  ng-required="true" />
+				<p ng-show="new_coord_form.password.$error.minlength" class="help-block">Password is too short.</p>
+			</div>
+			<div class="form-group">
+				<label>First Name</label>
+				<input class="form-control" type="text" name="first_name" ng-model="coord.formData.first_name"  ng-required="true" />
+			</div>
+			<div class="form-group">
+				<label>Last Name</label>
+				<input class="form-control" type="text" name="last_name" ng-model="coord.formData.last_name"  ng-required="true" />
+			</div>
+			<div class="form-group">
+				<label>Facility</label>
+				<input type="text" class="form-control" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue, modal.parentCtrl.facilitySettings.membership.id)" typeahead-on-select="coord.formData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingLocations" class="fa fa-2x fa-refresh"></i>
+			</div>
+      <div class="form-group">
+        <label>Role</label>
+        <select class="form-control" ng-model="coord.formData.role" ng-required="true">
+          <option value="C">Coordinator</option>
+          <option value="R">Recruiter</option>
+        </select>
+      </div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" role="submit" ng-disabled="new_coord_form.$invalid">OK</button>
+			<button class="btn btn-warning" role="button" type="button" ng-click="coord.closeModal()">Cancel</button>
+		</div>
+	</form>
+</script>
+
+<section class="row" id="coordinators-header">
+	<div class="col-md-6">
+		<h4>Coordinators</h4>
+	</div>
+</section>
+
+<section id="cooridinators-search-filters">
+	<form ng-submit="coord.getResults()">
+		<div class="row">
+			<div class="col-md-4 col-sm-12 form-group">
+				<input type="search" class="form-control" ng-model="coord.queryData.q" value="" />
+			</div>
+			<div class="col-md-3 col-sm-3 form-group">
+				<input type="search" class="form-control" typeahead-min-length="4" typeahead-loading="loadingfac" ng-model="coord.selectedFacility"  typeahead="f as f.facility_name for f in coord.queryFacilities($viewValue, coord.MODIOCORE.facilitySettings.values.membership.id)" placeholder="Search Facility Members..." typeahead-on-select="coord.queryData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingfac" class="fa fa-spinner fa-pulse" style="position:absolute;"></i>
+			</div>
+			<div class="col-md-2 form-group">
+				<button role="submit" class="btn btn-success btn-block" type="submit">Search</button>
+			</div>
+			<div class="col-md-3 form-group">
+				<button class="btn btn-primary btn-block" role="button" type="button" ng-click="coord.open()">Create Coordinator</button>
+			</div>
+		</div>
+	</form>
+</section>
+
+<div class="text-center row ng-hide" ng-show="coord.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+
+<div class="text-center row ng-hide" ng-hide="coord.totalCoordinators > 0 || coord.loading">
+	<div class="col-md-12 form-group">
+	  <h4>No Coordinators meet your search.</h4>
+	</div>
+</div>
+<section id="search-results" ng-hide="coord.loading || coord.totalCoordinators == 0" class="ng-hide">
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination total-items="coord.totalCoordinators" ng-model="coord.queryData.p" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="{{coord.coordinatorsPerPage}}"></pagination>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<caption class="ng-cloak"><strong ng-bind="coord.totalCoordinators"></strong> Coordinators Found</caption>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th ng-click="coord.sortResult('id')">id</th>
+							<th ng-click="coord.sortResult('first_name')">First</th>
+							<th ng-click="coord.sortResult('last_name')">Last</th>
+							<th ng-click="coord.sortResult('email')">Email</th>
+							<th ng-click="coord.sortResult('user_role')">User Role</th>
+							<th>Act As</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="doc in coord.coordinators" class="doctor-row search-row" data-doctor-id="{{::doc.id}}">
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.id"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.first_name"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.last_name"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')" ng-bind="doc.email"></td>
+							<td ng-click="appCtrl.goTo('/coordinator/{{::doc.id}}')">{{ (doc.user_role == 'R') ? 'Recruiter' : 'Coordinator' }}</td>
+							<td><button class="btn btn-xs btn-primary" act-as="{{ doc.id }}">Act As</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<pagination total-items="coord.totalCoordinators" ng-model="coord.queryData.p" max-size="coord.maxSize" class="pagination-sm" boundary-links="true" ng-change="coord.getResults()" items-per-page="{{coord.coordinatorsPerPage}}"></pagination>
+		</div>
+	</div>
+</section>

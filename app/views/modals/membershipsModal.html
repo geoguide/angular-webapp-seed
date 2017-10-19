@@ -1,0 +1,43 @@
+<div class="modal-header">
+	<h4 class="modal-title">
+		<span ng-if="!modal.modalObject.id">Add</span>
+		<span ng-if="modal.modalObject.id">Edit</span>
+		Facility Membership
+	 </h4>
+</div>
+<div class="modal-body">
+	<form novalidate>
+		<div class="row">
+			<div ng-if="!modal.modalObject.id" class="form-group col-xs-12">
+				<label>Facilities</label>
+				<ui-select multiple ng-model="modal.modalObject.facilities" reset-search-input="true"
+					on-select="modal.parentCtrl.clearFacilitiesList()">
+					<ui-select-match placeholder="Select facilities">
+						{{$item.facility_name}}
+					</ui-select-match>
+					<ui-select-choices minimum-input-length="3" refresh-delay="0" repeat="fac in modal.parentCtrl.facilities | availableFacilities : modal.parentCtrl.memberships" refresh="modal.parentCtrl.queryFacilities($select.search, modal.parentCtrl.MODIOCORE.facilitySettings.values.membership.id)">
+						<div ng-bind-html="fac.facility_name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
+				<i ng-show="modal.parentCtrl.loadingLocations" class="fa fa-2x fa-refresh"></i>
+			</div>
+			<div ng-if="modal.modalObject.id" class="form-group col-xs-12">
+				<label>Facility</label>
+				<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="modal.parentCtrl.loadingLocations" ng-model="modal.modalObject.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in modal.parentCtrl.queryFacilities($viewValue)" typeahead-on-select="modal.modalObject.facility_id = $item.id" typeahead-editable="false" />
+				<input type="hidden" ng-model="modal.modalObject.facility_id" />
+				<i ng-show="modal.parentCtrl.loadingLocations" class="fa fa-2x fa-refresh"></i>
+			</div>
+			<div class="form-group col-xs-12">
+				<label>Status</label>
+				<select class="form-control input-sm" ng-model="modal.modalObject.status">
+					<option value="0">Inactive</option>
+					<option value="1">Active</option>
+				</select>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary btn-sm" ng-click="modal.ok()">OK</button>
+	<button class="btn btn-warning btn-sm" ng-click="modal.cancel()">Cancel</button>
+</div>

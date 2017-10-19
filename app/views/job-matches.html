@@ -1,0 +1,33 @@
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
+<section>
+	<h4>Job Matches</h4>
+	<div class="text-center row" ng-show="dr.loading" style="margin:30px 0">
+		<div class="col-md-2 col-md-offset-5 form-group" >
+		  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+		</div>
+	</div>
+	<div class="table-responsive ng-hide" ng-hide="dr.loading">
+		<caption class="ng-cloak"><strong ng-bind="dr.matches.length"></strong> Matches Found</caption>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Job Id</th>
+					<th>Job Title</th>
+					<th>Facility Name</th>
+					<th>Details</th>
+					<th>Licensed?</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="match in dr.matches">
+					<td ng-bind="match.job_id"></td>
+					<td class="col-xs-3"><a ng-click="appCtrl.goTo('/jobs/{{::match.job_id}}')" ng-bind="match.job_title"></a></td>
+					<td class="col-xs-6" ng-bind="match.facility_name"></td>
+					<td class="col-xs-3" ng-bind="match.job_specialty+' | '+match.jobtype_title"></td>
+					<td ng-bind="(match.Licensed == 0) ? 'No' : 'Yes'"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

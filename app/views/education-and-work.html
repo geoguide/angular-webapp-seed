@@ -1,0 +1,38 @@
+
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
+<div class="text-center row" ng-show="dr.loading">
+	<div class="col-md-12 form-group">
+	  <i class="fa fa-refresh fa-spin fa-4x"></i>
+	</div>
+</div>
+
+<div ng-hide="dr.loading" class="ng-hide">
+
+	<div class="row">
+		<div class="col-md-8">
+			<accordion close-others="false">
+				<accordion-group is-open="true">
+					<accordion-heading>Facility Memberships<span class="badge pull-right" ng-bind="(dr.memberships).length"></span></accordion-heading>
+					<article ng-repeat="(key,obj) in dr.memberships" class="row form-group">
+						<div class="col-xs-2 col-md-1" ng-click="dr.openMembershipModal(obj)">
+							<img ng-src="{{obj.profileUrl || './images/default-avatar.png' }}" onerror="if (this.src != './images/default-avatar.png') this.src = './images/default-avatar.png';" class="img-responsive img-circle" style="width:100%" />
+						</div>
+						<div class="col-md-9 col-xs-8" ng-click="dr.openMembershipModal(obj)">
+							<h4><span ng-bind="obj.facility_name"></span> <span ng-bind="'('+appCtrl.memberStatuses[obj.status].status+')'"></span></h4>
+							<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
+						</div>
+						<div class="col-md-2 col-xs-2 text-right">
+							<a ng-click ng-really-message="Are you sure?" ng-really-click="dr.deleteFacilityMembership(obj.id)" title="Remove">
+								<i class="fa fa-ban text-danger fa-2x"></i>
+							</a>
+						</div>
+						<hr />
+					</article>
+					<button class="btn btn-primary btn-sm pull-right" ng-click="dr.openMembershipModal({})">Add Facility Membership</button>
+				</accordion-group>
+			</accordion>
+		</div>
+	</div>
+
+</div>

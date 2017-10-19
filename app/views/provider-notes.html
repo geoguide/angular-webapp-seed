@@ -1,0 +1,82 @@
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
+<div class="text-center row" ng-show="dr.loading">
+  <div class="col-md-12 form-group">
+    <i class="fa fa-refresh fa-spin fa-4x"></i>
+  </div>
+</div>
+
+<div ng-hide="dr.loading || dr.error" class="ng-hide">
+  <form id="notes-form" name="notes_form" ng-show="dr.doctorData" class="ng-cloak" novalidate>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Admin Notes </label>&nbsp;<span ng-class="(dr.doctorData.admin_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.admin_notes.length || 0}} of 2000)</span>
+          <textarea ng-model="dr.doctorData.admin_notes" class="form-control input-sm" rows="15"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label>Sales Notes</label>&nbsp;<span ng-class="(dr.doctorData.sales_notes.length > 2000) ? 'text-danger' : 'text-success'">({{dr.doctorData.sales_notes.length || 0}} of 2000)</span>
+          <textarea ng-model="dr.doctorData.sales_notes" class="form-control input-sm" rows="15"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-9 col-xs-3 tab-content">
+          <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="notes_form.$invalid"
+            ng-click="dr.save()">Save
+          </button>
+        </div>
+      </div>
+      <div class="row tab-content">
+        <label class="col-xs-12">Attachments</label>
+        <div class="col-xs-9">
+          <table class="table table-condensed table-striped">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>File Size</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="file in dr.files">
+                <td><a ng-bind="file.filename" ng-click="dr.getFileLink(file)"></a></td>
+                <td ng-bind="file.filesize"></td>
+                <td ng-bind="file.date_created"></td>
+                <td>
+                  <button class="btn btn-primary" ng-click="dr.getFileLink(file)">Download</button>
+                  <button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{file.filename}}?"
+                  ng-really-click="dr.deleteUpload(file)">Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-3">
+          <div ng-if="!dr.uploading" ngf-drop ng-model="files" class="drop-box"  style="margin: 0 auto; height: 150px" ngf-change="dr.upload($files)"
+          ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+          ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">
+            Drop Images, Documents or PDFs files here
+            <p>or</p>
+            <p><a href="" class="button" ngf-select ngf-change="dr.upload($files)"
+                ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Click here to browse for a file</a>
+            </p>
+          </div>
+          <div ng-if="dr.uploading" class="drop-box" style="margin: 0 auto; height: 150px">
+              <i class="fa fa-refresh fa-spin fa-4x"></i>
+              <p>Uploading</p>
+          </div>
+          <div ngf-no-file-drop>
+            File Drag/Drop is not supported for this browser.
+            <p><a href="" class="button" ngf-select ngf-change="dr.upload($files)"
+                ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                ngf-accept="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/plain,application/msword'">Click here to browse for a file</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

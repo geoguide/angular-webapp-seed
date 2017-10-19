@@ -1,0 +1,189 @@
+<div ng-include="'./views/partials/_job-menu.html'"></div>
+
+<div class="text-center row" ng-show="jobCtrl.loading" style="margin:30px 0">
+	<div class="col-md-2 col-md-offset-5 form-group" >
+	  <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+	</div>
+</div>
+
+
+	<form id="job-form" name="edit_job_form" ng-submit="jobCtrl.save()" ng-hide="jobCtrl.loading" class="ng-hide" novalidate>
+		<div class="row">
+			<div class="col-md-3 form-group">
+				<label>Job Type(s)</label>
+				<ui-select multiple ng-model="jobCtrl.jobData.selected_job_type">
+					<ui-select-match placeholder="Select a job types...">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="job_type.id as job_type in appCtrl.jobTypes | filter:$select.search" ng-hide="!$select.open">
+						<div ng-bind-html="job_type.name | highlight: $select.search"></div>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-md-4 form-group">
+				<label>Specialty</label>
+				<input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingspec" ng-model="jobCtrl.jobData.specialty"  typeahead="spec.specialty as spec.specialty for spec in appCtrl.querySpecialties($viewValue)" placeholder="Search Specialty..." typeahead-on-select="jobCtrl.jobData.specialty_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingspec" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Job Status</label>
+				<select class="form-control input-sm" ng-model="jobCtrl.jobData.status"  ng-required="true" ng-options="js.id as js.job_status for js in appCtrl.jobStatuses"></select>
+			</div>
+			<div class="col-md-1 form-group">
+				<label>Title</label>
+				<select class="form-control input-sm" ng-model="jobCtrl.jobData.doctor_title"  ng-required="false" ng-options="title.key as title.label group by title.group for title in appCtrl.doctorTitles"></select>
+			</div>
+			<div class="col-md-1 form-group">
+	        <label>Archived</label>
+	        <select ng-model="jobCtrl.jobData.archived" class="form-control input-sm">
+	          <option value="0">No</option>
+	          <option value="1">Soft Delete</option>
+	        </select>
+	      </div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-7">
+				<label>Facility</label>
+				<input type="text" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingLocations" ng-model="jobCtrl.jobData.facility_name" ng-required="true" typeahead="fac.facility_name as fac.facility_name for fac in appCtrl.queryFacilities($viewValue)" typeahead-on-select="jobCtrl.jobData.facility_id = $item.id" typeahead-editable="false" />
+				<i ng-show="loadingLocations" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</div>
+			<div class="col-md-2 form-group">
+				<label>Source</label>
+				<select class="form-control input-sm" ng-model="jobCtrl.jobData.source"  ng-options="sr.id as sr.source for sr in appCtrl.jobSources"></select>
+			</div>
+			<div class="col-md-2 form-group">
+	        <label>Job Rank</label>
+	        <select ng-model="jobCtrl.jobData.job_rank" class="form-control input-sm">
+	          <option value="3">Low</option>
+	          <option value="2">Medium</option>
+	          <option value="1">High</option>
+	        </select>
+	      </div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-7">
+				<label>Job Title</label>
+				<input class="form-control input-sm" type="text" name="job_title" ng-model="jobCtrl.jobData.job_title"  ng-required="true" />
+			</div>
+			<div class="col-md-4 form-group">
+				<label>Account Manager</label>
+				<select ng-model="jobCtrl.jobData.account_manager" class="form-control input-sm">
+					<option value="">Unassigned</option>
+					<option value="Tom Clifford">Tom Clifford </option>
+					<option value="Gary Goldman">Gary Goldman </option>
+					<option value="James Oleksa">James Oleksa </option>
+					<option value="John Bou">John Bou </option>
+					<option value="Kirk Heath">Kirk Heath </option>
+					<option value="Tom Saulnier">Tom Saulnier </option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7 form-group">
+		      <label>Tags (Separate with commas)</label>
+		      <tags-input ng-model="jobCtrl.jobData.tags" add-on-comma="true">
+		      	<auto-complete source="appCtrl.queryTags($query)"></auto-complete>
+		      </tags-input>
+	      </div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-10">
+				<label>Job Description</label>
+				<textarea class="form-control input-sm" name="job_title" ng-model="jobCtrl.jobData.description" rows="20"  ng-required="true"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 form-group">
+				<label>Start Date</label>
+				<p class="input-group date-picker-group" ng-show="jobCtrl.jobData.start_date || jobCtrl.opened['start']">
+					<input type="text" class="form-control input-sm" datepicker-popup="MM/dd/yyyy" ng-model="jobCtrl.jobData.start_date" is-open="jobCtrl.opened['start']" min-date="jobCtrl.minDate" datepicker-options="jobCtrl.dateOptions" close-text="Close" clear-text="ASAP"  placeholder="MM/DD/YYYY" max-date="jobCtrl.jobData.end_date || null" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="jobCtrl.open($event,'start')"><i class="fa fa-calendar fa-fw"></i></button>
+					</span>
+				</p>
+				<button class="btn btn-success btn-block btn-sm" ng-show="!jobCtrl.jobData.start_date && !jobCtrl.opened['start']" ng-click="jobCtrl.open($event,'start')">ASAP</button>
+
+			</div>
+
+			<div class="col-md-3 form-group">
+				<label>End Date</label>
+				<p class="input-group date-picker-group" ng-show="jobCtrl.jobData.end_date || jobCtrl.opened['end']">
+					<input type="text" class="form-control input-sm" datepicker-popup="{{jobCtrl.format}}" ng-model="jobCtrl.jobData.end_date" is-open="jobCtrl.opened['end']" min-date="jobCtrl.jobData.start_date || appCtrl.today" datepicker-options="jobCtrl.dateOptions" close-text="Close"  placeholder="MM/DD/YYYY" clear-text="Ongoing" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="jobCtrl.open($event,'end')"><i class="fa fa-calendar fa-fw"></i></button>
+					</span>
+				</p>
+				<button class="btn btn-success btn-block btn-sm" ng-show="!jobCtrl.jobData.end_date && !jobCtrl.opened['end']" ng-click="jobCtrl.open($event,'end')">Ongoing</button>
+			</div>
+			<div class="col-md-3 form-group">
+				<label>Partner Job ID</label>
+				<input class="form-control input-sm" type="text" ng-model="jobCtrl.jobData.partner_job_number"  ng-required="false" />
+			</div>
+			<div class="col-md-3 form-group">
+				<label>Partner Contact Name</label>
+				<input class="form-control input-sm" type="text" ng-model="jobCtrl.jobData.partner_job_contact"  ng-required="false" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 form-group">
+				<label>Modio Notes</label>
+				<textarea class="form-control input-sm" type="text" ng-model="jobCtrl.jobData.modio_notes"  ng-required="false"></textarea>
+			</div>
+			<div class="col-md-3 form-group">
+        <label>Commission</label>
+        <input class="form-control input-sm" type="number" ng-model="jobCtrl.jobData.commission"  ng-required="false" />
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Partner Contact Email</label>
+        <input class="form-control input-sm" type="text" ng-model="jobCtrl.jobData.partner_job_email"  ng-required="false" />
+      </div>
+		</div>
+		<div class="row"><div class="col-sm-12"><hr /></div></div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Requirements</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 form-group">
+				<label>FMG OK?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.fmg_accepted" ng-true-value="1" ng-false-value="0" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>Visa Required?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.visa_required" ng-true-value="1" ng-false-value="0" />
+			</div>
+			<div class="col-xs-3 form-group">
+				<label>BC/BE Required?</label>
+				<input type="checkbox" ng-model="jobCtrl.jobData.bc_be" ng-true-value="1" ng-false-value="0" />
+			</div>
+		</div>
+
+		<section id="rates-section">
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Rates</h4>
+				</div>
+			</div>
+			<div class="row" ng-repeat="jr in jobCtrl.jobData.rates">
+				<div class="col-xs-4 form-group">
+					<select ng-model="jr.rate_type" ng-options="rateType.id as rateType.label for rateType in appCtrl.jobRateTypes" class="form-control input-sm"></select>
+				</div>
+				<div class="col-xs-4 form-group">
+					<input ng-model="jr.rate" class="form-control input-sm" />
+				</div>
+				<div class="col-xs-4 form-group">
+					<button class="btn btn-danger btn-sm" type="button" role="button" ng-show="jr.id" ng-click="jobCtrl.deleteRate(jr)">Delete</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4 form-group">
+					<button class="btn btn-success btn-sm" role="button" type="button" ng-click="jobCtrl.addRate()">Add Rate</button>
+					<button class="btn btn-primary btn-sm" type="button" role="button" ng-click="jobCtrl.submitRates()">Submit Rates</button>
+				</div>
+			</div>
+		</section>
+		<div class="modal-footer">
+			<button class="btn btn-primary btn-sm" role="submit" ng-disabled="edit_job_form.$invalid">Save</button>
+			<button class="btn btn-danger btn-sm" role="button" type="button" ng-really-click="jobCtrl.delete()" ng-really-message="Are you sure you want to delete this Job?">Delete</button>
+			<button class="btn btn-warning btn-sm" role="button" type="button" ng-click="appCtrl.goTo('/jobs')">Cancel</button>
+		</div>
+	</form>

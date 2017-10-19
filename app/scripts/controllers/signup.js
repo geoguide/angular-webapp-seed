@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name angularWebappSeedApp.controller:SignupCtrl
+ * @name modioAdminPortal.controller:SignupCtrl
  * @description
  * # SignupCtrl
- * Controller of the angularWebappSeedApp
+ * Controller of the modioAdminPortal
  */
-angular.module('angularWebappSeedApp').controller('SignupCtrl', function ($scope,$log) {
+angular.module('modioAdminPortal').controller('SignupCtrl', function ($scope,$log) {
 	
 	//signupform variables
 	var signup;

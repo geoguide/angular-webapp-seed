@@ -1,0 +1,247 @@
+<!-- used to have ng-controller, but now realize the route handles it -->
+<div class="row">
+  <div class="col-md-8">
+    <h4>Facilities</h4>
+  </div>
+  <div class="col-md-4 text-right">
+    <button class="btn btn-primary" ng-click="fac.open()">Create Facility</button>
+  </div>
+</div>
+
+<section id="doctor-search-filters">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 form-group">
+      <form ng-submit="fac.getResults()">
+        <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingpha" ng-model="fac.selectedFacility"
+               typeahead="facility as facility.facility_display for facility in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."
+               typeahead-on-select="fac.queryData.q = $item.facility_name"
+               typeahead-editable="true"/>
+        <i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+      </form>
+    </div>
+    <div class="col-sm-6 form-group">
+      <input type="text" class="form-control input-sm" ng-model="fac.queryData.abbreviation" placeholder="Search by abbr..."/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-4 form-group">
+      <select class="form-control input-sm" ng-model="fac.queryData.settings"
+              ng-options="setting.id as setting.name group by setting.group for setting in fac.settings | orderBy: ['group','name']"
+              ng-change="fac.getResults()">
+        <option value="">-- Filter By Setting --</option>
+      </select>
+    </div>
+    <div class="col-md-3 col-sm-4 form-group">
+      <select class="form-controlo input-sm" ng-model="fac.queryData.service_id"
+              ng-options="service.id as service.name group by service.type_name for service in fac.servicesList" ng-change="fac.getResults()">
+        <option value="">-- Filter by Service --</option>
+      </select>
+    </div>
+    <div class="col-md-3 col-sm-4 form-group">
+      <input type="search" class="form-control input-sm" typeahead-min-length="4" typeahead-loading="loadingOwner" ng-model="fac.selectedServiceOwner"
+             typeahead-on-select="fac.queryData.service_owner_id = $item.id"
+             typeahead="owner.full_name as owner.full_name for owner in fac.getServicesOwners($viewValue)" placeholder="Search by Service Owner..."/>
+      <i ng-show="loadingOwner" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+    </div>
+    <div class="col-md-3 col-sm-12 form-group">
+      <button role="submit" class="btn btn-success btn-block btn-sm" type="submit" ng-click="fac.getResults()">Search</button>
+    </div>
+  </div>
+</section>
+<div class="row" id="facilities-tabs">
+  <div class="col-xs-12 col-md-6">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ng-class="{ 'active': fac.isMainTabActive() }"><a ng-click="fac.changeTab(null)">All</a></li>
+      <li role="presentation" ng-repeat="item in fac.getTabs()" ng-class="{ 'active': fac.queryData.settings == item.id }"><a
+        ng-click="fac.changeTab(item.id)"><span ng-bind="item.name"></span></a></li>
+    </ul>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ng-repeat="item in fac.servicesFilterList" class="dropdown mr5">
+        <div class="btn-group nav-btn-group">
+          <button class="btn btn-default" ng-bind="item.name" no-focus ng-click="fac.filterByService(item)"
+                  ng-class="{ 'active': fac.queryData.service_id == item.id}"></button>
+          <button href="#" data-toggle="dropdown" class="btn btn-default dropdown-toggle" ng-class="{ 'disabled': !item.owners.length }">
+            <b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="owner in item.owners"><a ng-click="fac.filterByService(item, owner)"><span
+              ng-bind="owner.first_name + ' ' + owner.last_name"></span></a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="text-center row" ng-show="fac.loading">
+  <div class="col-md-12 form-group">
+    <i class="fa fa-spinner fa-pulse fa-4x"></i>
+  </div>
+</div>
+<div ng-show="!fac.loading">
+  <section class="row">
+    <div class="col-sm-12">
+      <pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true"
+                  ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <caption class="ng-cloak"><strong ng-bind="fac.totalFacilities"></strong> Facilities Found</caption>
+        <table class="table table-condensed table-striped table-hover">
+          <thead>
+          <tr>
+            <th ng-click="fac.sortResult('id')">id</th>
+            <th ng-click="fac.sortResult('facility_name')">Facility</th>
+            <th ng-click="fac.sortResult('due_date')">Date Signed</th>
+            <th ng-click="fac.sortResult('date_invoiced')">Date Invoiced</th>
+            <th>Services</th>
+            <th ng-click="fac.sortResult('mood_type')">Mood</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="f in fac.facilities" class="facility-row search-row" data-facility-id="{{f.id}}"
+              ng-click="appCtrl.goTo('/facility/{{f.id}}')">
+            <td ng-bind="f.id"></td>
+            <td><span ng-bind="f.facility_display"></span></td>
+            <td popover-template="fac.nextStepsPopover.templateUrl" popover-placement="left" popover-enable="f.next_steps.length"
+                popover-append-to-body="true" popover-title="Next Steps" popover-trigger="mouseenter" popover-class="popover-next-steps" ng-bind="f.due_date">
+            </td>
+            <td><span ng-bind="f.date_invoiced"></span></td>
+            <td popover-template="fac.servicesRatesPopover.templateUrl" popover-placement="left" popover-enable="f.service_rates.length"
+                popover-append-to-body="true" popover-title="Services" popover-trigger="mouseenter" popover-class="popover-services-rates"
+                ng-bind="f.services"></td>
+            <td><span class="fa fa-lg" ng-class="f.mood.class"></span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-sm-12">
+      <pagination total-items="fac.totalFacilities" ng-model="fac.queryData.page" max-size="fac.maxSize" class="pagination-sm" boundary-links="true"
+                  ng-change="fac.getResults()" items-per-page="25" data-ng-if="fac.totalFacilities"></pagination>
+    </div>
+  </section>
+</div>
+
+<!-- Create Modal -->
+<!-- used to have ng-controller, but now realize the route handles it -->
+<script type="text/ng-template" id="create-facility-modal">
+  <form name="new_facility_form" ng-submit="fac.submitFacility()" novalidate>
+    <div class="modal-header">
+      <h3 class="modal-title">Create Facility</h3>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <label>Facility Name</label>
+          <input class="form-control" type="text" ng-model="fac.newFacility.facility_name" ng-required="true"/>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+          <label>Settings</label><br/>
+          <ui-select multiple ng-model="fac.newFacility.selected_settings" search-enabled="false">
+            <ui-select-match placeholder="Select settings">
+              {{$item.name}}
+            </ui-select-match>
+            <ui-select-choices group-by="'group'" repeat="item in fac.settings | orderBy: ['group','name'] track by item.id"
+                               ng-hide="!$select.open">
+              <div ng-bind-html="item.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-xs-12 col-sm-12 col-sm-12">
+          <label>NPI Number</label>
+          <input class="form-control" type="text" ui-mask="9999999999" ng-model="fac.newFacility.npi_number"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input class="form-control" type="text" ng-model="fac.newFacility.address" ng-required="true"/>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <label>Address 2</label>
+          <input class="form-control" type="text" ng-model="fac.newFacility.address_2" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label>City</label>
+          <input class="form-control" type="text" ng-model="fac.newFacility.city" ng-required="true"/>
+        </div>
+        <div class="col-md-3">
+          <label>State</label>
+          <select class="form-control input-sm" ng-model="fac.newFacility.state" ng-required="true"
+                  ng-options="state.abbreviation as state.abbreviation for state in appCtrl.usStates"></select>
+        </div>
+        <div class="col-md-3">
+          <label>Zip</label>
+          <input class="form-control" type="text" ng-model="fac.newFacility.zip" ng-required="true"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" role="submit" ng-disabled="new_facility_form.$invalid">OK</button>
+      <button class="btn btn-warning" role="button" type="button" ng-click="fac.closeModal()">Cancel</button>
+    </div>
+  </form>
+</script>
+
+<!--POPOVERS-->
+<script type="text/ng-template" id="next-steps-template.html">
+  <p ng-bind="f.next_steps"></p>
+</script>
+
+<script type="text/ng-template" id="services-rates-template.html">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Rate Type</th>
+      <th>Term</th>
+      <th>Rate</th>
+      <th>Amount</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="(key, value) in f.service_rates | filter: {is_admin_filter: 1} | groupBy: 'service_name'">
+    <tr>
+      <td>
+        <b>
+          <span ng-bind="key"></span><span> - </span>
+          <span ng-if="value[0].owner_id" ng-bind="value[0].first_name + ' ' + value[0].last_name"></span>
+          <span ng-if="!value[0].owner_id">No owner</span>
+        </b>
+      </td>
+    </tr>
+    <tr ng-repeat="rate in value">
+      <td ng-bind="rate.quantity"></td>
+      <td ng-bind="fac.MODIOCORE.facilityServiceRateTypes.get({id: rate.type_id}).name"></td>
+      <td ng-bind="rate.term"></td>
+      <td ng-bind="rate.rate | currency:'$'"></td>
+      <td ng-bind="rate.amount | currency:'$'"></td>
+      <td ng-bind="rate.start_date"></td>
+      <td ng-bind="rate.end_date"></td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total amount:</td>
+      <td><b ng-bind="fac.getTotalAmount(f.service_rates) | currency:'$'"></b></td>
+    </tr>
+    </tbody>
+  </table>
+</script>

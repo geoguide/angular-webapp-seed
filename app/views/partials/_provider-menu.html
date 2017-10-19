@@ -1,0 +1,37 @@
+<div class="row ng-hide" ng-hide="dr.error">
+  <div class="col-xs-12">
+    <h4 ng-bind="dr.doctorData.first_name+' '+dr.doctorData.last_name+' '+(dr.doctorData.doctor_title || '')"></h4>
+  </div>
+  <div class="col-md-11">
+    <ul class="nav nav-tabs">
+      <li role="presentation" ng-class="{'active': dr.tab == 'general-info'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}')">General Info</a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'account-info'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/account-info')">Account Info</a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'facility-memberships'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/facility-memberships')">Facility Memberships</a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'tracking'}">
+        <a  ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/tracking')">Tracking <span class="badge" ng-bind="dr.trackingData.length"></span></a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'matches'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/job-matches')">Matches <span class="badge" ng-bind="dr.matches.length"></span></a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'offers'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/provider-offers')">Offers <span class="badge" ng-bind="dr.offers.length"></span></a>
+      </li>
+      <li role="presentation" ng-class="{'active': dr.tab == 'provider-notes'}">
+        <a ng-click="appCtrl.goTo('/providers/{{::dr.doctorId}}/provider-notes')">Notes</a>
+      </li>
+      <li class="pull-right">
+        <button class="btn btn-warning btn-sm" act-as="{{ dr.doctorId }}">Act As</button>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-1 text-right">
+    <a ng-click="dr.bookmark(dr.doctorId)" style="cursor:pointer"><i class="fa" ng-class="{ 'fa-bookmark': dr.bookmarked, 'fa-bookmark-o': !dr.bookmarked }"></i></a>
+  </div>
+</div>
+<br />

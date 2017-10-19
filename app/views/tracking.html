@@ -1,0 +1,54 @@
+
+<div ng-include="'./views/partials/_provider-menu.html'"></div>
+
+<div ng-show="dr.trackingData.length < 1" ng-cloak><h4>No tracking data</h4></div>
+<div ng-repeat="t in dr.trackingData">
+	<h4>Campaign: <span ng-bind="t.campaign"></span></h4>
+	<div class="row">
+		<div class="col-md-6">
+			<label>Date Created:</label>
+			<span ng-bind="t.date_created"></span>
+		</div>
+		<div class="col-md-6">
+			<label>IP Address:</label>
+			<span ng-bind="t.ip_address"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label>Source:</label>
+			<span ng-bind="appCtrl.source[t.source].name"></span>
+		</div>
+		<div class="col-md-6">
+			<label>Campaign:</label>
+			<span ng-bind="t.campaign"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label>Page Name:</label>
+			<span ng-bind="t.page_name"></span>
+		</div>
+		<div class="col-md-6">
+			<label>Page URL</label>
+			<span ng-bind="t.page_url"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label>Page Variant:</label>
+			<span ng-bind="t.variant"></span>
+		</div>
+		<div class="col-md-6">
+			<label>Page ID:</label>
+			<span ng-bind="t.page_uuid"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<label>User Agent:</label>
+			<span ng-bind="t.user_agent"></span>
+		</div>
+	</div>
+	<hr />
+</div>
