@@ -7,7 +7,7 @@
  * # CoordinatorCtrl
  * Controller of the modioAdminPortal
  */
-angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL, MODIOCORE) {
+angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($window, ENV, $routeParams, doctorFactory, facilityFactory, $q, toasty, $log, $modal, S3_URL, MODIOCORE, $location) {
 	var _this = this;
 	this.coordId = $routeParams.id;
 	this.coordinatorData = null;
@@ -170,6 +170,10 @@ angular.module('modioAdminPortal').controller('CoordinatorCtrl', function ($wind
 				$log.error(error);
 			});
 		}
+	};
+
+	this.goToFacility = function (facility_id) {
+		$location.url("/facility/" + facility_id);
 	};
 
 	/* Init */
