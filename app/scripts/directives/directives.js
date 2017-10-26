@@ -115,7 +115,7 @@ angular.module('modioAdminPortal').directive('directives', function () {
             from: "=",
             to: "="
         },
-        templateUrl: 'templates/business_hours.html',
+        templateUrl: 'templates/businesshours.html',
         link: function(scope, elem, attr, ctrl) {
             scope.model = {};
             scope.model.day_id = scope.dayId;
