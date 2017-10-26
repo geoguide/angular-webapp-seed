@@ -104,4 +104,39 @@ angular.module('modioAdminPortal').directive('directives', function () {
       });
     }
   };
-}]);
+}]).directive('businessHours', function(MODIOCORE) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            model: "=",
+            dayId: "=",
+            active: "=",
+            from: "=",
+            to: "="
+        },
+        templateUrl: 'templates/businesshours.html',
+        link: function(scope, elem, attr, ctrl) {
+            scope.model = {};
+            scope.model.day_id = scope.dayId;
+            scope.model.active = scope.active || 0;
+            scope.model.from = scope.from || '12:00 AM';
+            scope.model.to = scope.to || '12:00 AM';
+            scope.day_label = MODIOCORE.dayTypes.get({id: parseInt(scope.dayId)}).name;
+
+            elem.find('.timepicker-open').timepicker({
+                template: false,
+                showInputs: false,
+                minuteStep: 1,
+                defaultTime: scope.from || '12:00 AM'
+            });
+
+            elem.find('.timepicker-close').timepicker({
+                template: false,
+                showInputs: false,
+                minuteStep: 1,
+                defaultTime: scope.to || '12:00 AM'
+            });
+        }
+    };
+});

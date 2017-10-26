@@ -129,6 +129,15 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       }, function (error) {
         $log.error(error);
       });
-    }, queryData: {}
+    }, queryData: {},
+    getBusinessHours: function(facilityId) {
+      return $http.get(API_URL + '/admin/facilities/' + facilityId + '/hours').then(function(response) {
+          return response.data;
+      });
+    }, submitBusinessHours: function(facilityId, hours) {
+      return $http.post(API_URL + '/admin/facilities/' + facilityId + '/hours', hours).then(function(response) {
+          return response.data;
+      });
+    }
   };
 });

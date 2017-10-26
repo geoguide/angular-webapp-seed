@@ -240,6 +240,14 @@
         requiredLogin: true
       },
       tab: 'facilities'
+    }).when('/facility/:id/hours', {
+        templateUrl: 'views/facility-hours.html',
+        controller: 'FacilityHoursCtrl',
+        controllerAs: 'fac',
+        access: {
+            requiredLogin: true
+        },
+        tab: 'facilities'
     }).when('/lookup', {
       templateUrl: 'views/lookup.html',
       controller: 'LookupCtrl',
