@@ -22,6 +22,9 @@
             <li role="presentation" ng-if="fac.membership" ng-class="{'active': fac.tab == 'facility-permissions'}">
                 <a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}/permissions')">Permissions</a>
             </li>
+            <li role="presentation" ng-class="{'active': fac.tab == 'facility-hours'}">
+                <a ng-click="appCtrl.goTo('/facility/{{::fac.facilityId}}/hours')">Business Hours</a>
+            </li>
         </ul>
     </div>
 </div>

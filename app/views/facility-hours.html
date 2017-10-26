@@ -1,0 +1,26 @@
+<h3 id="no-data" ng-show="fac.error && !fac.loading" class="ng-cloak ng-hide text-center">Facility Not Found</h3>
+<div ng-include="'./views/partials/_facility-menu.html'"></div>
+<div class="text-center row" ng-show="fac.loading" style="margin:30px 0">
+  <div class="col-md-2 col-md-offset-5 form-group">
+    <object type="image/svg+xml" data="images/modio-blink-color.svg" class="logo"> Loading...</object>
+  </div>
+</div>
+<section ng-hide="fac.loading || fac.error">
+
+  <ng-form name="facilityHoursForm">
+    <fieldset>
+      <legend>Business Hours</legend>
+      <business-hours model="fac.businessHours[$index]" day-id="hour.day_id" ng-repeat="hour in fac.businessHours track by $index"></business-hours>
+    </fieldset>
+  </ng-form>
+  <div class="row mt10">
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-md-offset-9 col-sm-6 col-sm-offset-6">
+      <button class="btn btn-primary btn-block btn-sm" role="submit" ng-disabled="facilityHoursForm.$invalid"
+              ng-click="fac.saveHours()">Save
+      </button>
+    </div>
+  </div>
+</section>
