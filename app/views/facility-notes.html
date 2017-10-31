@@ -52,10 +52,14 @@
       </div>
       <div class="col-xs-6 form-group">
         <label>Billing Entity</label>
-        <select class="form-control input-sm" ng-model="fac.facilityData.billing_entity"
-                ng-options="item.id as item.facility_name for item in fac.billingEntities">
-          <option value=""></option>
-        </select>
+        <ui-select ng-model="fac.facilityData.billing_entity">
+          <ui-select-match>
+            {{$select.selected.facility_name}}
+          </ui-select-match>
+          <ui-select-choices repeat="item.id as item in fac.billingEntities | filter: $select.search">
+            <div ng-bind-html="item.facility_name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
       </div>
     </div>
     <div class="row">
