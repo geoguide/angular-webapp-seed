@@ -138,6 +138,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       return $http.post(API_URL + '/admin/facilities/' + facilityId + '/hours', hours).then(function(response) {
           return response.data;
       });
+    }, getBillingEntities: function () {
+      return $http.get(API_URL + '/admin/facilities/billing-entities').then(function (response) {
+          return response.data;
+      });
     }
   };
 });

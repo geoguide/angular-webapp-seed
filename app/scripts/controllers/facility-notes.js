@@ -21,6 +21,7 @@ angular.module('modioAdminPortal')
     this.membership = false;
     this.MODIOCORE = MODIOCORE;
     this.moodTypes = facilityFactory.getMoodTypes();
+    this.billingEntities = [];
     
     this.opened = {};
     this.open = function ($event, which) {
@@ -43,10 +44,13 @@ angular.module('modioAdminPortal')
         _this.membership = _this.facilityData.settings & _this.MODIOCORE.facilitySettings.values.membership.id;
         _this.error = false;
         _this.loading = false;
-      }, function(error) {
-        _this.error = true;
-        _this.facilityData = null;
-        _this.loading = false;
+        return facilityFactory.getBillingEntities();
+      }).then(function(billing_entities) {
+          _this.billingEntities = billing_entities;
+      }).catch(function(error) {
+          _this.error = true;
+          _this.facilityData = null;
+          _this.loading = false;
       });
     };
 
