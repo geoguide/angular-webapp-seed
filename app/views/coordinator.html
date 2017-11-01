@@ -115,7 +115,7 @@
 							ng-click="coord.goToFacility(obj.facility_id)"/>
 					</div>
 					<div class="col-md-9">
-						<h4 ng-click="coord.goToFacility(obj.facility_id)"><span ng-bind="obj.facility_name"></span> (<span ng-bind="appCtrl.memberStatuses[obj.status].status"></span>)</h4>
+						<h4 ng-click="coord.goToFacility(obj.facility_id)"><span ng-bind="obj.facility_display"></span> (<span ng-bind="appCtrl.memberStatuses[obj.status].status"></span>)</h4>
 						<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
 					</div>
 					<div class="col-md-2">
