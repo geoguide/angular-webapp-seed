@@ -28,9 +28,13 @@
 			</select>
 		</div>
 		<div class="col-xs-3 form-group">
-			<select class="form-control input-sm" ng-model="rc.queryData.facility_id" ng-change="rc.getResults()" ng-options="f.id as f.facility_name for f in rc.facilitiesWithMembers">
-				<option value="">-- Facility Members --</option>
-			</select>
+			<form ng-submit="rc.getResults()">
+				<input type="search" class="form-control input-sm" typeahead-min-length="3" typeahead-loading="loadingpha" ng-model="rc.selectedFacility"
+					   typeahead="facility as facility.facility_display for facility in appCtrl.queryFacilities($viewValue)" placeholder="Search Facilities..."
+					   typeahead-on-select="rc.queryData.facility_id = $item.id"
+					   typeahead-editable="true"/>
+				<i ng-show="loadingpha" class="fa fa-spinner fa-pulse typeahead-loader"></i>
+			</form>
 		</div>
 	</div>
 	<div class="row">
