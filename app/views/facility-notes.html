@@ -16,14 +16,7 @@
         <label># of Payors</label>
         <input type="number" ng-model="fac.facilityData.payor_count" class="form-control input-sm" min="0"/>
       </div>
-      <div class="col-xs-2 form-group">
-        <label>Mood</label>
-        <select class="form-control input-sm" ng-model="fac.facilityData.mood_type"
-                ng-options="mood.id as mood.name for mood in fac.moodTypes">
-          <option value=""></option>
-        </select>
-      </div>
-      <div class="col-xs-2 form-group">
+      <div class="col-xs-3 form-group">
         <label>Date Signed</label>
         <div class="input-group">
           <input placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{fac.format}}"
@@ -35,7 +28,7 @@
                     </span>
         </div>
       </div>
-      <div class="col-xs-2 form-group">
+      <div class="col-xs-3 form-group">
         <label>Billable Date</label>
         <div class="input-group">
           <input placeholder="MM/DD/YYYY" type="text" class="form-control input-sm" datepicker-popup="{{fac.format}}"
@@ -47,6 +40,26 @@
             </button>
           </span>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 form-group">
+        <label>Mood</label>
+        <select class="form-control input-sm" ng-model="fac.facilityData.mood_type"
+                ng-options="mood.id as mood.name for mood in fac.moodTypes">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="col-xs-6 form-group">
+        <label>Billing Entity</label>
+        <ui-select ng-model="fac.facilityData.billing_entity">
+          <ui-select-match>
+            {{$select.selected.facility_name}}
+          </ui-select-match>
+          <ui-select-choices repeat="item.id as item in fac.billingEntities | filter: $select.search">
+            <div ng-bind-html="item.facility_name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
       </div>
     </div>
     <div class="row">

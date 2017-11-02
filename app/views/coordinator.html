@@ -115,12 +115,12 @@
 							ng-click="coord.goToFacility(obj.facility_id)"/>
 					</div>
 					<div class="col-md-9">
-						<h4 ng-click="coord.goToFacility(obj.facility_id)"><span ng-bind="obj.facility_name"></span> (<span ng-bind="appCtrl.memberStatuses[obj.status].status"></span>)</h4>
+						<h4 ng-click="coord.goToFacility(obj.facility_id)"><span ng-bind="obj.facility_display"></span> (<span ng-bind="appCtrl.memberStatuses[obj.status].status"></span>)</h4>
 						<h5 ng-show="obj.department" ng-bind="'Department: '+obj.department"></h5>
 					</div>
 					<div class="col-md-2">
 						<a class="btn btn-info btn-sm btn-block" ng-click="coord.openMembershipModal(obj)">Edit</a>
-						<button class="btn btn-danger btn-sm btn-block" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Delete</button>
+						<button class="btn btn-danger btn-sm btn-block" ng-really-message="Are you sure?" ng-really-click="coord.deleteFacilityMembership(obj.id)">Remove</button>
 					</div>
 					<hr />
 				</article>
