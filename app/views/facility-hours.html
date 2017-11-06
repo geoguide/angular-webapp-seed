@@ -10,7 +10,7 @@
   <ng-form name="facilityHoursForm">
     <fieldset>
       <legend>Business Hours</legend>
-      <business-hours model="fac.businessHours[$index]" day-id="hour.day_id" ng-repeat="hour in fac.businessHours track by $index"></business-hours>
+      <business-hours model="fac.businessHours[$index]" day-id="hour.day_id" from="hour.from" to="hour.to" ng-repeat="hour in fac.businessHours track by $index"></business-hours>
     </fieldset>
   </ng-form>
   <div class="row mt10">
