@@ -1,18 +1,16 @@
 <div class="row">
-    <div class="form-group col-xs-1 col-sm-1 col-md-1">
-        <input id="{{day_label}}" type="checkbox" ng-model="model.active" ng-true-value="1" ng-false-value="0"/>
+    <div class="form-group col-xs-12 col-sm-12 col-md-1">
         <label for="{{day_label}}">{{day_label}}</label>
+        <div>
+            <input id="{{day_label}}" type="checkbox" ng-model="model.active" ng-true-value="1" ng-false-value="0"/>
+        </div>
     </div>
-    <div class="form-group col-xs-2 col-sm-2 col-md-2">
+    <div class="form-group col-xs-12 col-sm-12 col-md-2">
         <label>From</label>
-        <div class="bootstrap-timepicker">
-            <input type="text" class="timepicker-open form-control input-sm" ng-model="model.from">
-        </div>
+        <timepicker ng-model="model.from" show-meridian="true" show-spinners="false"></timepicker>
     </div>
-    <div class="form-group col-xs-2 col-sm-2 col-md-2">
+    <div class="form-group col-xs-12 col-sm-12 col-md-2">
         <label>To</label>
-        <div class="bootstrap-timepicker">
-            <input type="text" class="timepicker-close form-control input-sm" ng-model="model.to">
-        </div>
+        <timepicker ng-model="model.to" show-meridian="true" show-spinners="false"></timepicker>
     </div>
 </div>

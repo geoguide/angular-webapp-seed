@@ -10,6 +10,7 @@
 angular.module('modioAdminPortal')
     .controller('FacilityHoursCtrl', function($routeParams, facilityFactory, toasty, MODIOCORE) {
         var _this = this;
+        var time = new Date('1970-01-01T00:00:00');
         this.facilityId = $routeParams.id;
         this.membership = false;
         this.tab = 'facility-hours';
@@ -18,13 +19,13 @@ angular.module('modioAdminPortal')
         this.MODIOCORE = MODIOCORE;
         this.facilityData = null;
         this.businessHours = [
-            {active: '0', day_id: '0', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '1', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '2', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '3', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '4', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '5', from: '12:00 AM', to: '12:00 AM'},
-            {active: '0', day_id: '6', from: '12:00 AM', to: '12:00 AM'}
+            {active: '0', day_id: '0', from: time, to: time},
+            {active: '0', day_id: '1', from: time, to: time},
+            {active: '0', day_id: '2', from: time, to: time},
+            {active: '0', day_id: '3', from: time, to: time},
+            {active: '0', day_id: '4', from: time, to: time},
+            {active: '0', day_id: '5', from: time, to: time},
+            {active: '0', day_id: '6', from: time, to: time}
         ];
 
         this.get = function (facilityId) {
@@ -36,8 +37,8 @@ angular.module('modioAdminPortal')
             }).then(function (hours) {
                 if (hours.length) {
                     hours.map(function (hour) {
-                        hour.from = moment(hour.from, ["HH:mm:ss"]).format("h:mm A");
-                        hour.to = moment(hour.to, ["HH:mm:ss"]).format("h:mm A");
+                        hour.from = new Date('1970-01-01T' + hour.from);
+                        hour.to = new Date('1970-01-01T' + hour.to);
                     });
                     _this.businessHours = angular.extend(_this.businessHours, hours);
                 }
@@ -53,8 +54,8 @@ angular.module('modioAdminPortal')
         this.saveHours = function() {
             var hours = JSON.parse(JSON.stringify(this.businessHours));
             hours.map(function (hour) {
-                hour.from = moment(hour.from, ["h:mm A"]).format("HH:mm:ss");
-                hour.to = moment(hour.to, ["h:mm A"]).format("HH:mm:ss");
+                hour.from = new Date(hour.from).toTimeString().split(' ')[0];
+                hour.to = new Date(hour.to).toTimeString().split(' ')[0];
             });
             facilityFactory.submitBusinessHours(this.facilityId, {
                 hours: hours
