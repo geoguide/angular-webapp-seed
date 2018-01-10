@@ -39,7 +39,8 @@
     'ngEgg',
     'angular.filter',
     'modioCore',
-    'ui.select'
+    'ui.select',
+    'selectize'
   ]);
 
 

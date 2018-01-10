@@ -83,6 +83,10 @@ angular.module('modioAdminPortal').factory('facilityFactory', function ($http, A
       return $http.get(API_URL + '/admin/facilities/' + facilityId + '/contacts').then(function(response) {
         return response.data;
       });
+    }, getListFacilitiesBySetting: function(setting_id) {
+      return $http.get(API_URL + '/admin/facilities/settings/' + setting_id).then(function (response) {
+        return response.data;
+      });
     }, getPermissions: function(facilityId) {
       return $http.get(API_URL + '/admin/facilities/' + facilityId + '/permissions').then(function(response) {
         return response.data;

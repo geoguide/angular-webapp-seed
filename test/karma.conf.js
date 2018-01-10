@@ -45,6 +45,10 @@ module.exports = function(config) {
       'bower_components/angular-filter/dist/angular-filter.js',
       'bower_components/modio-core/dist/modio-core.min.js',
       'bower_components/moment/moment.js',
+      'bower_components/sifter/sifter.js',
+      'bower_components/microplugin/src/microplugin.js',
+      'bower_components/selectize/dist/js/selectize.js',
+      'bower_components/angular-selectize2/dist/angular-selectize.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
