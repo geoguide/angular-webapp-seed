@@ -127,3 +127,4 @@ angular.module('modioAdminPortal')
 
         init();
     });
+    
